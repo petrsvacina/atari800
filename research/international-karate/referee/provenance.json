@@ -1,0 +1,27 @@
+{
+  "sourceSha256": "b30ddd0920a00a99d8b41d97b24d72cc57150e73e9a3686e0f35cb74f3b62bec",
+  "sourceAddress": "45FB-465A",
+  "width": 24,
+  "height": 32,
+  "x": 288,
+  "y": 131,
+  "originalAtariPosition": {
+    "x": 288,
+    "y": 145
+  },
+  "palette": [
+    "#00000000",
+    "#170200",
+    "#bc998a",
+    "#e2d9cb"
+  ],
+  "bitmapSha256": "477fb4117fd4d403fbb2879411166bc7db12d1bf18fc5b47345db6fa71116c49",
+  "frameCount": 1,
+  "opaqueBounds": [
+    0,
+    0,
+    18,
+    32
+  ],
+  "otherPoses": "No other original referee pose was found; score-call bubbles are separate text graphics."
+}

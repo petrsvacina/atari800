@@ -1,0 +1,2 @@
+// Original ATR bitmap/PMG scenes; RGB palette is approximate. See research/international-karate/ASSETS.md.
+globalThis.KARATE_BACKGROUNDS = [{"src":"assets/backgrounds/scene-0.png","name":"Sydney"},{"src":"assets/backgrounds/scene-1.png","name":"New York"},{"src":"assets/backgrounds/scene-2.png","name":"Rio de Janeiro"},{"src":"assets/backgrounds/scene-3.png","name":"Japonsko"},{"src":"assets/backgrounds/scene-4.png","name":"Egypt"},{"src":"assets/backgrounds/scene-5.png","name":"Atény"},{"src":"assets/backgrounds/scene-6.png","name":"Hora Fudži"}];

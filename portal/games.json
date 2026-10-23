@@ -1,0 +1,32 @@
+[
+  {
+    "id": "dynakillers",
+    "title": "Dynakillers",
+    "description": "Bomby, kamení a poslední přeživší. Proboř si cestu k soupeři a dej si pozor na vlastní výbuch.",
+    "genre": "Akční",
+    "players": "1–3 hráči",
+    "multiplayer": true,
+    "year": "1997",
+    "author": "GMG",
+    "controls": "Klávesnice · gamepad",
+    "image": "assets/dynakillers.png",
+    "logo": "assets/dynakillers-logo.png",
+    "source": "web",
+    "featured": true
+  },
+  {
+    "id": "international-karate",
+    "title": "International Karate",
+    "description": "Přesný úder, včasný úhyb. Nastup do turnaje s původními animacemi a hudbou Roba Hubbarda, nebo vyzvi druhého hráče.",
+    "genre": "Bojová",
+    "players": "1–2 hráči",
+    "multiplayer": true,
+    "year": "1986",
+    "author": "System 3",
+    "controls": "Klávesnice · gamepad",
+    "image": "assets/international-karate.png",
+    "logo": "assets/international-karate-logo.svg",
+    "source": "karate",
+    "featured": false
+  }
+]

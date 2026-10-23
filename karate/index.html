@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11181b">
+  <meta name="description" content="International Karate pro Atari XL/XE v nové HTML5 verzi. Původní animace, hudba Roba Hubbarda, souboje proti počítači i pro dva hráče.">
+  <title>International Karate — HTML5</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%2311181b'/%3E%3Ccircle cx='20' cy='20' r='13' fill='%23ca5141'/%3E%3Cpath d='M10 20h20M20 10v20' stroke='%23fff2da' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="assets/fighters.js"></script>
+  <script defer src="assets/referee.js"></script>
+  <script defer src="assets/animations.js"></script>
+  <script defer src="assets/backgrounds.js"></script>
+  <script defer src="assets/palette.js"></script>
+  <script defer src="engine.js"></script>
+  <script defer src="assets/sfx.js"></script>
+  <script defer src="audio.js"></script>
+  <script defer src="game.js"></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="masthead">
+      <a class="brand" href="index.html" aria-label="International Karate, úvod"><span class="sun" aria-hidden="true"></span><span>INTERNATIONAL <strong>KARATE</strong></span></a>
+      <div class="edition"><span>ATARI XL/XE · 1986</span><small>HTML5 EDICE</small></div>
+    </header>
+    <main>
+      <section class="arena-panel" aria-label="Souboj International Karate">
+        <div class="arena-top"><span id="phase-label">VSTUP DO DÓDŽÓ</span><span id="round-label">PŮVODNÍ ATARI KLASIKA</span></div>
+        <div class="screen" id="screen">
+          <canvas id="arena" width="640" height="420" role="img" aria-label="Bílý a červený karatista. Ovládání je uvedené pod hrou."></canvas>
+          <div class="overlay" id="overlay">
+            <div class="overlay-content">
+              <p class="eyebrow" id="overlay-kicker">SYSTEM 3 · ARCHER MACLEAN</p>
+              <h1 id="overlay-title">Každý pohyb<br>se počítá.</h1>
+              <p id="overlay-copy">Dva karatisté. Dva body k vítězství.<br>Původní pixelové souboje z Atari.</p>
+              <button class="primary" id="start">VSTOUPIT DO SOUBOJE <span>↵</span></button>
+            </div>
+          </div>
+          <div class="touch" id="touch" aria-label="Dotykové ovládání">
+            <div class="dpad">
+              <button data-dir="-1,-1" aria-label="Nahoru vlevo">↖</button><button data-dir="0,-1" aria-label="Nahoru">↑</button><button data-dir="1,-1" aria-label="Nahoru vpravo">↗</button>
+              <button data-dir="-1,0" aria-label="Vlevo">←</button><span aria-hidden="true">•</span><button data-dir="1,0" aria-label="Vpravo">→</button>
+              <button data-dir="-1,1" aria-label="Dolů vlevo">↙</button><button data-dir="0,1" aria-label="Dolů">↓</button><button data-dir="1,1" aria-label="Dolů vpravo">↘</button>
+            </div>
+            <button class="fire" id="touch-fire" aria-label="Tlačítko joysticku">FIRE</button>
+          </div>
+        </div>
+        <div class="scoreboard">
+          <div class="fighter-score"><span class="gi white"></span><div><span class="player-name" id="name-one">BÍLÝ · HRÁČ 1</span><strong id="score-one">000000</strong></div><div class="point-pips" id="points-one" aria-label="Body bílého"></div></div>
+          <div class="clock"><strong id="clock">30</strong><span>SEKUND</span></div>
+          <div class="fighter-score opponent"><div class="point-pips" id="points-two" aria-label="Body červeného"></div><div><span class="player-name" id="name-two">ČERVENÝ · POČÍTAČ</span><strong id="score-two">000000</strong></div><span class="gi red"></span></div>
+        </div>
+        <div class="arena-bottom"><span id="hint">Šipky + mezerník. Směr drž až do provedení pohybu.</span><div class="tools"><button id="pause" disabled title="P / Escape">Ⅱ Pauza <kbd>P</kbd></button><button id="mute" aria-pressed="false" title="M">♪ Zvuk <kbd>M</kbd></button><button id="restart" title="R">↺ Nabídka <kbd>R</kbd></button><button id="fullscreen" title="F">⛶ <span class="sr-only">Celá obrazovka</span><kbd>F</kbd></button></div></div>
+      </section>
+      <div class="below">
+        <section class="settings panel">
+          <div class="section-label"><span>01</span><h2>TVŮJ SOUBOJ</h2></div>
+          <label for="mode">HRÁČI</label><select id="mode"><option value="solo">Turnaj proti počítači</option><option value="two">Dva hráči · nejlepší ze tří</option></select>
+          <label for="difficulty">SÍLA SOUPEŘE</label><select id="difficulty"><option value="easy">Lehká · na rozehrání</option><option value="normal" selected>Střední · vyrovnaný souboj</option><option value="hard">Těžká · rychlé reakce</option></select>
+          <label for="sound-mode">ZVUK</label><select id="sound-mode"><option value="both">Původní hudba + zvuky</option><option value="music">Pouze původní hudba</option><option value="effects">Pouze zvuky</option></select>
+          <button class="music-preview" id="music-preview">♪ Poslechnout původní hudbu</button>
+          <p class="muted">Rob Hubbard · International Karate, 1986</p>
+          <p class="audio-status" id="audio-status" role="status"></p>
+          <div class="belt-row"><span id="belt-swatch"></span><div><small>TVŮJ PÁSEK</small><strong id="belt-label">Bílý</strong></div><span id="wins">0 VÝHER</span></div>
+        </section>
+        <section class="controls panel">
+          <div class="section-label"><span>02</span><h2>ŠESTNÁCT POHYBŮ</h2></div>
+          <div class="control-intro"><p><b>Bílý:</b> šipky + <kbd>SPACE</kbd><br><b>Červený:</b> <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> + <kbd>Q</kbd></p><p>Gamepad: páčka / kříž + A.<br><span class="muted">Dva hráči mohou použít dva gamepady.</span></p></div>
+          <div class="move-tabs" role="group" aria-label="Přehled pohybů"><button data-moves="normal" class="selected" aria-pressed="true">SAMOTNÝ SMĚR</button><button data-moves="fire" aria-pressed="false">SMĚR + FIRE</button></div>
+          <div class="move-grid" id="move-grid"></div>
+          <p class="control-note">Tabulka platí pro postavu otočenou doprava. Vlevo se zrcadlí. Útok drž do zásahu, pro další jej uvolni. Ústup blokuje horní útoky; proti podmetu pomůže skok.</p>
+        </section>
+        <section class="rules panel">
+          <div class="section-label"><span>03</span><h2>CESTA K ČERNÉMU PÁSKU</h2></div>
+          <p>Na souboj máš <b>30 sekund</b>. Čistý zásah přidá celý bod, okrajový půl bodu. První na <b>dvou bodech</b> vítězí; po vypršení času rozhodují body.</p>
+          <p>V turnaji prohra znamená konec. Každé tři výhry přijde bonus: rozbíjení dlaždic nebo úhyby zbraním. Získané skóre ti přináší vyšší pásek.</p>
+          <div class="rule-tip"><span>礼</span><p><b>Vzdálenost rozhoduje.</b><br>Počkej na soupeřův výpad, ustup a vrať mu přesný zásah.</p></div>
+        </section>
+      </div>
+    </main>
+    <footer><span>INTERNATIONAL KARATE <i>·</i> Původní hra: Archer Maclean / System 3, 1986</span><span>Samostatný přepis v JavaScriptu · Běží lokálně a offline</span></footer>
+    <p class="version-note">První hratelná webová verze. Původní grafika, sekvence pohybů a hudba; bojová logika a počítačový soupeř jsou nově napsané.</p>
+  </div>
+  <noscript><p>Pro hraní International Karate povol JavaScript.</p></noscript>
+</body>
+</html>

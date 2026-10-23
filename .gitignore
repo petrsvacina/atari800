@@ -1,0 +1,36 @@
+# Generated release; rebuild with python3 tools/build_portal.py.
+/dist/
+
+# Local system and Python files.
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+
+# User-supplied original games, reference recordings and downloaded source pages.
+/*.xex
+/*.atr
+/*.atx
+/*.cas
+/*.rom
+/*.mkv
+/*.mp4
+/*.mov
+/*.tgz
+/*.tar.gz
+/*.zip
+/*.dat
+/*.g2f
+/*.mic
+/*.asx
+/dynakill_x1.asx_cnt.txt
+/Goonies/
+
+# Local original-code references and intermediate extraction/audio files.
+/research/dynakill-unchained.asx
+/research/**/*.sap
+/research/**/*.bin
+/research/**/*.u8
+/research/**/*.wav

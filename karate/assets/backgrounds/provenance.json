@@ -1,0 +1,98 @@
+{
+  "sourceSha256": "b30ddd0920a00a99d8b41d97b24d72cc57150e73e9a3686e0f35cb74f3b62bec",
+  "paletteIsApproximate": true,
+  "width": 320,
+  "height": 98,
+  "scenes": [
+    {
+      "id": 0,
+      "name": "Sydney",
+      "file": "scene-0.png",
+      "sha256": "173c98a6418fec68b4b95c1310f11ad218c06b36d3480e04871a20769fff1d83"
+    },
+    {
+      "id": 1,
+      "name": "New York",
+      "file": "scene-1.png",
+      "sha256": "d827bfeb393a2a9e1c8878bcc64d7471813de67fcd074786d49ea2dd1c99ddde"
+    },
+    {
+      "id": 2,
+      "name": "Rio de Janeiro",
+      "file": "scene-2.png",
+      "sha256": "afb671bbe7f3deb1bf11b6f59e0cb055053cea4ca69d95586d7a4ba7efb0c80e"
+    },
+    {
+      "id": 3,
+      "name": "Japonsko",
+      "file": "scene-3.png",
+      "sha256": "03d2b00af4630ccaf7c10f5e8dfcb24feda15918a45ad24931815dd62d02d247"
+    },
+    {
+      "id": 4,
+      "name": "Egypt",
+      "file": "scene-4.png",
+      "sha256": "efedb573a2b4d0dfb72b6fb6e3bcd78bdfb22c0f8eb2a2622b1d76076bbc987a"
+    },
+    {
+      "id": 5,
+      "name": "Atény",
+      "file": "scene-5.png",
+      "sha256": "f84e8879ee55dab28073de3a5e4258246ba64e09f15d86a07aa143e0f052f3ec"
+    },
+    {
+      "id": 6,
+      "name": "Hora Fudži",
+      "file": "scene-6.png",
+      "sha256": "5173d4b41b77fafb024aa805074743498cbdb0691e1392d8ad4019e70a38aff4"
+    }
+  ],
+  "paletteReference": {
+    "kind": "user-provided gameplay video",
+    "videoSha256": "cc419ca759a21b42ea1ba9455603e946f37af728c5bd84fdc87c82678474760d",
+    "frameSeconds": 200,
+    "observedColors": {
+      "00": [
+        0,
+        1,
+        1
+      ],
+      "08": [
+        118,
+        122,
+        123
+      ],
+      "0E": [
+        215,
+        217,
+        216
+      ],
+      "16": [
+        138,
+        95,
+        32
+      ],
+      "74": [
+        41,
+        66,
+        155
+      ],
+      "9C": [
+        126,
+        192,
+        229
+      ],
+      "C8": [
+        105,
+        126,
+        81
+      ],
+      "EE": [
+        230,
+        215,
+        146
+      ]
+    },
+    "unobservedColors": "Approximate extrapolation; the reference video shows Sydney only."
+  }
+}

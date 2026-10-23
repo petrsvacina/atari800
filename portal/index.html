@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#111418">
+  <meta name="description" content="Atari XL/XE žije dál. Zahraj si Dynakillers, International Karate a další klasiky přímo v prohlížeči, bez instalace.">
+  <meta property="og:title" content="ATARI800 — Osm bitů. Pořád stejná radost.">
+  <meta property="og:description" content="Klasiky z Atari XL/XE v nové webové herně. Vyber hru a hraj.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://atari800.gmork.cz/">
+  <meta property="og:image" content="https://atari800.gmork.cz/assets/dynakillers.png">
+  <link rel="canonical" href="https://atari800.gmork.cz/">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="portal.css">
+  <script defer src="portal.js"></script>
+  <title>ATARI800 — Webová herna Atari XL/XE</title>
+</head>
+<body>
+  <a class="skip" href="#hry">Přejít na hry</a>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="ATARI800, úvodní stránka"><span class="brand-symbol" aria-hidden="true"><i></i><i></i><i></i></span><span>ATARI<span class="brand-number">800</span><small>WEBOVÁ HERNA</small></span></a>
+      <nav aria-label="Hlavní navigace"><a href="#hry">Hry <span class="nav-count">{{GAME_COUNT}}</span></a><a href="#o-herne">O herně</a></nav>
+      <span class="header-status"><i></i> XL / XE · ONLINE</span>
+    </header>
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> ZPÁTKY U ATARI</p>
+          <h1 id="hero-title">Osm bitů.<br><span>Pořád stejná<br class="desktop-break"> radost.</span></h1>
+          <p class="hero-description">Pamatuješ ten pocit? Ještě jednu hru.<br>Klasiky z Atari XL/XE teď rozehraješ přímo v&nbsp;prohlížeči.</p>
+          <div class="hero-actions"><a class="button-primary" href="hry/{{FEATURED_ID}}/">Hrát {{FEATURED_TITLE}} <span aria-hidden="true">↗</span></a><a class="text-link" href="#hry">Prohlédnout hernu <span aria-hidden="true">↓</span></a></div>
+          <div class="hero-facts"><span><i class="tiny-check" aria-hidden="true">✓</i> Bez instalace</span><span><i class="tiny-check" aria-hidden="true">✓</i> Rovnou do hry</span></div>
+        </div>
+        <a class="featured-game" href="hry/{{FEATURED_ID}}/" aria-label="Hrát {{FEATURED_TITLE}}">
+          <div class="monitor-top"><span><i></i> PRÁVĚ V HERNĚ</span><span>01 / {{GAME_COUNT_PADDED}}</span></div>
+          <div class="monitor-screen"><img class="arena-image" src="{{FEATURED_IMAGE}}" width="1280" height="768" alt="Pixelová aréna hry {{FEATURED_TITLE}} s původní grafikou"><div class="screen-logo"><img src="{{FEATURED_LOGO}}" width="320" height="53" alt="{{FEATURED_TITLE}}"></div><span class="screen-play" aria-hidden="true">▶</span></div>
+          <div class="monitor-bottom"><div><strong>{{FEATURED_TITLE}}</strong><span>{{FEATURED_GENRE}} <b>·</b> {{FEATURED_PLAYERS}}</span></div><span class="monitor-launch">SPUSTIT HRU <b aria-hidden="true">↗</b></span></div>
+          <div class="monitor-base" aria-hidden="true"><span></span><i></i></div>
+        </a>
+      </section>
+      <section class="library" id="hry" aria-labelledby="games-title">
+        <div class="section-heading"><div><p class="eyebrow">VYBER SI A HRAJ</p><h2 id="games-title">Naše herna<span class="section-dot">.</span></h2></div><p class="library-count" id="game-count">{{GAME_COUNT_LABEL}}</p></div>
+        <div class="library-tools" id="library-tools" hidden><div class="filters" role="group" aria-label="Filtrovat hry"><button type="button" class="filter active" data-filter="all" aria-pressed="true">Všechny hry</button><button type="button" class="filter" data-filter="multiplayer" aria-pressed="false">Pro více hráčů</button></div><label class="search"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 5 5"></path></svg><span class="visually-hidden">Hledat hry</span><input id="search" type="search" placeholder="Najít hru…" autocomplete="off"></label></div>
+        <div class="game-grid" id="game-grid">
+          {{GAME_CARDS}}
+          <article class="coming-soon" id="coming-soon"><div class="cartridge" aria-hidden="true"><div class="cartridge-label"><span>?</span><i></i><i></i><i></i></div><div class="cartridge-teeth"></div></div><div><span class="coming-label">TOHLE JE TEPRVE ZAČÁTEK</span><h3>Další klasiky přibudou.</h3><p>Herna roste hru po hře.<br>Další místo už máme připravené.</p></div><span class="coming-plus" aria-hidden="true">+</span></article>
+        </div>
+        <p class="empty-state" id="empty-state" role="status" hidden>Takovou hru zatím v herně nemáme. Zkus jiné hledání.</p>
+      </section>
+      <section class="about" id="o-herne" aria-labelledby="about-title">
+        <div><p class="eyebrow">STARÁ LÁSKA, NOVÁ HERNA</p><h2 id="about-title">Atari se nevypíná.<br>Jen se mění obrazovka.</h2></div>
+        <div class="about-copy"><p>Vracíme se ke hrám, které nás bavily na Atari XL/XE. Jejich grafiku, hudbu a nápady postupně přenášíme do webových verzí, které si zahraješ na dnešním počítači.</p><p>Bomby v Dynakillers, nebo přesné údery v International Karate? Vyber si souboj proti počítači, nebo přizvi někoho ke klávesnici. A dej si ještě jednu.</p><span class="about-signature"><i></i> 8 BITŮ · ŽÁDNÝ SPĚCH · HLAVNĚ SI HRÁT</span></div>
+      </section>
+    </main>
+    <footer class="site-footer"><a class="footer-brand" href="./">ATARI800<span> · WEBOVÁ HERNA</span></a><span>Atari XL/XE žije dál.</span><a href="https://gmork.cz/">gmork.cz <span aria-hidden="true">↗</span></a></footer>
+  </div>
+</body>
+</html>

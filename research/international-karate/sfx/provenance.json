@@ -1,0 +1,74 @@
+{
+  "sourceSha256": "b30ddd0920a00a99d8b41d97b24d72cc57150e73e9a3686e0f35cb74f3b62bec",
+  "source": "International Karate.atr",
+  "sampleRamSha256": "c475c5f9b85187f57fedb8b17b4445d8955a97d3eb2ad240ae05b7c322a8676c",
+  "driverEntry": "3A89",
+  "timerInterrupt": "3AED",
+  "palCpuHz": 1773447,
+  "timerCycles": 448,
+  "sourceSampleRate": 3958.5870535714284,
+  "encoding": "4-bit volume DAC",
+  "conversion": "Original nibble multiplied by 17 to unsigned 8-bit PCM.",
+  "samples": [
+    {
+      "id": 0,
+      "duration": 0.45243415788574454,
+      "startAddress": "9F01",
+      "endAddressExclusive": "A600",
+      "nibble": "high",
+      "sourceBytes": 1791,
+      "pcmSha256": "4a2fa4124def230ca8f92a384524d310237533f229071ce51052dc051a610a54",
+      "wavSha256": "e531f37b00dd09c0b1cf35bc34cd8fe1d14b5a99fc5a14f69922c7efa52e11cb"
+    },
+    {
+      "id": 1,
+      "duration": 0.38776461884679947,
+      "startAddress": "A601",
+      "endAddressExclusive": "AC00",
+      "nibble": "high",
+      "sourceBytes": 1535,
+      "pcmSha256": "9e41c01cc59d7f2a1121a670986cae8f81f4dfa2dfbe233b21e7489e69494f5d",
+      "wavSha256": "3b43827c65866b1d534b0df8b3b718414fe45af62857749d6d26f42526b8862b"
+    },
+    {
+      "id": 2,
+      "duration": 0.12908646269101925,
+      "startAddress": "AC01",
+      "endAddressExclusive": "AE00",
+      "nibble": "high",
+      "sourceBytes": 511,
+      "pcmSha256": "245dba64e66c37dc38863db0488de779d327d5e0c1d5c9d32920264389bedce7",
+      "wavSha256": "4d85280da1ab38887e5138a9ff9bfb705216fd130873aa1eb2c1c0fe9eb6d532"
+    },
+    {
+      "id": 3,
+      "duration": 0.38776461884679947,
+      "startAddress": "9F01",
+      "endAddressExclusive": "A500",
+      "nibble": "low",
+      "sourceBytes": 1535,
+      "pcmSha256": "97935bca419b7d789558f748657c97f6d1f1766288cdaf214232951ae762a0fb",
+      "wavSha256": "9dce26f15f8c6984b7f4b798079d1a6159c397a93e9fe8caf76c2e7a0ffbf1ef"
+    },
+    {
+      "id": 4,
+      "duration": 0.38776461884679947,
+      "startAddress": "A501",
+      "endAddressExclusive": "AB00",
+      "nibble": "low",
+      "sourceBytes": 1535,
+      "pcmSha256": "c7e75432bda5fb247fa8fbc250776a9e89d6761cf5480cda086b26359be2c961",
+      "wavSha256": "d62a622be8f6db208f373b49c9daac19d5ecafbfabd8449d44a34d7fc2895c1b"
+    },
+    {
+      "id": 5,
+      "duration": 0.32309507980785446,
+      "startAddress": "AB01",
+      "endAddressExclusive": "B000",
+      "nibble": "low",
+      "sourceBytes": 1279,
+      "pcmSha256": "95677ad1c6db33296b31e85f5315f988b7b4c87547450f2c1677943c93f1a4fc",
+      "wavSha256": "85598ae9e4c284854644a5d421780520bdef352ce510f2f9a899363244f9536f"
+    }
+  ]
+}

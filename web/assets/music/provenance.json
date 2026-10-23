@@ -1,0 +1,20 @@
+{
+  "sourceSha256": "f9844de98945ba3f047292c5640031394d68cb5af4f4766f196566250dd8569f",
+  "composer": "Marian Vybostok (Goldmaster)",
+  "year": 1997,
+  "reference": "https://asma.atari.org/asma/Composers/Vybostok_Marian/Dynakillers.sap",
+  "tracks": {
+    "title": {
+      "duration": 156.59,
+      "channels": 2,
+      "sampleRate": 44100,
+      "sha256": "25f490e7e6587cf50d9c33bd8b924addc77355a36ff9731f504d3d85fc6a0733"
+    },
+    "ingame": {
+      "duration": 102.84,
+      "channels": 2,
+      "sampleRate": 44100,
+      "sha256": "ca5abb2e641ab30e0b140394571219d6a764ba98e5d466e010ad736faef15a8b"
+    }
+  }
+}

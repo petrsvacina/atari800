@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#111418">
+  <title>Dynakillers — HTML5</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111418'/%3E%3Ccircle cx='15' cy='19' r='9' fill='%23e4bd6b'/%3E%3Cpath d='M18 11l3-5 5 1' stroke='%23e4bd6b' stroke-width='3' fill='none'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="assets/original-data.js"></script>
+  <script defer src="engine.js"></script>
+  <script defer src="audio.js"></script>
+  <script defer src="game.js"></script>
+</head>
+<body>
+  <main>
+    <header class="masthead">
+      <a class="brand" href="./index.html" aria-label="Dynakillers, úvodní obrazovka"><img src="assets/logo.png" width="320" height="53" alt="Dynakillers"></a>
+      <div class="edition"><span class="status-dot"></span> HTML5 EDITION <small>GMG · 1997 / WEB · 2026</small></div>
+    </header>
+    <div class="game-layout">
+      <section class="arcade" aria-label="Herní obrazovka">
+        <div class="screen-bar"><span id="screen-label">PŘIPRAVEN K BOJI</span><span id="round-label">ATARI XL / XE → WEB</span></div>
+        <div class="screen-wrap">
+          <canvas id="game" width="640" height="384" tabindex="0" aria-label="Aréna Dynakillers. Pohyb šipkami, bomba mezerníkem."></canvas>
+          <div class="overlay" id="overlay">
+            <div class="overlay-inner"><div class="eyebrow" id="overlay-kicker">KLASIKA Z ATARI. NOVĚ V PROHLÍŽEČI.</div><h1 id="overlay-title">Poslední přežije.</h1><p id="overlay-text">Proboř si cestu. Sbírej bonusy.<br>A hlavně uteč před vlastní bombou.</p><button class="primary" id="play">SPUSTIT HRU <span>↵</span></button><button class="music-preview" id="music-preview" type="button" aria-pressed="false">♪ Přehrát titulní hudbu</button><p class="overlay-hint" id="overlay-hint" hidden></p></div>
+          </div>
+          <div class="countdown" id="countdown" hidden></div>
+        </div>
+        <div class="scoreboard" id="scoreboard" aria-label="Skóre hráčů"></div>
+        <div class="screen-footer"><span id="game-status" role="status" aria-live="polite">Vyber režim a vstup do arény.</span><span id="elapsed">00:00</span></div>
+        <div class="toolbar"><button id="pause" disabled>Ⅱ <span>Pauza</span><kbd>P</kbd></button><button id="sound" aria-pressed="false">♪ <span>Zvuk zapnutý</span><kbd>M</kbd></button><button id="restart">↺ <span>Nová hra</span><kbd>R</kbd></button><button id="fullscreen">⛶ <span>Celá obrazovka</span><kbd>F</kbd></button></div>
+      </section>
+      <div class="touch-controls" aria-label="Dotykové ovládání"><div class="dpad"><button data-control="up" aria-label="Nahoru">↑</button><button data-control="left" aria-label="Doleva">←</button><button data-control="down" aria-label="Dolů">↓</button><button data-control="right" aria-label="Doprava">→</button></div><button class="touch-bomb" data-control="bomb">BOMBA</button></div>
+      <aside>
+        <section class="panel"><div class="panel-heading"><span class="section-number">01</span><h2>NASTAVENÍ SOUBOJE</h2></div>
+          <fieldset id="settings">
+            <label for="mode">HRÁČI</label><select id="mode"><option value="bot">Ty proti počítači</option><option value="2">2 hráči na jednom počítači</option><option value="3">3 hráči na jednom počítači</option></select>
+            <label for="arena">ARÉNA <span id="arena-number">01 / 08</span></label><div class="arena-picker"><button id="arena-prev" type="button" aria-label="Předchozí aréna">‹</button><canvas id="arena-preview" width="200" height="120" aria-label="Náhled vybrané arény"></canvas><button id="arena-next" type="button" aria-label="Další aréna">›</button></div><input id="arena" type="hidden" value="0">
+            <div class="settings-row"><label for="rounds">POČET KOL</label><select id="rounds"><option>4</option><option selected>8</option><option>16</option><option>32</option></select></div>
+            <label class="check"><input id="rotate" type="checkbox" checked>Po každém kole změnit arénu</label>
+          </fieldset>
+          <p class="panel-note" id="settings-note">Režim proti počítači je doplněk webové verze.</p>
+          <div class="audio-settings"><label for="audio-mode">ZVUKOVÝ REŽIM</label><select id="audio-mode"><option value="both">Původní hudba + zvuky</option><option value="music">Pouze původní hudba</option><option value="samples">Pouze zvukové samply</option></select><p class="panel-note">Hudba: Marian Vybostok (Goldmaster), 1997</p><p class="panel-note" id="music-status" role="status" aria-live="polite"></p></div>
+        </section>
+        <section class="panel controls"><div class="panel-heading"><span class="section-number">02</span><h2>OVLÁDÁNÍ</h2></div>
+          <div class="control-row"><i class="player-dot green"></i><div><strong>HRÁČ 1</strong><small>Pohyb <kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd></small></div><div class="bomb-key"><kbd>SPACE</kbd><small>Bomba</small></div></div>
+          <div class="control-row"><i class="player-dot amber"></i><div><strong>HRÁČ 2</strong><small>Pohyb <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></small></div><div class="bomb-key"><kbd>Q</kbd><small>Bomba</small></div></div>
+          <div class="control-row third-control" hidden><i class="player-dot violet"></i><div><strong>HRÁČ 3</strong><small>Pohyb <kbd>I</kbd><kbd>J</kbd><kbd>K</kbd><kbd>L</kbd></small></div><div class="bomb-key"><kbd>U</kbd><small>Bomba</small></div></div>
+          <p class="panel-note" id="gamepad-note">Podporuje také gamepady. Stiskni tlačítko na ovladači.</p>
+        </section>
+        <section class="panel bonus-panel"><div class="panel-heading"><span class="section-number">03</span><h2>CO SE SKRÝVÁ POD KAMENÍM</h2></div><div class="bonus-list" id="bonus-list"></div><p class="panel-note">Výbuch zastaví zeď i první kámen. Bomba může odpálit další bombu.</p></section>
+      </aside>
+    </div>
+    <footer><span>DYNAKILLERS <b>·</b> Původní hra: GMG, 1997</span><span>Samostatný přepis v JavaScriptu · Běží lokálně a offline</span></footer>
+  </main>
+</body>
+</html>

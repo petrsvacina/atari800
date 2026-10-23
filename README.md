@@ -4,6 +4,12 @@ Veřejná herna: **https://atari800.gmork.cz/**. Dynakillers má vlastní adresu
 
 International Karate je nová samostatná HTML5 hra v `karate/`, veřejně na **https://atari800.gmork.cz/hry/international-karate/**. Stav posledního ověřeného nasazení je v `DEPLOYMENT.md`.
 
+## Obsah repozitáře
+
+`portal/` obsahuje katalog, `web/` samostatné Dynakillers a `karate/` samostatné International Karate, včetně všech grafických a zvukových prostředků potřebných pro hraní. `tools/` obsahuje sestavení, extrakční nástroje a testy; `research/` dokumentuje rozbor a ukládá podklady potřebné pro opakování grafických exportů.
+
+Původní Atari soubory, referenční video, místní assemblerové podklady, SAP/WAV a pracovní binární výstupy se do Gitu nepřidávají. Pro hraní a sestavení portálu nejsou potřeba; vyžadují je jen některé vývojové extrakční nástroje. Vygenerovaný `dist/` je také ignorovaný. Po naklonování stačí `python3 tools/build_portal.py` a otevření `dist/index.html`, případně publikování obsahu `dist/`. Python používá jen standardní knihovnu; samotné hry pro hraní nepotřebují Python ani Node.js.
+
 ## Portál a přidávání her
 
 Zdroj úvodní stránky je v `portal/`. Katalog se spravuje v `portal/games.json`: každá skutečně dostupná hra má unikátní `id`, název, popis, obrázek/logo, počet hráčů a adresář se spustitelnou webovou verzí v položce `source`. Právě jedna hra má `featured: true` a zobrazí se v hlavní nabídce. Nevydané hry se mezi hratelné nezařazují.

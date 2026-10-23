@@ -1,0 +1,14 @@
+{
+  "composer": "Rob Hubbard",
+  "year": 1986,
+  "source": "https://asma.atari.org/asma/Composers/Hubbard_Rob/International_Karate.sap",
+  "sapSha256": "86fe81b66638e44651a873c93485295e0cca4ddecd00fa8f75ebe3b085596982",
+  "atrSha256": "b30ddd0920a00a99d8b41d97b24d72cc57150e73e9a3686e0f35cb74f3b62bec",
+  "originalDriverRange": "1F00-26D3",
+  "driverComparison": "Reference matches 1974 of 2004 bytes in the running ATR RAM dump; 30 differing bytes are player state and self-modified operands.",
+  "duration": 271.1,
+  "sampleRate": 44100,
+  "channels": 2,
+  "loop": "Whole rendered track repeats from the beginning.",
+  "mp3Sha256": "7ebedbfde54f3167b69cf0a9fcf984bf17b363eb8c6af89f2e13688d4b1abd26"
+}

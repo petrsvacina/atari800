@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="53" viewBox="0 0 320 53">
+  <circle cx="27" cy="26" r="22" fill="#ce5746"/>
+  <path d="M3 35h48M5 40h44M10 45h34" stroke="#101719" stroke-width="2"/>
+  <text x="61" y="16" font-family="sans-serif" font-size="10" font-weight="600" letter-spacing="2" fill="#f1edda">INTERNATIONAL</text>
+  <text x="59" y="46" font-family="sans-serif" font-size="32" font-weight="900" letter-spacing="4" fill="#f1edda">KARATE</text>
+</svg>
