@@ -1,6 +1,21 @@
 # Nasazení portálu
 
-## Aktuální vydání — Archon
+## Aktuální vydání — střídání úvodní hry
+
+- Vydání: `20261024T004601Z` (24. 10. 2026 v Praze).
+- Portál: https://atari800.gmork.cz/.
+- Archiv: `/private/tmp/atari800-portal-20261024T004601Z.tar.gz`, serverová kopie ve `/var/tmp/` se stejným názvem.
+- SHA-256: `f5fbe04052f39825b2dfef1880be3a615fe2ecc6a699d0d80f0bad8bd1598fdd`.
+- Staging: `/var/tmp/atari800-release-20261024T004601Z`.
+- Záloha: `/root/atari800-backups/20261024T004601Z/site-before.tar.gz`.
+
+Při obnovení stránky v jedné kartě se úvodní hra posune v pořadí katalogu: Dynakillers → International Karate → Archon → Dynakillers. Název, obrázek, logo, žánr, počet hráčů, číslo a oba spouštěcí odkazy se mění společně. Údaje pocházejí z `games.json` přes sestavené karty katalogu, takže přidání hry rozšíří i tento cyklus. Poslední volbu si pamatuje `sessionStorage`; bez úložiště nebo JavaScriptu zůstává funkční výchozí hra.
+
+V místním Brave ověřené tři po sobě jdoucí refresh přechody včetně návratu na první hru, obou odkazů, obrázků, log a čísel 02/03 a 03/03. Sestavení proti minulému vydání mění pouze `index.html`, `portal.css` a `portal.js`; všech 50 ostatních souborů je bytově shodných. Před nasazením ověřeno všech 53 souborů předchozího vydání přes HTTPS a potom vytvořená a zkontrolovaná záloha. Tři soubory byly nahrazené připravenými kopiemi pomocí přejmenování.
+
+Po nasazení ověřeno všech **53 veřejných souborů pomocí SHA-256**, čtyři kanonické cesty, MIME typy a všech pět MP3 Range požadavků. Herní kód a konfigurace serveru se neměnily.
+
+## Předchozí vydání — Archon
 
 - Vydání: `20261024T003656Z` (24. 10. 2026 v Praze).
 - Portál: https://atari800.gmork.cz/ — tři hry.

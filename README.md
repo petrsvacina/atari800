@@ -16,6 +16,8 @@ Původní Atari soubory, referenční video, místní assemblerové podklady, SA
 
 Zdroj úvodní stránky je v `portal/`. Katalog se spravuje v `portal/games.json`: každá skutečně dostupná hra má unikátní `id`, název, popis, obrázek/logo, počet hráčů a adresář se spustitelnou webovou verzí v položce `source`. Právě jedna hra má `featured: true` a zobrazí se v hlavní nabídce. Nevydané hry se mezi hratelné nezařazují.
 
+Při každém dalším načtení portálu ve stejné kartě se hlavní nabídka posune na další hru v katalogu a po poslední začne znovu. Společně se změní obrázek, logo, název, údaje, pořadové číslo i oba spouštěcí odkazy. Poslední volbu si pamatuje `sessionStorage`; při prvním otevření nebo zablokovaném úložišti zůstává výchozí hra označená `featured`. Bez JavaScriptu je výchozí nabídka i katalog plně přístupný.
+
 ```sh
 python3 tools/render_portal_cover.py
 python3 tools/karate_render_cover.py

@@ -41,7 +41,7 @@ def card(game):
     e = {k: escape(v) for k, v in game.items()}
     search = escape(" ".join(str(game[k]) for k in ("title", "genre", "description", "author", "year", "players")))
     multi = "true" if game["multiplayer"] else "false"
-    return f'''<article class="game-card" data-game="{e['id']}" data-search="{search}" data-multiplayer="{multi}">
+    return f'''<article class="game-card" data-game="{e['id']}" data-search="{search}" data-multiplayer="{multi}" data-title="{e['title']}" data-genre="{e['genre']}" data-players="{e['players']}" data-logo="{e['logo']}">
             <a href="hry/{e['id']}/" aria-label="Hrát {e['title']}">
               <div class="game-card-image"><img src="{e['image']}" width="1280" height="768" alt="Herní aréna {e['title']}" loading="lazy"><span class="game-status">MŮŽEŠ HRÁT</span><span class="game-year">{e['author']} / {e['year']}</span></div>
               <div class="game-card-body"><div class="game-title-row"><h3>{e['title']}</h3><span class="game-arrow" aria-hidden="true">↗</span></div><p>{e['description']}</p><div class="game-tags"><span>{e['genre']}</span><span>{e['players']}</span><span class="game-controls">{e['controls']}</span></div></div>
@@ -56,6 +56,7 @@ def build():
     count = len(games)
     count_label = f"{count} " + ("hra připravená" if count == 1 else "hry připravené" if count < 5 else "her připravených") + " ke spuštění"
     values = {"GAME_COUNT": str(count), "GAME_COUNT_PADDED": str(count).zfill(2), "GAME_COUNT_LABEL": count_label,
+              "FEATURED_POSITION": str(games.index(featured) + 1).zfill(2),
               "GAME_CARDS": "\n          ".join(card(g) for g in games)}
     for key in ("id", "title", "image", "logo", "genre", "players"):
         values["FEATURED_" + key.upper()] = escape(featured[key])

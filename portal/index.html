@@ -30,13 +30,13 @@
           <p class="eyebrow"><span></span> ZPÁTKY U ATARI</p>
           <h1 id="hero-title">Osm bitů.<br><span>Pořád stejná<br class="desktop-break"> radost.</span></h1>
           <p class="hero-description">Pamatuješ ten pocit? Ještě jednu hru.<br>Klasiky z Atari XL/XE teď rozehraješ přímo v&nbsp;prohlížeči.</p>
-          <div class="hero-actions"><a class="button-primary" href="hry/{{FEATURED_ID}}/">Hrát {{FEATURED_TITLE}} <span aria-hidden="true">↗</span></a><a class="text-link" href="#hry">Prohlédnout hernu <span aria-hidden="true">↓</span></a></div>
+          <div class="hero-actions"><a class="button-primary" id="featured-action" href="hry/{{FEATURED_ID}}/"><span id="featured-action-label">Hrát {{FEATURED_TITLE}}</span><span aria-hidden="true">↗</span></a><a class="text-link" href="#hry">Prohlédnout hernu <span aria-hidden="true">↓</span></a></div>
           <div class="hero-facts"><span><i class="tiny-check" aria-hidden="true">✓</i> Bez instalace</span><span><i class="tiny-check" aria-hidden="true">✓</i> Rovnou do hry</span></div>
         </div>
-        <a class="featured-game" href="hry/{{FEATURED_ID}}/" aria-label="Hrát {{FEATURED_TITLE}}">
-          <div class="monitor-top"><span><i></i> PRÁVĚ V HERNĚ</span><span>01 / {{GAME_COUNT_PADDED}}</span></div>
-          <div class="monitor-screen"><img class="arena-image" src="{{FEATURED_IMAGE}}" width="1280" height="768" alt="Pixelová aréna hry {{FEATURED_TITLE}} s původní grafikou"><div class="screen-logo"><img src="{{FEATURED_LOGO}}" width="320" height="53" alt="{{FEATURED_TITLE}}"></div><span class="screen-play" aria-hidden="true">▶</span></div>
-          <div class="monitor-bottom"><div><strong>{{FEATURED_TITLE}}</strong><span>{{FEATURED_GENRE}} <b>·</b> {{FEATURED_PLAYERS}}</span></div><span class="monitor-launch">SPUSTIT HRU <b aria-hidden="true">↗</b></span></div>
+        <a class="featured-game" data-featured-id="{{FEATURED_ID}}" href="hry/{{FEATURED_ID}}/" aria-label="Hrát {{FEATURED_TITLE}}">
+          <div class="monitor-top"><span><i></i> PRÁVĚ V HERNĚ</span><span id="featured-position">{{FEATURED_POSITION}} / {{GAME_COUNT_PADDED}}</span></div>
+          <div class="monitor-screen"><img class="arena-image" src="{{FEATURED_IMAGE}}" width="1280" height="768" alt="Ukázka hry {{FEATURED_TITLE}} s původní grafikou"><div class="screen-logo"><img src="{{FEATURED_LOGO}}" width="320" height="53" alt="{{FEATURED_TITLE}}"></div><span class="screen-play" aria-hidden="true">▶</span></div>
+          <div class="monitor-bottom"><div><strong id="featured-title">{{FEATURED_TITLE}}</strong><span id="featured-details">{{FEATURED_GENRE}} <b>·</b> {{FEATURED_PLAYERS}}</span></div><span class="monitor-launch">SPUSTIT HRU <b aria-hidden="true">↗</b></span></div>
           <div class="monitor-base" aria-hidden="true"><span></span><i></i></div>
         </a>
       </section>
