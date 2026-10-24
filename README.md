@@ -36,22 +36,22 @@ Katalog umí hledat v názvu, žánru a popisu bez rozlišování diakritiky a f
 
 Otevři `goonies-web/index.html` v prohlížeči. Celá výprava vede osmi scénami od domu Fratelliových k pirátské lodi. Z každé musí uniknout obě postavy. Nabídka dovoluje i samostatný trénink pozdější místnosti.
 
-**Šipky vlevo/vpravo:** běh a posouvání předmětů. **Nahoru:** skok, žebřík nebo zachycení horní tyče/řetězu. **Dolů:** slézání a puštění. **Mezerník / FIRE:** přepnutí Goonieho; ten předchozí zůstane držet mechanismus. Pro šikmý skok drž nahoru a směr současně. Postavu lze zvolit také tlačítky pod hrou nebo klávesami **1/2**. Na horní tyči jde ručkovat; novým stiskem nahoru z ní odskočíš.
+**Šipky vlevo/vpravo:** běh a posouvání předmětů. **Nahoru:** skok, žebřík nebo zachycení horní tyče/řetězu. **Dolů:** slézání a puštění. **Mezerník / FIRE:** přepnutí Goonieho; ten předchozí zůstane držet mechanismus. Pro šikmý skok drž nahoru a směr současně. Postavu lze zvolit také tlačítky pod hrou nebo klávesami **1/2**. Na horní tyči jde ručkovat; pouští se směrem dolů.
 
 **P / Escape:** pauza, **M:** ztlumení, **R:** nabídka, **F:** celá obrazovka. Ve volitelném režimu dvou lidí ovládá první šipky a druhý WASD; tento režim je doplněk webové verze. Standardní gamepad používá páčku/kříž a A pro přepnutí v sólu. Na dotykovém zařízení jsou směrová tlačítka a FIRE. Ztráta okna hru automaticky pozastaví. Fyzický gamepad a telefon zatím nebyly ověřené.
 
 Původní jsou bitmapy všech osmi scén, titulní a závěrečný obraz, snímky postav, nepřátel a předmětů. Zvuk obsahuje dvě původní hudební smyčky a 19 původních efektů, vyrenderovaných z původního přehrávače. Titulní hudbu spustíš notou v nabídce; po začátku se přepne na herní. Pauza zachová pozici hudby, ztlumení a odchod zastaví efekty.
 
-Hádanky zahrnují tiskárnu a uhašení krbu, rumpál a klíč, dvojici ventilů, tři kameny v padacích dvířkách, čtyři vejce jako schody, barevné podpěry varhan, vypuštění chobotnice a páky/zvedání na lodi. Skóre a životy jsou společné. Konkrétní postup místnosti lze zobrazit tlačítkem nápovědy.
+Hádanky zahrnují tiskárnu a uhašení krbu, rumpál a klíč, přesměrování vody třemi ventily, tři kameny v padacích dvířkách, čtyři vejce jako schody, barevné podpěry varhan, vypuštění chobotnice a páky/zvedání na lodi. Skóre a životy jsou společné. Konkrétní postup místnosti lze zobrazit tlačítkem nápovědy.
 
-První hratelná adaptace má nově napsanou fyziku, kolize, puzzle mechanismy a jednodušší nepřátele. Geometrie je odvozená z videa a přizpůsobená této fyzice; časování, bodování a některé vedlejší pasti se od originálu liší. Přesná shoda všech scén a kompletní ruční průchod celé výpravy nejsou potvrzené. Rozsah a ověření jsou v `research/goonies/PORTING.md`.
+Pohyb a volba snímků jsou přeložené z původních rutin XEX. Kolize používají původní obdélníky včetně stěn a stropů; pravidla se aktualizují jednou za čtyři obrazové kroky. Židle se pohybuje pouze při tlačení a její čtyři grafické fáze závisejí na poloze. Hádanek se účastní skutečné podpěry, ventily, vodní proudy, vejce, průlezy a zdvihy podle tabulek originálu. Rozsah a rozdíly jsou v `research/goonies/PORTING.md`.
 
 ```sh
 node tools/test-goonies.mjs
 node tools/test-goonies-audio.mjs
 ```
 
-Třicet herních a osm zvukových kontrol pokrývá pohyb, spolupráci, podmínky všech osmi místností, skutečnou trasu kamenů, vejce, pružný odraz, proměny podpěr, čerpání, zdvih ramene, přechody, sdílené životy a zvukový přehrávač. Dům i vodní varhany prošly celé jen skutečnými vstupy bez ztráty života; replaye jsou v `tools/fixtures/`. Reprodukce grafiky, zvuku a tvorba geometrií je v `tools/goonies_*.py`; pro obyčejné hraní a sestavení nejsou původní disk, emulátor ani tyto nástroje potřeba.
+Regresní kontroly porovnávají 1 280 kroků pohybu a 1 278 kompletních bitmap s původní hrou, spolu s pozicemi obou postav a kolizními obdélníky. Dům a potrubí prošly celé směrovými replayi s pěti životy bez přesouvání postav a přepisování příznaků. Řízené zkoušky mechanismů ostatních scén nejsou tvrzením o kompletním ručním průchodu celé výpravy. Osm zvukových kontrol ověřuje hudbu, PCM, přepínání, pauzu a ztlumení. Pro hraní a běžné sestavení nejsou původní disk, emulátor ani vývojové nástroje potřeba.
 
 ## Archon
 

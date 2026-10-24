@@ -1,0 +1,26 @@
+[
+  {
+    "name": "original bird flight and eggs",
+    "scene": 4,
+    "updates": 500,
+    "stopOnHurt": true
+  },
+  {
+    "name": "original bat route over the buckets",
+    "scene": 1,
+    "updates": 320,
+    "stopOnHurt": true
+  },
+  {
+    "name": "original waterfall current and bats",
+    "scene": 6,
+    "updates": 240,
+    "stopOnHurt": true
+  },
+  {
+    "name": "original organ drops and recharging plates",
+    "scene": 5,
+    "updates": 300,
+    "stopOnHurt": true
+  }
+]

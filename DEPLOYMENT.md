@@ -1,6 +1,23 @@
 # Nasazení portálu
 
-## Aktuální vydání — The Goonies
+## Aktuální vydání — oprava Goonies podle původního programu
+
+- Vydání: `20261024T091931Z` (24. 10. 2026 v Praze).
+- Hra: https://atari800.gmork.cz/hry/goonies/.
+- Archiv: `/private/tmp/atari800-portal-20261024T091931Z.tar.gz`, serverová kopie ve `/var/tmp/`.
+- SHA-256: `9571137f357ab546af8c20890df0bf2e3d6dc98a8f61a5c2e61632c3505fb9fc`.
+- Čistý staging: `/var/tmp/atari800-release-20261024T091931Z-clean`.
+- Záloha předchozího webu: `/root/atari800-backups/20261024T091931Z/site-before.tar.gz` (78 souborů).
+
+Odhadovanou fyziku a plošiny nahradil nativní překlad původního pohybu, skutečné kolizní obdélníky včetně stěn/stropů a scénické tabulky. Židle se pohybuje pouze při tlačení, fáze sprite odpovídá poloze; opravené jsou role postav a Slothovy snímky, původní východy, tři ventily, tlakové desky varhan, pohyb věder/kamene/klece, vejce, lodní průlezy, zdvih i protivníci. Podrobnosti a hranice shody: `research/goonies/PORTING.md`.
+
+Prošlo **34 herních a osm zvukových kontrol**. Herní reference zahrnují 1 280 kroků pohybu z XEX a 1 278 kompletních bitmap 320×176 z ATR, současně s pozicemi hráčů a kolizemi. Dům a potrubí byly vyřešené novými skutečnými směrovými replayi s pěti životy. Celá osmiscénová výprava nebyla ručně dohraná; řízené testy ostatních mechanismů se za úplný průchod nevydávají. Starý replay varhan na odhadované geometrii byl odstraněný.
+
+Před změnou se všech 78 živých souborů shodovalo s minulým stagingem. První balíček byl ještě před změnou webu odmítnut kvůli přidaným metadatům macOS; čistý archiv má přesně 83 souborů. Po záloze bylo v Goonies přidaných pět JS/datových souborů a vyměněné čtyři stávající, HTML jako poslední. Zbývajících **74 souborů je bytově shodných**. Úvodní portál, Dynakillers, International Karate i Archon se neměnily. Opravené skripty mají v HTML nový verzovací parametr pro cache.
+
+Po nasazení souhlasí všech **83 souborů přes HTTPS**, všech pět kanonických cest, MIME typy a sedm MP3 Range požadavků. Úplná HTTP kontrola proběhla ze serveru přes veřejnou doménu; místní curl navíc nezávisle ověřil veřejný herní index a verzovaný `rooms.js`. Místní Python měl omezené DNS, proto se nepoužívá jako důkaz vzdáleného ověření. Apache je aktivní. Místní sestavení ověřilo 63 interních odkazů a nepřítomnost disků/RAM dumpů. Konfigurace, služby ani oprávnění přístupu se neměnily.
+
+## Předchozí vydání — první adaptace The Goonies
 
 - Vydání: `20261024T070949Z` (24. 10. 2026 v Praze).
 - Portál: https://atari800.gmork.cz/ — čtyři hry včetně střídání hlavního náhledu.
@@ -14,7 +31,7 @@ Před změnou se všech 53 veřejných souborů shodovalo s předchozím staging
 
 The Goonies je nativní HTML5 adaptace všech osmi scén s původními pozadími, bitmapovými snímky, titulní a závěrečnou obrazovkou, dvěma hudebními smyčkami a 19 původními efekty. Sólo střídá dvě postavy, volitelně mohou hrát dva lidé současně. Přidaný je trénink místností a česká nápověda. Geometrie, fyzika, časování hádanek, bodování a jednodušší nepřátelé jsou nová implementace. Některé původní vedlejší pasti a střelecké skripty nejsou přenesené; jde o první hratelnou verzi. Podrobnosti a zdroje: `research/goonies/PORTING.md`.
 
-Prošlo 30 herních a osm zvukových kontrol Goonies i všech 87 dosavadních kontrol. Dům a vodní varhany prošly skutečnými směrovými a přepínacími vstupy s pěti životy bez teleportů či přepsání příznaků. Místní Brave ověřil načtení přes `file://`, spuštění, původní postavy a scénu, přepínání a pauzu. Úplný ruční průchod všech osmi místností, samostatný poslech ani fyzický telefon/gamepad se nevydává za ověřené.
+Tehdejších 30 herních kontrol používalo odhadovanou geometrii a neprokazovalo shodu s originálem; byly nahrazené současnými referenčními testy. Prošlo také osm zvukových a 87 dosavadních kontrol. Dům a vodní varhany prošly skutečnými směrovými a přepínacími vstupy s pěti životy bez teleportů či přepsání příznaků. Místní Brave ověřil načtení přes `file://`, spuštění, původní postavy a scénu, přepínání a pauzu. Úplný ruční průchod všech osmi místností, samostatný poslech ani fyzický telefon/gamepad se nevydává za ověřené.
 
 Po nasazení ověřeno všech **78 veřejných souborů pomocí SHA-256**, pět kanonických cest, MIME typy a všech sedm MP3 Range požadavků. Apache je aktivní. Validace místního sestavení prošla pro 58 HTML odkazů. Původní adresář `Goonies/`, disk ATR, video, ROM, pracovní dumpy a vývojové SAP soubory nejsou ve veřejném vydání.
 

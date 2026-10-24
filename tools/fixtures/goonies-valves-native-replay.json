@@ -1,0 +1,537 @@
+{
+  "options": {
+    "scene": 2,
+    "practice": true
+  },
+  "steps": [
+    {
+      "actor": 0,
+      "input": {},
+      "updates": 48
+    },
+    {
+      "actor": 1,
+      "input": {
+        "right": true
+      },
+      "updates": 49
+    },
+    {
+      "actor": 1,
+      "input": {
+        "up": true,
+        "right": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 4
+    },
+    {
+      "actor": 1,
+      "input": {
+        "up": true
+      },
+      "updates": 10
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 4
+    },
+    {
+      "actor": 1,
+      "input": {
+        "left": true
+      },
+      "updates": 12
+    },
+    {
+      "actor": 1,
+      "input": {
+        "up": true,
+        "left": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 4
+    },
+    {
+      "actor": 1,
+      "input": {
+        "up": true
+      },
+      "updates": 15
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 4
+    },
+    {
+      "actor": 1,
+      "input": {
+        "left": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {
+        "up": true,
+        "left": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 12
+    },
+    {
+      "actor": 1,
+      "input": {
+        "right": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 1
+    },
+    {
+      "actor": 0,
+      "input": {
+        "right": true
+      },
+      "updates": 52
+    },
+    {
+      "actor": 0,
+      "input": {
+        "up": true,
+        "right": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 0,
+      "input": {},
+      "updates": 4
+    },
+    {
+      "actor": 0,
+      "input": {
+        "up": true
+      },
+      "updates": 10
+    },
+    {
+      "actor": 0,
+      "input": {},
+      "updates": 4
+    },
+    {
+      "actor": 0,
+      "input": {
+        "left": true
+      },
+      "updates": 6
+    },
+    {
+      "actor": 0,
+      "input": {},
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {
+        "left": true
+      },
+      "updates": 13
+    },
+    {
+      "actor": 1,
+      "input": {
+        "up": true,
+        "left": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 3
+    },
+    {
+      "actor": 1,
+      "input": {
+        "up": true
+      },
+      "updates": 15
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 4
+    },
+    {
+      "actor": 1,
+      "input": {
+        "right": true
+      },
+      "updates": 2
+    },
+    {
+      "actor": 1,
+      "input": {
+        "up": true,
+        "right": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 3
+    },
+    {
+      "actor": 1,
+      "input": {
+        "up": true
+      },
+      "updates": 11
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 4
+    },
+    {
+      "actor": 1,
+      "input": {
+        "right": true
+      },
+      "updates": 7
+    },
+    {
+      "actor": 1,
+      "input": {
+        "up": true,
+        "right": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 2
+    },
+    {
+      "actor": 1,
+      "input": {
+        "right": true
+      },
+      "updates": 8
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 4
+    },
+    {
+      "actor": 1,
+      "input": {
+        "right": true
+      },
+      "updates": 7
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {
+        "up": true,
+        "right": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 4
+    },
+    {
+      "actor": 1,
+      "input": {
+        "right": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 1
+    },
+    {
+      "actor": 0,
+      "input": {
+        "left": true
+      },
+      "updates": 6
+    },
+    {
+      "actor": 0,
+      "input": {
+        "up": true,
+        "left": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 0,
+      "input": {},
+      "updates": 4
+    },
+    {
+      "actor": 0,
+      "input": {
+        "up": true
+      },
+      "updates": 15
+    },
+    {
+      "actor": 0,
+      "input": {},
+      "updates": 4
+    },
+    {
+      "actor": 0,
+      "input": {
+        "left": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 0,
+      "input": {
+        "up": true,
+        "left": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 0,
+      "input": {},
+      "updates": 12
+    },
+    {
+      "actor": 0,
+      "input": {
+        "right": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 0,
+      "input": {},
+      "updates": 1
+    },
+    {
+      "actor": 0,
+      "input": {
+        "left": true
+      },
+      "updates": 13
+    },
+    {
+      "actor": 0,
+      "input": {
+        "up": true,
+        "left": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 0,
+      "input": {},
+      "updates": 3
+    },
+    {
+      "actor": 0,
+      "input": {
+        "up": true
+      },
+      "updates": 15
+    },
+    {
+      "actor": 0,
+      "input": {},
+      "updates": 4
+    },
+    {
+      "actor": 0,
+      "input": {
+        "right": true
+      },
+      "updates": 2
+    },
+    {
+      "actor": 0,
+      "input": {
+        "up": true,
+        "right": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 0,
+      "input": {},
+      "updates": 3
+    },
+    {
+      "actor": 0,
+      "input": {
+        "up": true
+      },
+      "updates": 11
+    },
+    {
+      "actor": 0,
+      "input": {},
+      "updates": 4
+    },
+    {
+      "actor": 0,
+      "input": {
+        "right": true
+      },
+      "updates": 7
+    },
+    {
+      "actor": 0,
+      "input": {
+        "up": true,
+        "right": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 0,
+      "input": {},
+      "updates": 2
+    },
+    {
+      "actor": 0,
+      "input": {
+        "right": true
+      },
+      "updates": 8
+    },
+    {
+      "actor": 0,
+      "input": {},
+      "updates": 4
+    },
+    {
+      "actor": 0,
+      "input": {
+        "right": true
+      },
+      "updates": 6
+    },
+    {
+      "actor": 0,
+      "input": {
+        "up": true,
+        "right": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 0,
+      "input": {},
+      "updates": 9
+    },
+    {
+      "actor": 0,
+      "input": {
+        "down": true
+      },
+      "updates": 17
+    },
+    {
+      "actor": 0,
+      "input": {},
+      "updates": 1
+    },
+    {
+      "actor": 0,
+      "input": {
+        "right": true
+      },
+      "updates": 4
+    },
+    {
+      "actor": 0,
+      "input": {},
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {
+        "right": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {
+        "right": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {
+        "down": true
+      },
+      "updates": 18
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {
+        "right": true
+      },
+      "updates": 4
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 1
+    }
+  ],
+  "expected": {
+    "phase": "transition",
+    "lives": 5
+  }
+}

@@ -1,0 +1,249 @@
+{
+  "source": "Native translated XEX movement and recovered house rules; ordinary inputs only",
+  "options": {
+    "scene": 0,
+    "practice": true
+  },
+  "steps": [
+    {
+      "actor": 1,
+      "input": {
+        "right": true
+      },
+      "updates": 37
+    },
+    {
+      "actor": 1,
+      "input": {
+        "up": true,
+        "right": true
+      },
+      "updates": 14
+    },
+    {
+      "actor": 1,
+      "input": {
+        "up": true
+      },
+      "updates": 30
+    },
+    {
+      "actor": 1,
+      "input": {
+        "left": true
+      },
+      "updates": 60
+    },
+    {
+      "actor": 1,
+      "input": {
+        "right": true
+      },
+      "updates": 39
+    },
+    {
+      "actor": 1,
+      "input": {
+        "up": true,
+        "right": true
+      },
+      "updates": 7
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 4
+    },
+    {
+      "actor": 1,
+      "input": {
+        "left": true
+      },
+      "updates": 3
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {
+        "up": true
+      },
+      "updates": 15
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 4
+    },
+    {
+      "actor": 1,
+      "input": {
+        "right": true
+      },
+      "updates": 7
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 4
+    },
+    {
+      "actor": 0,
+      "input": {
+        "right": true
+      },
+      "updates": 40
+    },
+    {
+      "actor": 0,
+      "input": {},
+      "updates": 1
+    },
+    {
+      "actor": 0,
+      "input": {
+        "down": true
+      },
+      "updates": 24
+    },
+    {
+      "actor": 0,
+      "input": {
+        "left": true
+      },
+      "updates": 37
+    },
+    {
+      "actor": 0,
+      "input": {
+        "up": true,
+        "right": true
+      },
+      "updates": 1
+    },
+    {
+      "actor": 0,
+      "input": {
+        "right": true
+      },
+      "updates": 10
+    },
+    {
+      "actor": 0,
+      "input": {},
+      "updates": 1
+    },
+    {
+      "actor": 0,
+      "input": {
+        "down": true
+      },
+      "updates": 24
+    },
+    {
+      "actor": 0,
+      "input": {
+        "right": true
+      },
+      "updates": 52
+    },
+    {
+      "actor": 1,
+      "input": {
+        "left": true
+      },
+      "updates": 7
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {
+        "down": true
+      },
+      "updates": 22
+    },
+    {
+      "actor": 1,
+      "input": {
+        "right": true
+      },
+      "updates": 9
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {
+        "down": true
+      },
+      "updates": 24
+    },
+    {
+      "actor": 1,
+      "input": {
+        "down": true,
+        "left": true
+      },
+      "updates": 12
+    },
+    {
+      "actor": 1,
+      "input": {
+        "left": true
+      },
+      "updates": 5
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {
+        "down": true
+      },
+      "updates": 24
+    },
+    {
+      "actor": 1,
+      "input": {
+        "left": true
+      },
+      "updates": 23
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "updates": 1
+    },
+    {
+      "actor": 1,
+      "input": {
+        "down": true
+      },
+      "updates": 24
+    },
+    {
+      "actor": 1,
+      "input": {
+        "right": true
+      },
+      "updates": 52
+    }
+  ],
+  "expected": {
+    "phase": "transition",
+    "lives": 5
+  }
+}
