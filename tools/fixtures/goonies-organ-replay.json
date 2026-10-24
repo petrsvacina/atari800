@@ -1,0 +1,133 @@
+{
+  "options": {
+    "scene": 5,
+    "practice": true
+  },
+  "steps": [
+    {
+      "actor": 1,
+      "input": {},
+      "frames": 12,
+      "label": "Both wait on the corrected safe solid starting ledge"
+    },
+    {
+      "actor": 0,
+      "input": {
+        "up": true,
+        "right": true
+      },
+      "frames": 49,
+      "label": "white platform"
+    },
+    {
+      "actor": 0,
+      "input": {},
+      "frames": 1,
+      "label": "release up"
+    },
+    {
+      "actor": 0,
+      "input": {
+        "up": true,
+        "right": true
+      },
+      "frames": 63,
+      "label": "central ledge"
+    },
+    {
+      "actor": 0,
+      "input": {
+        "right": true
+      },
+      "frames": 55,
+      "label": "organ keys"
+    },
+    {
+      "actor": 0,
+      "input": {},
+      "frames": 1,
+      "label": "release up"
+    },
+    {
+      "actor": 0,
+      "input": {
+        "up": true,
+        "right": true
+      },
+      "frames": 46,
+      "label": "right ledge"
+    },
+    {
+      "actor": 0,
+      "input": {
+        "right": true
+      },
+      "frames": 72,
+      "label": "right exit"
+    },
+    {
+      "actor": 1,
+      "input": {
+        "up": true,
+        "right": true
+      },
+      "frames": 49,
+      "label": "white platform"
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "frames": 1,
+      "label": "release up"
+    },
+    {
+      "actor": 1,
+      "input": {
+        "up": true,
+        "right": true
+      },
+      "frames": 63,
+      "label": "central ledge"
+    },
+    {
+      "actor": 1,
+      "input": {
+        "right": true
+      },
+      "frames": 51,
+      "label": "organ keys"
+    },
+    {
+      "actor": 1,
+      "input": {},
+      "frames": 1,
+      "label": "release up"
+    },
+    {
+      "actor": 1,
+      "input": {
+        "up": true,
+        "right": true
+      },
+      "frames": 46,
+      "label": "right ledge"
+    },
+    {
+      "actor": 1,
+      "input": {
+        "right": true
+      },
+      "frames": 72,
+      "label": "right exit"
+    }
+  ],
+  "expected": {
+    "phase": "transition",
+    "escaped": [
+      true,
+      true
+    ],
+    "lives": 5
+  },
+  "verification": "Inputs only, no overrides or teleports."
+}

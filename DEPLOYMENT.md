@@ -1,6 +1,24 @@
 # Nasazení portálu
 
-## Aktuální vydání — střídání úvodní hry
+## Aktuální vydání — The Goonies
+
+- Vydání: `20261024T070949Z` (24. 10. 2026 v Praze).
+- Portál: https://atari800.gmork.cz/ — čtyři hry včetně střídání hlavního náhledu.
+- Hra: https://atari800.gmork.cz/hry/goonies/.
+- Archiv: `/private/tmp/atari800-portal-20261024T070949Z.tar.gz`, serverová kopie ve `/var/tmp/` se stejným názvem.
+- SHA-256: `1a0c005fc00e962c19625825380be5a8bc649f609fcfbe7b13caa2f0186c3d7e`.
+- Staging: `/var/tmp/atari800-release-20261024T070949Z`.
+- Záloha: `/root/atari800-backups/20261024T070949Z/site-before.tar.gz`.
+
+Před změnou se všech 53 veřejných souborů shodovalo s předchozím stagingem. Záloha prošla kontrolou gzip a přenesený archiv odpovídá místnímu SHA-256. Nejdřív byla přidaná nová hra a náhled/logo katalogu, potom atomicky vyměněný úvodní index. Kromě úvodního indexu je všech 52 souborů předchozího vydání bytově shodných; zdroje a běžící soubory předchozích her se neměnily. Konfigurace a služby se neměnily.
+
+The Goonies je nativní HTML5 adaptace všech osmi scén s původními pozadími, bitmapovými snímky, titulní a závěrečnou obrazovkou, dvěma hudebními smyčkami a 19 původními efekty. Sólo střídá dvě postavy, volitelně mohou hrát dva lidé současně. Přidaný je trénink místností a česká nápověda. Geometrie, fyzika, časování hádanek, bodování a jednodušší nepřátelé jsou nová implementace. Některé původní vedlejší pasti a střelecké skripty nejsou přenesené; jde o první hratelnou verzi. Podrobnosti a zdroje: `research/goonies/PORTING.md`.
+
+Prošlo 30 herních a osm zvukových kontrol Goonies i všech 87 dosavadních kontrol. Dům a vodní varhany prošly skutečnými směrovými a přepínacími vstupy s pěti životy bez teleportů či přepsání příznaků. Místní Brave ověřil načtení přes `file://`, spuštění, původní postavy a scénu, přepínání a pauzu. Úplný ruční průchod všech osmi místností, samostatný poslech ani fyzický telefon/gamepad se nevydává za ověřené.
+
+Po nasazení ověřeno všech **78 veřejných souborů pomocí SHA-256**, pět kanonických cest, MIME typy a všech sedm MP3 Range požadavků. Apache je aktivní. Validace místního sestavení prošla pro 58 HTML odkazů. Původní adresář `Goonies/`, disk ATR, video, ROM, pracovní dumpy a vývojové SAP soubory nejsou ve veřejném vydání.
+
+## Předchozí vydání — střídání úvodní hry
 
 - Vydání: `20261024T004601Z` (24. 10. 2026 v Praze).
 - Portál: https://atari800.gmork.cz/.

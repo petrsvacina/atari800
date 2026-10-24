@@ -1,0 +1,24 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),scope=vm.createContext({Promise});
+for(const file of ['assets/audio.js','audio.js'])vm.runInContext(fs.readFileSync(path.join(root,'goonies-web',file),'utf8'),scope,{filename:file});
+let passed=0;async function test(name,run){await run();passed++;console.log('PASS '+name);}
+const settle=async()=>{await Promise.resolve();await Promise.resolve();};
+function fixture(deferred=false){
+  const tracks=new Map(),buffers=[],sources=[],statuses=[];
+  const context={state:'running',currentTime:0,destination:{},createGain:()=>({gain:{value:1},connect(){}}),createBuffer(channels,length,rate){assert.equal(channels,1);const samples=new Float32Array(length),buffer={duration:length/rate,getChannelData:()=>samples};buffers.push(buffer);return buffer;},createBufferSource(){const s={connect(){},disconnect(){},start(){this.started=true;},stop(){this.stopped=true;}};sources.push(s);return s;}};
+  const audio=new scope.GooniesAudio({createContext:()=>context,decode:s=>Buffer.from(s,'base64').toString('latin1'),onStatus:s=>statuses.push(s),createAudio:src=>{const a={paused:true,currentTime:0,plays:0,handlers:{},addEventListener(name,fn){this.handlers[name]=fn;},pause(){this.paused=true;},play(){this.plays++;if(deferred)return new Promise((resolve,reject)=>{this.resolve=()=>{this.paused=false;resolve();};this.reject=reject;});this.paused=false;return Promise.resolve();}};tracks.set(src,a);return a;}});
+  return{audio,tracks,buffers,sources,statuses};
+}
+await test('loading cannot autoplay; a user gesture unlocks the original title',async()=>{const f=fixture();f.audio.sync(false,false);assert.equal(f.tracks.size,0);f.audio.togglePreview();f.audio.sync(false,false);await settle();assert(!f.tracks.get(scope.GOONIES_AUDIO.tracks.title).paused);});
+await test('starting switches from title to game music without overlapping tracks',async()=>{const f=fixture();f.audio.togglePreview();f.audio.sync(false,false);await settle();f.audio.sync(true,false);await settle();assert(f.tracks.get(scope.GOONIES_AUDIO.tracks.title).paused);assert(!f.tracks.get(scope.GOONIES_AUDIO.tracks.ingame).paused);});
+await test('pause and resume preserve the current game-music position',async()=>{const f=fixture();f.audio.unlock();f.audio.sync(true,false);await settle();const t=f.tracks.get(scope.GOONIES_AUDIO.tracks.ingame);t.currentTime=12.5;f.audio.sync(true,true);assert(t.paused);f.audio.sync(true,false);await settle();assert(!t.paused);assert.equal(t.currentTime,12.5);});
+await test('a delayed play promise cannot restart the old track after changing screens',async()=>{const f=fixture(true);f.audio.togglePreview();f.audio.sync(false,false);const t=f.tracks.get(scope.GOONIES_AUDIO.tracks.title);f.audio.sync(true,false);t.resolve();await settle();assert(t.paused);f.tracks.get(scope.GOONIES_AUDIO.tracks.ingame).resolve();await settle();});
+await test('rejected playback reports a useful status and retries after a new gesture',async()=>{const f=fixture(true);f.audio.unlock();f.audio.sync(true,false);const t=f.tracks.get(scope.GOONIES_AUDIO.tracks.ingame);t.reject(Error('NotAllowedError'));await settle();assert(f.statuses.some(s=>s.includes('klikni')));f.audio.unlock();f.audio.sync(true,false);t.resolve();await settle();assert(!t.paused);});
+await test('all nineteen original signed PCM effects decode accurately and contain sound',async()=>{const f=fixture();f.audio.unlock();assert.equal(f.buffers.length,19);scope.GOONIES_AUDIO.effects.forEach((e,index)=>{const b=f.buffers[index],raw=Buffer.from(e.data,'base64'),pcm=b.getChannelData(0);assert(pcm.some(x=>Math.abs(x)>.001));assert.equal(pcm.length*2,raw.length);for(const i of [0,Math.floor(pcm.length/2),pcm.length-1])assert(Math.abs(pcm[i]-raw.readInt16LE(i*2)/32768)<1e-6);});});
+await test('events select existing source effects and effects remain monophonic',async()=>{const f=fixture();f.audio.unlock();for(const [type,id]of Object.entries(scope.GOONIES_AUDIO.eventEffects)){f.audio.event({type});assert.equal(f.sources.at(-1).buffer,f.audio.buffers.get(id));assert.equal(f.audio.voices.size,1);}assert(f.sources.slice(0,-1).every(s=>s.stopped));});
+await test('mute, pause and menu stop effects; effects cannot start before unlock',async()=>{const f=fixture();f.audio.event({type:'jump'});assert.equal(f.sources.length,0);f.audio.unlock();f.audio.sync(true,false);f.audio.event({type:'jump'});f.audio.sync(true,true);assert.equal(f.audio.voices.size,0);f.audio.sync(true,false,true);const count=f.sources.length;f.audio.event({type:'jump'});assert.equal(f.sources.length,count);f.audio.sync(true,false,false);f.audio.event({type:'jump'});f.audio.sync(false,false);assert.equal(f.audio.voices.size,0);});
+console.log(`${passed} Goonies audio checks passed.`);

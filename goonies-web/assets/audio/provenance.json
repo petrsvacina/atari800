@@ -1,0 +1,179 @@
+{
+  "sourceSha256": "ccdea8ff8e56b9d09436de1ec64094e2130dee41f2d3d921f8c02f256f16bed7",
+  "musicInit": "8E89",
+  "musicPlayer": "8F0C",
+  "effectPlayer": "8AC9",
+  "renderFastplay": 262,
+  "renderFrameHz": 59.376155082362395,
+  "files": [
+    {
+      "file": "audio/title.mp3",
+      "songList": "8FBE",
+      "pattern": "9278",
+      "framesPerLoop": 2497,
+      "duration": 42.05391872438251,
+      "sha256": "a173def6d50250cb30171754052f6d4d3af26b74a14a245d541f332a8c27e584"
+    },
+    {
+      "file": "audio/ingame.mp3",
+      "songList": "8FBB",
+      "pattern": "8FC1",
+      "framesPerLoop": 1921,
+      "duration": 32.35305481359183,
+      "sha256": "e52797aec1ce51955b96b6c8e276b046af7c5d7d1b7757c02613e7f9c7aa8508"
+    },
+    {
+      "id": 1,
+      "duration": 0.5389569160997733,
+      "loop": false,
+      "sourceStart": "8B4F",
+      "sourceEndExclusive": "8B6F",
+      "pcmSha256": "386dc404b354852418d425287f88b01887623ff456e28a6d7e4071a99d803907"
+    },
+    {
+      "id": 2,
+      "duration": 1.1115646258503402,
+      "loop": false,
+      "sourceStart": "8B6F",
+      "sourceEndExclusive": "8B95",
+      "pcmSha256": "ed8952b7fe975e53467ec4abb47fc157d8449d397d34e227a561a8c25e488729"
+    },
+    {
+      "id": 3,
+      "duration": 0.35369614512471653,
+      "loop": false,
+      "sourceStart": "8C37",
+      "sourceEndExclusive": "8C5D",
+      "pcmSha256": "c2e82142f39c28545b8f1d59f9352294c1c707e602aadc12833f2c7ff472e2fd"
+    },
+    {
+      "id": 4,
+      "duration": 0.7747392290249433,
+      "loop": false,
+      "sourceStart": "8B95",
+      "sourceEndExclusive": "8BB5",
+      "pcmSha256": "1790e1c0ba0d1f8905367bbdff16611e007572afefecfcc285b563b37fa26e17"
+    },
+    {
+      "id": 5,
+      "duration": 0.3368253968253968,
+      "loop": true,
+      "sourceStart": "8D64",
+      "sourceEndExclusive": "8D84",
+      "pcmSha256": "c88c085baf2081dece03490213807aae20a5a9b3d9569ef95c0cc062560d655f"
+    },
+    {
+      "id": 6,
+      "duration": 0.2863038548752834,
+      "loop": false,
+      "sourceStart": "8C8F",
+      "sourceEndExclusive": "8CC4",
+      "pcmSha256": "60bf255be69498cad3739550beba3c54dbcf0700bc10f88fefc449df55c0722d"
+    },
+    {
+      "id": 7,
+      "duration": 0.8252607709750567,
+      "loop": false,
+      "sourceStart": "8CC4",
+      "sourceEndExclusive": "8CF6",
+      "pcmSha256": "ffd91d43fd3e4763b0e38161daf5076e99075a760f8ff7ad36d28049fc986c3e"
+    },
+    {
+      "id": 9,
+      "duration": 1.8694331065759637,
+      "loop": false,
+      "sourceStart": "8E19",
+      "sourceEndExclusive": "8E4E",
+      "pcmSha256": "6e031f172658f0ce0cb88f34a32fbe43a76f466bfcc677c2b91d3d041dc60663"
+    },
+    {
+      "id": 10,
+      "duration": 0.7242176870748299,
+      "loop": false,
+      "sourceStart": "8CF6",
+      "sourceEndExclusive": "8D28",
+      "pcmSha256": "7d50159f527f56c79652830ceb44e0521c9949aa25231ef2b6719cca89f9008b"
+    },
+    {
+      "id": 11,
+      "duration": 0.8420861678004535,
+      "loop": false,
+      "sourceStart": "8D8C",
+      "sourceEndExclusive": "8DBB",
+      "pcmSha256": "6bb2510898d067aba8fb78dbd15d3951a8a3db6594583ce2a70f7c8a61719e82"
+    },
+    {
+      "id": 12,
+      "duration": 0.8420861678004535,
+      "loop": false,
+      "sourceStart": "8DBB",
+      "sourceEndExclusive": "8DEA",
+      "pcmSha256": "e003409296184a9eee5124d5a2932f25fdf32fe2793a4490b43f6a9de429ecd7"
+    },
+    {
+      "id": 13,
+      "duration": 0.8420861678004535,
+      "loop": false,
+      "sourceStart": "8DEA",
+      "sourceEndExclusive": "8E19",
+      "pcmSha256": "249e4b5b4743e1f8450c38bc37f45c9cb0bb85753faac6356ff9be0c3c407497"
+    },
+    {
+      "id": 14,
+      "duration": 0.6736507936507936,
+      "loop": false,
+      "sourceStart": "8D4A",
+      "sourceEndExclusive": "8D64",
+      "pcmSha256": "26dadcc13c41c7289f07c1267fde4a325d5593986d0c2a19ecb5bc94674fbc74"
+    },
+    {
+      "id": 15,
+      "duration": 0.03369614512471655,
+      "loop": false,
+      "sourceStart": "8D84",
+      "sourceEndExclusive": "8D8C",
+      "pcmSha256": "68e337b9353b73a23931441b063a61ccf97d01677d2043bf9760156ce244773e"
+    },
+    {
+      "id": 19,
+      "duration": 1.8862585034013606,
+      "loop": false,
+      "sourceStart": "8BB5",
+      "sourceEndExclusive": "8BF6",
+      "pcmSha256": "ad406f1e6f3cb4c4654725cf00541df1ad082deb64767832c52b6d3ec28a5893"
+    },
+    {
+      "id": 20,
+      "duration": 1.1789115646258503,
+      "loop": false,
+      "sourceStart": "8BF6",
+      "sourceEndExclusive": "8C37",
+      "pcmSha256": "adcda4997b7601231b095d56c6c45f9b3b36c9840fb96b2ddffb73780445f180"
+    },
+    {
+      "id": 21,
+      "duration": 0.7242176870748299,
+      "loop": false,
+      "sourceStart": "8C5D",
+      "sourceEndExclusive": "8C8F",
+      "pcmSha256": "3b7bbe0c783b01d1981d8bd429f725cc931886392cdd65896cb66ee7b7f8ce9a"
+    },
+    {
+      "id": 22,
+      "duration": 0.20208616780045352,
+      "loop": false,
+      "sourceStart": "8D36",
+      "sourceEndExclusive": "8D4A",
+      "pcmSha256": "7b4532d5d2042f99e237e8d03d20c9aaa82e061ad498c20e5829de3111b3092d"
+    },
+    {
+      "id": 23,
+      "duration": 0.1347392290249433,
+      "loop": false,
+      "sourceStart": "8D28",
+      "sourceEndExclusive": "8D36",
+      "pcmSha256": "7ad8d95234d1be596d9f41dd58b781799617037164292dc4b82bd2b203f1c7b8"
+    }
+  ],
+  "effectEvents": "Native port mapping is documented in AUDIO.md."
+}

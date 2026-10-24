@@ -43,5 +43,20 @@
     "logo": "assets/archon-logo.svg",
     "source": "archon",
     "featured": false
+  },
+  {
+    "id": "goonies",
+    "title": "The Goonies",
+    "description": "Dva kamarádi, osm nástrah a pirátský poklad. Jeden drží mechanismus, druhý hledá cestu. Goonies se nikdy nevzdávají.",
+    "genre": "Dobrodružná · plošinová",
+    "players": "1–2 hráči",
+    "multiplayer": true,
+    "year": "1985",
+    "author": "Datasoft",
+    "controls": "Klávesnice · gamepad",
+    "image": "assets/goonies.png",
+    "logo": "assets/goonies-logo.png",
+    "source": "goonies-web",
+    "featured": false
   }
 ]

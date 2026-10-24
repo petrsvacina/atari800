@@ -1,0 +1,84 @@
+{
+  "sourceSha256": "ccdea8ff8e56b9d09436de1ec64094e2130dee41f2d3d921f8c02f256f16bed7",
+  "playfieldAddress": "2290-3E0F",
+  "bytesPerRow": 40,
+  "width": 320,
+  "height": 176,
+  "displayList": "6200",
+  "frontBitmap": "2010-3E0F",
+  "backBitmap": "4010-5E0F",
+  "palette": [
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      118,
+      18,
+      0
+    ],
+    [
+      78,
+      48,
+      226
+    ],
+    [
+      238,
+      238,
+      238
+    ]
+  ],
+  "sourceRoomOrder": [
+    0,
+    2,
+    1,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "scenes": [
+    {
+      "id": 0,
+      "sourceRoomId": 0,
+      "sha256": "1d09e08005460bc2b2e71e477c2fc08d67ffd1d82737bf80de38b11d92d35e32"
+    },
+    {
+      "id": 1,
+      "sourceRoomId": 2,
+      "sha256": "e0b000b8cd0c7dc3bf0186702f0932574ad7710f8accc3f1cb1bfa0f798a53d2"
+    },
+    {
+      "id": 2,
+      "sourceRoomId": 1,
+      "sha256": "10a9fd722189bf86b4c133d42d12b6fce47de3b1f5435bda0d8fcff506f0cc0a"
+    },
+    {
+      "id": 3,
+      "sourceRoomId": 3,
+      "sha256": "736072fca56ce29e36aa4b53579e56b3bb51b14165d76f52896a5482ac009313"
+    },
+    {
+      "id": 4,
+      "sourceRoomId": 4,
+      "sha256": "4954fdea056cfe5b4c69d7f489a850e7226cd879f68d9b917e15095191fac833"
+    },
+    {
+      "id": 5,
+      "sourceRoomId": 5,
+      "sha256": "a73f9f211c38cb3b1a6d0de10d966085e04a5710dd7c82317c00833a53bb792a"
+    },
+    {
+      "id": 6,
+      "sourceRoomId": 6,
+      "sha256": "e8cc192adef6d1cb0840d0ea1df3c608aa0c9c63cc87a61ca32da462d06f027b"
+    },
+    {
+      "id": 7,
+      "sourceRoomId": 7,
+      "sha256": "bf3c43bda02e30dded9780952a371d4c26d2a9fd35a6fb0d9d096dadfb7ea2c7"
+    }
+  ]
+}

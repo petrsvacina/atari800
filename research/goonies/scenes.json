@@ -1,0 +1,1535 @@
+{
+  "coordinateSystem": {
+    "width": 320,
+    "height": 176,
+    "origin": "top-left playfield",
+    "videoWidth": 672,
+    "videoHeight": 480,
+    "fromVideo": {
+      "x": "videoX/2-8",
+      "y": "videoY/2-32"
+    },
+    "platformY": "walkable upper edge / character feet",
+    "coordinatesAre": "manual visual tracing, approximate by 2-8 native pixels; dynamic sprite positions vary"
+  },
+  "sourceVideo": "Goonies/The Goonies Playthrough (Atari XL⧸XE) [PZRqQE76Nc0].mkv",
+  "sourceSolution": "Goonies/Goonies_SOLUTION.TXT",
+  "controls": {
+    "left": "run left",
+    "right": "run right",
+    "up": "jump or climb up/grab overhead rail",
+    "upLeft": "jump left",
+    "upRight": "jump right",
+    "down": "climb down",
+    "fire": "switch active child",
+    "spaceOriginal": "pause",
+    "sOriginal": "toggle music",
+    "interaction": "contextual movement/push/standing/hanging, no separate action/fire interaction button"
+  },
+  "sceneOrderBySourceRoom": [
+    0,
+    2,
+    1,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "scenes": [
+    {
+      "id": 1,
+      "sourceRoomId": 0,
+      "name": "Dům Fratelliových",
+      "videoStart": 10,
+      "videoEnd": 48,
+      "spawn": [
+        {
+          "x": 52,
+          "y": 104
+        },
+        {
+          "x": 200,
+          "y": 104
+        }
+      ],
+      "platforms": [
+        {
+          "x1": 32,
+          "x2": 208,
+          "y": 32
+        },
+        {
+          "x1": 224,
+          "x2": 264,
+          "y": 32
+        },
+        {
+          "x1": 32,
+          "x2": 238,
+          "y": 68
+        },
+        {
+          "x1": 248,
+          "x2": 264,
+          "y": 68
+        },
+        {
+          "x1": 32,
+          "x2": 176,
+          "y": 104
+        },
+        {
+          "x1": 200,
+          "x2": 264,
+          "y": 104
+        },
+        {
+          "x1": 32,
+          "x2": 320,
+          "y": 143
+        }
+      ],
+      "ladders": [
+        {
+          "x": 248,
+          "top": 68,
+          "bottom": 104
+        },
+        {
+          "x": 216,
+          "top": 32,
+          "bottom": 68
+        },
+        {
+          "x": 184,
+          "top": 104,
+          "bottom": 143
+        }
+      ],
+      "objects": [
+        {
+          "id": "chair",
+          "kind": "pushable",
+          "x": 80,
+          "y": 68,
+          "targetX": 200,
+          "topOffset": -12
+        },
+        {
+          "id": "attic-hatch",
+          "kind": "boosted-ladder",
+          "x": 216,
+          "y": 32,
+          "requires": "chairAtHatch"
+        },
+        {
+          "id": "printing-press",
+          "kind": "hold-up",
+          "x": 248,
+          "y": 32,
+          "effect": "moneyDistractsMother"
+        },
+        {
+          "id": "cooler",
+          "kind": "pushable",
+          "x": 54,
+          "y": 143,
+          "targetX": 80,
+          "effect": "extinguishFire"
+        },
+        {
+          "id": "fireplace",
+          "kind": "hazard-then-exit",
+          "x": 80,
+          "y": 143
+        },
+        {
+          "id": "mother",
+          "kind": "patrol",
+          "x": 248,
+          "y": 143,
+          "disabledWhile": "moneyDistractsMother"
+        }
+      ],
+      "solution": [
+        {
+          "actor": "either",
+          "do": "Climb right ladder, push chair beneath attic opening, jump onto chair and climb into attic."
+        },
+        {
+          "actor": "attic-child",
+          "do": "Hold position/up at printing press; money falls outside and distracts Mother."
+        },
+        {
+          "actor": "other-child",
+          "do": "Descend to basement, push/knock cooler towards fireplace; enter extinguished fireplace."
+        },
+        {
+          "actor": "attic-child",
+          "do": "Release press, descend quickly, use the same fireplace before Mother returns."
+        }
+      ],
+      "flags": [
+        "chairAtHatch",
+        "moneyDistractsMother",
+        "fireOut"
+      ],
+      "exit": {
+        "x": 80,
+        "y": 155,
+        "width": 16,
+        "requires": [
+          "fireOut"
+        ],
+        "bothChildren": true
+      },
+      "hazards": [
+        "fireplace before fireOut",
+        "Mother Fratelli after money distraction expires"
+      ]
+    },
+    {
+      "id": 2,
+      "sourceRoomId": 2,
+      "name": "Jeskyně s vědry",
+      "videoStart": 50,
+      "videoEnd": 108,
+      "spawn": [
+        {
+          "x": 24,
+          "y": 52
+        },
+        {
+          "x": 44,
+          "y": 52
+        }
+      ],
+      "platforms": [
+        {
+          "x1": 0,
+          "x2": 248,
+          "y": 52
+        },
+        {
+          "x1": 0,
+          "x2": 40,
+          "y": 92
+        },
+        {
+          "x1": 0,
+          "x2": 24,
+          "y": 128
+        },
+        {
+          "x1": 80,
+          "x2": 240,
+          "y": 128
+        },
+        {
+          "x1": 256,
+          "x2": 280,
+          "y": 96
+        },
+        {
+          "x1": 0,
+          "x2": 320,
+          "y": 168
+        }
+      ],
+      "ladders": [
+        {
+          "x": 30,
+          "top": 88,
+          "bottom": 120
+        },
+        {
+          "x": 264,
+          "top": 96,
+          "bottom": 152
+        }
+      ],
+      "rails": [
+        {
+          "x1": 96,
+          "x2": 264,
+          "y": 64
+        }
+      ],
+      "objects": [
+        {
+          "id": "crank",
+          "kind": "hold-up",
+          "x": 112,
+          "y": 168,
+          "effect": "chamberStoneRaised"
+        },
+        {
+          "id": "chamber-stone",
+          "kind": "vertical-gate",
+          "x": 160,
+          "y": 72,
+          "requires": "chamberStoneRaised"
+        },
+        {
+          "id": "float",
+          "kind": "moving-platform",
+          "x": 160,
+          "y": 112,
+          "width": 16,
+          "requires": "chamberStoneRaised"
+        },
+        {
+          "id": "pail-1",
+          "kind": "pendulum-hazard",
+          "x": 110,
+          "y": 76
+        },
+        {
+          "id": "pail-2",
+          "kind": "pendulum-hazard",
+          "x": 150,
+          "y": 76
+        },
+        {
+          "id": "pail-3",
+          "kind": "pendulum-hazard",
+          "x": 190,
+          "y": 76
+        },
+        {
+          "id": "key",
+          "kind": "pickup",
+          "x": 264,
+          "y": 64
+        },
+        {
+          "id": "locked-door",
+          "kind": "exit",
+          "x": 192,
+          "y": 168,
+          "requires": "keyTaken"
+        }
+      ],
+      "solution": [
+        {
+          "actor": "keeper",
+          "do": "Descend to the bottom crank and keep it raised."
+        },
+        {
+          "actor": "collector",
+          "do": "Enter raised chamber, use the floating ball and ledge to reach the overhead rail; traverse under swinging pails to the key."
+        },
+        {
+          "actor": "collector",
+          "do": "Take the key and descend by right ladder to the bottom door."
+        },
+        {
+          "actor": "keeper",
+          "do": "Release crank once collector is safe; join collector at unlocked door."
+        }
+      ],
+      "flags": [
+        "chamberStoneRaised",
+        "keyTaken"
+      ],
+      "exit": {
+        "x": 192,
+        "y": 168,
+        "width": 40,
+        "requires": [
+          "keyTaken"
+        ],
+        "bothChildren": true
+      },
+      "hazards": [
+        "swinging pails",
+        "bat",
+        "pool without float/support"
+      ]
+    },
+    {
+      "id": 3,
+      "sourceRoomId": 1,
+      "name": "Potrubí a tlakové ventily",
+      "videoStart": 110,
+      "videoEnd": 175,
+      "spawn": [
+        {
+          "x": 48,
+          "y": 175
+        },
+        {
+          "x": 64,
+          "y": 175
+        }
+      ],
+      "platforms": [
+        {
+          "x1": 80,
+          "x2": 320,
+          "y": 32
+        },
+        {
+          "x1": 64,
+          "x2": 128,
+          "y": 64
+        },
+        {
+          "x1": 64,
+          "x2": 168,
+          "y": 96
+        },
+        {
+          "x1": 64,
+          "x2": 168,
+          "y": 136
+        },
+        {
+          "x1": 176,
+          "x2": 280,
+          "y": 64
+        },
+        {
+          "x1": 192,
+          "x2": 320,
+          "y": 104
+        },
+        {
+          "x1": 192,
+          "x2": 280,
+          "y": 144
+        },
+        {
+          "x1": 16,
+          "x2": 280,
+          "y": 175
+        }
+      ],
+      "ladders": [
+        {
+          "x": 24,
+          "top": 40,
+          "bottom": 144
+        },
+        {
+          "x": 104,
+          "top": 64,
+          "bottom": 96
+        },
+        {
+          "x": 72,
+          "top": 96,
+          "bottom": 136
+        },
+        {
+          "x": 216,
+          "top": 64,
+          "bottom": 104
+        },
+        {
+          "x": 256,
+          "top": 64,
+          "bottom": 104
+        },
+        {
+          "x": 192,
+          "top": 104,
+          "bottom": 144
+        },
+        {
+          "x": 272,
+          "top": 144,
+          "bottom": 175
+        }
+      ],
+      "objects": [
+        {
+          "id": "left-valve",
+          "kind": "hold-up",
+          "x": 164,
+          "y": 122
+        },
+        {
+          "id": "upper-right-valve",
+          "kind": "hold-up",
+          "x": 248,
+          "y": 58
+        },
+        {
+          "id": "exit-pipe",
+          "kind": "burst-gate",
+          "x": 280,
+          "y": 88,
+          "requires": "pipeBurst"
+        },
+        {
+          "id": "shooter",
+          "kind": "patrol-shooter",
+          "x": 256,
+          "y": 32
+        }
+      ],
+      "solution": [
+        {
+          "actor": "left-child",
+          "do": "Reach the valve in left middle chamber and close/hold it."
+        },
+        {
+          "actor": "right-child",
+          "do": "Reach the valve in the upper right chamber and close/hold it."
+        },
+        {
+          "actor": "both",
+          "do": "Simultaneous closed run-off valves raise pressure until exit pipe bursts; the open route then latches."
+        },
+        {
+          "actor": "both",
+          "do": "Leave through the right-hand tunnel on the middle-right platform."
+        }
+      ],
+      "flags": [
+        "leftValveHeld",
+        "rightValveHeld",
+        "pipeBurst"
+      ],
+      "puzzle": {
+        "allHeld": [
+          "left-valve",
+          "upper-right-valve"
+        ],
+        "latch": "pipeBurst",
+        "suggestedHoldSeconds": 1.5,
+        "timingIsApproximate": true
+      },
+      "exit": {
+        "x": 312,
+        "y": 104,
+        "width": 16,
+        "requires": [
+          "pipeBurst"
+        ],
+        "bothChildren": true
+      },
+      "hazards": [
+        "Fratelli sniper bullets from upper gallery",
+        "steam from open vents"
+      ]
+    },
+    {
+      "id": 4,
+      "sourceRoomId": 3,
+      "name": "Kameny, padací dvířka a zvon",
+      "videoStart": 176,
+      "videoEnd": 342,
+      "spawn": [
+        {
+          "x": 48,
+          "y": 40
+        },
+        {
+          "x": 72,
+          "y": 40
+        }
+      ],
+      "platforms": [
+        {
+          "x1": 32,
+          "x2": 112,
+          "y": 40
+        },
+        {
+          "x1": 128,
+          "x2": 320,
+          "y": 40
+        },
+        {
+          "x1": 32,
+          "x2": 112,
+          "y": 80
+        },
+        {
+          "x1": 128,
+          "x2": 280,
+          "y": 80
+        },
+        {
+          "x1": 32,
+          "x2": 144,
+          "y": 120
+        },
+        {
+          "x1": 160,
+          "x2": 280,
+          "y": 120
+        },
+        {
+          "x1": 32,
+          "x2": 64,
+          "y": 168
+        },
+        {
+          "x1": 144,
+          "x2": 192,
+          "y": 168
+        }
+      ],
+      "ladders": [
+        {
+          "x": 72,
+          "top": 40,
+          "bottom": 64
+        },
+        {
+          "x": 248,
+          "top": 80,
+          "bottom": 112
+        },
+        {
+          "x": 56,
+          "top": 120,
+          "bottom": 136
+        },
+        {
+          "x": 200,
+          "top": 120,
+          "bottom": 152
+        }
+      ],
+      "objects": [
+        {
+          "id": "cannon",
+          "kind": "rock-spawner",
+          "x": 280,
+          "y": 40
+        },
+        {
+          "id": "upper-chain",
+          "kind": "hold-up",
+          "x": 196,
+          "y": 24,
+          "controls": "top-trap"
+        },
+        {
+          "id": "middle-chain",
+          "kind": "hold-up",
+          "x": 196,
+          "y": 64,
+          "controls": "middle-trap"
+        },
+        {
+          "id": "lower-chain",
+          "kind": "hold-up",
+          "x": 148,
+          "y": 104,
+          "controls": "lower-trap"
+        },
+        {
+          "id": "top-trap",
+          "kind": "trapdoor",
+          "x": 120,
+          "y": 40
+        },
+        {
+          "id": "middle-trap",
+          "kind": "trapdoor",
+          "x": 120,
+          "y": 80
+        },
+        {
+          "id": "lower-trap",
+          "kind": "trapdoor",
+          "x": 152,
+          "y": 120
+        },
+        {
+          "id": "counterweight",
+          "kind": "hold-position",
+          "x": 150,
+          "y": 158,
+          "effect": "bottomTrapWeighted"
+        },
+        {
+          "id": "bell",
+          "kind": "deadline-hazard",
+          "x": 272,
+          "y": 152
+        },
+        {
+          "id": "escape-boards",
+          "kind": "breakable-gate",
+          "x": 48,
+          "y": 158,
+          "count": 3
+        },
+        {
+          "id": "rock-chute",
+          "kind": "receiver",
+          "x": 120,
+          "y": 160
+        }
+      ],
+      "solution": [
+        {
+          "actor": "small-child",
+          "do": "Reach bottom counterweight/trap and stay on it."
+        },
+        {
+          "actor": "other-child",
+          "do": "Use chains to route rolling balls through successive trapdoors; directions matter."
+        },
+        {
+          "actor": "other-child",
+          "do": "Let top ball travel right-to-left and bounce; arrange the second-level drop left-to-right and third-level drop right-to-left."
+        },
+        {
+          "actor": "both",
+          "do": "Each correctly routed ball in the small chute removes one of three exit boards; repeat three times before hammer rings bell."
+        },
+        {
+          "actor": "both",
+          "do": "Descend and leave at lower left once all boards are gone."
+        }
+      ],
+      "flags": [
+        "bottomTrapWeighted",
+        "topTrapOpen",
+        "middleTrapOpen",
+        "lowerTrapOpen"
+      ],
+      "puzzle": {
+        "requiredSuccessfulRocks": 3,
+        "requiredLowerDirections": [
+          1,
+          -1
+        ],
+        "bellSpawnsBats": true,
+        "mechanismCoordinatesApproximate": true
+      },
+      "exit": {
+        "x": 48,
+        "y": 168,
+        "width": 16,
+        "requires": [
+          "boardsBroken3"
+        ],
+        "bothChildren": true
+      },
+      "hazards": [
+        "rolling rocks",
+        "hammer/bell releases bats",
+        "swarm after bell"
+      ]
+    },
+    {
+      "id": 5,
+      "sourceRoomId": 4,
+      "name": "Lebka a ptačí vejce",
+      "videoStart": 343,
+      "videoEnd": 471,
+      "spawn": [
+        {
+          "x": 184,
+          "y": 144
+        },
+        {
+          "x": 128,
+          "y": 112
+        }
+      ],
+      "platforms": [
+        {
+          "x1": 0,
+          "x2": 32,
+          "y": 64
+        },
+        {
+          "x1": 32,
+          "x2": 88,
+          "y": 64
+        },
+        {
+          "x1": 104,
+          "x2": 152,
+          "y": 96
+        },
+        {
+          "x1": 184,
+          "x2": 216,
+          "y": 96
+        },
+        {
+          "x1": 256,
+          "x2": 320,
+          "y": 80
+        },
+        {
+          "x1": 272,
+          "x2": 320,
+          "y": 124
+        },
+        {
+          "x1": 0,
+          "x2": 216,
+          "y": 170
+        },
+        {
+          "x1": 256,
+          "x2": 320,
+          "y": 170
+        }
+      ],
+      "ladders": [
+        {
+          "x": 112,
+          "top": 64,
+          "bottom": 88
+        },
+        {
+          "x": 128,
+          "top": 96,
+          "bottom": 112
+        },
+        {
+          "x": 200,
+          "top": 96,
+          "bottom": 144
+        }
+      ],
+      "objects": [
+        {
+          "id": "bird",
+          "kind": "egg-spawner",
+          "x": 88,
+          "y": 16
+        },
+        {
+          "id": "right-bone",
+          "kind": "hold-up",
+          "x": 264,
+          "y": 16,
+          "effect": "eggBridgeActive"
+        },
+        {
+          "id": "left-bone",
+          "kind": "hold-up",
+          "x": 88,
+          "y": 16
+        },
+        {
+          "id": "eggs",
+          "kind": "pushable-collectibles",
+          "x": 104,
+          "y": 96
+        },
+        {
+          "id": "egg-stack",
+          "kind": "stack-target",
+          "x": 264,
+          "y": 170,
+          "goal": 4,
+          "stepHeight": 8
+        },
+        {
+          "id": "lava-pit",
+          "kind": "hazard",
+          "x": 232,
+          "y": 170,
+          "width": 40
+        },
+        {
+          "id": "upper-exit-ledge",
+          "kind": "exit",
+          "x": 288,
+          "y": 124
+        }
+      ],
+      "solution": [
+        {
+          "actor": "collector",
+          "do": "Catch/push geometric eggs dropped by the bird down into the lower-right room."
+        },
+        {
+          "actor": "bone-holder",
+          "do": "Reach the upper-right hanging bone and pull/hold it to operate bridges/stacking mechanism."
+        },
+        {
+          "actor": "collector",
+          "do": "Arrange four eggs at the lower-right ledge; the video shows score increasing by 50 for four successful eggs."
+        },
+        {
+          "actor": "both",
+          "do": "Cross the small lava gap, climb the egg pile and reach the raised right-hand exit."
+        }
+      ],
+      "flags": [
+        "eggBridgeActive"
+      ],
+      "puzzle": {
+        "eggsRequired": 4,
+        "eggCountEvidence": "video343-471, score4905->5105; pilevisible470",
+        "fileDirectionCorrection": "SOLUTION says bottom-left; supplied Atari video clearly stacks and exits bottom-right.",
+        "exactEggMechanismUnverified": true
+      },
+      "exit": {
+        "x": 304,
+        "y": 124,
+        "width": 24,
+        "requires": [
+          "eggStack4"
+        ],
+        "bothChildren": true
+      },
+      "hazards": [
+        "flying skull",
+        "bird",
+        "lava gap"
+      ]
+    },
+    {
+      "id": 6,
+      "sourceRoomId": 5,
+      "name": "Vodní varhany",
+      "videoStart": 473,
+      "videoEnd": 526,
+      "spawn": [
+        {
+          "x": 16,
+          "y": 56
+        },
+        {
+          "x": 32,
+          "y": 56
+        }
+      ],
+      "platforms": [
+        {
+          "x1": 0,
+          "x2": 24,
+          "y": 56
+        },
+        {
+          "x1": 120,
+          "x2": 136,
+          "y": 104
+        },
+        {
+          "x1": 144,
+          "x2": 192,
+          "y": 108
+        },
+        {
+          "x1": 120,
+          "x2": 136,
+          "y": 152
+        },
+        {
+          "x1": 144,
+          "x2": 176,
+          "y": 152
+        },
+        {
+          "x1": 192,
+          "x2": 216,
+          "y": 152
+        },
+        {
+          "x1": 248,
+          "x2": 280,
+          "y": 48
+        },
+        {
+          "x1": 216,
+          "x2": 256,
+          "y": 88
+        },
+        {
+          "x1": 244,
+          "x2": 288,
+          "y": 120
+        },
+        {
+          "x1": 264,
+          "x2": 320,
+          "y": 152
+        }
+      ],
+      "dynamicPlatforms": [
+        {
+          "x1": 32,
+          "x2": 48,
+          "y": 56,
+          "colorGroup": "blue"
+        },
+        {
+          "x1": 64,
+          "x2": 80,
+          "y": 56,
+          "colorGroup": "white"
+        },
+        {
+          "x1": 96,
+          "x2": 112,
+          "y": 56,
+          "colorGroup": "red"
+        },
+        {
+          "x1": 32,
+          "x2": 48,
+          "y": 88,
+          "colorGroup": "blue"
+        },
+        {
+          "x1": 64,
+          "x2": 80,
+          "y": 88,
+          "colorGroup": "white"
+        },
+        {
+          "x1": 96,
+          "x2": 112,
+          "y": 88,
+          "colorGroup": "red"
+        },
+        {
+          "x1": 32,
+          "x2": 48,
+          "y": 120,
+          "colorGroup": "blue"
+        },
+        {
+          "x1": 64,
+          "x2": 80,
+          "y": 120,
+          "colorGroup": "white"
+        },
+        {
+          "x1": 96,
+          "x2": 112,
+          "y": 120,
+          "colorGroup": "red"
+        },
+        {
+          "x1": 32,
+          "x2": 48,
+          "y": 152,
+          "colorGroup": "blue"
+        },
+        {
+          "x1": 64,
+          "x2": 80,
+          "y": 152,
+          "colorGroup": "white"
+        },
+        {
+          "x1": 96,
+          "x2": 112,
+          "y": 152,
+          "colorGroup": "red"
+        }
+      ],
+      "ladders": [
+        {
+          "x": 128,
+          "top": 104,
+          "bottom": 144
+        }
+      ],
+      "objects": [
+        {
+          "id": "blue-key",
+          "kind": "water-pressure-plate",
+          "x": 152,
+          "y": 108,
+          "colorGroup": "blue"
+        },
+        {
+          "id": "white-key",
+          "kind": "water-pressure-plate",
+          "x": 168,
+          "y": 108,
+          "colorGroup": "white"
+        },
+        {
+          "id": "red-key",
+          "kind": "water-pressure-plate",
+          "x": 184,
+          "y": 108,
+          "colorGroup": "red"
+        },
+        {
+          "id": "organ",
+          "kind": "timed-platform-controller",
+          "x": 168,
+          "y": 48
+        },
+        {
+          "id": "water",
+          "kind": "hazard",
+          "x": 160,
+          "y": 168,
+          "width": 256
+        },
+        {
+          "id": "right-exit",
+          "kind": "exit",
+          "x": 304,
+          "y": 152
+        }
+      ],
+      "solution": [
+        {
+          "actor": "first-child",
+          "do": "Time jumps over the three colored short platforms, descending toward the central ladder/organ platform."
+        },
+        {
+          "actor": "first-child",
+          "do": "Wait safely at central ladder while second child crosses the left chasm."
+        },
+        {
+          "actor": "second-child",
+          "do": "Cross via colored platforms; proceed from organ keys to right rock ledges."
+        },
+        {
+          "actor": "both",
+          "do": "Descend/jump through the right ledges to the lower-right exit. Both must arrive."
+        }
+      ],
+      "puzzle": {
+        "mode": "timed-color-platforms",
+        "waterDropsTriggerKeys": true,
+        "colorGroups": [
+          "blue",
+          "white",
+          "red"
+        ],
+        "notAMusicalNotePuzzle": true,
+        "requiresCooperativeHolding": false,
+        "timingAndDetailedPlateLogicUnverified": true
+      },
+      "exit": {
+        "x": 304,
+        "y": 152,
+        "width": 24,
+        "requires": [],
+        "bothChildren": true
+      },
+      "hazards": [
+        "water",
+        "flying enemies",
+        "vanishing colored support"
+      ]
+    },
+    {
+      "id": 7,
+      "sourceRoomId": 6,
+      "name": "Vodopád a chobotnice",
+      "videoStart": 528,
+      "videoEnd": 606,
+      "spawn": [
+        {
+          "x": 96,
+          "y": 64
+        },
+        {
+          "x": 152,
+          "y": 32
+        }
+      ],
+      "platforms": [
+        {
+          "x1": 144,
+          "x2": 200,
+          "y": 16
+        },
+        {
+          "x1": 176,
+          "x2": 216,
+          "y": 52
+        },
+        {
+          "x1": 216,
+          "x2": 248,
+          "y": 48
+        },
+        {
+          "x1": 56,
+          "x2": 88,
+          "y": 96
+        },
+        {
+          "x1": 104,
+          "x2": 136,
+          "y": 96
+        },
+        {
+          "x1": 280,
+          "x2": 320,
+          "y": 116
+        },
+        {
+          "x1": 0,
+          "x2": 40,
+          "y": 136
+        },
+        {
+          "x1": 192,
+          "x2": 216,
+          "y": 160
+        }
+      ],
+      "ladders": [
+        {
+          "x": 232,
+          "top": 40,
+          "bottom": 60
+        },
+        {
+          "x": 160,
+          "top": 88,
+          "bottom": 144
+        }
+      ],
+      "rails": [
+        {
+          "x1": 144,
+          "x2": 200,
+          "y": 16
+        },
+        {
+          "x1": 176,
+          "x2": 216,
+          "y": 52
+        }
+      ],
+      "objects": [
+        {
+          "id": "release-bone",
+          "kind": "hold-up",
+          "x": 96,
+          "y": 24,
+          "effect": "cageReleased"
+        },
+        {
+          "id": "cage",
+          "kind": "float-platform",
+          "x": 100,
+          "y": 112,
+          "waterY": 160,
+          "width": 16
+        },
+        {
+          "id": "lock-bar",
+          "kind": "hang-up",
+          "x": 100,
+          "y": 112,
+          "effect": "flipperUnlocked"
+        },
+        {
+          "id": "left-flipper",
+          "kind": "bounce-platform",
+          "x": 72,
+          "y": 96
+        },
+        {
+          "id": "right-flipper",
+          "kind": "bounce-platform",
+          "x": 120,
+          "y": 96
+        },
+        {
+          "id": "octopus-pool",
+          "kind": "drainable-water",
+          "x": 256,
+          "y": 144
+        },
+        {
+          "id": "octopus",
+          "kind": "exit-blocker",
+          "x": 256,
+          "y": 128
+        },
+        {
+          "id": "right-exit",
+          "kind": "exit",
+          "x": 304,
+          "y": 116
+        }
+      ],
+      "solution": [
+        {
+          "actor": "bone-holder",
+          "do": "Reach upper hanging bone; pull it so suspended cage falls into the lower stream."
+        },
+        {
+          "actor": "bar-holder",
+          "do": "Ride/stand on floating cage to reach and hang from locking bar beneath flippers."
+        },
+        {
+          "actor": "bone-holder",
+          "do": "Release bone once cage has dropped, climb to right flipper and bounce on it while other child holds bar."
+        },
+        {
+          "actor": "both",
+          "do": "Pumping lowers octopus lake until the creature drops out of the exit path; cross to right exit."
+        }
+      ],
+      "flags": [
+        "cageReleased",
+        "barHeld",
+        "lakeDrained"
+      ],
+      "puzzle": {
+        "releaseIsLatched": true,
+        "pumpRequires": "barHeld",
+        "suggestedPumpCount": 3,
+        "pumpCountUnverified": true,
+        "drainIsLatched": true
+      },
+      "exit": {
+        "x": 304,
+        "y": 116,
+        "width": 24,
+        "requires": [
+          "lakeDrained"
+        ],
+        "bothChildren": true
+      },
+      "hazards": [
+        "bats",
+        "water",
+        "octopus until lakeDrained"
+      ]
+    },
+    {
+      "id": 8,
+      "sourceRoomId": 7,
+      "name": "Pirátská loď a poklad",
+      "videoStart": 608,
+      "videoEnd": 716,
+      "spawn": [
+        {
+          "x": 64,
+          "y": 40,
+          "role": "child"
+        },
+        {
+          "x": 28,
+          "y": 152,
+          "role": "sloth"
+        }
+      ],
+      "platforms": [
+        {
+          "x1": 24,
+          "x2": 88,
+          "y": 44
+        },
+        {
+          "x1": 56,
+          "x2": 88,
+          "y": 84
+        },
+        {
+          "x1": 96,
+          "x2": 152,
+          "y": 84
+        },
+        {
+          "x1": 168,
+          "x2": 216,
+          "y": 84
+        },
+        {
+          "x1": 224,
+          "x2": 272,
+          "y": 52
+        },
+        {
+          "x1": 224,
+          "x2": 272,
+          "y": 84
+        },
+        {
+          "x1": 56,
+          "x2": 168,
+          "y": 124
+        },
+        {
+          "x1": 168,
+          "x2": 272,
+          "y": 124
+        },
+        {
+          "x1": 56,
+          "x2": 256,
+          "y": 164
+        }
+      ],
+      "ladders": [
+        {
+          "x": 40,
+          "top": 44,
+          "bottom": 136
+        },
+        {
+          "x": 64,
+          "top": 44,
+          "bottom": 64
+        },
+        {
+          "x": 104,
+          "top": 84,
+          "bottom": 124
+        },
+        {
+          "x": 144,
+          "top": 84,
+          "bottom": 100
+        },
+        {
+          "x": 200,
+          "top": 124,
+          "bottom": 148
+        },
+        {
+          "x": 232,
+          "top": 84,
+          "bottom": 100
+        },
+        {
+          "x": 170,
+          "top": 0,
+          "bottom": 108
+        }
+      ],
+      "objects": [
+        {
+          "id": "lower-cabin-lever",
+          "kind": "toggle-up",
+          "x": 120,
+          "y": 132,
+          "effects": [
+            "lowerDoor",
+            "mastLift"
+          ]
+        },
+        {
+          "id": "upper-left-lever",
+          "kind": "toggle-up",
+          "x": 80,
+          "y": 52,
+          "effects": [
+            "upperDoor"
+          ]
+        },
+        {
+          "id": "lower-door",
+          "kind": "gate",
+          "x": 88,
+          "y": 124
+        },
+        {
+          "id": "upper-door",
+          "kind": "gate",
+          "x": 88,
+          "y": 84
+        },
+        {
+          "id": "treasure-chest",
+          "kind": "sloth-push",
+          "x": 264,
+          "y": 52,
+          "effect": "motherDistracted"
+        },
+        {
+          "id": "mother",
+          "kind": "deck-patrol",
+          "x": 248,
+          "y": 124
+        },
+        {
+          "id": "mast-boom",
+          "kind": "lift-platform",
+          "x": 184,
+          "y": 76,
+          "width": 24,
+          "raisedY": 58
+        },
+        {
+          "id": "treasure-goal",
+          "kind": "goal",
+          "x": 280,
+          "y": 52
+        }
+      ],
+      "solution": [
+        {
+          "actor": "child",
+          "do": "Descend to the central/lower cabin and move its lever to open route for Sloth."
+        },
+        {
+          "actor": "sloth",
+          "do": "Pass opened door, reach upper-left cabin and operate its lever to open upper route."
+        },
+        {
+          "actor": "sloth",
+          "do": "Reach treasure chest and push right: falling coins lure Mother Fratelli off the ship."
+        },
+        {
+          "actor": "child",
+          "do": "Stand on projecting mast boom (x176-200,y76)."
+        },
+        {
+          "actor": "sloth",
+          "do": "Return to first lower-cabin lever and toggle it again, raising child with mast boom to y58."
+        },
+        {
+          "actor": "child",
+          "do": "Jump right from raised boom to treasure deck."
+        },
+        {
+          "actor": "sloth",
+          "do": "Rejoin child at upper-right treasure; both characters on treasure deck complete game."
+        }
+      ],
+      "flags": [
+        "lowerDoorOpen",
+        "upperDoorOpen",
+        "motherDistracted",
+        "mastRaised"
+      ],
+      "puzzle": {
+        "slothRequiredForChest": true,
+        "lever1FirstUse": "open-lower-route",
+        "lever1LaterUse": "raise-mast",
+        "doorGeometryAndLeverEffectsApproximate": true
+      },
+      "exit": {
+        "x": 280,
+        "y": 52,
+        "width": 48,
+        "requires": [
+          "motherDistracted",
+          "mastRaised"
+        ],
+        "bothChildren": true,
+        "isGameCompletion": true
+      },
+      "hazards": [
+        "Mother Fratelli until distracted",
+        "sea",
+        "falls"
+      ]
+    }
+  ],
+  "completionVideo": [
+    718,
+    741
+  ],
+  "limits": [
+    "Geometry traced from video, not extracted original collision masks.",
+    "Scene6 timing, scene5 detailed stacking logic, scene7 pump count and scene8 door linkage are implementation recommendations with explicit uncertainty.",
+    "Some sourceSolution compass directions disagree with supplied Atari video; video takes precedence."
+  ]
+}
