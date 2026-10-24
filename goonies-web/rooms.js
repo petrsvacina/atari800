@@ -28,7 +28,7 @@
     frame(logical,x,y){const frame=this.game.originalScene.frames[logical]?.[x&3];if(frame)this.draw.push({frame,column:Math.floor(x/4),y});}
     step(inputs){this.update++;this.draw=[...this.actorDraw];this.afterDraw=[];if(this.room===2)this.buckets();else if(this.room===1)this.valvesRoom();else if(this.room===5)this.organ(inputs);else if(this.room===3)this.rocksRoom();else if(this.room===4)this.eggsRoom(inputs);else if(this.room===6)this.octopus();else if(this.room===7)this.ship();}
     controls(value){return{up:!(value&1),down:!(value&2),left:!(value&4),right:!(value&8),jumpDisabled:!!(value&16)};}
-    moveObject(n,input,rectangles){const frame=n.frame;root.GooniesMovement.step(n,input,rectangles,root.GOONIES_ORIGINAL.bodyWidths,root.GOONIES_ORIGINAL.bodyHeights,this.game.contacts);n.frame=frame;}
+    moveObject(n,input,rectangles){const frame=n.frame,result=root.GooniesMovement.step(n,input,rectangles,root.GOONIES_ORIGINAL.bodyWidths,root.GOONIES_ORIGINAL.bodyHeights,this.game.contacts);n.frame=frame;return result;}
     buckets(){
       const d=this.data,g=this.game;
       this.pumpPhase=byte(this.pumpPhase+1);
@@ -37,7 +37,7 @@
         this.bucketClocks[i]-=this.bucketDirection[i]===0?6:1;
         if(this.bucketClocks[i]<0){this.bucketClocks[i]=d.bucketDelays[i];
           if(this.bucketDirection[i]<0){this.bucketY[i]--;if(this.bucketY[i]<25)this.bucketDirection[i]=0;}
-          else {this.bucketY[i]+=3;if(this.bucketY[i]>=39)this.bucketDirection[i]=-1;}
+          else {this.bucketY[i]+=3;if(this.bucketY[i]>=39){this.bucketDirection[i]=-1;g.sound(23);}}
         }
         this.pailWalls(i);
       }
@@ -51,12 +51,12 @@
         this.danger(d.bottomColumns[i]*4+2,bottom[i],d.bottomColumns[i]*4+3,bottom[i]+4,'Pozor na spodní vědro.');
       }
       const weightOn=this.children(129,this.weightY,140,this.weightY+1);
-      if(weightOn.length){this.weightY=Math.min(108,this.weightY+1);for(const p of weightOn)p.jumpDisabled=true;g.rectangles[19].type=128;}
+      if(weightOn.length){if(this.weightY<108){this.weightY++;g.sound(15);}for(const p of weightOn)p.jumpDisabled=true;g.rectangles[19].type=128;}
       else {if(this.weightY>=74)this.weightY--;g.rectangles[19].type=this.weightY>=92?1:128;}
       Object.assign(g.rectangles[20],{y1:this.weightY,y2:this.weightY});
       this.prop(d.ropeFrame,32,(this.weightY&1)+56,this.weightY-69);
       this.prop(d.counterweightFrame,32,this.weightY-13);
-      let y=this.bucketY[3];y=this.bucketDirection[3]<0?Math.max(72,y-1):Math.min(88,y+1);this.bucketY[3]=y;this.pailWalls(3);
+      let y=this.bucketY[3];if(this.bucketDirection[3]<0&&y>72)g.sound(5);y=this.bucketDirection[3]<0?Math.max(72,y-1):Math.min(88,y+1);this.bucketY[3]=y;this.pailWalls(3);
       const crankOn=this.children(57,180,58,191).length>0;this.bucketDirection[3]=crankOn?-1:0;
       this.prop(d.pailFrame,d.pailColumns[3],y);
       this.prop(d.crankFrames[(y^3)&3],14,158);
@@ -86,7 +86,7 @@
       g.rectangles[31].type=this.burst?129:1;
       this.renderAfter=true;this.valveNpc();
       this.valves=0;for(let i=2;i>=0;i--)this.valves=(this.valves<<1)|(this.children(d.valveX[i],d.valveY[i]).length?1:0);
-      if(this.valves===3&&!this.burst){this.burst=1;g.once('pipe','Oba ventily jsou zavřené. Tlak roztrhl potrubí!',200);}
+      if(this.valves===3&&!this.burst){this.burst=1;g.sound(4);g.once('pipe','Oba ventily jsou zavřené. Tlak roztrhl potrubí!',200);}
       for(let i=2;i>=0;i--){const route=d.routes[i*8+this.valves];if(route&128)continue;
         this.danger(d.hazardX[i],d.hazardY[i],d.hazardX[i]+4,d.hazardY[i]+4,'Pozor na proud vody z potrubí.');
         const phase=(this.update&1)?2:0,variant=route+phase;
@@ -105,7 +105,7 @@
       }
       const target=d.npcOrder[this.npcOrder],goal=d.npcStops[target];
       if(!this.npcAtStop){
-        if(byte(this.npcX-goal)<3){this.npcAtStop=true;this.water=16;this.npcWait=24;this.npcX=goal;}
+        if(byte(this.npcX-goal)<3){this.npcAtStop=true;this.water=16;this.npcWait=24;this.npcX=goal;this.game.sound(20);}
         else this.npcX+=this.npcX<goal?2:-2;
         const phase=(this.npcX&2)+(this.npcX>goal?1:0);this.prop(d.npcFrames[phase],Math.floor(this.npcX/4),30);
       } else {
@@ -121,7 +121,7 @@
         this.gunEnabled=true;const goal=d.gunHeight[this.gunAim&15];
         if(!this.gunWait){if(byte(goal-n.y)<2)this.gunWait=1;else this.moveObject(n,{[goal<n.y?'up':'down']:true},g.rectangles);}
         if(this.gunWait){this.gunWait++;if(this.gunWait>=96){this.gunWait=0;this.gunAim=(this.gunAim+1)&15;}
-          else if(this.gunWait===40){const y=d.bulletHeight[this.gunAim];if(this.children(5,y,152,y+12).length)this.bullet={x:5,age:1,aim:this.gunAim};}}
+          else if(this.gunWait===40){const y=d.bulletHeight[this.gunAim];if(this.children(5,y,152,y+12).length){g.sound(3);this.bullet={x:5,age:1,aim:this.gunAim};}}}
       }
       if(this.gunEnabled){let frame=this.gunWait?(this.gunWait<28?0:1):n.climb?(n.y&2)?3:2:0;this.prop(d.gunFrames[frame],Math.floor(n.x/4),n.y);}
     }
@@ -141,20 +141,25 @@
       } else this.prop(d.doorFrame,20,145);
       for(const p of g.players){if(this.doorCooldown[p.id]){this.doorCooldown[p.id]--;p.native.frame|=128;}else p.native.frame&=127;g.syncBody(p);}
       this.danger(2,178,160,178,'Voda dole je příliš hluboká. Použij plovoucí stupínky.');
-      for(let i=2;i>=0;i--){if(this.children(d.plateX[i],121).length)this.plates[i]=4;this.prop(d.plateFrames[i],d.plateColumns[i],121+(this.plates[i]?2:0));}
+      for(let i=2;i>=0;i--){if(this.children(d.plateX[i],121).length){this.plates[i]=4;g.sound(11+i);}this.prop(d.plateFrames[i],d.plateColumns[i],121+(this.plates[i]?2:0));}
       if(this.both(146,161))this.finish();
       for(let i=7;i>=0;i--){const s=this.surface[i];s.phase-=s.speed;if(s.phase<0){s.column=(g.randomByte()&31)+2;if(s.column<6)s.column+=8;s.speed=(g.randomByte()&7)||1;s.phase=s.speed+28;}this.prop(d.surfaceFrame,s.column,175+Math.floor(s.phase/4));}
     }
     rocksRoom(){
       const d=this.data,g=this.game;
-      if(!this.hammerClock&&this.alarmPending){this.spawnBat(d.alarmPaths[this.alarmIndex++]);this.alarmPending--;}
+      if(!this.hammerClock&&this.alarmPending){
+        g.sound(7);
+        if(this.bats.length<6){const slot=Array.from({length:8},(_,i)=>i).find(i=>!this.bats.some(n=>n.slot===i));
+          const n=this.spawnBat(d.alarmPaths[slot]);Object.assign(n,{slot,x:d.alarmX[slot],y:d.alarmY[slot],vx:d.alarmX[slot],vy:d.alarmY[slot]});this.bats.sort((a,b)=>a.slot-b.slot);}
+        this.alarmPending--;
+      }
       for(let i=0;i<9;i++)this.stoneRectangles[d.gateIndices[i]].type=d.gateClosedTypes[i];
       for(let gate=0;gate<3;gate++)if(this.children(97,31+gate*40).length)for(let i=gate*3;i<gate*3+3;i++)this.stoneRectangles[d.gateIndices[i]].type=d.gateOpenTypes[i];
       this.seat=this.children(88,174,88,188).length>0;
       const seat=this.seat?1:0;this.prop(d.seatFrames[seat],d.seatColumns[seat],d.seatRows[seat]);this.prop(d.trapFrames[seat],d.trapColumns[seat],d.trapRows[seat]);
       for(let i=0;i<this.boards;i++)this.prop(d.boardFrame,5,d.boardRows[i]);g.rectangles[16].type=this.boards?3:131;
-      if(this.hammer>=7){this.hammer=0;this.hammerClock=6;this.alarmPending=5;this.alarmIndex=0;}
-      let hammer=this.hammer;if(this.hammerClock){this.hammerClock--;hammer=this.hammerClock;}
+      if(this.hammer>=7){this.hammer=0;this.hammerClock=6;this.alarmPending=5;}
+      let hammer=this.hammer;if(this.hammerClock){hammer=this.hammerClock;this.hammerClock--;}
       this.prop(d.hammerFrames[hammer],d.hammerColumns[hammer],d.hammerRows[hammer]);
       for(let i=8;i>=0;i--)if(d.gateVisible[i]&&!((this.stoneRectangles[d.gateIndices[i]].type^d.gateSigns[i])&128))this.prop(d.gateFrames[i],d.gateColumns[i],d.gateRows[i]);
       g.state.boards=this.boards;
@@ -166,7 +171,8 @@
       else for(let i=32;i>=21;i--){const r=this.stoneRectangles[i];if(!this.overlap(n,r.x1-1,r.y1,r.x2+1,r.y2))continue;const k=i-21;
         if(!(k<6&&(r.type&128)))n.controls=d.stoneControls[k];
         if(d.stoneReset[k]){if(k===11)this.hammer++;if(k===10&&this.boards){this.boards--;g.addScore(35);g.emit('puzzle');}Object.assign(n,{x:144,y:18,vx:0,vy:0,climb:0,direction:0,moving:0,frame:30,controls:25});}break;}
-      this.moveObject(n,this.controls(n.controls),this.stoneRectangles.slice(0,23));
+      const input=this.controls(n.controls),result=this.moveObject(n,input,this.stoneRectangles.slice(0,23));
+      if(result.leftAllowed&&input.left||result.rightAllowed&&input.right)g.sound(22);
     }
     octopus(){
       const d=this.data,g=this.game,n=this.cage;
@@ -177,7 +183,7 @@
       const lock=this.children(36,142).length>0;g.rectangles[33].type=lock?6:134;
       if(!lock)this.prop(d.lockFrame,9,112);
       for(let i=1;i>=0;i--){const touched=this.children(d.flipperX1[i],d.flipperY1[i],d.flipperX2[i],d.flipperY2[i]).length>0;
-        if(touched&&(i!==0||lock)){if(i===0&&!this.draining){this.draining=true;g.once('drain','Voda odtéká a chobotnice klesá. Oba do pravého tunelu!',500);}this.prop(d.flipperFrames[i],d.flipperColumns[i],d.flipperRows[i]);}
+        if(touched&&(i!==0||lock)){if(i===0&&!this.draining){this.draining=true;g.sound(9);g.once('drain','Voda odtéká a chobotnice klesá. Oba do pravého tunelu!',500);}this.prop(d.flipperFrames[i],d.flipperColumns[i],d.flipperRows[i]);}
         else this.prop(d.flipperIdleFrames[i],d.flipperIdleColumns[i],d.flipperIdleRows[i]);}
       if(this.draining&&this.waterY<150)this.waterY++;
       if(this.update%5===0)this.headPhase=(this.headPhase+1)&3;if(this.update%20===0)this.waterPhase=(this.waterPhase+1)&3;
@@ -204,6 +210,7 @@
       for(let i=2;i>=0;i--){const open=!!(mask&(1<<(2-i)));this.prop(d.hatchFrames[open?1:0],d.hatchColumns[i],d.hatchRows[i]);g.rectangles[d.hatchFloor[i]].type=open?4:3;g.rectangles[d.hatchCeiling[i]].type=open?128:2;}
       const oldLift=this.liftY,sloth=g.players.find(p=>p.native.baseFrame!==0);
       if(sloth&&this.overlap(sloth.native,81,126)){if(this.liftY>=47)this.liftY--;}else if(this.liftY<90)this.liftY++;
+      if(this.liftY!==oldLift)g.sound(15);
       g.rectangles[45].y1=g.rectangles[45].y2=this.liftY;g.rectangles[46].y1=this.liftY+3;g.rectangles[46].y2=this.liftY+6;
       this.prop(d.liftFrame,22,oldLift);
       for(const p of g.players.filter(p=>g.mode==='two'||p.id===g.selected))if(this.overlap(p.native,this.chestX,64)&&p.native.vx>0&&this.chestX+p.native.vx<144)this.chestX+=p.native.vx;
@@ -211,9 +218,10 @@
       else g.rectangles[52].type=128;
       this.prop(d.hatchFrames[this.chestX>=134?1:0],18,139);
       this.prop(d.chestFrames[(this.chestX>=134?4:0)+(this.chestX&3)],Math.floor(this.chestX/4),57);
-      for(const coin of this.coins){coin.y+=5;if(coin.y<180)this.prop(d.coinFrame,35,coin.y);}this.coins=this.coins.filter(c=>c.y<180);
+      for(const coin of this.coins){coin.y+=5;if(coin.y<180)this.prop(d.coinFrame,35,coin.y);else g.sound(21);}this.coins=this.coins.filter(c=>c.y<180);
+      if(g.phase==='playing'&&this.children(137,178,159,178).length)g.sound(10);
       this.danger(137,178,159,178,'Pozor na moře za lodí.');
-      if(this.mother.type!==0&&this.mother.type!==15&&this.overlap(this.mother,137,178,159,178)){this.mother.type=15;this.mother.moving=8;g.addScore(100);}
+      if(this.mother.type!==0&&this.mother.type!==15&&this.overlap(this.mother,137,178,159,178)){this.mother.type=15;this.mother.moving=8;g.sound(10);g.addScore(100);}
       const pulley=(this.liftY&12)>>2;this.propAfter(d.pulleyFrames[pulley],19,d.pulleyY[pulley]);
       g.state.treasure=this.chestX>=134;g.state.boomRaised=this.liftY<48;
       if(this.both(144,64))this.finish();
@@ -283,7 +291,7 @@
     }
     spawnBat(path=0,direction=0){
       const route=this.data.batPaths[path];if(!route)return;
-      this.bats.push({type:4,x:route.x[0],y:route.y[0],vx:route.x[0],vy:route.y[0],frame:16,moving:16,climb:path,direction,baseFrame:0});
+      const n={type:4,x:route.x[0],y:route.y[0],vx:route.x[0],vy:route.y[0],frame:16,moving:16,climb:path,direction,baseFrame:0};this.bats.push(n);return n;
     }
     batActors(){
       const d=this.data;
@@ -305,7 +313,7 @@
       for(const n of this.actors){const lane=n.climb;
         if(n.moving){if(!n.vy){n.frame=47;n.vy=1;}else{n.y=d.dropY[lane];const before=n.moving--;n.frame=before>=7?43:44;}continue;}
         const velocity=n.vy+1;if(velocity<5)n.vy=velocity;n.y+=velocity;
-        if(n.y>=d.dropEnd[lane]){if(lane>=3&&lane<6){n.y-=7;this.plates[lane-3]=16;}n.moving=(g.randomByte()&63)+(lane>=3&&lane<6?32:lane>=6?49:48);n.x=d.dropX[lane];n.vy=0;n.frame=47;}
+        if(n.y>=d.dropEnd[lane]){if(lane>=3&&lane<6){n.y-=7;this.plates[lane-3]=16;g.sound(11+lane-3);}else g.sound(10);n.moving=(g.randomByte()&63)+(lane>=3&&lane<6?32:lane>=6?49:48);n.x=d.dropX[lane];n.vy=0;n.frame=47;}
         else {this.danger(n.x+2,n.y,n.x+2,n.y+3,'Pozor na padající kapku.');n.frame=(n.y&4)?45:46;}
       }
     }

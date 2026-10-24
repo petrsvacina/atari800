@@ -8,6 +8,7 @@
       this.createContext = options.createContext || (() => { const C = root.AudioContext || root.webkitAudioContext; return C ? new C() : null; });
       this.decode = options.decode || (data => root.atob(data)); this.onStatus = options.onStatus || (() => {});
       this.tracks = {}; this.buffers = new Map(); this.voices = new Set(); this.context = null;
+      this.effects = new Map((this.assets?.effects || []).map(e => [e.id, e])); this.effectId = null; this.gameTrack = 'ingame';
       this.unlocked = false; this.muted = false; this.paused = false; this.preview = false; this.wanted = null; this.attempt = 0; this.pending = null;
     }
     unlock() {
@@ -33,10 +34,11 @@
     stopEffects() {
       for (const voice of this.voices) { voice.onended = null; try { voice.stop(); } catch (_) {} voice.disconnect?.(); }
       this.voices.clear();
+      this.effectId = null;
     }
     sync(active, paused, muted = this.muted) {
       this.paused = paused; this.muted = muted;
-      const wanted = this.unlocked && !paused ? (active ? 'ingame' : this.preview ? 'title' : null) : null;
+      const wanted = this.unlocked && !paused ? (active ? this.gameTrack : this.preview ? 'title' : null) : null;
       if (wanted !== this.wanted) { this.attempt++; this.pending = null; }
       this.wanted = wanted;
       if (paused || muted || !active) this.stopEffects();
@@ -57,13 +59,26 @@
     }
     togglePreview() { this.unlock(); this.preview = !this.preview; }
     play(id) {
+      if (id === 8) { this.stopEffects(); return; }
       if (!this.unlocked || this.muted || this.paused || !this.context || !this.buffers.has(id)) return;
-      // The original effects use one channel; the newest effect replaces it.
+      // Original $8A50-$8A76: printer/bell/stone wait for a free channel;
+      // weight/lift cannot restart themselves. Other requests replace it.
+      if (this.voices.size && ([2, 7, 22].includes(id) || id === 15 && this.effectId === 15)) return;
       this.stopEffects();
       const voice = this.context.createBufferSource(); voice.buffer = this.buffers.get(id); voice.connect(this.output);
-      this.voices.add(voice); voice.onended = () => { this.voices.delete(voice); voice.disconnect?.(); }; voice.start();
+      voice.loop = !!this.effects.get(id)?.loop;
+      this.voices.add(voice); this.effectId = id;
+      voice.onended = () => { this.voices.delete(voice); if (!this.voices.size) this.effectId = null; voice.disconnect?.(); }; voice.start();
     }
-    event(event) { const id = this.assets?.eventEffects?.[event.type]; if (id !== undefined) this.play(id); }
+    event(event) {
+      if (event.type === 'scene') { this.stopEffects(); this.selectMusic(this.assets?.roomMusic?.[event.scene] || 17); return; }
+      if (event.type === 'sound') { if (!this.selectMusic(event.id)) this.play(event.id); return; }
+      const id = this.assets?.eventEffects?.[event.type]; if (id !== undefined) this.play(id);
+    }
+    selectMusic(id) {
+      if (![16, 17, 18, 24].includes(id)) return false;
+      this.gameTrack = id === 16 || id === 24 ? 'title' : 'ingame'; return true;
+    }
   }
   root.GooniesAudio = GooniesAudio;
 })(globalThis);

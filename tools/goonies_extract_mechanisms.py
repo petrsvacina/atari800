@@ -38,7 +38,7 @@ def capture():
     'doorMarkerX':arr(0xa7e2,2),'doorMarkerY':arr(0xa7e4,2),'doorFrame':sprite(0xaa16),
     'dropX':arr(0xa6de,9),'dropY':arr(0xa6e7,9),'dropEnd':arr(0xa6f0,9),'surfaceFrame':sprite(0xaa69)}
   elif room==3:
-   tables={'stoneRectangles':rectangles(0xa7f3,33),'alarmPaths':arr(0x72d5,8),'gateIndices':arr(0xa6b7,9),'gateOpenTypes':arr(0xa6c0,9),'gateClosedTypes':arr(0xa6c9,9),
+   tables={'stoneRectangles':rectangles(0xa7f3,33),'alarmX':arr(0x72d5,8),'alarmY':arr(0x72dd,8),'alarmPaths':arr(0x72e5,8),'gateIndices':arr(0xa6b7,9),'gateOpenTypes':arr(0xa6c0,9),'gateClosedTypes':arr(0xa6c9,9),
     'gateSigns':arr(0xa566,9),'gateVisible':arr(0xa581,9),'gateColumns':arr(0xa56f,9),'gateRows':arr(0xa578,9),'gateFrames':sprites(0xa58a,9),
     'stoneControls':arr(0xa7db,12),'stoneReset':arr(0xa7e7,12),'hammerFrames':sprites(0xa5dc,7),'hammerColumns':arr(0xa5eb,7),'hammerRows':arr(0xa5f3,7),
     'boardFrame':sprite(0xa9ad),'boardRows':arr(0xa628,3),'seatFrames':sprites(0xa692,2),'seatColumns':arr(0xa690,2),'seatRows':arr(0xa68e,2),

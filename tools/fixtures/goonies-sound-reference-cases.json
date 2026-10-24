@@ -1,0 +1,371 @@
+[
+  {
+    "name": "house chair stationary",
+    "scene": 0,
+    "updates": 20,
+    "captureSounds": true
+  },
+  {
+    "name": "house cooler requires rising rightward body",
+    "scene": 0,
+    "actors": {
+      "0": {
+        "x": 21,
+        "y": 135,
+        "vx": 2,
+        "vy": -4,
+        "frame": 0
+      }
+    },
+    "updates": 18,
+    "captureSounds": true
+  },
+  {
+    "name": "bucket crank lifts the hanging pail",
+    "scene": 1,
+    "actors": {
+      "0": {
+        "x": 54,
+        "y": 168,
+        "vx": 0,
+        "vy": 1,
+        "frame": 6
+      }
+    },
+    "updates": 24,
+    "captureSounds": true
+  },
+  {
+    "name": "bucket weight carries its passenger down",
+    "scene": 1,
+    "actors": {
+      "0": {
+        "x": 130,
+        "y": 56,
+        "vx": 0,
+        "vy": 1,
+        "frame": 6
+      }
+    },
+    "updates": 36,
+    "captureSounds": true
+  },
+  {
+    "name": "third valve reroutes water without bursting pipe",
+    "scene": 2,
+    "actors": {
+      "0": {
+        "x": 114,
+        "y": 142,
+        "vx": 0,
+        "vy": 1,
+        "frame": 6
+      },
+      "1": {
+        "x": 122,
+        "y": 62,
+        "vx": 0,
+        "vy": 1,
+        "frame": 14
+      }
+    },
+    "updates": 8,
+    "captureSounds": true
+  },
+  {
+    "name": "two correct valves burst the exit pipe",
+    "scene": 2,
+    "actors": {
+      "0": {
+        "x": 70,
+        "y": 134,
+        "vx": 0,
+        "vy": 1,
+        "frame": 6
+      },
+      "1": {
+        "x": 122,
+        "y": 62,
+        "vx": 0,
+        "vy": 1,
+        "frame": 14
+      }
+    },
+    "updates": 8,
+    "captureSounds": true
+  },
+  {
+    "name": "stone upper chain opens only its three gates",
+    "scene": 3,
+    "actors": {
+      "0": {
+        "x": 94,
+        "y": 31,
+        "vx": 0,
+        "vy": 0,
+        "frame": 5
+      },
+      "1": {
+        "x": 81,
+        "y": 171,
+        "vx": 0,
+        "vy": 1,
+        "frame": 14
+      }
+    },
+    "updates": 40,
+    "captureSounds": true
+  },
+  {
+    "name": "right bone keeps the lava bridge closed",
+    "scene": 4,
+    "actors": {
+      "0": {
+        "x": 127,
+        "y": 38,
+        "vx": 0,
+        "vy": 0,
+        "frame": 5
+      }
+    },
+    "updates": 12,
+    "captureSounds": true
+  },
+  {
+    "name": "egg reaching the receiver raises the real exit ladder",
+    "scene": 4,
+    "actors": {
+      "3": {
+        "type": 8,
+        "x": 134,
+        "y": 176,
+        "vx": 0,
+        "vy": 1,
+        "frame": 31,
+        "direction": 112,
+        "climb": 0,
+        "moving": 0,
+        "baseFrame": 0
+      }
+    },
+    "updates": 8,
+    "captureSounds": true
+  },
+  {
+    "name": "organ pressure plate changes the exact support mask",
+    "scene": 5,
+    "actors": {
+      "0": {
+        "x": 73,
+        "y": 106,
+        "vx": 0,
+        "vy": 1,
+        "frame": 6
+      }
+    },
+    "updates": 12,
+    "captureSounds": true
+  },
+  {
+    "name": "upper bone releases the movable cage",
+    "scene": 6,
+    "actors": {
+      "0": {
+        "x": 45,
+        "y": 44,
+        "vx": 0,
+        "vy": 0,
+        "frame": 5
+      }
+    },
+    "updates": 24,
+    "captureSounds": true
+  },
+  {
+    "name": "lower lock enables flipper and drains the lake",
+    "scene": 6,
+    "actors": {
+      "0": {
+        "x": 33,
+        "y": 142,
+        "vx": 0,
+        "vy": 0,
+        "frame": 5
+      },
+      "1": {
+        "x": 20,
+        "y": 87,
+        "vx": 0,
+        "vy": 1,
+        "frame": 14
+      }
+    },
+    "updates": 32,
+    "captureSounds": true
+  },
+  {
+    "name": "ship overhead lever changes the right hatch colliders",
+    "scene": 7,
+    "actors": {
+      "0": {
+        "x": 39,
+        "y": 71,
+        "vx": 0,
+        "vy": 0,
+        "frame": 5
+      }
+    },
+    "updates": 12,
+    "captureSounds": true
+  },
+  {
+    "name": "Sloth raises the mast with a real passenger",
+    "scene": 7,
+    "actors": {
+      "0": {
+        "x": 88,
+        "y": 72,
+        "vx": 0,
+        "vy": 1,
+        "frame": 6
+      },
+      "1": {
+        "x": 78,
+        "y": 119,
+        "vx": 0,
+        "vy": 1,
+        "frame": 55
+      }
+    },
+    "updates": 40,
+    "captureSounds": true
+  },
+  {
+    "name": "pushing the chest releases coins and lures the mother",
+    "scene": 7,
+    "actors": {
+      "1": {
+        "x": 122,
+        "y": 47,
+        "vx": 2,
+        "vy": 1,
+        "frame": 51
+      }
+    },
+    "selected": 1,
+    "input": {
+      "right": true
+    },
+    "updates": 32,
+    "captureSounds": true
+  },
+  {
+    "name": "house chair moves only when pushed and leaves clean background",
+    "scene": 0,
+    "actors": {
+      "0": {
+        "x": 30,
+        "y": 64,
+        "vx": 0,
+        "vy": 1,
+        "frame": 0
+      }
+    },
+    "input": {
+      "right": true
+    },
+    "updates": 12,
+    "captureSounds": true
+  },
+  {
+    "name": "house money printer runs while occupied",
+    "scene": 0,
+    "actors": {
+      "0": {
+        "x": 120,
+        "y": 18,
+        "vx": 0,
+        "vy": 1,
+        "frame": 6
+      }
+    },
+    "updates": 40,
+    "captureSounds": true
+  },
+  {
+    "name": "stone bell releases its original bat swarm",
+    "scene": 3,
+    "updates": 420,
+    "stopOnHurt": true,
+    "captureSounds": true
+  },
+  {
+    "name": "organ notes and falling drop splashes",
+    "scene": 5,
+    "updates": 300,
+    "stopOnHurt": true,
+    "captureSounds": true
+  },
+  {
+    "name": "bucket machinery and bat soundscape",
+    "scene": 1,
+    "updates": 180,
+    "stopOnHurt": true,
+    "captureSounds": true
+  },
+  {
+    "name": "bird eggs hatch and lava soundscape",
+    "scene": 4,
+    "updates": 176,
+    "stopOnHurt": true,
+    "captureSounds": true
+  },
+  {
+    "name": "gun fires its original effect at an exposed Goonie",
+    "scene": 2,
+    "actors": {
+      "0": {
+        "x": 70,
+        "y": 100,
+        "vx": 0,
+        "vy": 1,
+        "frame": 6
+      }
+    },
+    "memory": {
+      "A94D": 5,
+      "A5C5": 39,
+      "A5C6": 0
+    },
+    "roomState": {
+      "burst": 5,
+      "gunWait": 39,
+      "gunAim": 0
+    },
+    "updates": 12,
+    "stopOnHurt": true,
+    "captureSounds": true
+  },
+  {
+    "name": "bell bat collides at the original moment",
+    "scene": 3,
+    "actors": {
+      "0": {
+        "x": 117,
+        "y": 151,
+        "vx": 0,
+        "vy": 1,
+        "frame": 6
+      }
+    },
+    "memory": {
+      "114D": 5
+    },
+    "roomState": {
+      "alarmPending": 5
+    },
+    "updates": 40,
+    "stopOnHurt": true,
+    "captureSounds": true
+  }
+]

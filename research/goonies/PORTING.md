@@ -20,24 +20,25 @@ Aktuální pohyb je ruční JavaScriptový překlad původních rutin `$0B5A–$
 
 `rooms.js` překládá původní mechanismy sedmi jeskynních/lodních scén; dům je v `engine.js`. Pohybující se podpěry mění stejné kolizní obdélníky jako originál. V `raster.js` se skládá čisté pozadí, rekvizity, postavy a předměty kreslené až za postavami. Čtyři fáze bitmapy podle `x & 3` jsou vodorovné posuny, nikoli časová animace. Židle se proto mění pouze při skutečném tlačení.
 
-Obraz používá původní výřez 320×176 na pozici (8,32) v Canvasu 336×240. RGB paleta je přiblížená dodanému videu; analogová shoda pro všechny Atari monitory se netvrdí. Hudba a 19 efektů zůstaly zachované; podrobnosti přehrávání jsou v `AUDIO.md`.
+Obraz používá původní výřez 320×176 na pozici (8,32) v Canvasu 336×240. RGB paleta je přiblížená dodanému videu; analogová shoda pro všechny Atari monitory se netvrdí. Hudba a 19 efektů pochází z původního driveru. Mechanismy spouštějí původní číselné požadavky, včetně tiskárny, kamene, zvonu, varhan a pohyblivých závaží. Přehrávač respektuje priority a smyčku; podrobnosti jsou v `AUDIO.md`.
 
-Webové doplňky: samostatný trénink, současná hra dvou lidí, česká nápověda, dotykové ovládání, gamepad a automatická pauza při ztrátě okna. Náhodné časy používají nativní generátor, nikoli emulovaný POKEY. Výprava po osmé scéně zobrazí konec; nezačíná další těžší smyčku originálu. HUD, nabídka, délka přechodové obrazovky a napojení zvukových událostí jsou webové provedení.
+Webové doplňky: samostatný trénink, současná hra dvou lidí, česká nápověda, dotykové ovládání, gamepad a automatická pauza při ztrátě okna. Náhodné časy používají nativní generátor, nikoli emulovaný POKEY. Výprava po osmé scéně zobrazí konec; nezačíná další těžší smyčku originálu. HUD, nabídka a délka přechodové obrazovky jsou webové provedení.
 
 ## Ověření
 
-`node tools/test-goonies.mjs` obsahuje 34 regresních kontrol:
+`node tools/test-goonies.mjs` obsahuje 57 regresních kontrol:
 
 - 1 280 kroků pohybu a volby snímku proti původním rutinám XEX ve všech osmi scénách.
 - Osm úvodních kompletních snímků každé místnosti proti ATR, včetně skutečných pozic a kolizí.
 - Šestnáct řízených referenčních situací z originálu: židle a nádrž, rumpál a závaží, tři ventily, řetězové brány, vejce a žebřík, tlakové desky, klec, vypouštění, lodní průlezy, Slothův zdvih s pasažérem a truhla s mincemi.
 - Delší původní běhy ptáka (176 kroků), netopýra u věder (320), vodopádu (80) a kapek/varhan (300). U prvních kolizí se ověřuje i stejný okamžik zásahu.
-- Celkem **1 278 kompletních bitmap** souhlasí pomocí SHA-256 původních 7 040 obrazových bytů, současně se kontrolují tělesné souřadnice obou hráčů a všechny aktivní kolizní obdélníky.
+- Celkem **2 744 kompletních bitmap** souhlasí pomocí SHA-256 původních 7 040 obrazových bytů, současně se kontrolují tělesné souřadnice obou hráčů a všechny aktivní kolizní obdélníky.
+- Dalších 23 situací obsahuje 1 466 úplných obrazových snímků i přesných posloupností číselných zvukových požadavků. Zahrnuje 40 kroků tiskárny, 420 kroků kamene se zvonem a pěti vypuštěnými netopýry, střelbu a samostatný první zásah netopýrem. Opravené jsou i tabulky počátečních souřadnic/tras hejna, opětovné použití původních slotů a šestikroková animace kladiva.
 - Kompletní dům a potrubí prošly novými směrovými a přepínacími replayi s pěti životy. Tyto dva testy nepřesouvají postavy, nevypínají nebezpečí a nenastavují příznaky vyřešení.
 
 Řízené situace záměrně začínají v připravených pozicích; ověřují shodu mechanismu, nikoli celý přístup k němu. **Kompletní ruční průchod všech osmi scén nebyl provedený.** Dřívější replay varhan na odhadované geometrii se jako důkaz nepoužívá. Fyzický telefon a gamepad zůstávají neověřené.
 
-Osm zvukových kontrol ověřuje autoplay, přepnutí skladeb, pauzu, ztlumení, monofonii, PCM a opožděné/odmítnuté přehrávání. Místní Brave ověřil načtení přes `file://`, spuštění původního domu a vykreslení postav/rekvizit. Samostatný subjektivní poslech se nevydává za provedený.
+Čtrnáct zvukových kontrol ověřuje autoplay, původní výběr skladeb, pauzu, ztlumení, monofonii, PCM, priority, opakovaný cyklus tiskárny, smyčku rumpálu a opožděné/odmítnuté přehrávání. Vykreslené hejno bylo také vizuálně zkontrolované. Dřívější Brave ověřil načtení a dům přes `file://`; nový pokus v samostatném okně skončil chybou služby Computer Use, takže nové ruční odehrání v prohlížeči ani subjektivní poslech se nevydává za provedený.
 
 ## Reprodukce
 
@@ -60,6 +61,7 @@ python3 tools/goonies_extract_mechanisms.py --capture
 python3 tools/goonies_capture_movement.py
 python3 tools/goonies_capture_reference.py tools/fixtures/goonies-native-reference-cases.json tools/fixtures/goonies-native-mechanism-oracle.json
 python3 tools/goonies_capture_reference.py tools/fixtures/goonies-native-actors-reference-cases.json tools/fixtures/goonies-native-actors-oracle.json
+python3 tools/goonies_capture_reference.py tools/fixtures/goonies-sound-reference-cases.json tools/fixtures/goonies-sound-oracle.json
 ```
 
-Referenční nástroj mění pouze vstupní hranici joysticku a zdroj náhodného bytu ve vývojovém běhu. Fyziku a scénické rutiny vykonává původní hra. ATR má pomocné rutiny přeložené na jiné adresy než dodaný XEX; například RNG je `$6324` proti `$641D`. Adresy se mezi těmito verzemi nesmějí bez ověření zaměňovat. Dočasné dumpy zůstávají v `/private/tmp` a nejsou závislostí veřejného vydání.
+Referenční nástroj řídí vstup joysticku a zdroj náhodného bytu; ve zvukových scénářích přidá logovací obálku na vstup skutečného audio driveru. Dvě doplňkové situace připravují také datový stav střelce nebo čekajícího hejna. Fyziku a scénické rutiny vykonává původní hra. ATR má pomocné rutiny přeložené na jiné adresy než dodaný XEX; například RNG je `$6324` proti `$641D`. Adresy se mezi těmito verzemi nesmějí bez ověření zaměňovat. Dočasné dumpy zůstávají v `/private/tmp` a nejsou závislostí veřejného vydání.

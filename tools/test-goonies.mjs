@@ -39,16 +39,22 @@ for(const[scene,run]of previews.runs.entries())test(`room ${scene+1}: eight comp
   for(const[index,frame]of run.frames.entries()){updates(game,1);compareFrame(game,frame,`room ${scene+1}, frame ${index+1}`);}
 });
 const mechanisms=fixture('goonies-native-mechanism-oracle.json');
-function scenarioCheck(scenario, randomByte) {
+function scenarioCheck(scenario, randomByte, sounds = false) {
   const game=new Game({scene:scenario.scene,practice:true,randomByte:()=>randomByte});game.randomByte=()=>randomByte;
   if(!scenario.scene)game.state.fireFrame=scenario.initialFirePhase;
   initialRandomActors(game,scenario.initialActors);arrange(game,scenario.actors);game.selected=scenario.selected||0;
-  for(const[index,frame]of scenario.frames.entries()){const input=[{},{}];input[game.selected]=scenario.input||{};updates(game,1,input);compareFrame(game,frame,`${scenario.name}, frame ${index+1}`);}
+  if(scenario.roomState)Object.assign(game.rooms,scenario.roomState);
+  game.drainEvents();
+  for(const[index,frame]of scenario.frames.entries()){const input=[{},{}];input[game.selected]=scenario.input||{};updates(game,1,input);compareFrame(game,frame,`${scenario.name}, frame ${index+1}`);
+    if(sounds)assert.deepEqual(Array.from(game.drainEvents()).filter(e=>e.type==='sound').map(e=>e.id),frame.sounds,`${scenario.name}, frame ${index+1} original sound requests`);
+  }
   if(scenario.hurtAt){updates(game,1);assert.equal(game.phase,'hurt',scenario.name+' original collision time');}
 }
 for(const scenario of mechanisms.cases)test(scenario.name+' matches the original room routine',()=>scenarioCheck(scenario,mechanisms.randomByte));
 const actorsOracle=fixture('goonies-native-actors-oracle.json');
 for(const scenario of actorsOracle.cases)test(scenario.name+' matches the original longer simulation',()=>scenarioCheck(scenario,actorsOracle.randomByte));
+const soundOracle=fixture('goonies-sound-oracle.json');
+for(const scenario of soundOracle.cases)test(scenario.name+' matches original picture and sound requests',()=>scenarioCheck(scenario,soundOracle.randomByte,true));
 for(const name of ['house','valves'])test(`complete ${name} puzzle finishes with directional and switch inputs and five lives`,()=>{
   const replay=fixture(`goonies-${name}-native-replay.json`),game=new Game(replay.options);
   for(const step of replay.steps){if(game.selected!==step.actor)game.switchActor();const input=[{},{}];input[step.actor]=step.input;updates(game,step.updates,input);assert.notEqual(game.phase,'hurt');}

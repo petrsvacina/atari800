@@ -67,7 +67,7 @@
     else if (actor.vx < 0) pose = (x & 2) ? 3 : 1;
     else pose = 6;
     actor.frame = actor.baseFrame + pose;
-    return { grounded, rail: hit[7], contacts, hit };
+    return { grounded, rail: hit[7], contacts, hit, leftAllowed, rightAllowed };
   }
   root.GooniesMovement = { step };
 })(globalThis);

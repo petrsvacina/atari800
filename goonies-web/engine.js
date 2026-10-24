@@ -15,6 +15,7 @@
       this.loadScene(clamp(options.scene || 0, 0, this.levels.length - 1));
     }
     emit(type, extra = {}) { this.events.push({ type, ...extra }); }
+    sound(id) { this.emit('sound', { id }); }
     drainEvents() { return this.events.splice(0); }
     addScore(amount) {
       this.score += amount;
@@ -70,6 +71,8 @@
       }
       this.age++;
       if (this.age % 4) return;
+      const music = [17, 24, 18, 18, 17, 0, 17, 17][this.scene];
+      if (music) this.sound(music);
       for (const player of this.players) { this.move(player, inputs[player.id] || {}); if (this.phase !== 'playing') return; }
       if (this.rooms) { this.rooms.stepActors(inputs); if (this.phase === 'playing') this.rooms.step(inputs); }
       else { this.house(); if (this.phase === 'playing') this.exits(); }
@@ -95,13 +98,12 @@
       if (p.escaped) return;
       if (p.invincible) p.invincible--;
       p.nativeMoved = true;
-      const oldVy = p.native.vy;
       const result = root.GooniesMovement.step(p.native, { ...(p.freezeInput ? {} : input), jumpDisabled: !!p.jumpDisabled }, this.rectangles,
         root.GOONIES_ORIGINAL.bodyWidths, root.GOONIES_ORIGINAL.bodyHeights, this.contacts);
       p.jumpDisabled = false;
       p.freezeInput = false;
       this.syncBody(p); p.grounded = result.grounded; p.rail = result.rail ? true : null;
-      if (oldVy >= 0 && p.native.vy < 0 && !p.native.climb) this.emit('jump', { player: p.id });
+      if (result.hit[6] && p.native.vy !== 1) this.sound(14);
       if (p.native.y > 192 && p.native.y < 240) this.hurt('Pozor na propast. Zkus to znovu společně.');
     }
     once(id, message, score = 100) {
@@ -130,6 +132,7 @@
       const operating = actors.some(actor => this.nativeOverlap(actor, { x1: 118, x2: 128, y1: 32, y2: 32 }));
       if (operating) {
         this.once('press', 'Tiskárna pouští peníze z okna. Přepni na druhého Goonieho.');
+        this.sound(2);
         if (!s.pressDirection) {
           if (s.pressY >= 28) {
             s.pressDirection = -1; s.pressY = 28;
@@ -149,7 +152,7 @@
           s.coolerStage = 1; this.once('cooler', 'Nádrž se převrací. Až uhasí oheň, slez krbem do tunelu.');
         }
       } else if (s.coolerStage < 5 && !s.coolerClock) s.coolerStage++;
-      if (coolerBefore === 5) s.fireOff = true;
+      if (coolerBefore === 5) { if (!s.fireOff) this.sound(1); s.fireOff = true; }
       s.cooler = s.coolerStage === 5; s.distracted = s.moneyInside ? 1 : 0;
       this.rectangles[0].x1 = this.rectangles[0].x2 = s.chairRaw + 3;
       this.rectangles[20].type = s.fireOn ? 128 : 4;

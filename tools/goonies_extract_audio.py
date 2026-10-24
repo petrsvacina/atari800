@@ -7,6 +7,9 @@ ROOT=Path(__file__).resolve().parents[1]
 SOURCE_HASH='ccdea8ff8e56b9d09436de1ec64094e2130dee41f2d3d921f8c02f256f16bed7'
 FRAME_HZ=1773447/(114*262)
 FX_IDS=[i for i in range(1,24) if i not in (8,16,17,18)]
+EVENT_EFFECTS={'switch':6}
+ROOM_MUSIC=[17,24,18,18,17,0,17,17]
+EVENT_EVIDENCE='Original numeric requests from game callsites; switch $09C7, room music $0890 in native scene order. See AUDIO.md.'
 
 
 def capture(source):
@@ -54,8 +57,8 @@ def effect_info(memory,identifier):
 def export(memory):
     memory=source_memory(memory);dest=ROOT/'goonies-web/assets';(dest/'audio').mkdir(parents=True,exist_ok=True)
     notes=ROOT/'research/goonies';notes.mkdir(parents=True,exist_ok=True);ffmpeg=shutil.which('ffmpeg') or '/opt/homebrew/bin/ffmpeg'
-    result={'sourceSha256':SOURCE_HASH,'encoding':'s16le','sampleRate':22050,'renderFrameHz':FRAME_HZ,'tracks':{},'loops':{},'eventEffects':{'jump':1,'switch':23,'puzzle':3,'hurt':4,'door':6,'exit':20,'clear':9,'life':21,'complete':19},'eventEffectsEvidence':'Native web-port defaults; original numeric effect data, unverified original event callsites.','effects':[]}
-    manifest={'sourceSha256':SOURCE_HASH,'musicInit':'8E89','musicPlayer':'8F0C','effectPlayer':'8AC9','renderFastplay':262,'renderFrameHz':FRAME_HZ,'files':[],'effectEvents':'Native port mapping is documented in AUDIO.md.'}
+    result={'sourceSha256':SOURCE_HASH,'encoding':'s16le','sampleRate':22050,'renderFrameHz':FRAME_HZ,'tracks':{},'loops':{},'eventEffects':EVENT_EFFECTS,'roomMusic':ROOM_MUSIC,'eventEffectsEvidence':EVENT_EVIDENCE,'effects':[]}
+    manifest={'sourceSha256':SOURCE_HASH,'musicInit':'8E89','musicPlayer':'8F0C','effectPlayer':'8AC9','renderFastplay':262,'renderFrameHz':FRAME_HZ,'files':[],'effectEvents':EVENT_EVIDENCE}
     with tempfile.TemporaryDirectory(prefix='goonies-audio-render-') as tmp:
         tmp=Path(tmp)
         for name,pointer,pattern in [('title',0x8FBE,0x9278),('ingame',0x8FBB,0x8FC1)]:

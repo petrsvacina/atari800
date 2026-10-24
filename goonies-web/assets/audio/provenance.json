@@ -175,5 +175,5 @@
       "pcmSha256": "7ad8d95234d1be596d9f41dd58b781799617037164292dc4b82bd2b203f1c7b8"
     }
   ],
-  "effectEvents": "Native port mapping is documented in AUDIO.md."
+  "effectEvents": "Original numeric requests from game callsites; switch $09C7, room music $0890 in native scene order. See AUDIO.md."
 }

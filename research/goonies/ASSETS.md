@@ -65,4 +65,4 @@ node tools/test-goonies.mjs
 
 Tyto reexporty čtou uložená grafická a číselná data. Nové zachycení přes Atari800 vyžaduje `goonies_extract_assets.py --capture` pro ATR nebo `goonies_extract_physics.py --capture` a následné `goonies_extract_mechanisms.py --capture` pro XEX.
 
-Referenční testy porovnávají 1 278 celých herních bitmap přes SHA-256 všech původních obrazových bytů. Zahrnují také tlačenou židli a čisté místo, které po sobě nechává. Počítají i tělesné pozice a kolize; nejde pouze o kontrolu rozměrů PNG. Rozsah a omezení herního ověření jsou v `PORTING.md`.
+Referenční testy porovnávají 2 744 celých herních bitmap přes SHA-256 všech původních obrazových bytů. Zahrnují také tlačenou židli a čisté místo, které po sobě nechává. Počítají i tělesné pozice a kolize; nejde pouze o kontrolu rozměrů PNG. Rozsah a omezení herního ověření jsou v `PORTING.md`.
