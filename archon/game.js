@@ -1,0 +1,217 @@
+(function(){
+  'use strict';
+  const $=id=>document.getElementById(id),E=ArchonEngine,A=ARCHON_ASSETS,P=ARCHON_PALETTE;
+  const canvas=$('arena'),ctx=canvas.getContext('2d'),B={x:70,y:28,cell:20},keys=new Set(),touches=new Map();
+  const store={get(k,d){try{return localStorage.getItem('archon-'+k)||d;}catch(_){return d;}},set(k,v){try{localStorage.setItem('archon-'+k,v);}catch(_){}}};
+  let game=null,paused=false,muted=store.get('muted','false')==='true',last=0,accumulator=0,stamp='',armyTab='light';
+  let touchFire=false,boardFire=false,boardRepeat=0,padPause=false,padFire=false;
+  const preview=new E.Game({mode:'two'}),audio=new ArchonAudio({onStatus:s=>$('audio-status').textContent=s});
+  const tips={0:'Velmi rychlá střela a pohyb po zemi. Využij dlouhý dostřel.',1:'Teleportuje se na tři pole a sesílá sedm jednorázových kouzel.',2:'Šíp a tři pole po zemi. Drž si od soupeře odstup.',3:'Odolný, ale pomalý. Těžký kámen má dlouhé nabíjení.',4:'Přelétá figury a bojuje vrženým kopím.',5:'Létající bojovník s vysokou odolností a silným proudem vzduchu.',6:'Při ohnivém výbuchu stojí a je nezranitelný. Musí se přiblížit.',7:'Rychle nabíjí, ale útočí jen zblízka.',8:'Silný, velmi rychlý paprsek. Pozemní pohyb omezuje cesta.',9:'Teleportuje se na tři pole a ovládá sedm kouzel temné strany.',10:'Vržené ostny vyžadují přesné míření.',11:'Mnoho životů a těžká střela, pohyb je pomalý. Zvláštní regeneraci nemá.',12:'V aréně přebírá podobu i zbraň soupeře. Přežité rány se zahojí.',13:'Nejsilnější odolnost a ničivá střela. Dlouho se nabíjí.',14:'Působí průběžné zranění širokým křikem. Po uvolnění FIRE se může pohybovat.',15:'Útočí zblízka, dobíjí rychle. Ke střelci se musí dostat.',16:'Dočasně přivolaná bytost. Po jedné bitvě zmizí.',17:'Dočasně přivolaný oheň s rychlým útokem.',18:'Velmi odolný zemní elementál, jeho pohyb je pomalejší.',19:'Vodní elementál s odolností a silnou střelou.'};
+  const spellTips={teleport:'Přesune vlastní neuvězněnou figuru kamkoli mimo magické body; může napadnout nepřítele.',heal:'Obnoví základní životy vybrané figury mimo magické body.',shiftTime:'Obrátí tok času. Na vrcholu světla či tmy přeskočí na opačný vrchol.',exchange:'Prohodí dvě neuvězněné figury mimo magické body.',summonElemental:'Náhodný elementál napadne nepřítele mimo magický bod. Po bitvě mizí.',revive:'Vrátí padlou vlastní figuru na volné pole vedle mága.',imprison:'Znehybní nepřítele do jeho příznivého vrcholu. Uvězněný se stále brání.'};
+  function bitmap(rows,color){const c=document.createElement('canvas');c.width=16;c.height=rows.length;const g=c.getContext('2d');g.fillStyle=color;for(let y=0;y<rows.length;y++)for(let x=0;x<8;x++)if(rows[y]&(128>>x))g.fillRect(x*2,y,2,1);return c;}
+  const colors={light:P.light,dark:P.dark};
+  const sprites={},projectiles={},areas={};
+  for(const side of E.SIDES){
+    sprites[side]=A.units.map(u=>u.frames.map(rows=>bitmap(rows,colors[side])));
+    projectiles[side]=A.units.map(u=>u.projectile.frames.map(rows=>bitmap(rows,colors[side])));
+    areas[side]={phoenix:bitmap(A.areaEffects.phoenix.rows,colors[side]),banshee:bitmap(A.areaEffects.banshee.rows,colors[side])};
+  }
+  for(const id of ['mode','difficulty']){
+    const value=store.get(id,$(id).value);if([...$(id).options].some(o=>o.value===value))$(id).value=value;
+    $(id).addEventListener('change',()=>{store.set(id,$(id).value);settings();});
+  }
+  function settings(){$('mode').disabled=!!game;$('difficulty').disabled=!!game||$('mode').value==='two';$('music-preview').disabled=!!game;}
+  function clearInput(){keys.clear();touches.clear();touchFire=false;boardFire=false;boardRepeat=0;for(const b of document.querySelectorAll('.held'))b.classList.remove('held');}
+  function syncAudio(){audio.sync(!!game,paused,muted);}
+  function soundUI(){$('mute').innerHTML=`${muted?'♩ Ztlumeno':'♪ Zvuk'} <kbd>M</kbd>`;$('mute').setAttribute('aria-pressed',String(muted));$('music-preview').textContent=audio.preview?'Ⅱ Zastavit titulní hudbu':'♪ Poslechnout původní titulní hudbu';}
+  function start(){
+    clearInput();audio.unlock();audio.preview=false;
+    game=new E.Game({mode:$('mode').value==='two'?'two':'solo',humanSide:$('mode').value==='dark'?'dark':'light',difficulty:$('difficulty').value});
+    globalThis.archon=game;paused=false;accumulator=0;stamp='';$('screen').classList.add('is-playing');settings();syncAudio();updateUI();$('start').blur();canvas.focus({preventScroll:true});
+  }
+  function menu(){game=null;globalThis.archon=null;paused=false;clearInput();accumulator=0;stamp='';$('screen').classList.remove('is-playing');settings();syncAudio();updateUI();}
+  function pause(value){if(!game||game.phase==='over')return;paused=value;clearInput();accumulator=0;stamp='';syncAudio();updateUI();}
+  function toggleMute(){audio.unlock();muted=!muted;store.set('muted',String(muted));syncAudio();soundUI();}
+  async function fullscreen(){try{if(document.fullscreenElement)await document.exitFullscreen();else await $('screen').requestFullscreen();}catch(_){$('message').textContent='Celou obrazovku tento prohlížeč nepovolil.';}}
+  function confirm(){if(!game||paused)return;if(game.phase==='board')game.selectCell(game.cursor.x,game.cursor.y);else if(game.phase==='arena-intro'){game.phase='arena';game.emit('fight');}stamp='';}
+  $('start').addEventListener('click',()=>paused?pause(false):start());$('pause').addEventListener('click',()=>pause(!paused));$('menu').addEventListener('click',menu);$('mute').addEventListener('click',toggleMute);$('fullscreen').addEventListener('click',fullscreen);
+  $('cancel').addEventListener('click',()=>{game?.cancel();stamp='';});
+  $('music-preview').addEventListener('click',()=>{audio.togglePreview();syncAudio();soundUI();});
+  const controls=new Set(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space','KeyW','KeyA','KeyS','KeyD','KeyQ']);
+  document.addEventListener('keydown',event=>{
+    if(event.ctrlKey||event.metaKey||event.altKey||/^(INPUT|SELECT|TEXTAREA)$/.test(event.target.tagName))return;
+    if(game&&controls.has(event.code)){event.preventDefault();keys.add(event.code);}
+    if(event.repeat)return;
+    if(event.code==='KeyP'){if(game){event.preventDefault();pause(!paused);}}
+    else if(event.code==='Escape'){
+      if(game){event.preventDefault();if(!paused&&game.phase==='board'&&(game.selected||game.spell)){game.cancel();stamp='';}else pause(!paused);}
+    }else if(event.code==='KeyM'){event.preventDefault();toggleMute();}
+    else if(event.code==='KeyR'){event.preventDefault();menu();}
+    else if(event.code==='KeyF'){event.preventDefault();fullscreen();}
+    else if(event.code==='Enter'&&!/^(BUTTON|A)$/.test(event.target.tagName)){
+      event.preventDefault();if(!game||game.phase==='over')start();else if(paused)pause(false);else confirm();
+    }
+  });
+  document.addEventListener('keyup',event=>keys.delete(event.code));
+  window.addEventListener('blur',()=>{clearInput();pause(true);});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){clearInput();pause(true);}});
+  function logicalPoint(event){const box=canvas.getBoundingClientRect(),scale=Math.min(box.width/320,box.height/240);return{x:(event.clientX-box.left-(box.width-320*scale)/2)/scale,y:(event.clientY-box.top-(box.height-240*scale)/2)/scale};}
+  canvas.addEventListener('pointerdown',event=>{
+    if(!game||paused||event.button>0)return;event.preventDefault();canvas.focus({preventScroll:true});
+    if(game.phase==='board'){
+      const p=logicalPoint(event),x=Math.floor((p.x-B.x)/B.cell),y=Math.floor((p.y-B.y)/B.cell);
+      if(game.inBoard(x,y)){game.cursor={x,y};game.selectCell(x,y);stamp='';}
+    }else if(game.phase==='arena-intro')confirm();
+  });
+  function bindTouch(button,fire=false){
+    button.addEventListener('pointerdown',event=>{event.preventDefault();button.setPointerCapture(event.pointerId);button.classList.add('held');if(fire)touchFire=true;else touches.set(event.pointerId,button.dataset.dir.split(',').map(Number));audio.unlock();});
+    const release=event=>{if(fire)touchFire=false;else touches.delete(event.pointerId);button.classList.remove('held');};for(const name of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(name,release);
+  }
+  for(const b of document.querySelectorAll('[data-dir]'))bindTouch(b);bindTouch($('touch-fire'),true);
+  function input(){
+    const primary={x:Number(keys.has('ArrowRight'))-Number(keys.has('ArrowLeft')),y:Number(keys.has('ArrowDown'))-Number(keys.has('ArrowUp')),fire:keys.has('Space')||touchFire};
+    const secondary={x:Number(keys.has('KeyD'))-Number(keys.has('KeyA')),y:Number(keys.has('KeyS'))-Number(keys.has('KeyW')),fire:keys.has('KeyQ')};
+    for(const[x,y]of touches.values()){primary.x+=x;primary.y+=y;}
+    let pads=[];try{pads=Array.from(navigator.getGamepads?.()||[]).filter(Boolean);}catch(_){}
+    let pressedPause=false,pressedFire=false;
+    for(let i=0;i<Math.min(2,pads.length);i++){
+      const p=pads[i],b=p.buttons,target=i===0?primary:secondary;
+      const x=b[15]?.pressed?1:b[14]?.pressed?-1:Math.abs(p.axes[0]||0)>.3?Math.sign(p.axes[0]):0;
+      const y=b[13]?.pressed?1:b[12]?.pressed?-1:Math.abs(p.axes[1]||0)>.3?Math.sign(p.axes[1]):0;
+      if(x||y){target.x=x;target.y=y;}target.fire ||= !!(b[0]?.pressed||b[1]?.pressed);pressedPause ||= !!b[9]?.pressed;pressedFire ||= !!b[0]?.pressed;
+    }
+    if(pressedPause&&!padPause&&game)pause(!paused);if(pressedFire&&!padFire&&!game)start();padPause=pressedPause;padFire=pressedFire;
+    const inputs=game?.mode==='solo'&&game.humanSide==='dark'?[secondary,primary]:[primary,secondary];
+    return{primary,inputs};
+  }
+  function boardInput(primary,delta){
+    if(!game||paused||game.phase!=='board'&&game.phase!=='arena-intro')return;
+    boardRepeat=Math.max(0,boardRepeat-delta);
+    if(game.phase==='board'&&!game.aiTurn&&(primary.x||primary.y)&&boardRepeat<=0){
+      game.cursor.x=Math.max(0,Math.min(8,game.cursor.x+Math.sign(primary.x)));game.cursor.y=Math.max(0,Math.min(8,game.cursor.y+Math.sign(primary.y)));boardRepeat=135;stamp='';
+    }
+    if(primary.fire&&!boardFire)confirm();boardFire=primary.fire;
+  }
+  const spellButtons=new Map();
+  for(const[key,name]of Object.entries(E.SPELLS)){
+    const button=document.createElement('button');button.type='button';button.title=spellTips[key];button.innerHTML=`${name}<span>◇</span>`;
+    button.addEventListener('click',()=>{if(!game)return;game.beginSpell(key);stamp='';updateUI();button.blur();canvas.focus({preventScroll:true});});$('spell-list').append(button);spellButtons.set(key,button);
+  }
+  function paintIcon(context,type,side,frame=0,mirror=false,x=0,y=0,scale=1){
+    const bitmap=sprites[side][type][frame]||sprites[side][type][0];context.save();context.translate(x+(mirror?16*scale:0),y);if(mirror)context.scale(-1,1);context.imageSmoothingEnabled=false;context.drawImage(bitmap,0,0,16*scale,16*scale);context.restore();
+  }
+  function bestiary(){
+    $('bestiary').replaceChildren();
+    for(const unit of ARCHON_RULES.units.filter(u=>u.side===armyTab)){
+      const row=document.createElement('div');row.className='beast';const icon=document.createElement('canvas');icon.width=32;icon.height=32;paintIcon(icon.getContext('2d'),unit.id,unit.side==='dark'?'dark':'light',0,unit.side==='dark',0,0,2);
+      const copy=document.createElement('div'),name=document.createElement('b'),stats=document.createElement('small');name.textContent=E.NAMES[unit.id];stats.textContent=`${unit.hp} životů · útok ${unit.damage}${unit.id===12?' / proměna':''}`;copy.append(name,stats);row.append(icon,copy);row.title=tips[unit.id];$('bestiary').append(row);
+    }
+  }
+  for(const b of document.querySelectorAll('[data-army]'))b.addEventListener('click',()=>{armyTab=b.dataset.army;for(const tab of document.querySelectorAll('[data-army]')){const active=tab===b;tab.classList.toggle('selected',active);tab.setAttribute('aria-pressed',String(active));}bestiary();});
+  function updateUI(){
+    const g=game||preview,phase=game?.phase||'menu';
+    const state=[phase,paused,audio.preview,g.turnNumber,g.selected,g.spell?.key,g.spell?.stage,g.spell?.first,g.cursor.x,g.cursor.y,g.message,g.arena?.fighters.map(a=>Math.ceil(a.hp)),g.arena?.fighters.map(a=>Math.ceil(a.cooldown/10))].join('|');if(state===stamp)return;stamp=state;
+    const overlay=!game||paused||phase==='over';$('overlay').hidden=!overlay;$('pause').disabled=!game||phase==='over';$('pause').innerHTML=paused?'▶ Pokračovat <kbd>P</kbd>':'Ⅱ Pauza <kbd>P</kbd>';$('cancel').disabled=!game||paused||phase!=='board'||!game.selected&&!game.spell;
+    if(!game){$('overlay-kicker').textContent='FREE FALL · ELECTRONIC ARTS';$('overlay-title').innerHTML='Na desce rozum.<br>V aréně reflexy.';$('overlay-copy').innerHTML='Ovládni pět magických bodů.<br>Nebo poraz celou soupeřovu armádu.';$('start').innerHTML='ROZEHRÁT ARCHON <span>↵</span>';}
+    else if(paused){$('overlay-kicker').textContent='ČAS NA ROZMYŠLENOU';$('overlay-title').textContent='Hra je pozastavená.';$('overlay-copy').textContent='Deska i aréna počkají. Pokračuj, až budeš připravený.';$('start').innerHTML='POKRAČOVAT <span>↵</span>';}
+    else if(phase==='over'){$('overlay-kicker').textContent=`ODEHRÁNO ${g.turnNumber-1} TAHŮ`;$('overlay-title').textContent=g.message;$('overlay-copy').textContent=g.endReason;$('start').innerHTML='NOVÝ ARCHON <span>↵</span>';}
+    $('phase-label').textContent=paused?'HRA POZASTAVENA':!game?'SVĚTLO A STÍN':phase==='board'?`${E.sideName(g.turn).toUpperCase()} JE NA TAHU`:phase==='over'?'KONEC HRY':phase==='arena-intro'?'VSTUP DO ARÉNY':phase==='arena-result'?'VÝSLEDEK BITVY':'SOUBOJ V ARÉNĚ';
+    $('turn-label').textContent=game?`TAH ${String(g.turnNumber).padStart(2,'0')} · KOLO ${g.round}`:'STRATEGIE SE MĚNÍ V SOUBOJ';
+    const combat=phase.startsWith('arena'),control=g.powerControl;
+    for(let i=0;i<2;i++){
+      const side=i?'dark':'light',f=g.arena?.fighters[i],count=g.liveUnits.filter(u=>u.side===side).length;
+      $(side+'-count').innerHTML=combat&&f?`${Math.ceil(f.hp)} <em>/ ${f.maxHP} HP</em>`:`${count} <em>FIGUR</em>`;
+      $(side+'-points').textContent=`${control[side]} / 5 BODŮ`;
+    }
+    $('cycle-track').replaceChildren();for(let i=0;i<6;i++){const chip=document.createElement('i');chip.style.background=P.board.variable[[0,1,3,4,6,7][i]];chip.className=i===g.luminosity?'active':'';$('cycle-track').append(chip);}
+    const nextIndex=(g.cycleIndex+g.cycleDirection+g.rules.luminosity.cycle.length)%g.rules.luminosity.cycle.length;
+    $('cycle-label').textContent=g.rules.luminosity.cycle[nextIndex]>g.luminosity?'ROZEDNÍVÁ SE':'STMÍVÁ SE';
+    $('message').textContent=!game?'Vyber režim a vstup do hry.':paused?'Hra je pozastavená.':(phase==='board'&&g.lastActionTurn===g.turnNumber-1?g.lastAction+' ':'')+g.message;
+    let unit=g.selectedUnit||g.at(g.cursor.x,g.cursor.y)||g.liveUnits.find(u=>u.side===(game?.humanSide||'light'));
+    let actor=null;if(combat&&g.arena){actor=g.arena.fighters[game.mode==='solo'&&game.humanSide==='dark'?1:0];unit=actor.unitId===g.arena.attacker.id?g.arena.attacker:g.arena.defender;}
+    if(unit){
+      const spec=actor?.spec||g.spec(unit),type=actor?.type??unit.type,side=unit.side==='dark'?'dark':'light',context=$('portrait').getContext('2d');context.clearRect(0,0,64,64);paintIcon(context,type,side,0,side==='dark',8,8,3);
+      $('unit-side').textContent=E.sideName(side).toUpperCase()+(unit.imprisoned?' · UVĚZNĚNO':'');$('unit-name').textContent=E.NAMES[unit.type]+(unit.type===12&&actor?' → '+E.NAMES[type]:'');
+      $('unit-move').textContent=spec.mode==='summoned'?'Pouze přivolaný souboj':`${spec.mode==='ground'?'Pozemní pohyb':spec.mode==='teleport'?'Teleport':'Létání'} · ${spec.move} pole`;
+      $('unit-health').textContent=actor?`${Math.ceil(actor.hp)} / ${actor.maxHP}`:`${unit.health} / ${g.spec(unit).hp}`;$('unit-damage').textContent=unit.type===12&&!actor?'Proměna':spec.damage;
+      $('unit-reload').textContent=spec.reload?(spec.reload/E.HZ).toLocaleString('cs-CZ',{maximumFractionDigits:2})+' s':'—';$('unit-tip').textContent=tips[unit.type];
+      const square=combat?g.arena.square:g.cursor,terrain=g.terrain(square.x,square.y);
+      $('terrain-info').textContent=`${g.isPower(square.x,square.y)?'Magický bod · ':''}${terrain==='cycle'?'Proměnlivé':terrain==='light'?'Světlé':'Tmavé'} pole · Světlo +${g.lifeBonus('light',square.x,square.y)}, Stín +${g.lifeBonus('dark',square.x,square.y)} životů.`;
+    }
+    for(const[key,b]of spellButtons){const used=game?.usedSpells[game.turn].has(key);b.disabled=!game||paused||phase!=='board'||g.aiTurn||!!g.spellStatus(key);b.classList.toggle('used',!!used);b.classList.toggle('active',g.spell?.key===key);b.querySelector('span').textContent=used?'✓':'◇';b.title=(game?g.spellStatus(key)||'':'')||spellTips[key];}
+    const revive=phase==='board'&&g.spell?.key==='revive'&&g.spell.stage===0;$('revive-list').hidden=!revive;
+    $('revive-options').replaceChildren();if(revive)for(const dead of g.units.filter(u=>!u.alive&&u.side===g.turn)){const b=document.createElement('button');b.textContent=E.NAMES[dead.type];b.addEventListener('click',()=>{g.chooseRevive(dead.id);stamp='';updateUI();canvas.focus({preventScroll:true});});$('revive-options').append(b);}
+    soundUI();
+  }
+  function text(value,x,y,color=P.text,align='left',size=7){ctx.font=`bold ${size}px monospace`;ctx.textAlign=align;ctx.fillStyle=color;ctx.fillText(value,x,y);}
+  function squareColor(g,x,y){const t=g.terrain(x,y);return t==='light'?P.board.light:t==='dark'?P.board.dark:P.board.variable[[0,1,3,4,6,7][g.luminosity]];}
+  function drawBoard(g,now){
+    ctx.fillStyle=P.background;ctx.fillRect(0,0,320,240);text('ARCHON',160,18,colors[g.turn],'center',12);
+    ctx.strokeStyle=colors[g.turn];ctx.lineWidth=2;ctx.strokeRect(B.x-3,B.y-3,186,186);
+    const selected=g.selectedUnit,targets=new Set((g.spell?g.spellTargets():selected?g.legalMoves(selected):[]).map(p=>p.x+','+p.y));
+    for(let y=0;y<9;y++)for(let x=0;x<9;x++){
+      const xx=B.x+x*B.cell,yy=B.y+y*B.cell;ctx.fillStyle=squareColor(g,x,y);ctx.fillRect(xx,yy,B.cell,B.cell);
+      if(g.isPower(x,y)){ctx.fillStyle=P.board.power;for(const[dx,dy,w]of [[7,7,6],[5,8,10],[4,9,12],[5,10,10],[7,11,6]])ctx.fillRect(xx+dx,yy+dy,w,1);ctx.fillStyle=squareColor(g,x,y);ctx.fillRect(xx+9,yy+8,2,3);}
+      if(targets.has(x+','+y)){ctx.strokeStyle=g.at(x,y)?'#dd9c55':'#75c9a6';ctx.lineWidth=1;ctx.strokeRect(xx+1.5,yy+1.5,17,17);if(!g.at(x,y)){ctx.fillStyle='#75c9a6';ctx.fillRect(xx+9,yy+9,2,2);}}
+      const unit=g.at(x,y);if(unit){
+        const frame=unit.id===g.selected?Math.floor(now/150)%4:0;
+        paintIcon(ctx,unit.type,unit.side,frame,A.units[unit.type].defaultMirror,xx+2,yy+2);
+        if(unit.imprisoned){ctx.fillStyle='#9fa7c0';for(let dx=4;dx<20;dx+=5)ctx.fillRect(xx+dx,yy+1,1,18);}
+        if(unit.health<g.spec(unit).hp){ctx.fillStyle='#06130c';ctx.fillRect(xx+2,yy+18,16,1);ctx.fillStyle=colors[unit.side];ctx.fillRect(xx+2,yy+18,Math.max(1,Math.floor(16*unit.health/g.spec(unit).hp)),1);}
+      }
+      if(selected?.x===x&&selected?.y===y){ctx.strokeStyle='#f2d783';ctx.strokeRect(xx+.5,yy+.5,19,19);}
+    }
+    for(let i=0;i<9;i++){text(String.fromCharCode(65+i),B.x+i*20+10,220,'#7caa83','center',6);text(String(9-i),B.x-11,B.y+i*20+13,'#7caa83','center',6);}
+    if(game&&!g.aiTurn&&Math.floor(now/350)%2===0){ctx.strokeStyle=P.board.cursor;ctx.lineWidth=1;ctx.strokeRect(B.x+g.cursor.x*20+.5,B.y+g.cursor.y*20+.5,19,19);}
+    const unit=g.selectedUnit||g.at(g.cursor.x,g.cursor.y);if(unit)text((E.NAMES[unit.type]+' · '+(g.spec(unit).mode==='ground'?'PO ZEMI':g.spec(unit).mode==='teleport'?'TELEPORT':'LET')).toUpperCase(),160,234,P.text,'center',7);
+    if(game&&g.aiTurn)text('POČÍTAČ PŘEMÝŠLÍ',160,18,colors[g.turn],'center',6);
+  }
+  function drawActor(actor,arena){
+    if(actor.hp<=0){ctx.fillStyle=colors[actor.side];ctx.fillRect(actor.x-8,actor.y+5,16,2);return;}
+    if(actor.hurt&&Math.floor(arena.elapsed/2)%2===0)return;
+    let type=actor.type;if(game.phase==='arena-intro'&&actor.unitType===12)type=12;
+    const look=actor.look,direction=look.y<0?'up':look.y>0?'down':look.x<0?'left':'right';
+    const group=A.frameGroups.walk[direction],frame=actor.attackTicks?A.frameGroups.attack[direction]:actor.moving?group[Math.floor(actor.walkAge/5)%group.length]:group[0];
+    const phoenixEdge=actor.areaTicks>0&&actor.spec.special==='phoenix'&&(Math.floor(actor.areaAge/8)===0||Math.floor(actor.areaAge/8)>=4);
+    if(!actor.areaTicks||phoenixEdge)paintIcon(ctx,type,actor.side,phoenixEdge?12:frame,direction==='left',Math.round(actor.x)-8,Math.round(actor.y)-8);
+    if(actor.areaTicks>0){
+      const special=actor.spec.special,size=game.areaSize(actor),image=areas[actor.side][special];
+      if(image&&!phoenixEdge)ctx.drawImage(image,Math.round(actor.x-size.rx),Math.round(actor.y-size.ry),size.rx*2,size.ry*2);
+    }
+  }
+  function drawArena(now){
+    const arena=game.arena,g=game;ctx.fillStyle=P.background;ctx.fillRect(0,0,320,240);
+    ctx.fillStyle=squareColor(g,arena.square.x,arena.square.y);ctx.fillRect(10,16,300,184);
+    ctx.strokeStyle=P.arena.border;ctx.lineWidth=2;ctx.strokeRect(9,15,302,186);
+    for(const o of arena.obstacles){const phase=g.obstaclePhase(o),glyph=A.obstacles[(o.offset%3)];
+      const shades=['#00000000',P.arena.obstacleDark,P.arena.obstacleMiddle,P.arena.obstacleLight];
+      for(let i=0;i<64;i++)if(glyph.pixels[i]){ctx.fillStyle=phase===0?P.arena.obstacleDark:phase===1?shades[Math.max(1,glyph.pixels[i]-1)]:shades[glyph.pixels[i]];ctx.fillRect(Math.round(o.x)-4+i%8,Math.round(o.y)-4+Math.floor(i/8),1,1);}
+    }
+    for(const actor of arena.fighters)drawActor(actor,arena);
+    for(const s of arena.shots){
+      const direction=!s.dx?0:!s.dy?1:s.dx*s.dy<0?2:3;
+      const image=projectiles[s.owner][s.type][direction];ctx.save();ctx.translate(Math.round(s.x),Math.round(s.y));if(s.dx<0)ctx.scale(-1,1);ctx.drawImage(image,-8,-4);ctx.restore();
+    }
+    for(let i=0;i<2;i++){
+      const actor=arena.fighters[i],x=i?314:2;ctx.fillStyle='#0a1610';ctx.fillRect(x,16,4,184);ctx.fillStyle=colors[actor.side];const height=Math.max(0,Math.round(184*actor.hp/actor.maxHP));ctx.fillRect(x,200-height,4,height);
+      const xx=i?309:11,align=i?'right':'left';text(E.NAMES[actor.unitType].toUpperCase(),xx,214,colors[actor.side],align,7);
+      const fill=Math.round(60*(1-actor.cooldown/Math.max(1,actor.spec.reload))),left=i?249:11;ctx.fillStyle='#1c3325';ctx.fillRect(left,221,60,3);ctx.fillStyle=colors[actor.side];ctx.fillRect(left,221,Math.max(0,fill),3);
+    }
+    text('NABÍJENÍ ZBRANĚ',160,231,'#86a98a','center',6);
+    if(g.phase==='arena-intro'){
+      banner('SOUBOJ',95);text('ŠIPKY + SPACE  /  WASD + Q',160,117,'#e5ebce','center',6);
+      text('BARVA POLE POSILUJE '+(g.lifeBonus('light',arena.square.x,arena.square.y)>g.lifeBonus('dark',arena.square.x,arena.square.y)?'SVĚTLO':'STÍN'),160,132,'#d4d9b3','center',6);
+    }else if(g.phase==='arena-result')banner(arena.resultText.toUpperCase(),107,9);
+  }
+  function banner(value,y,size=14){ctx.font=`bold ${size}px monospace`;const width=ctx.measureText(value).width;ctx.fillStyle='#08150eea';ctx.fillRect(160-width/2-10,y-size-7,width+20,size+16);text(value,160,y,'#d5dca9','center',size);}
+  function draw(now){ctx.setTransform(2,0,0,2,0,0);ctx.imageSmoothingEnabled=false;if(game?.arena&&game.phase.startsWith('arena'))drawArena(now);else drawBoard(game||preview,now);}
+  function frame(now){
+    const delta=Math.min(100,Math.max(0,now-last||0));last=now;const inputs=input();boardInput(inputs.primary,delta);
+    if(game&&!paused){
+      accumulator+=delta;while(accumulator>=1000/E.HZ){game.tick(inputs.inputs);accumulator-=1000/E.HZ;}
+      for(const event of game.drainEvents())audio.event(event);
+    }
+    updateUI();draw(now);requestAnimationFrame(frame);
+  }
+  settings();bestiary();updateUI();requestAnimationFrame(frame);
+})();

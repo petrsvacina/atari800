@@ -28,5 +28,20 @@
     "logo": "assets/international-karate-logo.svg",
     "source": "karate",
     "featured": false
+  },
+  {
+    "id": "archon",
+    "title": "Archon",
+    "description": "Na desce rozum, v aréně reflexy. Veď armádu Světla nebo Stínu, sesílej kouzla a ovládni pět magických bodů.",
+    "genre": "Strategická · akční",
+    "players": "1–2 hráči",
+    "multiplayer": true,
+    "year": "1983",
+    "author": "Free Fall / EA",
+    "controls": "Myš · klávesnice · gamepad",
+    "image": "assets/archon.png",
+    "logo": "assets/archon-logo.svg",
+    "source": "archon",
+    "featured": false
   }
 ]

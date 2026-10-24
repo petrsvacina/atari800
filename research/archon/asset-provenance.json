@@ -1,0 +1,14 @@
+{
+  "sourceSha256": "44be88e99b08731719966cba0b65d1932c48d50c44111749050f8a9a8d7135df",
+  "relocation": {
+    "sourceStart": "3000",
+    "destinationStart": "1000",
+    "bytes": 27648
+  },
+  "unitPointerTable": "56C0",
+  "projectilePointerTable": "56E8",
+  "terrainAddress": "202B-207B",
+  "fontAddress": "1C00-1DFF",
+  "unitBitmapSha256": "2e22c3522bf73bdd37cfc58cbc82af58dac38db7eb8d5fa0c82941adb614fcb7",
+  "spriteDataSha256": "423e0d2daeb14b7d5b6cbe19edf50a736d7dd2dced8f46ce82563882c36476a4"
+}

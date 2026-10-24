@@ -1,0 +1,196 @@
+{
+  "videoFile": "Archon Atari 8 bit Computer Gameplay Longplay 400 800 XL XE [CokJQ8CI4Xk].mkv",
+  "videoSha256": "26a3cbfbd7d12797f2a60d32d87207a97f850eec5bfdacdd45de5f5cb3b72cce",
+  "framesReviewedSeconds": [
+    10,
+    60,
+    180,
+    400,
+    700
+  ],
+  "sampledAtScaledVideoSize": [
+    960,
+    540
+  ],
+  "method": "Median RGB in broad flat regions; piece colors are foreground color-threshold medians. Scaling/compression colors are an approximation, not hardware calibration.",
+  "samples": [
+    {
+      "name": "background/board dark",
+      "time": 60,
+      "rectangle": [
+        150,
+        100,
+        280,
+        420
+      ],
+      "rgb": [
+        0,
+        23,
+        0
+      ]
+    },
+    {
+      "name": "permanent light square",
+      "time": 60,
+      "rectangle": [
+        522,
+        97,
+        538,
+        119
+      ],
+      "rgb": [
+        161,
+        253,
+        218
+      ]
+    },
+    {
+      "name": "variable square mid shade",
+      "time": 60,
+      "rectangle": [
+        434,
+        96,
+        450,
+        118
+      ],
+      "rgb": [
+        8,
+        136,
+        59
+      ]
+    },
+    {
+      "name": "light pieces",
+      "time": 60,
+      "rectangle": [
+        342,
+        94,
+        395,
+        415
+      ],
+      "rgb": [
+        161,
+        195,
+        66
+      ],
+      "selection": "R>100,G>110,B<130,R>B*1.5"
+    },
+    {
+      "name": "dark pieces",
+      "time": 60,
+      "rectangle": [
+        547,
+        94,
+        604,
+        415
+      ],
+      "rgb": [
+        1,
+        59,
+        123
+      ],
+      "selection": "B>35,B>G*1.3,B>R*1.3"
+    },
+    {
+      "name": "arena floor",
+      "time": 700,
+      "rectangle": [
+        210,
+        80,
+        740,
+        470
+      ],
+      "rgb": [
+        46,
+        176,
+        100
+      ]
+    },
+    {
+      "name": "arena border",
+      "time": 700,
+      "rectangle": [
+        198,
+        90,
+        206,
+        450
+      ],
+      "rgb": [
+        117,
+        25,
+        55
+      ]
+    },
+    {
+      "name": "arena dark obstacle",
+      "time": 700,
+      "rectangle": [
+        300,
+        132,
+        316,
+        151
+      ],
+      "rgb": [
+        0,
+        74,
+        11
+      ]
+    },
+    {
+      "name": "arena bright obstacle",
+      "time": 700,
+      "rectangle": [
+        537,
+        132,
+        553,
+        151
+      ],
+      "rgb": [
+        138,
+        252,
+        201
+      ]
+    }
+  ],
+  "originalBoardColorRegisters": {
+    "lightPiece": "EA",
+    "darkPiece": "94",
+    "lightSquare": "BE",
+    "variableInitial": "B6",
+    "darkSquare": "B0"
+  },
+  "interpolatedColors": "Board variable shades between observed B0/B6/BE, power marker and obstacle middle shade are approximations.",
+  "palette": {
+    "background": "#001700",
+    "text": "#a1fdda",
+    "light": "#a1c342",
+    "dark": "#013b7b",
+    "board": {
+      "dark": "#001700",
+      "light": "#a1fdda",
+      "variable": [
+        "#001700",
+        "#004316",
+        "#046b2d",
+        "#08883b",
+        "#2eb064",
+        "#54ca8b",
+        "#7ae2b2",
+        "#a1fdda"
+      ],
+      "outlineLight": "#a1c342",
+      "outlineDark": "#013b7b",
+      "power": "#63944d",
+      "cursor": "#a1fdda"
+    },
+    "arena": {
+      "floor": "#2eb064",
+      "border": "#751937",
+      "obstacleDark": "#00490b",
+      "obstacleMiddle": "#58c390",
+      "obstacleLight": "#89fcc9",
+      "healthLight": "#a1c342",
+      "healthDark": "#013b7b"
+    }
+  }
+}

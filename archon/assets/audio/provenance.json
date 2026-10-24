@@ -1,0 +1,92 @@
+{
+  "sourceSha256": "44be88e99b08731719966cba0b65d1932c48d50c44111749050f8a9a8d7135df",
+  "originalDriver": "75E7-7B98",
+  "musicPlayer": "762B / 76D7 / 77E3 / 7900",
+  "movementPlayer": "796E",
+  "renderFastplay": 262,
+  "renderFrameHz": 59.376155082362395,
+  "files": [
+    {
+      "file": "audio/title.mp3",
+      "phase": 1,
+      "duration": 26.76,
+      "sha256": "0729e985307927c96e5c7de5dfa5873e3bd1fbd5c01ef29951e4e7411819cfa8"
+    },
+    {
+      "file": "audio/result.mp3",
+      "phase": 5,
+      "duration": 2.4,
+      "sha256": "305fa320bc5a8ad23a0c736247e5cb9049941aa30c6246c8cc5e19d6a53da577"
+    },
+    {
+      "effect": 0,
+      "duration": 0.4042176870748299,
+      "sourceStart": "7AB5",
+      "loop": true,
+      "pcmSha256": "d648e2784e69f6f2abb1c659dae884c2139aa2bc9e23c65f0e262422d7af50f6"
+    },
+    {
+      "effect": 1,
+      "duration": 0.1347392290249433,
+      "sourceStart": "7ACE",
+      "loop": true,
+      "pcmSha256": "83cf947b3ac94b00b8d9d901ffd6d2df590318d3aa67fcacbf12fcb91e1c5100"
+    },
+    {
+      "effect": 2,
+      "duration": 0.3031292517006803,
+      "sourceStart": "7AD7",
+      "loop": true,
+      "pcmSha256": "402fe1f9fa2d82846e84c397d7fca05be1b9d90655bcdd632d64980e305be994"
+    },
+    {
+      "effect": 3,
+      "duration": 0.2694784580498866,
+      "sourceStart": "7AF4",
+      "loop": true,
+      "pcmSha256": "fc9eb521e3161f5c3fffe6cf3d67b69f34a73a1a8b68925ce473d645f38668ef"
+    },
+    {
+      "effect": 4,
+      "duration": 0.16843537414965987,
+      "sourceStart": "7B0D",
+      "loop": true,
+      "pcmSha256": "78a745ec4700bb4dae0a9adecee34ea34453cdcc76cd86a53fa188fe435f84b8"
+    },
+    {
+      "effect": 5,
+      "duration": 0.2694784580498866,
+      "sourceStart": "7A7C",
+      "loop": true,
+      "pcmSha256": "f2c55bd34abe18e9754ba1b7e676e729cf8d45e0a721e2953075741f2a015b66"
+    },
+    {
+      "effect": 6,
+      "duration": 0.20208616780045352,
+      "sourceStart": "7A1A",
+      "loop": false,
+      "pcmSha256": "672595aeb98f2d53c62b0b7540b8270ac6f56f01ff726e1286e2e253c5935fdd"
+    },
+    {
+      "effect": 7,
+      "duration": 0.20208616780045352,
+      "sourceStart": "7A4B",
+      "loop": false,
+      "pcmSha256": "09eef2d6477e1fc735615be2586189b65d1919f1fd8251c497edfbade46dac7e"
+    },
+    {
+      "effect": 8,
+      "duration": 0.3368253968253968,
+      "sourceStart": "7B2F",
+      "loop": false,
+      "pcmSha256": "8a8b3b000d1ba559cc1595040adc8706a6a0addbbeee4d241525ffd17bfec6a1"
+    },
+    {
+      "effect": 9,
+      "duration": 0.3368253968253968,
+      "sourceStart": "7B58",
+      "loop": false,
+      "pcmSha256": "71d1caf6d12fa036e259146ea2f187b6a65afefdab43b923b03d0ad29a0a80e9"
+    }
+  ]
+}

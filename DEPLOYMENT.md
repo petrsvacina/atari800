@@ -1,6 +1,24 @@
 # Nasazení portálu
 
-## Aktuální vydání — rozhodčí a vítězné gesto
+## Aktuální vydání — Archon
+
+- Vydání: `20261024T003656Z` (24. 10. 2026 v Praze).
+- Portál: https://atari800.gmork.cz/ — tři hry.
+- Nová hra: https://atari800.gmork.cz/hry/archon/.
+- Archiv: `/private/tmp/atari800-portal-20261024T003656Z.tar.gz`, serverová kopie ve `/var/tmp/` se stejným názvem.
+- SHA-256: `a75fd4d578aad389c5324fc31948f8d49e6f56a9c7abca3c46bd917c966bbf0f`.
+- Staging: `/var/tmp/atari800-release-20261024T003656Z`.
+- Záloha předchozího webu: `/root/atari800-backups/20261024T003656Z/site-before.tar.gz`.
+
+Před změnou se všech 39 veřejných souborů shodovalo s předchozím stagingem. Archiv zálohy prošel kontrolou gzip; přenesené vydání má shodný SHA-256 s místním archivem. Nejdříve byla přidaná nová hra a obrázky katalogu, potom atomicky vyměněný úvodní index. Soubory Dynakillers a International Karate se neměnily. Konfigurace a služby se neměnily.
+
+Archon je nativní JavaScript a Canvas: deska s původními 36 figurami, arény, 20 druhů jednotek, sedm jednorázových kouzel, proměnlivé světlo, magické body, hra proti CPU za obě strany a dva hráči. Bitmapy, číselné tabulky a zvuk pocházejí z dodaného XEX; barvy jsou porovnané s referenčním videem. AI, kolize, rozložení a proměny překážek jsou nově napsané. Jde o první hratelnou verzi, nikoli o potvrzenou shodu všech snímků a okrajových případů. Podrobnosti jsou v `research/archon/PORTING.md`.
+
+Prošlo 28 herních a osm zvukových kontrol Archonu i všech 51 dosavadních kontrol ostatních her. Místní hra se načetla v Brave přes `file://`; v živém náhledu byl potvrzen průběh desky, arény a dalších tahů. Kompletní ruční průchod všemi kouzly ani fyzické dotykové/gamepadové ovládání se nevydává za ověřené. Zvuková data byla ověřená dekódováním a testy přehrávače; samostatný poslech se nevydává za provedený.
+
+Po nasazení ověřeno všech **53 veřejných souborů pomocí SHA-256**, čtyři kanonické cesty, MIME typy a všech pět MP3 Range požadavků. Apache je aktivní. Původní XEX, Atari ROM, výzkumné dumpy a referenční video nejsou ve veřejném vydání; hra je pro spuštění nepotřebuje.
+
+## Předchozí vydání — rozhodčí a vítězné gesto
 
 - Vydání: `20261023T233958Z` (24. 10. 2026 v Praze).
 - Hra: https://atari800.gmork.cz/hry/international-karate/.

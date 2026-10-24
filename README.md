@@ -4,9 +4,11 @@ Veřejná herna: **https://atari800.gmork.cz/**. Dynakillers má vlastní adresu
 
 International Karate je nová samostatná HTML5 hra v `karate/`, veřejně na **https://atari800.gmork.cz/hry/international-karate/**. Stav posledního ověřeného nasazení je v `DEPLOYMENT.md`.
 
+Archon je samostatná nativní HTML5 verze v `archon/`, veřejně na **https://atari800.gmork.cz/hry/archon/**. Aktuální stav zveřejnění je v `DEPLOYMENT.md`.
+
 ## Obsah repozitáře
 
-`portal/` obsahuje katalog, `web/` samostatné Dynakillers a `karate/` samostatné International Karate, včetně všech grafických a zvukových prostředků potřebných pro hraní. `tools/` obsahuje sestavení, extrakční nástroje a testy; `research/` dokumentuje rozbor a ukládá podklady potřebné pro opakování grafických exportů.
+`portal/` obsahuje katalog, `web/` samostatné Dynakillers, `karate/` International Karate a `archon/` Archon, včetně všech grafických a zvukových prostředků potřebných pro hraní. `tools/` obsahuje sestavení, extrakční nástroje a testy; `research/` dokumentuje rozbor a ukládá podklady potřebné pro opakování grafických exportů.
 
 Původní Atari soubory, referenční video, místní assemblerové podklady, SAP/WAV a pracovní binární výstupy se do Gitu nepřidávají. Pro hraní a sestavení portálu nejsou potřeba; vyžadují je jen některé vývojové extrakční nástroje. Vygenerovaný `dist/` je také ignorovaný. Po naklonování stačí `python3 tools/build_portal.py` a otevření `dist/index.html`, případně publikování obsahu `dist/`. Python používá jen standardní knihovnu; samotné hry pro hraní nepotřebují Python ani Node.js.
 
@@ -17,12 +19,32 @@ Zdroj úvodní stránky je v `portal/`. Katalog se spravuje v `portal/games.json
 ```sh
 python3 tools/render_portal_cover.py
 python3 tools/karate_render_cover.py
+python3 tools/archon_render_cover.py
 python3 tools/build_portal.py
 ```
 
-První příkaz vytvoří náhled Dynakillers z jeho původních grafických dat; pro další hry přidej jejich vlastní obrázky do `portal/assets/`. Druhý vytvoří kompletní veřejný web v `dist/`: úvodní stránku, katalog a každou hru pod `hry/<id>/`. Do publikované kopie hry přidá návrat do katalogu místo hlavičky `.edition`. Samostatná místní verze ve `web/` se nemění.
+První tři příkazy vytvoří náhledy her z jejich původních grafických dat; pro další hry přidej jejich vlastní obrázky do `portal/assets/`. Poslední vytvoří kompletní veřejný web v `dist/`: úvodní stránku, katalog a každou hru pod `hry/<id>/`. Do publikované kopie hry přidá návrat do katalogu místo hlavičky `.edition`. Samostatné místní verze her se nemění.
 
 Katalog umí hledat v názvu, žánru a popisu bez rozlišování diakritiky a filtrovat hry pro více hráčů. Odkazy na hry fungují i bez JavaScriptu. Na server patří pouze obsah `dist/`, nikoli kořen projektu s původními binárními soubory, pracovními daty a nástroji. Aktuální webový kořen Apache je `/var/www/atari800` na `mail.gmork.cz`; před jeho změnami pořiď zálohu. Existující konfigurace Apache a HTTPS není potřeba měnit.
+
+## Archon
+
+Otevři `archon/index.html` přímo v prohlížeči. Vyber Světlo nebo Stín proti počítači, případně dva hráče. Světlo začíná. Na desce klikni na vlastní figuru a potom na zvýrazněný cíl; alternativou jsou šipky a mezerník/Enter. Pozemní jednotky postupují kolmo a blokují je figury, létající přelétají i diagonálně. Útok na soupeře přepne do arény.
+
+V sólu se tvoje armáda v aréně vždy ovládá **šipkami + mezerníkem**. Ve dvou: Světlo šipky + mezerník, Stín **WASD + Q**. S drženým FIRE stojíš a míříš, po nabití se může útok opakovat. Podporovaný je standardní gamepad a na dotykové obrazovce směrová tlačítka/FIRE. **P** pozastaví hru, **Escape** ruší výběr/kouzlo nebo přepíná pauzu, **M** tlumí zvuk, **R** vrátí nabídku a **F** otevře celou obrazovku. Přepnutí okna/karty automaticky pozastaví živou hru.
+
+Hra obsahuje původních 36 figur a všech 20 druhů včetně čtyř přivolávaných elementálů. Původní jsou bitmapy, animační snímky, projektily, barevný terén a číselné tabulky síly, energie, nabití a pohybu. Hudba a deset efektů jsou vyrenderované z původních zvukových rutin; titulní hudbu lze přehrát v nabídce. Během hry ji nahrazují herní efekty.
+
+Všech sedm kouzel je dostupných jednou za stranu, pokud žije a není uvězněný její mág. Kouzla nepůsobí na magických bodech. Bonus energie závisí na cílovém poli; použité kouzlo oslabí bonus vlastní domácí magické pozice. Magické body a vlastní vrchol světla léčí armádu podle původních pravidel. Vyhrává obsazení všech pěti bodů, zničení soupeřovy armády nebo uvěznění jeho poslední figury.
+
+První hratelná verze má nově napsanou AI, kolize a proměny překážek. Přesná snímková shoda originálu nebyla potvrzená, některé okrajové případy kouzel a časování plošných útoků jsou přiblížené. Původ dat, konkrétní rozdíly a ověření jsou v `research/archon/PORTING.md`. Fyzický gamepad ani telefon zatím nebyly ověřené.
+
+```sh
+node tools/test-archon.mjs
+node tools/test-archon-audio.mjs
+```
+
+28 herních a osm zvukových kontrol pokrývá pravidla desky, všechny druhy kouzel, energii a léčení, návrat z arény, speciální jednotky, projektily, konce hry, delší simulace i přehrávání hudby/PCM a jeho zastavení. Pro hraní nejsou potřeba Atari emulátor, ROM, původní XEX, Node.js, Python ani síťové připojení.
 
 ## International Karate
 
