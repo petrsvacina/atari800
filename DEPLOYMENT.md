@@ -1,18 +1,20 @@
 # Nasazení portálu
 
-## Připravené lokální vydání — zvuky a netopýři Goonies
+## Aktuální veřejné vydání — zvuky a netopýři Goonies
 
-- Vydání: `20261024T111210Z`; **dosud nenasazené**.
+- Vydání: `20261024T111210Z`; **nasazené a ověřené přes HTTPS**.
 - Archiv: `/private/tmp/atari800-portal-20261024T111210Z.tar.gz` — 83 veřejných souborů.
 - SHA-256: `a160af4bcf88aa7daac524ac5568085752141afffd80b662d21881a3d09d785b`.
 - Proti poslednímu ověřenému vydání se mění pouze osm souborů v `hry/goonies/`; ostatních 75 je bytově shodných.
-- Připravený nasazovací nástroj: `/private/tmp/atari800-goonies-sounds-release.py` (staging, kontrola manifestu, úplná záloha, atomické nahrazení a ověření).
+- Staging: `/var/tmp/atari800-release-20261024T111210Z-clean`.
+- Úplná záloha předchozího webu: `/root/atari800-backups/20261024T111210Z/site-before.tar.gz` (83 souborů).
+- Herní změny: commit `4d12b1e`; nasazovací nástroj `/var/tmp/atari800-goonies-sounds-release.py` ověřil stav před zálohou a měněné soubory nahradil atomicky, HTML jako poslední.
 
 Doplněné jsou skutečné původní požadavky tiskárny, uhašení krbu, věder/rumpálu/závaží, střelce, potrubí, kamene/zvonu, varhan, odtoku a lodního zdvihu/mincí. Přehrávač zachovává monofonii, priority, celý cyklus tiskárny a smyčku rumpálu. Hudbu vybírá původní tabulka místností. Opravená je záměna souřadnic za čísla tras netopýrů, přidělování volných slotů a časování kladiva.
 
 Prošlo **57 herních a 14 zvukových kontrol**. Nových 1 466 úplných bitmap a posloupností zvukových požadavků zahrnuje všech osm scén, 40 kroků tiskárny, 420 kroků zvonu/hejna, výstřel a přesný okamžik zásahu netopýrem. Celkem se porovnává 2 744 bitmap a 1 280 kroků pohybu. Všech 19 PCM efektů i hudební soubory zůstaly původní. Podrobnosti a hranice ověření jsou v `research/goonies/PORTING.md` a `AUDIO.md`.
 
-Síť v tomto běhu nedovolila přeložit hostname pro SSH/HTTPS a automatická kontrola zamítla rozšíření oprávnění pro SSH. Nebyl proto proveden přenos, záloha serveru, nasazení ani nové ověření živého webu. Před nasazením je třeba znovu porovnat aktuální serverový manifest. Nové ruční odehrání přes Computer Use také nedokončeno kvůli chybě služby; neuvádí se jako provedená kontrola.
+Před nasazením se všech 83 souborů serveru shodovalo s předchozím ověřeným vydáním; Apache byl aktivní. Po nasazení veřejné HTTPS ověřilo všech **83 souborů přes SHA-256**, pět kanonických cest, MIME typy a všech sedm MP3 Range požadavků. Nezávislé stažení HTML, `audio.js` a `rooms.js` z místního stroje také souhlasí se sestavením. Konfigurace ani služby se neměnily. Nové ruční odehrání přes Computer Use nebylo dokončeno kvůli chybě služby; neuvádí se jako provedená kontrola.
 
 ## Poslední ověřené veřejné vydání — oprava Goonies podle původního programu
 
