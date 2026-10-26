@@ -1,19 +1,22 @@
 # Nasazení portálu
 
-## Připravené vydání — River Raid
+## Aktuální veřejné vydání — River Raid
 
-- Vydání: `20261026T133810Z`; připravené pro zveřejnění, dosud nepotvrzené jako nasazené.
+- Vydání: `20261026T133810Z`; **nasazené a ověřené přes HTTPS**.
 - Nová hra: https://atari800.gmork.cz/hry/river-raid/.
 - Archiv: `/private/tmp/atari800-portal-20261026T133810Z.tar.gz`.
 - SHA-256: `ff4b7f2563802e187dc944575c0651bacf66e8761c650d6202676f225bc6c949`.
 - Staging: `/var/tmp/atari800-release-20261026T133810Z`.
-- Plánovaná záloha: `/root/atari800-backups/20261026T133810Z/site-before.tar.gz`.
+- Úplná záloha předchozího webu: `/root/atari800-backups/20261026T133810Z/site-before.tar.gz` (83 souborů).
+- Herní změny: `43e87e2` a oprava průletného tmavého břehu `8ed7fd4`.
 
 Nativní HTML5 River Raid přidává původní řeku, bitmapy a deset původních zvukových PCM klipů, směrové zrychlování a regulaci rychlosti, palivo, tankování, mosty/checkpointy, bodování, další letadla a dva střídající se piloty. Začátky 1/5/20/50 odpovídají původním seedům. Mapa obsahuje 268 288 řádků skutečného generátoru a 12 305 míst vzniku objektů. AI a některé soubojové časy jsou nové provedení, konec exportu ukončí webovou misi. Podrobný rozsah a hranice shody jsou v `research/river-raid/PORTING.md`.
 
 Prošlo 18 herních a osm zvukových kontrol: mimo jiné 480 původních kroků řízení, 81 původních řekových řádků a vstupní replay prvního mostu s 1 670 body a všemi čtyřmi letadly. Brave zobrazil scénu a byl potvrzený začátek letu a ztráta letadla. Úplné ruční dohrání, subjektivní poslech a fyzický gamepad/telefon se nevydávají za ověřené.
 
-Sestavení má 94 veřejných souborů a 76 platných místních odkazů. Proti předchozímu vydání přidává 11 souborů a mění pouze úvodní `index.html`; všech 82 ostatních předchozích souborů souhlasí s rekonstrukcí posledního Git vydání. Server před nasazením obsahoval stejných 83 souborů jako poslední ověřený staging a Apache byl aktivní. Původní ROM/XEX, video, pracovní RAM a SAP obálky nejsou ve veřejném sestavení.
+Sestavení má 94 veřejných souborů a 76 platných místních odkazů. Proti předchozímu vydání přidává 11 souborů a mění pouze úvodní `index.html`; všech 82 ostatních předchozích souborů souhlasí s rekonstrukcí posledního Git vydání. Server před nasazením obsahoval stejných 83 souborů jako poslední ověřený staging a Apache byl aktivní. Po záloze bylo 12 nových/měněných souborů zveřejněno atomickým nahrazením, úvodní katalog jako poslední. Konfigurace ani služby se neměnily.
+
+Po nasazení veřejné HTTPS ověřilo všech **94 souborů přes SHA-256**, šest kanonických cest, MIME typy a sedm MP3 Range požadavků. Nezávislé stažení místním klientem také potvrdilo shodný úvodní katalog, HTML nové hry a `engine.js`. Původní ROM/XEX, video, pracovní RAM a SAP obálky nejsou ve veřejném sestavení.
 
 ## Předchozí vydání — zvuky a netopýři Goonies
 

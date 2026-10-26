@@ -8,7 +8,7 @@ Archon je samostatná nativní HTML5 verze v `archon/`, veřejně na **https://a
 
 The Goonies je samostatná nativní HTML5 verze v `goonies-web/`, veřejně na **https://atari800.gmork.cz/hry/goonies/**. Stav zveřejnění je v `DEPLOYMENT.md`.
 
-River Raid je nativní HTML5 hra v `river-raid/`; stav zveřejnění je v `DEPLOYMENT.md`.
+River Raid je nativní HTML5 hra v `river-raid/`, veřejně na **https://atari800.gmork.cz/hry/river-raid/**. Stav ověřeného nasazení je v `DEPLOYMENT.md`.
 
 ## Obsah repozitáře
 
