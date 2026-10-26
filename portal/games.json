@@ -58,5 +58,20 @@
     "logo": "assets/goonies-logo.png",
     "source": "goonies-web",
     "featured": false
+  },
+  {
+    "id": "river-raid",
+    "title": "River Raid",
+    "description": "Drž kurz, tankuj za letu a prostřel další most. Původní řeka, lodě a vrtulníky v klasice, která nedá vydechnout.",
+    "genre": "Arkádová · letecká",
+    "players": "1–2 hráči",
+    "multiplayer": true,
+    "year": "1983",
+    "author": "Activision",
+    "controls": "Klávesnice · gamepad",
+    "image": "assets/river-raid.png",
+    "logo": "assets/river-raid-logo.svg",
+    "source": "river-raid",
+    "featured": false
   }
 ]

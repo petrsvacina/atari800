@@ -8,9 +8,11 @@ Archon je samostatná nativní HTML5 verze v `archon/`, veřejně na **https://a
 
 The Goonies je samostatná nativní HTML5 verze v `goonies-web/`, veřejně na **https://atari800.gmork.cz/hry/goonies/**. Stav zveřejnění je v `DEPLOYMENT.md`.
 
+River Raid je nativní HTML5 hra v `river-raid/`; stav zveřejnění je v `DEPLOYMENT.md`.
+
 ## Obsah repozitáře
 
-`portal/` obsahuje katalog, `web/` samostatné Dynakillers, `karate/` International Karate, `archon/` Archon a `goonies-web/` The Goonies, včetně všech grafických a zvukových prostředků potřebných pro hraní. `tools/` obsahuje sestavení, extrakční nástroje a testy; `research/` dokumentuje rozbor a ukládá podklady potřebné pro opakování grafických exportů. Původní místní adresář `Goonies/` se do Gitu ani veřejného webu nekopíruje.
+`portal/` obsahuje katalog, `web/` samostatné Dynakillers, `karate/` International Karate, `archon/` Archon, `goonies-web/` The Goonies a `river-raid/` River Raid, včetně všech grafických a zvukových prostředků potřebných pro hraní. `tools/` obsahuje sestavení, extrakční nástroje a testy; `research/` dokumentuje rozbor a ukládá podklady potřebné pro opakování grafických exportů. Původní místní adresář `Goonies/` se do Gitu ani veřejného webu nekopíruje.
 
 Původní Atari soubory, referenční video, místní assemblerové podklady, SAP/WAV a pracovní binární výstupy se do Gitu nepřidávají. Pro hraní a sestavení portálu nejsou potřeba; vyžadují je jen některé vývojové extrakční nástroje. Vygenerovaný `dist/` je také ignorovaný. Po naklonování stačí `python3 tools/build_portal.py` a otevření `dist/index.html`, případně publikování obsahu `dist/`. Python používá jen standardní knihovnu; samotné hry pro hraní nepotřebují Python ani Node.js.
 
@@ -25,12 +27,26 @@ python3 tools/render_portal_cover.py
 python3 tools/karate_render_cover.py
 python3 tools/archon_render_cover.py
 python3 tools/goonies_render_cover.py
+python3 tools/river_render_cover.py
 python3 tools/build_portal.py
 ```
 
-První čtyři příkazy vytvoří náhledy her z jejich původních grafických dat; pro další hry přidej jejich vlastní obrázky do `portal/assets/`. Poslední vytvoří kompletní veřejný web v `dist/`: úvodní stránku, katalog a každou hru pod `hry/<id>/`. Do publikované kopie hry přidá návrat do katalogu místo hlavičky `.edition`. Samostatné místní verze her se nemění.
+Prvních pět příkazů vytvoří náhledy her z jejich původních grafických dat; pro další hry přidej jejich vlastní obrázky do `portal/assets/`. Poslední vytvoří kompletní veřejný web v `dist/`: úvodní stránku, katalog a každou hru pod `hry/<id>/`. Do publikované kopie hry přidá návrat do katalogu místo hlavičky `.edition`. Samostatné místní verze her se nemění.
 
 Katalog umí hledat v názvu, žánru a popisu bez rozlišování diakritiky a filtrovat hry pro více hráčů. Odkazy na hry fungují i bez JavaScriptu. Na server patří pouze obsah `dist/`, nikoli kořen projektu s původními binárními soubory, pracovními daty a nástroji. Aktuální webový kořen Apache je `/var/www/atari800` na `mail.gmork.cz`; před jeho změnami pořiď zálohu. Existující konfigurace Apache a HTTPS není potřeba měnit.
+
+## River Raid
+
+Otevři `river-raid/index.html`. **←/→** řídí, **↑/↓** přidávají/ubírají rychlost, **mezerník** střílí, **Enter** spouští let. **P/Escape** pauza, **M** zvuk, **R** nabídka, **F** celá obrazovka. Nádrž FUEL doplníš průletem; zpomalení dá více času na tankování. Pro střelbu je jedno místo, další střela následuje po zásahu nebo opuštění obrazovky.
+
+Čtyři letadla, další za 10 000 bodů, mosty jako checkpointy, začátky 1/5/20/50 a dva střídající se piloti s vlastním postupem. Řeka obsahuje 268 288 řádků původního generátoru a 12 305 původních míst vzniku objektů. Původní jsou také bitmapy, písmo a deset zvukových PCM klipů. Samotná hra je nativní JavaScript; Atari CPU a ROM v prohlížeči nejsou.
+
+Řízení souhlasí se 480 kroky originálu; 17 herních a osm zvukových kontrol zahrnuje také celý vstupní replay prvního mostu s 1 670 body a všemi čtyřmi letadly. AI a některé soubojové časy jsou nové provedení, mapa je konečný export. Podrobnosti a ověřené hranice shody jsou v `research/river-raid/PORTING.md`. Fyzický gamepad, telefon ani celá mapa nebyly ručně ověřené.
+
+```sh
+node tools/test-river-raid.mjs
+node tools/test-river-audio.mjs
+```
 
 ## The Goonies
 
