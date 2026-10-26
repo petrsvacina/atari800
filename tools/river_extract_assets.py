@@ -15,8 +15,8 @@ def export(records,memory):
   slot=r[78]
   if slot<11:
    y,t,x,size=r[112+slot*4:116+slot*4]
-   if 7<=t<=15 and y==((97-(b[0xbb60+t]+4))&255):
-    objects.append({'row':row,'worldY':row+97-y,'type':t,'rawX':x,'flags':r[48+0x42-0x30+slot],'size':size,'stage':r[96]})
+   if 0<=t<=15 and y==((97-(b[0xbb60+t]+4))&255):
+    objects.append({'row':row,'worldY':row+97-y,'type':t,'rawX':x,'flags':r[48+0x42-0x30+slot],'size':size,'stage':r[96],'slot':slot})
  # Only keep full sections. Later source difficulty is clamped at internal 79;
  # the deterministic seed and course continue to change beyond that point.
  sprites=[]
@@ -30,7 +30,11 @@ def export(records,memory):
  for index in range(10):
   ptr=int.from_bytes(b[0xbacd+index*2:0xbacf+index*2],'little');planes.append(list(b[ptr:ptr+14]))
  scores={str(i):((b[0xbb0b+i]>>4)*10+(b[0xbb0b+i]&15))*10 for i in range(7,16)}
- data={'sourceSha256':ROM_SHA,'width':320,'height':160,'rows':len(track),'dictionary':base64.b64encode(b''.join(unique)).decode(),'indices':base64.b64encode(struct.pack('<'+'I'*len(track),*track)).decode(),'flags':base64.b64encode(bytes(rowFlags)).decode(),'objects':objects,'stages':stages,'sprites':sprites,'planes':planes,'glyphs':[list(b[0x800+i*8:0x808+i*8]) for i in range(64)],'scores':scores}
+ def words(address,count,height):
+  return [list(b[(ptr:=int.from_bytes(b[address+i*2:address+i*2+2],'little')):ptr+height]) for i in range(count)]
+ mechanics={'actorCycle':list(b[0xbb24:0xbb34]),'tankCycle':list(b[0xbaaf:0xbab7]),'roadColors':list(b[0xb4e5:0xb4fd]),'tankFrames':words(0xb4d1,8,11),'shotFrames':words(0xbab7,7,16),'shotFall':list(b[0xb4af:0xb4c0]),'shotColors':list(b[0xbac5:0xbacd]),'actorFrames':[[list(b[(ptr:=0xb900+b[0xbb40+t+direction*16]):ptr+24]) for direction in range(2)] for t in range(16)]}
+ tanks=json.loads((ROOT/'research/river-raid/tank-candidates.json').read_text())
+ data={'sourceSha256':ROM_SHA,'width':320,'height':160,'rows':len(track),'dictionary':base64.b64encode(b''.join(unique)).decode(),'indices':base64.b64encode(struct.pack('<'+'I'*len(track),*track)).decode(),'flags':base64.b64encode(bytes(rowFlags)).decode(),'objects':objects,'stages':stages,'sprites':sprites,'planes':planes,'glyphs':[list(b[0x800+i*8:0x808+i*8]) for i in range(64)],'scores':scores,'mechanics':mechanics,'tankCandidates':tanks}
  (ROOT/'research/river-raid/course.json').write_text(json.dumps(data,separators=(',',':'))+'\n')
  write(data)
  # Independent numeric reference slices, captured before any browser rendering.

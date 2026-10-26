@@ -1,6 +1,23 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — River Raid
+## Aktuální veřejné vydání — oprava soubojů River Raid
+
+- Vydání: `20261026T193306Z`; **nasazené a ověřené přes HTTPS**.
+- Hra: https://atari800.gmork.cz/hry/river-raid/.
+- Archiv: `/private/tmp/atari800-portal-20261026T193306Z.tar.gz`; kopie na serveru ve `/var/tmp/`.
+- SHA-256: `19af1bd6c4f8c98b48088b1258b1cbeb3b709c54594686894d8a61946c9d5c4f`.
+- Staging: `/var/tmp/atari800-release-20261026T193306Z`.
+- Úplná záloha předchozího webu: `/root/atari800-backups/20261026T193306Z/site-before.tar.gz` (94 souborů).
+
+Výbuchy nepřátel zůstávají v původních slotech a posouvají se s řekou. Mosty mají silnici z původní tabulky barev a tank, jeho animaci, pohyb, zastavení a střelu; zničení mostu pod tankem přidělí původních 750 bodů. Nativní překlad zachovává aktualizaci NPC, první nehybný úsek, původní cykly a střelu vrtulníku. Počáteční rychlost 64 a umístění letadla/objektů byly opravené podle skutečného stavu XEX. **Celá hra stále není potvrzený převod 1:1**; zbývající odchylky jsou v `research/river-raid/PORTING.md`.
+
+Prošlo 22 herních a osm zvukových kontrol, 960 kroků NPC/tanku, 384 kroků tankové a 144 kroků vrtulníkové střely proti XEX. Skutečný původní raster potvrzuje 160 řádků a umístění bitmap; nový čistě vstupní replay dokončí první most za 879 kroků s 1 200 body a čtyřmi letadly. Vykreslené snímky silnice/tanku byly vizuálně zkontrolované. Kontrola skutečného prohlížeče byla omezená nedostupným obsahem okna, úplné ruční hraní se netvrdí.
+
+Před změnou všech 94 živých souborů souhlasilo s předchozím stagingem. Přibyl `mechanics.js`, změnily se pouze čtyři stávající soubory River Raidu; ostatních 90 souborů včetně portálu a ostatních her je bytově shodných. Po úplné záloze bylo pět souborů atomicky nahrazeno, HTML jako poslední. Sestavení má 95 souborů, 77 platných místních odkazů a neobsahuje původní programy či soukromé pracovní dumpy. Konfigurace ani služby se neměnily.
+
+Veřejné HTTPS ověřilo **95 souborů přes SHA-256**, šest kanonických cest, MIME typy a sedm MP3 Range požadavků. Nezávislé stažení HTML hry a verzovaného `mechanics.js` z místního stroje také souhlasí se sestavením.
+
+## Předchozí vydání — první River Raid
 
 - Vydání: `20261026T133810Z`; **nasazené a ověřené přes HTTPS**.
 - Nová hra: https://atari800.gmork.cz/hry/river-raid/.

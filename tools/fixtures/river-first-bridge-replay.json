@@ -3,881 +3,890 @@
   "steps": [
     {
       "input": {
+        "fire": true,
         "left": false,
-        "right": true,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
+        "left": false,
+        "right": true
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
+        "left": false,
+        "right": true
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": true,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": true,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": true,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": true,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
+        "left": false,
+        "right": true
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
+        "left": false,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": false,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
+        "left": false,
+        "right": true
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": true
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": true
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": false,
-        "right": true,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
-        "left": false,
-        "right": true,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": true,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
-        "left": false,
-        "right": true,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
+        "left": false,
+        "right": true
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": false,
-        "right": true,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": false,
-        "right": false,
-        "fire": true
+        "right": true
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
+        "left": false,
+        "right": true
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": true
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": false,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
-        "left": false,
-        "right": true,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": true,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": false,
-        "right": true,
-        "fire": true
+        "right": true
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": false,
-        "right": true,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": true,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
+        "left": false,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": false,
-        "right": true,
-        "fire": true
+        "right": true
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": false,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
+        "left": false,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": false,
-        "right": true,
-        "fire": true
+        "right": true
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
+        "left": false,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": false,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
-        "left": false,
-        "right": true,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": true,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": true,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
+        "left": false,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": true
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": true
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": false,
-        "right": false,
-        "fire": true
+        "right": true
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": false,
-        "right": true,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": true,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
+        "left": false,
+        "right": true
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": true
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": true
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": true,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": true,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": true,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
-        "left": false,
-        "right": true,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": true,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": false,
-        "right": false,
-        "fire": true
+        "right": true
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": false,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
-        "left": false,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": false,
-        "right": true,
-        "fire": true
+        "right": true
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": false,
-        "right": true,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": false,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
+        "left": false,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": false,
-        "right": false,
-        "fire": true
+        "right": true
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": false,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
+        "left": true,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": true,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": true,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
         "left": false,
-        "right": true,
-        "fire": true
+        "right": true
       },
       "frames": 8
     },
     {
       "input": {
-        "left": true,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
+        "fire": true,
         "left": false,
-        "right": true,
-        "fire": true
+        "right": true
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
+        "left": true,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
         "left": false,
-        "right": false,
-        "fire": true
+        "right": true
       },
       "frames": 8
     },
     {
       "input": {
-        "left": true,
-        "right": false,
-        "fire": true
-      },
-      "frames": 8
-    },
-    {
-      "input": {
+        "fire": true,
         "left": false,
-        "right": true,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
+        "fire": true,
         "left": true,
-        "right": false,
-        "fire": true
+        "right": false
       },
       "frames": 8
     },
     {
       "input": {
-        "left": true,
-        "right": false,
-        "fire": true
+        "fire": true,
+        "left": false,
+        "right": true
       },
-      "frames": 6
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": true
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": true,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": true,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": true,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": true
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": true
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": true,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": true,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": true,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": true
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": true,
+        "right": false
+      },
+      "frames": 8
+    },
+    {
+      "input": {
+        "fire": true,
+        "left": false,
+        "right": false
+      },
+      "frames": 7
     }
   ],
   "expected": {
     "phase": "playing",
     "bridge": 2,
     "lives": 4,
-    "score": 1670
+    "score": 1200,
+    "tick": 879
   }
 }

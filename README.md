@@ -39,12 +39,13 @@ Katalog umí hledat v názvu, žánru a popisu bez rozlišování diakritiky a f
 
 Otevři `river-raid/index.html`. **←/→** řídí, **↑/↓** přidávají/ubírají rychlost, **mezerník** střílí, **Enter** spouští let. **P/Escape** pauza, **M** zvuk, **R** nabídka, **F** celá obrazovka. Nádrž FUEL doplníš průletem; zpomalení dá více času na tankování. Pro střelbu je jedno místo, další střela následuje po zásahu nebo opuštění obrazovky.
 
-Čtyři letadla, další za 10 000 bodů, mosty jako checkpointy, začátky 1/5/20/50 a dva střídající se piloti s vlastním postupem. Řeka obsahuje 268 288 řádků původního generátoru a 12 305 původních míst vzniku objektů. Původní jsou také bitmapy, písmo a deset zvukových PCM klipů. Samotná hra je nativní JavaScript; Atari CPU a ROM v prohlížeči nejsou.
+Čtyři letadla, další za 10 000 bodů, mosty jako checkpointy, začátky 1/5/20/50 a dva střídající se piloti s vlastním postupem. Řeka obsahuje 268 288 řádků původního generátoru a 14 132 míst vzniku objektů včetně prázdných slotů. Původní jsou také bitmapy, písmo a deset zvukových PCM klipů. Samotná hra je nativní JavaScript; Atari CPU a ROM v prohlížeči nejsou.
 
-Řízení souhlasí se 480 kroky originálu; 18 herních a osm zvukových kontrol zahrnuje také celý vstupní replay prvního mostu s 1 670 body a všemi čtyřmi letadly. AI a některé soubojové časy jsou nové provedení, mapa je konečný export. Podrobnosti a ověřené hranice shody jsou v `research/river-raid/PORTING.md`. Fyzický gamepad, telefon ani celá mapa nebyly ručně ověřené.
+Řízení souhlasí se 480 kroky originálu. 22 herních a osm zvukových kontrol zahrnuje vstupní replay prvního mostu s 1 200 body a všemi čtyřmi letadly. Výbuchy jedou s řekou; mosty mají původní silnici a tank, včetně střely a bonusu 750 bodů. Překlad soubojových rutin porovnává 960 kroků NPC/tanku, 384 kroků tankové a 144 kroků vrtulníkové střely. Celá hra zatím není potvrzená 1:1: zbývá životní cyklus/checkpointy, časování celé smyčky a neomezený generátor. Podrobnosti a ověřené hranice shody jsou v `research/river-raid/PORTING.md`. Fyzický gamepad, telefon ani celá mapa nebyly ručně ověřené.
 
 ```sh
 node tools/test-river-raid.mjs
+node tools/test-river-combat.mjs
 node tools/test-river-audio.mjs
 ```
 

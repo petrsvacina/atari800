@@ -5,11 +5,18 @@ function color(code){const hue=code>>4,lum=code&15;if(!lum)return[0,0,0];if(hue=
 function render(game){
  const a=game.assets,w=320,h=192,out=new Uint8ClampedArray(w*h*4);for(let i=3;i<out.length;i+=4)out[i]=255;
  const dot=(x,y,c)=>{if(x<0||x>=320||y<0||y>=192)return;const i=(Math.floor(y)*w+Math.floor(x))*4;out[i]=c[0];out[i+1]=c[1];out[i+2]=c[2];};
- for(let y=0;y<160;y++){const row=game.course.row(Math.floor(159+game.scroll-y));if(!row)continue;for(let byte=0;byte<40;byte++)for(let p=0;p<4;p++){const c=terrain[row[byte]>>(6-p*2)&3];dot(byte*8+p*2,y,c);dot(byte*8+p*2+1,y,c);}}
+ const land=Array.from({length:160},()=>game.course.flags?.[game.generated]&4?[0,80,0]:terrain[1]);
+ // B5D3 changes COLPF0 per scanline. The bitmap and water stay untouched,
+ // and the road remains after the bridge actor has finished exploding.
+ for(const e of game.enemies)if(e.flags&128){const height=a.sprites[e.type].height,y=game.screenY(e);for(let i=0;i<height;i++)if(y+i>=0&&y+i<160)land[y+i]=color(a.mechanics.roadColors[height-1-i]);}
+ const water=game.waterFlash&1?color(0x42):terrain[3];
+ for(let y=0;y<160;y++){const row=game.course.row(Math.floor(159+game.scroll-y));if(!row)continue;for(let byte=0;byte<40;byte++)for(let p=0;p<4;p++){const index=row[byte]>>(6-p*2)&3,c=index===1?land[y]:index===3?water:terrain[index];dot(byte*8+p*2,y,c);dot(byte*8+p*2+1,y,c);}}
  function bitmap(bits,x,y,scale,colors){for(let yy=0;yy<bits.length;yy++){const c=Array.isArray(colors)?colors:color(colors[yy]);for(let xx=0;xx<8;xx++)if(bits[yy]&(128>>xx))for(let s=0;s<scale;s++)dot(Math.floor(x+xx*scale+s),Math.floor(y+yy),c);}}
- for(const e of game.enemies){if(e.dead)continue;const s=a.sprites[e.type],v=s.variants[e.flags&8?1:0],frame=e.frame?spriteFrame(e):v;bitmap(frame.bits,e.x,game.screenY(e),s.width/8*2,{...frame.colors});}
- function spriteFrame(e){return a.sprites[e.frame].variants[e.flags&8?1:0];}
- if(game.phase!=='crash'&&game.phase!=='over')bitmap(a.planes[game.player.pose],(game.player.rawX-48)*2,145,2,game.playerIndex?[140,200,255]:[246,255,146]);
+ for(const e of game.enemies){const s=a.sprites[e.type],frame=root.RiverMechanics.actorPicture(a,e);bitmap(frame.bits,e.x,game.screenY(e),s.width/8*2,{...frame.colors});}
+ const t=game.tank;if(t.frame)bitmap(a.mechanics.tankFrames[t.frame&127],(t.rawX-48)*2,t.rawY-28,2,[0,0,0]);
+ if(t.picture)bitmap(a.mechanics.shotFrames[t.picture],(t.shotX-48)*2,t.shotY-28,2,color(a.mechanics.shotColors[(game.tick>>3)&7]));
+ if(game.gunner.rawX)bitmap([192],(game.gunner.rawX-48)*2,game.gunner.rawY-28,2,color(a.mechanics.shotColors[(game.tick>>3)&7]));
+ if(game.phase!=='crash'&&game.phase!=='over')bitmap(a.planes[game.player.pose],(game.player.rawX-48)*2,game.player.y,2,game.playerIndex?[140,200,255]:[246,255,146]);
  if(game.bullet)for(let y=0;y<8;y++){dot(game.bullet.x,game.bullet.y+y,[246,255,180]);dot(game.bullet.x+1,game.bullet.y+y,[246,255,180]);}
  for(const s of game.shells){dot(s.x,s.y,[255,220,150]);dot(s.x+1,s.y,[255,220,150]);}
  for(const e of game.explosions){const frame=a.sprites[Math.min(6,2+Math.floor(e.age/7))].variants[0];bitmap(frame.bits,e.x-8,e.y-3,2,[255,Math.max(50,230-e.age*5),140]);}
