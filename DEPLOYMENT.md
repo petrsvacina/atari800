@@ -1,6 +1,23 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — oprava soubojů River Raid
+## Aktuální veřejné vydání — nativní generátor a úplná herní smyčka River Raid
+
+- Vydání: `20261026T205640Z`; **nasazené a ověřené přes HTTPS**.
+- Hra: https://atari800.gmork.cz/hry/river-raid/.
+- Archiv: `/private/tmp/atari800-portal-20261026T205640Z.tar.gz`; serverová kopie ve `/var/tmp/`.
+- SHA-256: `c9c554b4f84a9fe8de46caf1f220ce852f351a8e67b184b6bfb0df86167978f9`.
+- Staging: `/var/tmp/atari800-release-20261026T205640Z`.
+- Úplná záloha předchozího webu: `/root/atari800-backups/20261026T205640Z/site-before.tar.gz` (95 souborů).
+
+Řeka a všechny objekty se generují průběžným nativním překladem, bez konce exportované mapy. Skutečné přesuny jedenácti slotů nahrazují chybný výpočet přetečení z konstantních 256 řádků. První úsek zůstává bez vodorovného pohybu nepřátel podle originálu. Opravené jsou obraty na tmavém břehu PF1, střela sledující letadlo, pořadí kolizí a paliva, zničení nepřítele při nárazu, checkpointy, smrt a další odlet včetně třinácti VBI obnovy. Třináct původních PCM prostředků zachovává kanály výbuchu letadla, nepřítele, tanku a jeho střely. Výbuch letadla se při smrti už okamžitě nevypíná.
+
+Prochází SHA-256 všech 268 288 referenčních řádků spolu se stavem generátoru, slotů a checkpointů, všech 952 vzniků tanku a 7 996 kroků celé původní herní smyčky. Součástí jsou 2 160 kroků se skutečnými kolizemi a střelbou; ostatní oddělují pohyb nebo cílené větve checkpointů. Dále prochází 25 herních a 11 zvukových kontrol, 960 izolovaných kroků NPC/tanku, 384 tankové a 144 vrtulníkové střely. Čistě vstupní replay prvního mostu má 1 860 bodů a čtyři letadla za 880 kroků. Brave potvrdil místní nové sestavení, začátek 5, střelbu, bodování, smrt a tlačítko pauzy. Úplné ruční dohrání všech úseků a fyzický gamepad/telefon se netvrdí; rozsah a rozdíly webového prostředí jsou v `research/river-raid/PORTING.md`.
+
+Před změnou všech 95 živých souborů souhlasilo s minulým stagingem. Přibyly `generator.js` a přibližně 13kB `assets/original.js`, změnilo se šest souborů River Raidu a odstranil se nevyužitý `assets/course.js`. Zbývajících 88 souborů včetně katalogu a ostatních her je bytově shodných. Po úplné záloze se osm souborů atomicky zveřejnilo, HTML jako poslední, pak se odstranil starý datový export. Konfigurace ani služby se neměnily.
+
+Sestavení má 96 veřejných souborů a 78 platných místních odkazů. Veřejné HTTPS potvrdilo **96 souborů přes SHA-256**, šest kanonických cest, MIME typy a sedm MP3 Range požadavků. Nezávislé stažení HTML hry a verzovaného `generator.js` z místního stroje rovněž souhlasí se sestavením. Ve webu nejsou ROM/XEX, video, pracovní RAM ani strojové obálky.
+
+## Předchozí vydání — oprava soubojů River Raid
 
 - Vydání: `20261026T193306Z`; **nasazené a ověřené přes HTTPS**.
 - Hra: https://atari800.gmork.cz/hry/river-raid/.

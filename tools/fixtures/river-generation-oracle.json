@@ -1,0 +1,30 @@
+{
+  "rows": 268288,
+  "sourceSha256": "a6c3a5f0f8a70632a8402bf54025bba18ec517e12107873c814c8328712a7c3b",
+  "normalizedSha256": "1d50b84632ec6461c8950a3c9eb61b30ccdc75c4adc2763203ffb1724b074b79",
+  "fields": [
+    "pixels48",
+    "flags",
+    "segmentRow",
+    "layout",
+    "clock",
+    "flip",
+    "target",
+    "velocity",
+    "decorSide",
+    "decorSeed",
+    "first",
+    "nearest",
+    "blackRows",
+    "gunnerSlot",
+    "center",
+    "water",
+    "inset",
+    "hold",
+    "sections",
+    "nextWidth",
+    "stage",
+    "11 x rawY/frame/rawX/size/flags",
+    "checkpointSeed3/center"
+  ]
+}

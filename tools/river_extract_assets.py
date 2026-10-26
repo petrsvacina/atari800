@@ -33,8 +33,13 @@ def export(records,memory):
  def words(address,count,height):
   return [list(b[(ptr:=int.from_bytes(b[address+i*2:address+i*2+2],'little')):ptr+height]) for i in range(count)]
  mechanics={'actorCycle':list(b[0xbb24:0xbb34]),'tankCycle':list(b[0xbaaf:0xbab7]),'roadColors':list(b[0xb4e5:0xb4fd]),'tankFrames':words(0xb4d1,8,11),'shotFrames':words(0xbab7,7,16),'shotFall':list(b[0xb4af:0xb4c0]),'shotColors':list(b[0xbac5:0xbacd]),'actorFrames':[[list(b[(ptr:=0xb900+b[0xbb40+t+direction*16]):ptr+24]) for direction in range(2)] for t in range(16)]}
+ decorations={}
+ for width in [3,4,5,6,8,10]:
+  ptr=int.from_bytes(b[0xbbf0+width*2:0xbbf2+width*2],'little');height=b[0xbbeb+width]
+  decorations[str(width)]={'height':height,'bits':list(b[ptr:ptr+width*height])}
+ generator={'edges':list(b[0xb800:0xb820]),'bridgeShift':list(b[0xba8f:0xbaaf]),'decorationWidths':list(b[0xbbb2:0xbbcc]),'oddDecorationOffsets':list(b[0xbbcc:0xbbd4]),'evenDecorationOffsets':list(b[0xbbd4:0xbbee]),'decorations':decorations,'types':list(b[0xbb1c:0xbb24]),'heights':list(b[0xbb60:0xbb70]),'sizes':list(b[0xbba2:0xbbb2]),'tankVelocities':list(b[0xb7f4:0xb7fe]),'bankTankX':list(b[0xbfe4:0xbff2]),'fuelDifficultyCap':b[0xcb],'starts':[{'bridge':n,'stage':b[0xb4a4+i],'seed':[b[0xb494+i],b[0xb498+i],b[0xb49c+i]],'center':b[0xb4a0+i]} for i,n in enumerate([1,5,20,50])]}
  tanks=json.loads((ROOT/'research/river-raid/tank-candidates.json').read_text())
- data={'sourceSha256':ROM_SHA,'width':320,'height':160,'rows':len(track),'dictionary':base64.b64encode(b''.join(unique)).decode(),'indices':base64.b64encode(struct.pack('<'+'I'*len(track),*track)).decode(),'flags':base64.b64encode(bytes(rowFlags)).decode(),'objects':objects,'stages':stages,'sprites':sprites,'planes':planes,'glyphs':[list(b[0x800+i*8:0x808+i*8]) for i in range(64)],'scores':scores,'mechanics':mechanics,'tankCandidates':tanks}
+ data={'sourceSha256':ROM_SHA,'width':320,'height':160,'rows':len(track),'dictionary':base64.b64encode(b''.join(unique)).decode(),'indices':base64.b64encode(struct.pack('<'+'I'*len(track),*track)).decode(),'flags':base64.b64encode(bytes(rowFlags)).decode(),'objects':objects,'stages':stages,'sprites':sprites,'planes':planes,'glyphs':[list(b[0x800+i*8:0x808+i*8]) for i in range(64)],'scores':scores,'mechanics':mechanics,'tankCandidates':tanks,'generator':generator}
  (ROOT/'research/river-raid/course.json').write_text(json.dumps(data,separators=(',',':'))+'\n')
  write(data)
  # Independent numeric reference slices, captured before any browser rendering.
@@ -42,7 +47,9 @@ def export(records,memory):
  (ROOT/'tools/fixtures/river-course-oracle.json').write_text(json.dumps({'sourceSha256':ROM_SHA,'samples':samples},separators=(',',':'))+'\n')
  print('Exported',len(track),'rows,',len(unique),'unique rows,',len(objects),'original encounters.',flush=True)
 def write(data):
- (ROOT/'river-raid/assets/course.js').write_text('// Original course pixels, encounters and bitmaps; no executable Atari code.\nglobalThis.RIVER_ASSETS = '+json.dumps(data,separators=(',',':'))+';\n')
+ runtime={k:data[k] for k in ['sourceSha256','width','height','sprites','planes','glyphs','scores','mechanics','generator']}
+ (ROOT/'river-raid/assets/original.js').write_text('// Original art and numeric generator tables; no executable Atari code.\nglobalThis.RIVER_ASSETS = '+json.dumps(runtime,separators=(',',':'))+';\n')
+ (ROOT/'river-raid/assets/course.js').unlink(missing_ok=True)
 if __name__=='__main__':
  p=argparse.ArgumentParser();p.add_argument('--capture',action='store_true');a=p.parse_args()
  if a.capture:export(Path('/private/tmp/river-records.bin').read_bytes(),Path('/private/tmp/river-menu.bin').read_bytes())

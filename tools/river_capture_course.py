@@ -49,5 +49,13 @@ try:
   print('Tank candidates',len(candidates),flush=True)
  else:
   Path('/private/tmp/river-records.bin').write_bytes(b''.join(rows));m.prompt('write 0000 bfff /private/tmp/river-generation.bin')
+  # Independent whole-trace digest for the native generator regression.
+  fields=[156,157,158,0x32,0x33,0x34,0x35,0x36,0x37,0x4d,0x4e,0x4f,0x51,0x52,0x53,0x54,0x5a,0x5d,0x5f,0x60];digest=hashlib.sha256()
+  for r in rows:
+   normalized=bytearray(r[:48]);normalized.extend(r[k] for k in fields)
+   for i in range(11):normalized.extend(r[112+i*4:116+i*4]);normalized.append(r[0x42+i])
+   normalized.extend(r[0x66:0x6a]);digest.update(normalized)
+  target=Path(__file__).resolve().parents[1]/'tools/fixtures/river-generation-oracle.json'
+  target.write_text(json.dumps({'rows':len(rows),'sourceSha256':hashlib.sha256(source.read_bytes()).hexdigest(),'normalizedSha256':digest.hexdigest(),'fields':['pixels48','flags','segmentRow','layout','clock','flip','target','velocity','decorSide','decorSeed','first','nearest','blackRows','gunnerSlot','center','water','inset','hold','sections','nextWidth','stage','11 x rawY/frame/rawX/size/flags','checkpointSeed3/center']},indent=2)+'\n')
  print('captured',len(rows),'rows','bridges',sorted({r[48+0x60-0x30] for r in rows}),'first',rows[0][:48].hex())
 finally:m.close()

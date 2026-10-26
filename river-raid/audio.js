@@ -5,12 +5,25 @@ class RiverAudio{
  unlock(){this.unlocked=true;if(this.context){this.context.resume?.().catch?.(()=>{});return;}this.context=this.contextFactory();if(!this.context)return;this.gain=this.context.createGain();this.gain.gain.value=.32;this.gain.connect(this.context.destination);
   for(const[name,e]of Object.entries(this.assets.effects)){const raw=root.atob(e.data),buffer=this.context.createBuffer(1,raw.length/2,this.assets.sampleRate),pcm=buffer.getChannelData(0);for(let i=0;i<pcm.length;i++){let n=raw.charCodeAt(i*2)|raw.charCodeAt(i*2+1)<<8;if(n&32768)n-=65536;pcm[i]=n/32768;}this.buffers.set(name,buffer);}}
  stop(v){if(!v)return;v.onended=null;try{v.stop();}catch(_){}v.disconnect?.();this.voices.delete(v);for(const[k,value]of this.channels)if(value===v)this.channels.delete(k);if(v===this.channelOne)this.channelOne=null;if(v===this.engine)this.engine=null;}
- stopAll(){for(const v of [...this.voices])this.stop(v);this.engineName=null;}
- play(name,loop=false){if(!this.context||!this.unlocked||this.muted||!this.buffers.has(name))return null;const v=this.context.createBufferSource();v.buffer=this.buffers.get(name);v.loop=loop;v.connect(this.gain);this.voices.add(v);v.onended=()=>{this.voices.delete(v);if(this.channelOne===v)this.channelOne=null;for(const[k,value]of this.channels)if(value===v)this.channels.delete(k);v.disconnect?.();};v.start();return v;}
- event(e){if(e.type==='reset'||e.type==='over'||e.type==='complete'){this.stopAll();return;}if(['shot','explosion','refuel','full','life','tank'].includes(e.type)){
-  const channel=['shot','life'].includes(e.type)?2:e.type==='tank'?1:0;this.stop(this.channels.get(channel));const single=channel===0;if(single){this.stop(this.channelOne);this.stop(this.engine);}const v=this.play(e.type);if(single)this.channelOne=v;if(v)this.channels.set(channel,v);
- }}
- sync(game,muted=this.muted){this.muted=muted;if(!this.context)return;if(muted||!game||game.paused||game.phase!=='playing'){this.stopAll();return;}if(this.channelOne)return;
+ stopAll(){for(const v of [...this.voices])this.stop(v);this.engineName=null;this.enemyBase=null;this.gunnerVoice=null;}
+ play(name,loop=false,offset=0,ended){if(!this.context||!this.unlocked||this.muted||!this.buffers.has(name))return null;const v=this.context.createBufferSource();v.buffer=this.buffers.get(name);v.loop=loop;v.connect(this.gain);this.voices.add(v);v.onended=()=>{this.voices.delete(v);if(this.channelOne===v)this.channelOne=null;for(const[k,value]of this.channels)if(value===v)this.channels.delete(k);v.disconnect?.();ended?.();};v.start(0,offset);return v;}
+ resumeEnemy(){const e=this.enemyBase,now=this.context.currentTime||0;if(!e||now>=e.end)return;const v=this.play(e.name,false,Math.max(0,now-e.start));if(v)this.channels.set(1,v);}
+ event(e){if(e.type==='reset'||e.type==='over'||e.type==='complete'){this.stopAll();return;}
+  const name=e.type==='crash'?'explosion':e.type==='explosion'?(e.tank?'tankExplosion':'enemyExplosion'):e.type;
+  if(!['shot','explosion','enemyExplosion','tankExplosion','refuel','full','life','tank','tankBeam'].includes(name)||!this.context||this.muted)return;
+  const channel=['shot','life'].includes(name)?2:['tank','enemyExplosion','tankExplosion'].includes(name)?1:name==='tankBeam'?3:0;
+  if(channel===1){
+   const now=this.context.currentTime||0;
+   if(name==='tank'){
+    this.stop(this.channels.get(1));const v=this.play(name,false,0,()=>{this.gunnerVoice=null;this.resumeEnemy();});this.gunnerVoice=v;if(v){this.channels.set(1,v);v.stop(now+9/this.assets.frameHz);}return;
+   }
+   this.enemyBase={name,start:now,end:now+this.assets.effects[name].duration};
+   if(!this.gunnerVoice){this.stop(this.channels.get(1));this.resumeEnemy();}return;
+  }
+  this.stop(this.channels.get(channel));const single=channel===0;if(single){this.stop(this.channelOne);this.stop(this.engine);}const v=this.play(name);if(single)this.channelOne=v;if(v)this.channels.set(channel,v);
+ }
+ sync(game,muted=this.muted){this.muted=muted;if(!this.context)return;if(muted||!game||game.paused||game.phase==='over'){this.stopAll();return;}
+  if(game.phase!=='playing'){this.stop(this.engine);this.engineName=null;return;}if(this.channelOne)return;
   const name=game.fuel<16384?'warning':!(game.player.controls&1)?'fast':!(game.player.controls&2)?'slow':'engine';
   if(this.engineName!==name||!this.engine){this.stop(this.engine);this.engine=this.play(name,true);this.engineName=name;}
   if(this.engine&&name!=='warning'){const base=name==='fast'?17:name==='slow'?28:24;const rate=base/(32-(game.player.speed>>4));if(this.engine.playbackRate)this.engine.playbackRate.value=rate;}

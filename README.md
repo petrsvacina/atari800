@@ -39,11 +39,15 @@ Katalog umí hledat v názvu, žánru a popisu bez rozlišování diakritiky a f
 
 Otevři `river-raid/index.html`. **←/→** řídí, **↑/↓** přidávají/ubírají rychlost, **mezerník** střílí, **Enter** spouští let. **P/Escape** pauza, **M** zvuk, **R** nabídka, **F** celá obrazovka. Nádrž FUEL doplníš průletem; zpomalení dá více času na tankování. Pro střelbu je jedno místo, další střela následuje po zásahu nebo opuštění obrazovky.
 
-Čtyři letadla, další za 10 000 bodů, mosty jako checkpointy, začátky 1/5/20/50 a dva střídající se piloti s vlastním postupem. Řeka obsahuje 268 288 řádků původního generátoru a 14 132 míst vzniku objektů včetně prázdných slotů. Původní jsou také bitmapy, písmo a deset zvukových PCM klipů. Samotná hra je nativní JavaScript; Atari CPU a ROM v prohlížeči nejsou.
+Čtyři letadla, další za 10 000 bodů, původní checkpointy, začátky 1/5/20/50 a dva střídající se piloti. První úsek má nepřátele bez vodorovného pohybu i v originálu; od druhého úseku se pohybují podle původních pravidel. Řeka, ostrovy, objekty a tanky vznikají průběžně nativním překladem generátoru, bez konce předgenerované mapy. V prohlížeči neběží Atari CPU ani ROM.
 
-Řízení souhlasí se 480 kroky originálu. 22 herních a osm zvukových kontrol zahrnuje vstupní replay prvního mostu s 1 200 body a všemi čtyřmi letadly. Výbuchy jedou s řekou; mosty mají původní silnici a tank, včetně střely a bonusu 750 bodů. Překlad soubojových rutin porovnává 960 kroků NPC/tanku, 384 kroků tankové a 144 kroků vrtulníkové střely. Celá hra zatím není potvrzená 1:1: zbývá životní cyklus/checkpointy, časování celé smyčky a neomezený generátor. Podrobnosti a ověřené hranice shody jsou v `research/river-raid/PORTING.md`. Fyzický gamepad, telefon ani celá mapa nebyly ručně ověřené.
+Převod nyní zachovává skutečné přesuny jedenácti slotů, obraty u tmavého břehu, střelu sledující letadlo, pořadí kolizí, checkpointy a původní průběh smrti/nového odletu. Výbuchy jedou s řekou; mosty mají silnici, tank a bonus 750 bodů. Třináct původních zvukových PCM prostředků respektuje sdílení čtyř kanálů a výbuch letadla se po smrti nevypíná.
+
+Ověřeno je všech 268 288 referenčních řádků se stavem generátoru a slotů, 952 vzniků tanku a 7 996 kroků celé herní smyčky proti XEX, včetně skutečných kolizí, smrti a střídání pilotů. Prochází také 25 herních a 11 zvukových kontrol. Vstupní replay dokončí první most s 1 860 body a všemi čtyřmi letadly. Rozsah porovnání a zbývající rozdíly webového prostředí jsou v `research/river-raid/PORTING.md`; úplné ruční dohrání všech úseků se netvrdí.
 
 ```sh
+node tools/test-river-generator.mjs
+node tools/test-river-game-oracle.mjs
 node tools/test-river-raid.mjs
 node tools/test-river-combat.mjs
 node tools/test-river-audio.mjs

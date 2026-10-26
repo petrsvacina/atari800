@@ -1,73 +1,89 @@
 # River Raid — nativní webová verze
 
-Runtime je JavaScript + Canvas + Web Audio v `river-raid/`. Neobsahuje CPU, Atari OS, ROM ani XEX a nepotřebuje síťové požadavky pro načítání herních prostředků. Původní Atari800 se používá pouze při vývojové extrakci a tvorbě referencí.
+Hra v `river-raid/` používá JavaScript, Canvas a Web Audio. Řeka, objekty, souboje a restart jsou nativní překlady původních rutin. V prohlížeči není 6502, Atari OS ani spouštěná ROM/XEX. Atari800 se používá pouze při vývojovém ověřování.
 
-## Dodané zdroje
+## Autorita a dodané zdroje
+
+Požadavek projektu je převod podle originálu 1:1, nikoliv odhad pravidel podle videa. Video nemusí zachycovat celou hru.
 
 - `River Raid.rom`, 8 192 bytů, SHA-256 `dc55bef6fa336003772643e68b9bfade7155ff4dde1aad814e1cf56ad818805f`.
 - `River Raid.xex`, 8 220 bytů, SHA-256 `a6c3a5f0f8a70632a8402bf54025bba18ec517e12107873c814c8328712a7c3b`.
-- `River Raid (Atari XL⧸XE) [2b4ZJLsbm7U].webm`, 533,701 s, 2560×1440, 60 fps; vizuální reference. Video se nekopíruje do webu.
-- `River Raid_DOCS.TXT` popisuje konzoli **5200**, proto není jediným zdrojem pravidel XL/XE.
+- `River Raid (Atari XL⧸XE) [2b4ZJLsbm7U].webm`, 533,701 s, 2560×1440/60 fps: kontrola barev a vzhledu.
+- `River Raid_DOCS.TXT` je návod pro konzoli 5200; pravidla XL/XE se ověřují z programu.
 
-Načtený XEX se od ROM na `$A000–$BFFF` liší pouze dvěma NOP na `$A158/$A159`; jde o výchozí kontrolu přetrvávajících dat. Grafická, řeková a zvuková data i herní rutiny odpovídají stejné verzi.
+Načtený XEX se od ROM liší pouze dvěma NOP na `$A158/$A159`. Grafická a zvuková data i herní rutiny jsou stejné. Vývojové porovnání používá režim NTSC; webový krok odpovídá přibližně 59,923 Hz.
 
-## Co pochází z originálu
+## Generátor a objekty
 
-`river_capture_course.py` vykoná skutečný generátor řeky od `$A711`; místo návratu do hlavní obrazové smyčky uloží číselná data každého řádku. Nevykonává kompletní souboj. Zvukové a obrazové přerušení je při této dávkové extrakci vypnuté. Seed, přechody úseků, algoritmus řeky a tvorba objektů zůstávají původní.
+`generator.js` překládá `$A711–$AE96`: původní tříbytový seed, šířky a změny břehů, ostrovy, dekorace, mosty, umísťování všech objektů včetně prázdných slotů, vznik tanků a ukládání checkpointů. Řeka pokračuje bez konce předchozího exportu. Začátky 1/5/20/50 používají přímo původní tabulky seedů a středu. Obtížnost po dosažení interního 80 pokračuje původním střídáním 79/80; řeka se generuje dál.
 
-Export obsahuje **268 288 řádků**, slovník **27 070 různých řádků** a **14 132 míst vzniku objektů včetně prázdných slotů**. Do webu se ukládá jen viditelných 40 obrazových bytů každého řádku, čísla řádků, pozice/typy objektů a bitmapy. Slovník se sdílí, takže hra neobsahuje stovky samostatných velkých obrázků. Dekorace hor, ostrovy, břehy i průlivy jsou součástí původních pixelů, nikoliv dodatečné sinusové křivky.
+Objekty skutečně zabírají jedenáct slotů původního programu. Při přetečení Y spodního slotu se ostatní přesunou a změní se parita aktualizací. Předchozí web chybně odvozoval tyto přesuny z konstantního intervalu 256 řádků. Po přesunu se Y spodního objektu změní, a proto tento interval není konstantní. Správu slotů nyní provádí přímo generátor.
 
-Počáteční seedy pro mosty **1, 5, 20 a 50** byly porovnané s původní tabulkou `$B494/$B498/$B49C`; průběžné generování dojde ke stejným hodnotám. Interní obtížnost originálu se později omezuje na 79/80, ale seed a další úseky pokračují. Webová mapa má konec po vyčerpání tohoto exportu; původní neomezené pokračování za ním se netvrdí.
+`mechanics.js` překládá `$A1F5–$A2F5`: aktivaci náhodného slotu, vynechání nejnovějšího objektu, globální fázi animace, paritu, rychlost balónu, tryskáče, obrat s kontaktní západkou a původní cykly bitmap. **První úsek má nepřátele bez vodorovného pohybu i v originálu.** Pohyb se uplatní od druhého úseku. U nepřátel rozhoduje kontakt s tmavým břehem PF1 (`$B61E` posune P3PF před maskováním); letadlo naopak poškozuje zelená pevnina PF0.
 
-Původní jsou snímky letadla, lodí, vrtulníků, střelce, tryskáče, balónu, mostu, paliva, výbuchů a písma. Směr bitmapy i pořadí řádků respektují původní vykreslování. RGB převod barev je přiblížený dodanému videu, nikoli úplná analogová emulace Atari barev.
+Výbuch zůstává ve svém slotu, zachovává velikost a barvy zasaženého typu a posouvá se s řekou. Silnice mění barvu pevniny podle `$B4E5` a zůstává i po zmizení mostu. Tank má původní bitmapy, animaci, pohyb, zastavení po zničení mostu a střelu z `$A607–$A671`. Vrtulníková střela překládá `$A5B7–$A605`, včetně původní dvojnásobné šířky missile 0. Zásah mostu pod tankem přidělí ověřených 750 bodů.
 
-`RiverRaid.flight` překládá `$A455–$A4B6` přímo do celočíselných pravidel: rozjezd do stran s osminovými kroky čítače a osmibitovým zlomkem, tři náklony, rychlost 64–254 s návratem k 128. Při odletu se nastaví původních 64; rychlost 128 posune kameru průměrně o jeden řádek za 60Hz krok. Směr nahoru/dolů mění rychlost, nikoli výšku letadla.
+`assets/original.js` obsahuje jen přibližně 13 kB původní grafiky a číselných tabulek. Předgenerovaná mapa se do webu už neposílá. Rozsáhlý původní export v `research/river-raid/course.json` a 952 potenciálních vzniků tanku slouží jako vývojové reference.
 
-Spotřeba je 32 z 65 535 jednotek paliva za krok nezávisle na rychlosti. Kontakt s FUEL doplní 512 jednotek před dalším krokem; nižší rychlost prodlouží dobu tankování. Jedno místo pro střelu se uvolní po zásahu nebo opuštění obrazu. Kolize porovnávají skutečné neprůhledné pixely letadla a objektů s původní řekovou bitmapou. Letadlo poškozuje zelená pevnina (původní PF0 test `$B64E/$A432`); tmavý lem břehu je průletný. Střelu zastavuje pevnina i pobřežní PF1.
+## Let, kolize a nový odlet
 
-Skóre pochází z BCD tabulky `$BB0B`: loď 30, vrtulník/balón 60, palivo 80, tryskáč 100, střelec 150 a most 500, případně 750 při zasažení mostu s tankem ve zdrojovém intervalu `$A500–$A51F`. Za každých 10 000 bodů přibude letadlo, nejvýše devět. Začínají čtyři. Dva piloti se po ztrátě střídají a mají vlastní skóre, letadla i checkpoint. Zničení mostu nastaví checkpoint odpovídající začátku dalšího úseku.
+Řízení překládá `$A455–$A4B6`, včetně osmibitového zlomku a rozjezdu do stran. Odlet začíná rychlostí 64. Rychlost FE generuje dva řádky každý krok; ostatní rychlosti používají dvě původní samostatná přičtení do zlomkového čítače. Střela sleduje polohu letadla i po výstřelu, stejně jako původní sdílená poloha PM2/M2. Po zásahu se uvolní jediné místo pro střelu.
+
+Kolize z vykresleného stavu se vyhodnotí v následujícím kroku a v původním pořadí. Kontakt s FUEL přičte 512 před spotřebou 32. Nulová nádrž způsobí smrt v následujícím kroku. Náraz letadla zničí také zasaženého nepřítele původní fází 3 a přidělí jeho body. Tanková střela poškozuje letadlo až ve fázi výbuchu.
+
+Smrt používá původní čítač FE a snímky letadla 6 až 0. Po 127 krocích následuje obnova: třináct dalších VBI odpovídá původnímu mazání paměti, pak 160 nových řádků řeky během rozehřívání a stav připraveného letadla. Celkem jde o 220 webových kroků od smrti do připraveného odletu. Vyprazdňování původní RAM během těchto třinácti VBI web zobrazuje prázdným herním polem.
+
+Checkpoint zachovává seed a střed řeky. `$B1C0` podle polohy mostu a příznaku jeho zničení zvolí aktuální, předchozí nebo právě dokončený úsek; nový let obnoví původní počáteční parametry generátoru. Při dvou hráčích se střídají skóre, checkpointy a letadla. Maximum je devět rezervních letadel a jedno aktivní, nikoliv devět celkem.
 
 ## Zvuk
 
-`river_extract_audio.py` vykonává původní POKEY rutinu `$B2A5–$B3D8` v soukromé vývojové SAP obálce. Následná část VBI se nahrazuje návratem; samotné zvukové instrukce se nemění. Pro každý export se izoluje příslušný POKEY kanál, aby se při webovém míchání nezdvojoval motor. Obálky s původním kódem nejsou v runtime ani v Gitu.
+Třináct PCM prostředků na 22 050 Hz vzniká vykonáním původní POKEY rutiny `$B2A5–$B3D8` v soukromé SAP obálce. Samotné zvukové instrukce se nemění; následující nezvuková část VBI končí návratem. Exportované kanály se izolují, aby se motor nepřidával vícekrát. Metadata obsahují SHA-256 každého PCM proudu.
 
-Deset mono PCM klipů na 22 050 Hz pokrývá normální motor, přidání/ubrání rychlosti, střelbu, výbuch, tankování, plnou nádrž, rezervní letadlo, málo paliva a nepřátelský výstřel. Metadata obsahují SHA-256 každého PCM proudu. Webové přehrávání mění výšku motoru podle rychlosti, respektuje sdílené kanály, tankovací tón nahrazuje motor, nízké palivo spustí původní varování. Originál zde nemá přidanou novou hudební skladbu.
+Vedle motoru, rychlosti, střely, tankování, plné nádrže, rezervy a varování jsou oddělené původní výbuchy letadla, nepřítele a tanku, vrtulníkový výstřel a celý zvukový průběh tankové střely. Nepřátelský výbuch používá jiný kanál než motor. Vrtulník jej dočasně překryje; pak se obnoví zbývající část. Výbuch letadla se při přepnutí do fáze smrti okamžitě nevypíná. Tanková střela má vlastní čtvrtý kanál.
 
-## Co je nová adaptace a co není ověřené
+## Ověření
 
-`mechanics.js` překládá původní `$A1F5–$A2F5`: výběr jednoho z jedenácti slotů, vynechání nejnovějšího objektu, nehybné nepřátele prvního úseku, paritu aktualizací, obrat s kontaktní západkou a původní cykly bitmap. Výbuch zůstává ve slotu, posouvá se s řekou a zachovává velikost a barvy zasaženého typu. Silnice používá původní tabulku změn COLPF0 `$B4E5`, i po zničení mostu. Tank má vlastní bitmapy, pohyb a zastavení po zásahu mostu. Střela překládá `$A607–$A671`, horizontální střela vrtulníku `$A5B7–$A605`.
+- **268 288 po sobě jdoucích původních řádků**: SHA-256 normalizovaného záznamu zahrnuje všech 48 obrazových bytů, stav generátoru, všechny sloty a checkpoint. Nejde jen o vybrané obrázky. Další test ověřuje pokračování za někdejším koncem exportu.
+- **952 vzniků tanku**: všechny původní souřadnice, směry a rychlosti.
+- **7 996 kroků celé původní herní smyčky**: řízení, palivo, všech jedenáct slotů a jejich kontaktní příznaky, tank, střely, skóre, pilot, checkpointy a SHA-256 všech 160 širokých obrazových řádků po každém kroku. 3 136 kroků izoluje pohyb bez zásahů hráče, 2 160 používá skutečné kolize a střelbu a 2 700 řízené zásahy pro větve checkpointů. NPC kolize s břehy zůstávají ve všech scénářích skutečné. Devět restartů potvrzuje i třináct dodatečných VBI při čištění paměti.
+- **960 izolovaných aktualizací NPC/tanku, 384 tankové a 144 vrtulníkové střely**, včetně obou směrů a zlomkových rychlostí.
+- **480 původních aktualizací řízení**, skutečný původní ready raster a souřadnice, **25 herních kontrol** a **11 zvukových kontrol**.
+- Čistě vstupní replay projde prvním mostem za **880 kroků**, s **1 860 body** a všemi čtyřmi letadly. Nepoužívá teleport ani nesmrtelnost.
+- Brave zobrazil nové místní sestavení, začátek 5, běžící let se střelbou, bodování, ztrátu života a tlačítko pauzy. Vykreslené stavy mostu, tanku a výbuchu byly také přímo zkontrolované.
 
-`river_capture_course.py --tank-candidates` navíc zachytí 952 možných vzniků tanku. Před každým řádkem soukromé extrakce vyprázdní pouze tankový slot; porovná všech 268 288 výsledných řekových řádků s původní extrakcí. Runtime uplatňuje původní podmínku jediného tanku a odstranění na Y=188. Tím se neopakuje chyba první extrakce, která vynechala úklid tanku v `$AE99` a blokovala další tanky.
+Referenční scénáře se startují z původního stavu; počáteční fáze animace a aktivace se srovnají s daným záznamem. Po tomto počátku se všechny stavy počítají nativně. Stejný vložený bajt RANDOM zajišťuje porovnatelnost, nikoli shodu celého hardwarového generátoru náhody POKEY.
 
-**Celá webová hra zatím není potvrzený převod 1:1.** K další opravě zůstává úplný průběh smrti, odletu a obnovy checkpointu, časování vyhodnocení hardwarových kolizí a zvukových událostí v celé smyčce a neomezený generátor místo konečného exportu. Původní generátor může reagovat na pohybující se objekt; dlouhý export zachycuje jeho vývoj bez těchto soubojových vstupů. Hardwarový RANDOM nahrazuje nativní zdroj bajtů; algoritmus volby slotu je ověřený s vloženými stejnými bajty, nikoliv celá posloupnost POKEY. Ani izolovaná shoda rutin neprokazuje shodu celého hraní.
+## Hranice tvrzení
 
-Nové jsou menu, české texty, tréninkové začátky, lokální rekord, dotykové ovládání a podpora gamepadu. Rekord je společný pro webovou hru; nenapodobuje původní paměť jednotlivých variant. Ztráta okna pozastaví probíhající let. Samostatný subjektivní poslech, fyzický gamepad/telefon a úplné ruční dohrání celé dlouhé mapy se nevydávají za provedené kontroly.
+Opravené dřívější zjednodušení AI, správy slotů, checkpointů, smrti a konečné mapy už není použitá náhrada pravidel. Shoda je ověřená uvedenými referencemi; úplné ruční dohrání všech úseků, fyzický gamepad/telefon ani subjektivní poslech se za provedené nevydávají. Několik snímků ani tisíce kroků nejsou matematickým důkazem všech možných stavů.
 
-## Ověření a reprodukce
+Nativní zdroj náhodných bajtů nahrazuje nepředvídatelný hardwarový RANDOM. RGB převod je laděný k videu, ne k jediné analogové televizi; PCM přehrávání není úplná emulace POKEY. Nové jsou webová nabídka, české texty, společný lokální rekord, dotykové ovládání, gamepad a vzhled webového HUD. Původní OS/boot a reklamní demo nejsou běžící součástí hry. Rozbor šířek a priority PMG lze porovnat také s [GTIA v Atari800](https://github.com/atari800/atari800/blob/ATARI800_7_2_1/src/gtia.c); žádný z těchto emulátorových modulů není v runtime.
 
-**22 herních kontrol** zahrnuje 480 původních kroků řízení, 81 referenčních řekových řádků, všechny čtyři začátky, bodování, palivo, kolize, checkpoint, životy, piloty a pauzu. Skutečný původní stav před odletem potvrzuje všech 160 viditelných řádků řeky, umístění letadla na Y=142 a polohu objektů; předchozí webová verze měla objekty o čtyři a letadlo o tři řádky posunuté. Nový replay obsahuje jen vstupy a za 879 kroků zničí první most se skóre **1 200**, čtyřmi letadly a zbývajícím palivem. Neobsahuje změny herního stavu.
+## Reprodukce
 
-Samostatné porovnání se zdrojovým programem ověřuje **960 kroků NPC/tanku** (vždy všech jedenáct slotů), **384 kroků tankové střely** a **144 kroků střely vrtulníku**, včetně zlomkových rychlostí, směru, smrti a kontaktu s břehem. **Osm zvukových kontrol** ověřuje PCM data, autoplay, motor, varování, sdílení kanálů, tankování, pauzu/mute a chybějící zvukový kontext. Vykreslené stavy před mostem, při zásahu a s přetrvávající silnicí byly vizuálně zkontrolované. Aktuální kontrola skutečného prohlížeče byla omezená nedostupným obsahem okna; úplné ruční hraní, subjektivní poslech, telefon a fyzický gamepad se za ověřené nevydávají.
+Běžné sestavení nepotřebuje originály ani emulátor:
 
 ```sh
 python3 tools/river_extract_assets.py
-python3 tools/river_render_cover.py
+node tools/test-river-generator.mjs
+node tools/test-river-game-oracle.mjs
 node tools/test-river-raid.mjs
 node tools/test-river-combat.mjs
 node tools/test-river-audio.mjs
 python3 tools/build_portal.py
 ```
 
-Při nové vývojové extrakci jsou potřeba dodané originály a Atari800; zvuk navíc místní VLC a FFmpeg:
+Nová vývojová extrakce vyžaduje dodané originály a Atari800; zvuk také VLC a FFmpeg:
 
 ```sh
 python3 tools/river_capture_course.py
 python3 tools/river_capture_course.py --tank-candidates
 python3 tools/river_extract_assets.py --capture
+python3 tools/river_capture_game.py
 python3 tools/river_capture_combat.py
 python3 tools/river_capture_scene.py
 python3 tools/river_capture_flight.py
 python3 tools/river_extract_audio.py
 ```
 
-Původní soubory, video, dočasné RAM, záznamy generátoru a strojové obálky zůstávají mimo veřejný web. Po naklonování jsou pro běžné sestavení a hraní všechny potřebné prostředky již v repozitáři.
+ROM/XEX, video, RAM, strojové obálky a vývojový emulátor zůstávají mimo Git a veřejný web. Veřejný balíček tvoří jen HTML/CSS/JS a herní prostředky.

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';import vm from 'node:vm';import path from 'node:path';import{fileURLToPath}from'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),s=vm.createContext({});
-for(const f of ['assets/course.js','mechanics.js'])vm.runInContext(fs.readFileSync(path.join(root,'river-raid',f),'utf8'),s,{filename:f});
+for(const f of ['assets/original.js','mechanics.js'])vm.runInContext(fs.readFileSync(path.join(root,'river-raid',f),'utf8'),s,{filename:f});
 const a=s.RIVER_ASSETS.mechanics,M=s.RiverMechanics;
 const oracle=JSON.parse(fs.readFileSync(path.join(root,'tools/fixtures/river-combat-oracle.json')));
 let updates=0;
