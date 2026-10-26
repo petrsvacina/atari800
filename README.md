@@ -10,9 +10,11 @@ The Goonies je samostatná nativní HTML5 verze v `goonies-web/`, veřejně na *
 
 River Raid je nativní HTML5 hra v `river-raid/`, veřejně na **https://atari800.gmork.cz/hry/river-raid/**. Stav ověřeného nasazení je v `DEPLOYMENT.md`.
 
+H.E.R.O. je nativní HTML5 hra v `hero/`. Adresa v herně je **https://atari800.gmork.cz/hry/hero/**; ověřený stav zveřejnění je v `DEPLOYMENT.md`.
+
 ## Obsah repozitáře
 
-`portal/` obsahuje katalog, `web/` samostatné Dynakillers, `karate/` International Karate, `archon/` Archon, `goonies-web/` The Goonies a `river-raid/` River Raid, včetně všech grafických a zvukových prostředků potřebných pro hraní. `tools/` obsahuje sestavení, extrakční nástroje a testy; `research/` dokumentuje rozbor a ukládá podklady potřebné pro opakování grafických exportů. Původní místní adresář `Goonies/` se do Gitu ani veřejného webu nekopíruje.
+`portal/` obsahuje katalog, `web/` samostatné Dynakillers, `karate/` International Karate, `archon/` Archon, `goonies-web/` The Goonies, `river-raid/` River Raid a `hero/` H.E.R.O., včetně všech grafických a zvukových prostředků potřebných pro hraní. `tools/` obsahuje sestavení, extrakční nástroje a testy; `research/` dokumentuje rozbor a ukládá podklady potřebné pro opakování grafických exportů. Původní místní adresář `Goonies/` se do Gitu ani veřejného webu nekopíruje.
 
 Původní Atari soubory, referenční video, místní assemblerové podklady, SAP/WAV a pracovní binární výstupy se do Gitu nepřidávají. Pro hraní a sestavení portálu nejsou potřeba; vyžadují je jen některé vývojové extrakční nástroje. Vygenerovaný `dist/` je také ignorovaný. Po naklonování stačí `python3 tools/build_portal.py` a otevření `dist/index.html`, případně publikování obsahu `dist/`. Python používá jen standardní knihovnu; samotné hry pro hraní nepotřebují Python ani Node.js.
 
@@ -28,12 +30,31 @@ python3 tools/karate_render_cover.py
 python3 tools/archon_render_cover.py
 python3 tools/goonies_render_cover.py
 python3 tools/river_render_cover.py
+node tools/hero_render_cover.mjs
 python3 tools/build_portal.py
 ```
 
-Prvních pět příkazů vytvoří náhledy her z jejich původních grafických dat; pro další hry přidej jejich vlastní obrázky do `portal/assets/`. Poslední vytvoří kompletní veřejný web v `dist/`: úvodní stránku, katalog a každou hru pod `hry/<id>/`. Do publikované kopie hry přidá návrat do katalogu místo hlavičky `.edition`. Samostatné místní verze her se nemění.
+Prvních šest příkazů vytvoří náhledy her z jejich původních grafických dat; pro další hry přidej jejich vlastní obrázky do `portal/assets/`. Poslední vytvoří kompletní veřejný web v `dist/`: úvodní stránku, katalog a každou hru pod `hry/<id>/`. Do publikované kopie hry přidá návrat do katalogu místo hlavičky `.edition`. Samostatné místní verze her se nemění.
 
 Katalog umí hledat v názvu, žánru a popisu bez rozlišování diakritiky a filtrovat hry pro více hráčů. Odkazy na hry fungují i bez JavaScriptu. Na server patří pouze obsah `dist/`, nikoli kořen projektu s původními binárními soubory, pracovními daty a nástroji. Aktuální webový kořen Apache je `/var/www/atari800` na `mail.gmork.cz`; před jeho změnami pořiď zálohu. Existující konfigurace Apache a HTTPS není potřeba měnit.
+
+## H.E.R.O.
+
+Otevři `hero/index.html` přímo v prohlížeči. **←/→** řídí chůzi a let, **↑** roztočí vrtulku, **↓** položí dynamit ve stoje a **mezerník** střílí. Funguje také WASD, gamepad a dotyková tlačítka. **Enter** začne výpravu, **P/Escape** pozastaví hru, **M** přepne zvuk, **R** vrátí nabídku a **F** přepne celou obrazovku. Při přepnutí okna se hra pozastaví.
+
+Hra přebírá všech 256 místností dvaceti misí, bitmapy, pravidla pohybu a kolizí, nepřátele, lampy, dynamit, propalování zdí, energii, skóre a životní cyklus z dodaného XEX. Má původních pět počátečních obtížností a pokračování po dvacáté misi. Zvuk vzniká nativně podle původního řízení registrů POKEY, bez obecné náhradní zvukové sady. V prohlížeči neběží původní procesor ani program.
+
+```sh
+node tools/test-hero-terrain.mjs
+node tools/test-hero-game.mjs
+node tools/test-hero-explosions.mjs
+node tools/test-hero-raster.mjs
+node tools/test-hero-sound.mjs
+```
+
+Rozsah porovnání s originálem a omezení jsou v `research/hero/PORTING.md`. Zdrojové soubory Atari a video jsou pouze vývojové podklady a na web se nekopírují. Fyzický gamepad a telefon zatím nebyly ověřené; úplné ruční dohrání všech misí se netvrdí.
+
+Prochází 28 184 kroků celé herní smyčky, včetně nativních pixelových kolizí, všech místností a záchrany i postupu ve všech dvaceti misích. Dále 328 znakových map, 384 detonací, 640 zvukových stavů a všech 80 640 pixelů kontrolního snímku. Vstupní replay první mise získá 2 770 bodů se čtyřmi životy. Časování přechodů vychází z 2 816 měření původního programu.
 
 ## River Raid
 

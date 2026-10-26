@@ -1,6 +1,23 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — nativní generátor a úplná herní smyčka River Raid
+## Aktuální veřejné vydání — H.E.R.O.
+
+- Vydání: `20261026T225342Z`; **nasazené a ověřené přes HTTPS**.
+- Hra: https://atari800.gmork.cz/hry/hero/; portál nyní obsahuje šest her.
+- Archiv: `/private/tmp/atari800-portal-20261026T225342Z.tar.gz`; serverová kopie ve `/var/tmp/`.
+- SHA-256: `d415eaceab20a2ce6e7a4efd31c7f6d71f10967da3acb556c200641899940119`.
+- Staging: `/var/tmp/atari800-release-20261026T225342Z`.
+- Úplná záloha předchozího webu: `/root/atari800-backups/20261026T225342Z/site-before.tar.gz` (96 souborů).
+
+H.E.R.O. je samostatný nativní JavaScript/Canvas port dodaného XEX. Zachovává 256 místností dvaceti misí, původní grafická data, pohyb, nepřátele, laser, lampy, dynamit, žhavé a pohyblivé překážky, energii, záchranu, bonusy a životní cyklus. Zvukové registry řídí nativní generátor potřebných tónů a šumů POKEY. Původní CPU ani program v prohlížeči neběží. Nabídka má původních pět začátků obtížnosti; ovládání zahrnuje klávesnici, gamepad a dotyk.
+
+Prochází 28 184 herních kroků proti skutečnému programu, včetně nativně počítaných pixelových kolizí. Zahrnují se všechny místnosti a skutečně spuštěná záchrana i přechod do další mise u všech dvaceti misí. Čistě vstupní replay první mise má 2 770 bodů a čtyři životy. Prochází také 328 znakových map, 384 detonací se skóre, 640 stavů zvukového řízení a všech 80 640 indexovaných pixelů referenčního snímku. Časování překreslení vychází z 2 816 původních profilů VBI. Rozsah a omezení NTSC, RGB, analogového zvuku, náhodné fáze a ručního hraní jsou v `research/hero/PORTING.md`; úplná shoda celého programu 1:1 se netvrdí.
+
+Před přípravou všechny živé soubory souhlasily s předchozím stagingem. Po úplné záloze se atomicky přidalo 15 souborů hry a náhledů a nahradil úvodní index. Zbývajících 95 souborů, včetně všech pěti dosavadních her, portálového CSS a JavaScriptu, je bytově shodných. Konfigurace ani služby se neměnily.
+
+Sestavení má 111 veřejných souborů a 94 platných místních HTML odkazů. Veřejné HTTPS potvrdilo **111 souborů přes SHA-256**, sedm kanonických cest, MIME typy a sedm MP3 Range požadavků. Nezávislé místní stažení HTML H.E.R.O. souhlasí se sestavením. Na webu nejsou původní Atari soubory, výzkumná RAM, fixture ani referenční video.
+
+## Předchozí vydání — nativní generátor a úplná herní smyčka River Raid
 
 - Vydání: `20261026T205640Z`; **nasazené a ověřené přes HTTPS**.
 - Hra: https://atari800.gmork.cz/hry/river-raid/.

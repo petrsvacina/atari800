@@ -73,5 +73,20 @@
     "logo": "assets/river-raid-logo.svg",
     "source": "river-raid",
     "featured": false
+  },
+  {
+    "id": "hero",
+    "title": "H.E.R.O.",
+    "description": "Vrtulka, laser a šest náloží. Proleť původními jeskyněmi, odpal překážky a zachraň horníka, než dojde energie.",
+    "genre": "Akční · dobrodružná",
+    "players": "1 hráč",
+    "multiplayer": false,
+    "year": "1984",
+    "author": "Activision",
+    "controls": "Klávesnice · gamepad · dotyk",
+    "image": "assets/hero.png",
+    "logo": "assets/hero-logo.svg",
+    "source": "hero",
+    "featured": false
   }
 ]
