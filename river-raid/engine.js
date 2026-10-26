@@ -89,12 +89,13 @@ class Game{
   this.enemies=this.enemies.filter(e=>!e.dead&&this.screenY(e)<200);
   for(const shell of this.shells){shell.x+=shell.dx;shell.age++;if(shell.age===45){this.explosions.push({x:shell.x,y:shell.y,age:0});if(Math.abs(shell.x-px-8)<14&&Math.abs(shell.y-p.y-7)<12)this.crash('Výbuch střely nad řekou.');}}
   this.shells=this.shells.filter(s=>s.age<50);
-  if(this.bullet&&this.course.color(this.bullet.x,Math.floor(159+this.scroll-this.bullet.y))!==3)this.bullet=null;
+  if(this.bullet){const bank=this.course.color(this.bullet.x,Math.floor(159+this.scroll-this.bullet.y));if(bank===1||bank===2)this.bullet=null;}
   if(!this.refueling)this.refuelClock=0;
   // Compare the real silhouettes with the original indexed river, including islands.
   for(let yy=0;yy<bits.length&&this.phase==='playing';yy++)for(let xx=0;xx<8;xx++)if(bits[yy]&(128>>xx)){
    const x=px+xx*2,world=Math.floor(159+this.scroll-p.y-yy);
-   if(this.course.color(x,world)!==3){this.crash('Zásah břehu nebo ostrova.');break;}
+   // Original P2PF tests PF0 (green land); the dark shoreline is passable.
+   if(x<0||x>=320||this.course.color(x,world)===1){this.crash('Zásah břehu nebo ostrova.');break;}
   }
   if(!this.fuel)this.crash('Došlo palivo. Zpomal nad další nádrží FUEL.');
  }

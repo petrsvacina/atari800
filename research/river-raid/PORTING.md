@@ -23,7 +23,7 @@ Původní jsou snímky letadla, lodí, vrtulníků, střelce, tryskáče, balón
 
 `RiverRaid.flight` překládá `$A455–$A4B6` přímo do celočíselných pravidel: rozjezd do stran s osminovými kroky čítače a osmibitovým zlomkem, tři náklony, rychlost 64–254 s návratem k 128. Rychlost 128 posune kameru průměrně o jeden řádek za 60Hz krok. Směr nahoru/dolů mění rychlost, nikoli výšku letadla.
 
-Spotřeba je 32 z 65 535 jednotek paliva za krok nezávisle na rychlosti. Kontakt s FUEL doplní 512 jednotek před dalším krokem; nižší rychlost prodlouží dobu tankování. Jedno místo pro střelu se uvolní po zásahu nebo opuštění obrazu. Kolize porovnávají skutečné neprůhledné pixely letadla a objektů, břehy a ostrovy s původní řekovou bitmapou.
+Spotřeba je 32 z 65 535 jednotek paliva za krok nezávisle na rychlosti. Kontakt s FUEL doplní 512 jednotek před dalším krokem; nižší rychlost prodlouží dobu tankování. Jedno místo pro střelu se uvolní po zásahu nebo opuštění obrazu. Kolize porovnávají skutečné neprůhledné pixely letadla a objektů s původní řekovou bitmapou. Letadlo poškozuje zelená pevnina (původní PF0 test `$B64E/$A432`); tmavý lem břehu je průletný. Střelu zastavuje pevnina i pobřežní PF1.
 
 Skóre pochází z BCD tabulky `$BB0B`: loď 30, vrtulník/balón 60, palivo 80, tryskáč 100, střelec 150 a most 500. Za každých 10 000 bodů přibude letadlo, nejvýše devět. Začínají čtyři. Dva piloti se po ztrátě střídají a mají vlastní skóre, letadla i checkpoint. Zničení mostu nastaví checkpoint odpovídající začátku dalšího úseku.
 
@@ -41,7 +41,7 @@ Nové jsou menu, české texty, tréninkové začátky, lokální rekord, dotyko
 
 ## Ověření a reprodukce
 
-**17 herních kontrol** zahrnuje 480 původních kroků řízení, 81 referenčních řekových řádků, všechny čtyři začátky, bodování, spotřebu/tankování, pixelové kolize, střely, checkpoint, životy, střídání pilotů, pauzu a první scénu. Replay prvního mostu obsahuje jen směrové/střelecké vstupy: končí u mostu 2 se skóre **1 670**, čtyřmi letadly a zbývajícím palivem. Nepoužívá teleport, nesmrtelnost ani přepis příznaku mostu. **Osm zvukových kontrol** ověřuje data, autoplay, motor, varování, sdílení kanálů, tankování, pauzu/mute a chybějící zvukový kontext.
+**18 herních kontrol** zahrnuje 480 původních kroků řízení, 81 referenčních řekových řádků, všechny čtyři začátky, bodování, spotřebu/tankování, pixelové kolize, střely, checkpoint, životy, střídání pilotů, pauzu a první scénu. Replay prvního mostu obsahuje jen směrové/střelecké vstupy: končí u mostu 2 se skóre **1 670**, čtyřmi letadly a zbývajícím palivem. Nepoužívá teleport, nesmrtelnost ani přepis příznaku mostu. **Osm zvukových kontrol** ověřuje data, autoplay, motor, varování, sdílení kanálů, tankování, pauzu/mute a chybějící zvukový kontext.
 
 Brave přes `file://` zobrazil kompletní stránku s původní řekou a HUD; potvrzené bylo spuštění letu a následná ztráta letadla. Spolehlivá kontrola všech kláves a dotykových prvků se za ručně dokončenou nevydává.
 

@@ -41,7 +41,7 @@ Otevři `river-raid/index.html`. **←/→** řídí, **↑/↓** přidávají/u
 
 Čtyři letadla, další za 10 000 bodů, mosty jako checkpointy, začátky 1/5/20/50 a dva střídající se piloti s vlastním postupem. Řeka obsahuje 268 288 řádků původního generátoru a 12 305 původních míst vzniku objektů. Původní jsou také bitmapy, písmo a deset zvukových PCM klipů. Samotná hra je nativní JavaScript; Atari CPU a ROM v prohlížeči nejsou.
 
-Řízení souhlasí se 480 kroky originálu; 17 herních a osm zvukových kontrol zahrnuje také celý vstupní replay prvního mostu s 1 670 body a všemi čtyřmi letadly. AI a některé soubojové časy jsou nové provedení, mapa je konečný export. Podrobnosti a ověřené hranice shody jsou v `research/river-raid/PORTING.md`. Fyzický gamepad, telefon ani celá mapa nebyly ručně ověřené.
+Řízení souhlasí se 480 kroky originálu; 18 herních a osm zvukových kontrol zahrnuje také celý vstupní replay prvního mostu s 1 670 body a všemi čtyřmi letadly. AI a některé soubojové časy jsou nové provedení, mapa je konečný export. Podrobnosti a ověřené hranice shody jsou v `research/river-raid/PORTING.md`. Fyzický gamepad, telefon ani celá mapa nebyly ručně ověřené.
 
 ```sh
 node tools/test-river-raid.mjs
