@@ -1,6 +1,24 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — H.E.R.O.
+## Aktuální veřejné vydání — oprava Archonu podle XEX
+
+- Vydání: `20261027T092825Z`; **nasazené a ověřené přes HTTPS**.
+- Hra: https://atari800.gmork.cz/hry/archon/; zdrojový commit `f6a328f`.
+- Archiv: `/private/tmp/atari800-portal-20261027T092825Z.tar.gz`; serverová kopie ve `/var/tmp/`.
+- SHA-256: `13f8a42e47bdac60bccfd7a55b423ac5e11c6b5d03b50cde2cf9370aee76ee36`.
+- Staging: `/var/tmp/atari800-release-20261027T092825Z`.
+- Úplná ověřená záloha předchozího webu: `/root/atari800-backups/20261027T092825Z/site-before.tar.gz` (111 souborů).
+
+Vlastní AI a soubojové heuristiky Archonu nahrazuje nativní překlad původních rutin. Přenesený je generátor 18 překážek, jasové třídy a bitmapové kolize, pohyb, zbraně, Fénix a Bánší, rozhodování počítače na desce i v aréně. Opravené jsou oba počáteční směry světla, léčení, výběry kouzel a původní geometrie desky i značka magického bodu. Sedmnáct PCM zahrnuje pohybové smyčky, let střely a efekty nabití, kontaktu a plošných útoků. Podle volby uživatele běží NTSC, přibližně 59,9233 Hz. Nativní web neprovádí původní CPU ani XEX.
+
+Prošlo 27 herních a deset zvukových kontrol, 953 360 porovnání bytového stavu ve 114 původních replayích, 768 úplných rozhodnutí AI, 167 vykonaných Teleport/Summon dispatchů, 2 592 cílů kouzel a 44 úplných tahů obou začínajících stran. Dalších 161 896 porovnání ověřuje původní pixelové kolize dvanácti celých VBI jader při stabilním úplném GTIA scanoutu. **Úplné 1:1 se netvrdí:** nepřerušovaný raster má stále rozdíly; zásobníková chyba Měňavce a návrat patologických AI teleportací nejsou uzavřené. Rozsah, diagnostické neprocházející stopy, webové přechody a hranice zvuku jsou v `research/archon/PORTING.md`. Místní Edge potvrdil načtení desky, zahájení arény a pohyb; úplná ruční partie ani fyzický telefon/gamepad nejsou tvrzené jako ověřené.
+
+Před přípravou i těsně před publikací všech 111 živých souborů souhlasilo s předchozím vydáním. Po ověření úplné zálohy se atomicky přidaly tři a nahradilo osm souborů pouze v Archonu, HTML jako poslední. Ostatních **103 souborů zůstalo bytově shodných**, včetně portálu a dalších pěti her. Konfigurace ani služby se neměnily. Změněné skripty a hudba mají verzi URL pro cache.
+
+Sestavení má **114 veřejných souborů a 97 platných místních HTML odkazů**. Veřejné HTTPS ověřilo SHA-256 všech 114 souborů, sedm kanonických cest, MIME typy a sedm MP3 Range požadavků. Nezávislé místní stažení HTML Archonu je také shodné. Původní hry, video, pracovní RAM, fixture a vývojové obálky nejsou ve veřejném sestavení.
+
+
+## Předchozí vydání — H.E.R.O.
 
 - Vydání: `20261026T225342Z`; **nasazené a ověřené přes HTTPS**.
 - Hra: https://atari800.gmork.cz/hry/hero/; portál nyní obsahuje šest her.
