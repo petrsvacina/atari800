@@ -97,22 +97,25 @@ Regresní kontroly porovnávají 1 280 kroků pohybu a 2 744 kompletních bitmap
 
 ## Archon
 
-Otevři `archon/index.html` přímo v prohlížeči. Vyber Světlo nebo Stín proti počítači, případně dva hráče. Světlo začíná. Na desce klikni na vlastní figuru a potom na zvýrazněný cíl; alternativou jsou šipky a mezerník/Enter. Pozemní jednotky postupují kolmo a blokují je figury, létající přelétají i diagonálně. Útok na soupeře přepne do arény.
+Otevři `archon/index.html` přímo v prohlížeči. Vyber Světlo nebo Stín proti počítači, případně dva hráče, a začínající stranu. Na desce klikni na vlastní figuru a potom na zvýrazněný cíl; alternativou jsou šipky a mezerník/Enter. Pozemní jednotky postupují kolmo a blokují je figury, létající přelétají i diagonálně. Útok na soupeře přepne do arény.
 
 V sólu se tvoje armáda v aréně vždy ovládá **šipkami + mezerníkem**. Ve dvou: Světlo šipky + mezerník, Stín **WASD + Q**. S drženým FIRE stojíš a míříš, po nabití se může útok opakovat. Podporovaný je standardní gamepad a na dotykové obrazovce směrová tlačítka/FIRE. **P** pozastaví hru, **Escape** ruší výběr/kouzlo nebo přepíná pauzu, **M** tlumí zvuk, **R** vrátí nabídku a **F** otevře celou obrazovku. Přepnutí okna/karty automaticky pozastaví živou hru.
 
-Hra obsahuje původních 36 figur a všech 20 druhů včetně čtyř přivolávaných elementálů. Původní jsou bitmapy, animační snímky, projektily, barevný terén a číselné tabulky síly, energie, nabití a pohybu. Hudba a deset efektů jsou vyrenderované z původních zvukových rutin; titulní hudbu lze přehrát v nabídce. Během hry ji nahrazují herní efekty.
+Hra obsahuje původních 36 figur a všech 20 druhů včetně čtyř přivolávaných elementálů. Původní jsou bitmapy, animační snímky, projektily, barevný terén, značka magického bodu a číselné tabulky síly, energie, nabití a pohybu. Hudba a 17 efektů používají původní zvukové rutiny a průběhy registrů; titulní hudbu lze přehrát v nabídce. V aréně běží pohybové smyčky, tóny střel a původní efekty nabití, kontaktu, Fénixe a Bánší.
 
 Všech sedm kouzel je dostupných jednou za stranu, pokud žije a není uvězněný její mág. Kouzla nepůsobí na magických bodech. Bonus energie závisí na cílovém poli; použité kouzlo oslabí bonus vlastní domácí magické pozice. Magické body a vlastní vrchol světla léčí armádu podle původních pravidel. Vyhrává obsazení všech pěti bodů, zničení soupeřovy armády nebo uvěznění jeho poslední figury.
 
-První hratelná verze má nově napsanou AI, kolize a proměny překážek. Přesná snímková shoda originálu nebyla potvrzená, některé okrajové případy kouzel a časování plošných útoků jsou přiblížené. Původ dat, konkrétní rozdíly a ověření jsou v `research/archon/PORTING.md`. Fyzický gamepad ani telefon zatím nebyly ověřené.
+AI desky i arény, generátor 18 překážek, proměny jasů a útoky jsou nativním překladem původního programu. Kolize používají skutečné bitmapové pixely. Zvolená norma je **NTSC, přibližně 59,9233 Hz**. Úplné 1:1 se zatím netvrdí: průběžné rasterové načasování, zásobníková chyba Měňavce, některé chybné AI teleportace a prezentace přesunů zůstávají odlišné či neuzavřené. Přesný rozsah je v `research/archon/PORTING.md`; fyzický gamepad ani telefon zatím nebyly ověřené.
 
 ```sh
 node tools/test-archon.mjs
 node tools/test-archon-audio.mjs
+node tools/test-archon-original.mjs
+node tools/test-archon-raster.mjs
+node tools/diagnose-archon-raster.mjs
 ```
 
-28 herních a osm zvukových kontrol pokrývá pravidla desky, všechny druhy kouzel, energii a léčení, návrat z arény, speciální jednotky, projektily, konce hry, delší simulace i přehrávání hudby/PCM a jeho zastavení. Pro hraní nejsou potřeba Atari emulátor, ROM, původní XEX, Node.js, Python ani síťové připojení.
+27 herních a deset zvukových kontrol doplňuje porovnání s XEX: 953 360 bytových stavů ze 114 replayů, 768 rozhodnutí desky, 167 vykonaných AI kouzel, 2 592 lidských cílů kouzel a 44 úplných tahů obou začínajících stran. Pixelové kolize souhlasí v dalších 161 896 porovnáních dvanácti izolovaných VBI jader s úplným stabilním GTIA scanoutem. Samostatná diagnostika ukazuje zbývající rozdíly nepřerušovaného rasteru; není zaměňovaná za úspěšné ověření celého počítače. Pro hraní nejsou potřeba Atari emulátor, ROM, původní XEX, Node.js, Python ani síťové připojení.
 
 ## International Karate
 

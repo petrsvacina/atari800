@@ -57,9 +57,11 @@ Tyto rozměry jsou přímo důsledkem původní šířky PMG bitů a počtu řá
 
 **Barva podlahy arény odpovídá cílovému poli souboje.** Kód `$5171` čte typ pole `$0664`: nula vybírá základ `$5A59` (`B0`), kladná hodnota vybírá `$5A57` (`BE`), záporná/proměnlivá hodnota skládá `(COLOR3 & $0F) + základ B0`. `$518D` ukládá výslednou barvu do `$0633` a její jasový index `(color & $0F) >> 1` do `$0653`. Po otevření arény `$5373/$5376` přenese tuto barvu do `COLBK` shadow `$02C8`. Jas 0–7 tedy může být klíčem pro výběr odpovídajícího odstínu `palette.board.variable`; pevná světlá/tmavá pole používají krajní odstíny. Přechodové vykreslování při otevírání arény může krátce používat jinou barvu.
 
-Původní ikony se na desce rozmisťují po 16 × 16 pixelech (`$5903`), horizontální pozice v barevných hodinách je `column*8+$5C` a řádková `row*16+$31`. Po přepočtu z PMG je levý okraj první ikony x=88; absolutní obrazový řádek jejího počátku y=49. Moderní přepis může přidat kolem původních šestnáctipixelových ikon větší okraje.
+Původní ikony se na desce rozmisťují po 16 × 16 pixelech (`$5903`), horizontální pozice v barevných hodinách je `column*8+$5C` a řádková `row*16+$31`. Po přepočtu z PMG je levý okraj první ikony x=88; absolutní obrazový řádek jejího počátku y=49. Web nyní používá toto původní rozestoupení bez mezery mezi poli.
 
-První tři neprázdné znaky fontu `$1C00` (indexy 1–3) jsou původní **8 × 8 překážky arény**. `obstacles` ukládá osm původních bytů i rozvinuté pole 64 dvoubitových indexů, s dvojnásobně širokými pixely. Tvar zůstává původní; viditelnost, barvy a kolize se mohou během souboje měnit.
+První tři neprázdné znaky fontu `$1C00` (indexy 1–3) tvoří překážky arény. V původním **ANTIC 7** jde o jednobitové glyphy 8 × 8, zvětšené 2 × 2 na **16 × 16 bodů**; horní dva bity znaku volí PF barvu. Dřívější export `obstacles.pixels` chybně předpokládal dvoubitový režim a runtime jej už nepoužívá. `assets/mechanics.js` nese původní řádky a `arena.js` z nich stejně počítá obraz i kolize. Generátor má 18 překážek; proměny určuje rozdíl jasu registrů.
+
+Bitmapa magických bodů pochází z `$63A2–$63B1`, čtyři multiplexované HPOS fáze z `$63B2–$63B5`, barva `$34`. Exportér `tools/archon_extract_mechanics.py` ji přidává spolu s tabulkami generátoru, AI a 256 RGB odstíny místní Atari palety. Paletu lze změnit parametrem `--palette`; její SHA-256 je v exportu.
 
 `font.rows` obsahuje prvních 64 znaků stejného fontu, osm bytů na znak, `firstChar=32`. Běžná velká písmena a číslice se tedy čtou podle `charCode-32`. Jsou to původní čtyřbarevné znaky ANTIC 4 o 8 × 8 zobrazovaných pixelech. Celá autorská titulní obrazovka ani logo Electronic Arts zde nejsou deklarované jako samostatně vytažený bitmapový obrázek.
 
@@ -74,6 +76,6 @@ První tři neprázdné znaky fontu `$1C00` (indexy 1–3) jsou původní **8 ×
 - Světlé jednotky: **161,195,66**; tmavé: **1,59,123**.
 - Aréna na700 s: podlaha **46,176,100**, rám **117,25,55**.
 
-Původní tabulka barev `$5A55` potvrzuje různé registry `EA` pro světlou stranu, `94` pro tmavou, `BE` pro světlá pole, `B6` jako počáteční proměnlivou barvu a `B0` pro pozadí. Mezistupně v `board.variable` jsou interpolované mezi doloženými barvami, stejně jako pomocný odstín prostřední překážky a značka mocenského pole. **Jde o přiblížení konkrétní ztrátově komprimované nahrávce, nikoli o přesné měření fyzického PAL/NTSC Atari.**
+Původní tabulka barev `$5A55` potvrzuje různé registry `EA` pro světlou stranu, `94` pro tmavou, `BE` pro světlá pole, `B6` jako počáteční proměnlivou barvu a `B0` pro pozadí. Mezistupně v `board.variable` jsou interpolované mezi doloženými barvami, Značka magického bodu a nové arénové třídy už používají původní registry; další odstíny vycházejí z exportované Atari palety. **Jde o přiblížení konkrétní ztrátově komprimované nahrávce, nikoli o přesné měření fyzického PAL/NTSC Atari.**
 
 `asset-provenance.json` uvádí SHA-256 XEX, rozsahy, tabulky a hash původních bitmap. Výstupní JavaScript a jeho tvar prošly kontrolou počtů všech dvaceti druhů, 295 snímků, 81 polí, tří překážek a 64 fontových znaků.

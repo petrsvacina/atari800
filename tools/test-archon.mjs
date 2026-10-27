@@ -4,7 +4,7 @@ import vm from 'node:vm';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),scope=vm.createContext({});
-for(const name of ['assets/rules.js','engine.js'])vm.runInContext(fs.readFileSync(path.join(root,'archon',name),'utf8'),scope,{filename:name});
+for(const name of ['assets/rules.js','assets/sprites.js','assets/mechanics.js','arena.js','board-ai.js','engine.js'])vm.runInContext(fs.readFileSync(path.join(root,'archon',name),'utf8'),scope,{filename:name});
 const{Game}=scope.ArchonEngine,neutral=()=>({x:0,y:0,fire:false});let count=0,serial=0;
 function test(name,fn){fn();count++;console.log('PASS '+name);}
 function seeded(seed=37){return()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};}
@@ -13,7 +13,7 @@ function empty(options={}){const g=game(options);g.units=[];return g;}
 function put(g,type,side,x,y,health=g.rules.units[type].hp){const unit={id:'test'+serial++,type,side,x,y,health,alive:true,imprisoned:false};g.units.push(unit);return unit;}
 function mages(){const g=empty();put(g,1,'light',0,4);put(g,9,'dark',8,4);return g;}
 function ticks(g,n,inputs=[neutral(),neutral()]){for(let i=0;i<n;i++)g.tick(inputs);}
-function duel(light=2,dark=15,square={x:4,y:4},options={}){const g=empty(options);const a=put(g,light,'light',2,4),b=put(g,dark,'dark',square.x,square.y);g.startArena(a,b);g.phase='arena';g.arena.obstacles=[];return g;}
+function duel(light=2,dark=15,square={x:4,y:4},options={}){const g=empty(options);const a=put(g,light,'light',2,4),b=put(g,dark,'dark',square.x,square.y);g.startArena(a,b,{cells:Array(240).fill(0)});g.phase='arena';return g;}
 test('original board has 36 distinct pieces, 20 species, all five points and exact terrain',()=>{
   const g=game();assert.equal(g.units.length,36);assert.equal(g.rules.units.length,20);assert.equal(g.rules.terrain.length,81);
   assert.equal(g.units.filter(u=>u.side==='light').length,18);assert.equal(new Set(g.units.map(u=>u.x+','+u.y)).size,36);
@@ -33,7 +33,7 @@ test('flyers and mage teleport cross pieces within their original ranges',()=>{
 });
 test('each move consumes one turn; light changes only after the second side',()=>{
   const g=game(),old=g.luminosity;assert(g.move(g.at(1,4),3,4));assert.equal(g.turn,'dark');assert.equal(g.luminosity,old);
-  assert(g.move(g.at(7,4),5,4));assert.equal(g.turn,'light');assert.equal(g.round,2);assert.equal(g.luminosity,3);
+  assert(g.move(g.at(7,4),5,4));assert.equal(g.turn,'light');assert.equal(g.round,2);assert.equal(g.luminosity,1);
 });
 test('six original brightness phases and complementary bonuses repeat without holding endpoints',()=>{
   const g=game();g.cycleIndex=0;const levels=[];
@@ -64,13 +64,16 @@ test('teleport accepts its own mage, rejects prisoners and protected destination
   const self=mages();self.at(0,4).x=2;self.at(2,4).y=2;self.beginSpell('teleport');assert(self.spellCell(2,2));assert(self.spellCell(4,3));assert.equal(self.at(4,3).type,1);
   assert.equal(mage.health,10);
 });
-test('healing restores base energy even for a prisoner, but cannot heal on a point',()=>{
-  const g=mages(),u=put(g,7,'light',2,2,1);u.imprisoned=true;g.beginSpell('heal');assert(g.spellCell(2,2));assert.equal(u.health,5);assert(u.imprisoned);assert(g.usedSpells.light.has('heal'));
+test('healing accepts only allies, including prisoners, outside magic points',()=>{
+  const g=mages(),u=put(g,7,'light',2,2,1),enemy=put(g,15,'dark',6,2,1);u.imprisoned=true;g.beginSpell('heal');
+  assert(!g.spellCell(6,2));assert.equal(enemy.health,1);assert(!g.usedSpells.light.has('heal'));
+  assert(g.spellCell(2,2));assert.equal(u.health,5);assert(u.imprisoned);assert(g.usedSpells.light.has('heal'));
 });
-test('shift time reverses within the cycle and flips the two extremes',()=>{
-  const g=mages();g.beginSpell('shiftTime');assert.equal(g.luminosity,2);assert.equal(g.cycleDirection,-1);g.finishTurn();assert.equal(g.luminosity,1);
-  const peak=mages();peak.cycleIndex=5;peak.beginSpell('shiftTime');assert.equal(peak.luminosity,0);
+test('shift time reverses the source direction; endpoint wrap waits for the second turn',()=>{
+  const g=mages();g.beginSpell('shiftTime');assert.equal(g.luminosity,2);assert.equal(g.cycleDirection,-1);g.finishTurn();assert.equal(g.luminosity,3);
+  const peak=mages();peak.cycleIndex=5;peak.beginSpell('shiftTime');assert.equal(peak.luminosity,5);peak.finishTurn();assert.equal(peak.luminosity,0);
 });
+
 test('exchange swaps either faction but cannot move prisoners',()=>{
   const g=mages(),a=put(g,7,'light',2,2),b=put(g,15,'dark',6,6);b.imprisoned=true;g.beginSpell('exchange');assert(!g.spellCell(6,6));assert(g.spellCell(2,2));b.imprisoned=false;assert(g.spellCell(6,6));assert.equal(a.x,6);assert.equal(b.x,2);assert.equal(g.turn,'dark');
 });
@@ -93,33 +96,43 @@ test('arena energy comes from the challenged square; its bonus absorbs damage be
   const g=duel(7,13);g.cycleIndex=1;g.startArena(g.units[0],g.units[1]);const dragon=g.arena.fighters[1];assert.equal(dragon.hp,23);dragon.hp=13;g.arena.fighters[0].hp=0;g.resolveArena();assert.equal(g.units[1].health,13);
   const shield=duel(7,13);shield.cycleIndex=1;shield.startArena(shield.units[0],shield.units[1]);shield.arena.fighters[1].hp=18;shield.arena.fighters[0].hp=0;shield.resolveArena();assert.equal(shield.units[1].health,17);
 });
-test('the shapeshifter copies the enemy weapon and form and restores its native base health',()=>{
+test('the shapeshifter copies form/weapon; its documented web recovery fallback remains 10',()=>{
   const g=duel(6,12),copy=g.arena.fighters[1];assert.equal(copy.type,6);assert.equal(copy.spec.special,'phoenix');assert.equal(copy.maxHP,12+copy.bonus);copy.hp=1;g.arena.fighters[0].hp=0;g.resolveArena();assert.equal(g.units[1].health,10);
 });
-test('movement uses the original 2-by-1 pixel step, slows heavy units and stops while firing',()=>{
-  const normal=duel(7,15);ticks(normal,4,[{x:1,y:1,fire:false},neutral()]);assert.equal(normal.arena.fighters[0].x,38);assert.equal(normal.arena.fighters[0].y,109);
-  const slow=duel(3,11);ticks(slow,4,[{x:1,y:0,fire:false},neutral()]);assert.equal(slow.arena.fighters[0].x,36);
+test('movement uses source starting positions and heavy units skip their fourth eligible step',()=>{
+  const normal=duel(7,15);ticks(normal,4,[{x:1,y:1,fire:false},neutral()]);assert.equal(normal.arena.fighters[0].x,34);assert.equal(normal.arena.fighters[0].y,116);
+  const slow=duel(3,11);ticks(slow,4,[{x:1,y:0,fire:false},neutral()]);assert.equal(slow.arena.fighters[0].x,32);
   const x=normal.arena.fighters[0].x;ticks(normal,5,[{x:1,y:0,fire:true},neutral()]);assert.equal(normal.arena.fighters[0].x,x);
 });
-test('reload and a still-flying weapon prevent multiple projectiles per fighter',()=>{
-  const g=duel(0,8),a=g.arena.fighters[0];a.cooldown=0;g.startAttack(a);assert.equal(g.arena.shots.length,1);g.startAttack(a);assert.equal(g.arena.shots.length,1);a.cooldown=0;g.startAttack(a);assert.equal(g.arena.shots.length,1);
+
+test('source fire needs a direction and the reload prevents repeating attacks',()=>{
+  const g=duel(0,8),a=g.arena.fighters[0];g.tick([{x:0,y:0,fire:true},neutral()]);assert.equal(a.weapon.active,0);
+  g.tick([{x:1,y:0,fire:true},neutral()]);assert.equal(a.weapon.active,128);assert.equal(a.cooldown,a.spec.reload-1);
+  const origin=a.weapon.hx;g.tick([{x:1,y:0,fire:true},neutral()]);assert(a.weapon.hx>origin);assert.equal(a.cooldown,a.spec.reload-2);
 });
-test('fast missiles hit continuously rather than passing through a target',()=>{
-  const g=duel(2,13),b=g.arena.fighters[1];b.x=170;g.arena.shots=[{owner:'light',type:2,x:120,y:105,dx:100,dy:0,damage:5,life:10}];const hp=b.hp;g.tick();assert.equal(b.hp,hp-5);
+
+
+
+test('the original field contains eighteen obstacles and color registers advance after 256 updates',()=>{
+  const g=duel(7,15);g.startArena(g.units[0],g.units[1]);g.phase='arena';const n=g.arena.native;
+  assert.equal([...n.cells].filter(v=>(v&63)>=1&&(v&63)<=3).length,18);
+  assert.deepEqual([...n.colors],[0,4,12]);ticks(g,255);assert.deepEqual([...n.colors],[0,4,12]);g.tick();assert.deepEqual([...n.colors],[2,6,10]);
 });
-test('solid obstacles block movement and projectiles, then become passable',()=>{
-  const g=duel(7,15),a=g.arena.fighters[0];g.arena.obstacles=[{x:42,y:105,offset:120}];ticks(g,3,[{x:1,y:0,fire:false},neutral()]);assert(a.x<34);
-  g.arena.obstacles[0].offset=0;g.arena.elapsed=0;ticks(g,3,[{x:1,y:0,fire:false},neutral()]);assert(a.x>=36);
+
+test('phoenix remains immune during its source explosion and banshee can move after releasing fire',()=>{
+  const g=duel(6,14),p=g.arena.fighters[0],b=g.arena.fighters[1];g.startAttack(p);const hp=p.hp;
+  b.weapon.contact=1;assert(!g.arena.native.hit(1));assert.equal(p.hp,hp);
+  g.startAttack(b);const x=b.x;g.tick([neutral(),{x:-1,y:0,fire:false}]);assert(b.x<x);assert(b.areaTicks>0);
 });
-test('phoenix is immune during its explosion; banshee can move after releasing fire',()=>{
-  const g=duel(6,14),p=g.arena.fighters[0],b=g.arena.fighters[1];p.cooldown=0;g.startAttack(p);const hp=p.hp;assert(!g.hurt(p,7));assert.equal(p.hp,hp);
-  b.cooldown=0;g.startAttack(b);const x=b.x;g.tick([neutral(),{x:-1,y:0,fire:false}]);assert(b.x<x);assert(b.areaTicks>0);
-});
-test('a dead shooters existing missile can still force mutual annihilation',()=>{
-  const g=duel(2,15),a=g.arena.fighters[0],b=g.arena.fighters[1];a.hp=0;b.hp=5;b.x=170;
-  g.arena.shots=[{owner:'light',type:2,x:145,y:105,dx:12,dy:0,damage:5,life:10}];g.tick();assert.equal(g.phase,'arena');g.tick();assert.equal(g.phase,'arena-result');assert.equal(g.arena.winner,null);assert(g.units.every(u=>!u.alive));
+
+test('a dead shooters missile still damages the enemy before the original death countdown resolves',()=>{
+  const g=duel(2,15),a=g.arena.fighters[0],b=g.arena.fighters[1];a.hp=0;a.hx=0;b.hp=4;
+  Object.assign(a.weapon,{active:128,hx:b.hx,by:b.by,dx:4,dy:0,dir:17});
+  g.tick();assert.equal(b.hp,0);assert.equal(g.phase,'arena');
+  for(let i=0;i<100&&g.phase==='arena';i++)g.tick();assert.equal(g.phase,'arena-result');assert.equal(g.arena.winner,null);
   ticks(g,g.phaseTicks);assert.equal(g.phase,'over');assert.equal(g.winner,null);
 });
+
 test('an attacker victory moves onto the disputed square; a defender victory stays there',()=>{
   const g=duel(2,15),square={...g.arena.square};g.arena.fighters[1].hp=0;g.resolveArena();assert.equal(g.units[0].x,square.x);assert.equal(g.units[0].y,square.y);assert(!g.units[1].alive);
   const defend=duel(2,15);defend.arena.fighters[0].hp=0;defend.resolveArena();assert.equal(defend.units[1].x,4);assert.equal(defend.units[1].y,4);
@@ -129,9 +142,11 @@ test('all five points, no enemy pieces and the final prisoner are distinct victo
   const prison=mages();prison.at(8,4).imprisoned=true;assert(prison.checkVictory());assert.equal(prison.winner,'light');
   const gone=mages();gone.at(8,4).alive=false;assert(gone.checkVictory());assert.equal(gone.winner,'light');
 });
-test('small armies draw only after twelve complete rounds without combat',()=>{
-  const g=mages();for(let i=0;i<23;i++)g.finishTurn();assert.equal(g.phase,'board');g.finishTurn();assert.equal(g.phase,'over');assert.equal(g.winner,null);
+test('the source small-army counter is armed by AI and checked before the next light change',()=>{
+  const humans=mages();for(let i=0;i<28;i++)humans.finishTurn();assert.equal(humans.phase,'board');
+  const g=mages();g.quietCounter=252;for(let i=0;i<25;i++)g.finishTurn();assert.equal(g.phase,'board');g.finishTurn();assert.equal(g.phase,'over');assert.equal(g.winner,null);
 });
+
 test('computer turns and sustained combat simulations preserve board and arena invariants',()=>{
   let ended=0;
   for(let trial=0;trial<16;trial++){
@@ -141,7 +156,7 @@ test('computer turns and sustained combat simulations preserve board and arena i
       if(t%75<35)controls[human]={x:human?-1:1,y:Math.floor(t/150)%2?1:-1,fire:false};else controls[human]={x:human?-1:1,y:0,fire:true};
       g.tick(controls);
       assert(g.arena.shots.length<=2);
-      for(const a of g.arena.fighters){assert(Number.isFinite(a.x)&&a.x>=14&&a.x<=306);assert(a.y>=22&&a.y<=192);assert(a.hp>=0&&a.hp<=a.maxHP);}
+      for(const a of g.arena.fighters){assert(Number.isFinite(a.x));if(a.hp>0){assert(a.x>=24&&a.x<=296);assert(a.y>=43&&a.y<=212);}assert(a.hp>=0&&a.hp<=a.maxHP);}
     }
     if(g.phase!=='arena')ended++;
   }

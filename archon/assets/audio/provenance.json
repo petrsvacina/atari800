@@ -4,89 +4,135 @@
   "musicPlayer": "762B / 76D7 / 77E3 / 7900",
   "movementPlayer": "796E",
   "renderFastplay": 262,
-  "renderFrameHz": 59.376155082362395,
+  "renderFrameHz": 59.92332931565555,
+  "rendererFrameHz": 59.376155082362395,
+  "clockCorrection": 1.0092153867581044,
   "files": [
     {
       "file": "audio/title.mp3",
       "phase": 1,
-      "duration": 26.76,
-      "sha256": "0729e985307927c96e5c7de5dfa5873e3bd1fbd5c01ef29951e4e7411819cfa8"
+      "duration": 26.51564804809503,
+      "sha256": "fdd57767b24b2bad326de0372b60a23200a896f8e9144ed9a638262f1b92dd68"
     },
     {
       "file": "audio/result.mp3",
       "phase": 5,
-      "duration": 2.4,
-      "sha256": "305fa320bc5a8ad23a0c736247e5cb9049941aa30c6246c8cc5e19d6a53da577"
+      "duration": 2.37808502673498,
+      "sha256": "cea2cfc74ef1aead1eec97fe79d664090a3626ed2b971cdf6f15381251fb92a2"
     },
     {
       "effect": 0,
-      "duration": 0.4042176870748299,
+      "duration": 0.40049886621315195,
       "sourceStart": "7AB5",
       "loop": true,
-      "pcmSha256": "d648e2784e69f6f2abb1c659dae884c2139aa2bc9e23c65f0e262422d7af50f6"
+      "pcmSha256": "d2ce29d0bf59dd01922bd450d1fb1ed70e15c3065eb8a3b47427a770ad88a15a"
     },
     {
       "effect": 1,
-      "duration": 0.1347392290249433,
+      "duration": 0.13351473922902493,
       "sourceStart": "7ACE",
       "loop": true,
-      "pcmSha256": "83cf947b3ac94b00b8d9d901ffd6d2df590318d3aa67fcacbf12fcb91e1c5100"
+      "pcmSha256": "9c1e6031ad7501cf69a6df64e86234e6a619fa23e85367f3a2141507300168fe"
     },
     {
       "effect": 2,
-      "duration": 0.3031292517006803,
+      "duration": 0.30036281179138324,
       "sourceStart": "7AD7",
       "loop": true,
-      "pcmSha256": "402fe1f9fa2d82846e84c397d7fca05be1b9d90655bcdd632d64980e305be994"
+      "pcmSha256": "9cf387de63cba7dfa1150c1b04b520267396880aebca273c76a03a9cd5ed2cf3"
     },
     {
       "effect": 3,
-      "duration": 0.2694784580498866,
+      "duration": 0.26702947845804986,
       "sourceStart": "7AF4",
       "loop": true,
-      "pcmSha256": "fc9eb521e3161f5c3fffe6cf3d67b69f34a73a1a8b68925ce473d645f38668ef"
+      "pcmSha256": "e338337fbdc109ab75bafcafe250d12d4ff76367136770ab478d02c89dc30819"
     },
     {
       "effect": 4,
-      "duration": 0.16843537414965987,
+      "duration": 0.16689342403628118,
       "sourceStart": "7B0D",
       "loop": true,
-      "pcmSha256": "78a745ec4700bb4dae0a9adecee34ea34453cdcc76cd86a53fa188fe435f84b8"
+      "pcmSha256": "0faf3b7e3f7ec43992c0b44c760526f2ff983e01e75495a3ae03465cd890ca05"
     },
     {
       "effect": 5,
-      "duration": 0.2694784580498866,
+      "duration": 0.26702947845804986,
       "sourceStart": "7A7C",
       "loop": true,
-      "pcmSha256": "f2c55bd34abe18e9754ba1b7e676e729cf8d45e0a721e2953075741f2a015b66"
+      "pcmSha256": "c125cdca65844ed018500be871aa2e95897f2c663ab688654a03777d0a03f01d"
     },
     {
       "effect": 6,
-      "duration": 0.20208616780045352,
+      "duration": 0.2002721088435374,
       "sourceStart": "7A1A",
       "loop": false,
-      "pcmSha256": "672595aeb98f2d53c62b0b7540b8270ac6f56f01ff726e1286e2e253c5935fdd"
+      "pcmSha256": "95eeb27e8ef7bbd50f7d4a1b01f3c714423462dc8951ee487b98344ae72edaaa"
     },
     {
       "effect": 7,
-      "duration": 0.20208616780045352,
+      "duration": 0.2002721088435374,
       "sourceStart": "7A4B",
       "loop": false,
-      "pcmSha256": "09eef2d6477e1fc735615be2586189b65d1919f1fd8251c497edfbade46dac7e"
+      "pcmSha256": "2b389f4f8af3f2be9612f56a25c584ec29b20b56c7bd88d2851d928ad831ec1b"
     },
     {
       "effect": 8,
-      "duration": 0.3368253968253968,
+      "duration": 0.33374149659863944,
       "sourceStart": "7B2F",
       "loop": false,
-      "pcmSha256": "8a8b3b000d1ba559cc1595040adc8706a6a0addbbeee4d241525ffd17bfec6a1"
+      "pcmSha256": "64eaa65ca8c925bddd5f4d50eaaf4f17ebdded913e5ed2939b1ea504d187b303"
     },
     {
       "effect": 9,
-      "duration": 0.3368253968253968,
+      "duration": 0.33374149659863944,
       "sourceStart": "7B58",
       "loop": false,
-      "pcmSha256": "71d1caf6d12fa036e259146ea2f187b6a65afefdab43b923b03d0ad29a0a80e9"
+      "pcmSha256": "1df9bd4ecd7b93888031ca30755a110ea74cc92d83a09ef253b05a03057c4ab9"
+    },
+    {
+      "effect": 10,
+      "duration": 0.83437641723356,
+      "sourceStart": "7B1A",
+      "loop": false,
+      "pcmSha256": "08d51c31c45ce1441bec8fa988ed8e265605bd037ac220bdbe451c7b1a6ba0dd"
+    },
+    {
+      "effect": 11,
+      "duration": 0.6675283446712018,
+      "sourceStart": "7B81",
+      "loop": false,
+      "pcmSha256": "e7478e16d0a39dcd79c81a548977d8a5b8fb5c6563030630e19a0451c2d1754f"
+    },
+    {
+      "effect": 12,
+      "weaponParameter": 3,
+      "duration": 4.272108843537415,
+      "pcmSha256": "4b2cad7a3f40b5ea14c95733078b3d03ffbc9b92b9552ad24ae49f90f41e390e"
+    },
+    {
+      "effect": 13,
+      "weaponParameter": 4,
+      "duration": 1.0680272108843538,
+      "pcmSha256": "a46285861ffd788356db958c2f95c7078a219d6e86d716b839750e3309b5c726"
+    },
+    {
+      "effect": 14,
+      "weaponParameter": 5,
+      "duration": 4.272108843537415,
+      "pcmSha256": "556255dffba41ac7488105739311cf6cf972c48c836c0e971ecda8d594cb18a1"
+    },
+    {
+      "effect": 15,
+      "weaponParameter": 6,
+      "duration": 2.1360544217687076,
+      "pcmSha256": "03762af3be3643e8464d84e4cccd8480ac81cd1361974499ab606c8e374e94e1"
+    },
+    {
+      "effect": 16,
+      "weaponParameter": 7,
+      "duration": 4.272108843537415,
+      "pcmSha256": "2405f16ed55332d8550f2f60fc255c4551a1d22828bfc5cc7e0832129f28347a"
     }
   ]
 }

@@ -36,15 +36,15 @@ Všechny hodnoty jsou v `units`. Interval není čas v milisekundách. PAL a NTS
 
 Poměr rychlosti v aréně je **ověřený z kódu**, nejen kategorie z příručky. `$524A–$525D` nastavuje `$064A=$40` pro Golema, Trolla a Earth Elemental. `$6B2E–$6B42` vynechá jejich každý čtvrtý pohybový krok, tedy rychlost 0,75 ostatních. Funkce pohybu mění x o jednu barevnou hodinu a y o jednu obrazovou řádku: `$6BF7`, `$6C3B`, `$6C8A`, `$6CD2`. Při obrazu šířky 320 bodů to znamená x=2 a y=1 bod za úspěšný pohybový krok. Přesná četnost celé aktualizační smyčky nebyla v této rešerši samostatně měřena.
 
-Bonus životnosti v `$5207–$5225`: světlo přičítá polovinu spodního jasu barvy, temnota přičítá 7 minus tuto hodnotu. Elementálové tuto větev přeskočí. `$5BE5–$5C49` mění jas o dva a vynechává hodnoty 4 a 10. Přesných šest jasů je tedy `[0,2,6,8,12,14]`, bonusy světla `[0,1,3,4,6,7]`, temnoty opačně. Na vrcholech se pouze obrací směr, vrchol se nedrží další cyklus. Výchozí barva `$5A58=$B6` znamená index 2; přepínač prvního hráče `$36C0` při temné první straně volí `$B8`, index 3.
+Bonus životnosti v `$5207–$5225`: světlo přičítá polovinu spodního jasu barvy, temnota přičítá 7 minus tuto hodnotu. Elementálové tuto větev přeskočí. `$5BE5–$5C49` mění jas o dva a vynechává hodnoty 4 a 10. Přesných šest jasů je tedy `[0,2,6,8,12,14]`, bonusy světla `[0,1,3,4,6,7]`, temnoty opačně. Na vrcholech se pouze obrací směr, vrchol se nedrží další cyklus. Výchozí barva `$5A58=$B6` znamená index jasu 2 se směrem ke tmě při začátku Světla; přepínač prvního hráče `$36C0` při temné první straně volí `$B8`, index jasu 3 se směrem ke světlu. Úplná inicializace a 44 navazujících tahů jsou ověřené proti XEX.
 
-Trvalé zranění je potvrzené `$550F–$553A`: přeživší si uloží `min(previousBaseHealth, arenaRemainingHealth)`. **Bonus se od zbývajících životů po bitvě neodečítá.** Pohlcuje počáteční zranění jako dočasný štít. Shapeshifter je výjimka s plným návratem vlastní životnosti. Například nezraněný Dragon 17 + bonus 6 po zásazích za 10 skončí na 13, nikoli na 7; po zásahu za 5 zůstane jeho trvalá životnost 17.
+Trvalé zranění je potvrzené `$550F–$553A`: přeživší si uloží `min(previousBaseHealth, arenaRemainingHealth)`. **Bonus se od zbývajících životů po bitvě neodečítá.** Pohlcuje počáteční zranění jako dočasný štít. Návrat Shapeshiftera má v dodaném XEX chybu indexu a zásobníku, viz neuzavřené detaily níže; obecný plný návrat vlastní životnosti nelze z této rutiny tvrdit. Například nezraněný Dragon 17 + bonus 6 po zásazích za 10 skončí na 13, nikoli na 7; po zásahu za 5 zůstane jeho trvalá životnost 17.
 
 Přesná pasivní léčba: po tahu druhého hráče `$3D90–$3DB8` projde pět mocných bodů a každou jejich zraněnou živou figuru vyléčí o jeden bod do základního maxima. Při černém vrcholu `$3D74` navíc volá `$599C` na celou temnou armádu, při bílém `$3D83` na světlou; tato rutina každé zraněné živé figuře přidá jeden bod. Tím se obecná pomalá léčba děje na vlastním příznivém vrcholu, nikoli po každém běžném tahu. Figura na mocném bodu může v tomto kole získat oba přírůstky.
 
 ## Výjimky boje
 
-Phoenix má plošný výbuch a během proměny je nezranitelný. Banshee působí průběžné plošné zranění a po uvolnění tlačítka se může při útoku pohybovat. Shapeshifter přebírá podobu a bojové vlastnosti soupeře, jeho nefatální rány se při změně podoby zahojí. [Britský původní manuál](https://www.mocagh.org/ea/archonuk-manual.pdf)
+Phoenix má plošný výbuch a během proměny je nezranitelný. Banshee působí průběžné plošné zranění a po uvolnění tlačítka se může při útoku pohybovat. Shapeshifter přebírá podobu a bojové vlastnosti soupeře. Manuál popisuje zahojení nefatálních ran, ale návrat dodaného XEX má níže popsanou odchylku. [Britský původní manuál](https://www.mocagh.org/ea/archonuk-manual.pdf)
 
 Troll **nemá zvláštní regeneraci**. Původní manuál to výslovně vysvětluje v otázkách a odpovědích. Při drženém tlačítku bojovník běžně stojí; po nabití může automaticky znovu vystřelit. Střela zůstává nebezpečná i po smrti střelce. [Původní manuál](https://www.mocagh.org/ea/archon-manual.pdf)
 
@@ -53,11 +53,11 @@ Troll **nemá zvláštní regeneraci**. Původní manuál to výslovně vysvětl
 Každé jednou za stranu; nahrazují tah. Vyžadují živého, neuvězněného mága. Mocné body chrání figury před kouzly. Každé kouzlo mága oslabuje.
 
 - Teleport: vlastní figura, libovolná vzdálenost; ne uvězněná, ne z/na mocný bod, ne na spojence. Lze napadnout nepřítele.
-- Heal: úplné vyléčení; ne na mocném bodu.
+- Heal: úplné vyléčení vlastní figury včetně vězně; ne na mocném bodu.
 - Shift Time: obrací směr cyklu; na krajním jasu přeskočí na opačný kraj.
 - Exchange: prohodí dvě figury libovolných stran; žádná nesmí být uvězněná nebo na mocném bodu.
 - Summon Elemental: náhodný ze čtyř; útočí na nepřítele mimo mocný bod, po boji zmizí.
-- Revive: mrtvý spojenec na prázdné sousední pole mága, včetně diagonály.
+- Revive: mrtvý spojenec na prázdné sousední pole mága, včetně diagonály, mimo magický bod. Nabízí se první původní index každého padlého druhu.
 - Imprison: zabrání pohybu a kouzlení, obrana zůstává. Končí při vlastním vrcholu jasu. Ne na mocném bodu ani v okamžiku, který by ihned osvobozoval.
 
 [Oficiální XE manuál](https://mocagh.org/ea/archonxe-manual.pdf), podrobné meze [původní manuál](https://www.mocagh.org/ea/archon-manual.pdf). Zrušení výběru kouzla nemá spotřebovat kouzlo ani tah.
@@ -75,8 +75,12 @@ Proto přesný model je `homeBonus = 7 - usedSpells[side].size`, aktuální trva
 
 Heal na `$4D28` vrací trvalé HP přímo na základní tabulkovou hodnotu. Neobnovuje spotřebovaná kouzla. Následný domácí bonus tedy zůstává oslabený, včetně právě spotřebovaného Heal. Protože Heal na mocném bodu není povolen, mág by se pro vlastní léčení musel nejdříve přesunout jinam. Není zde pořadí „nejdříve vyléčit a pak zranit mága o 1“ — takový přímý zásah do HP při kouzlení program nemá.
 
-## Neuzavřené detaily
+## Dodatečně ověřené větve a neuzavřené detaily
 
-Program má samostatné zprávy IT IS A TIE a IT IS A STALEMATE. `$3DBC–$3DDE` potvrzuje prohru strany, jejíž poslední živá figura je uvězněná. `$4048` nastavuje čítač `$06A7=$FC`, když mají obě strany méně než tři figury; vstup do arény `$523D` jej nuluje. `$3D52` po druhém tahu kontroluje nulový spodní nibble, jinak čítač snižuje. To ukazuje na limit dvanácti celých kol bez boje při malých armádách; úplná aktivační cesta zatím nebyla otestována. Tři opakování pozice nejsou nalezeným původním pravidlem.
+Celý validátor `$6177` souhlasí ve 2 592 případech. Revive zakazuje i prázdný sousední magický bod: `$6230–$624B` zkouší ochranu a teprve potom dispatchuje sousedství `$6293`. Heal `$6279` kontroluje vlastní stranu, vězení však neodmítá.
 
-Neověřené zůstávají přesná délka, dosah a dávkování plošných útoků, některé hraniční případy kouzel (například Revive na prázdný sousední mocný bod) a všechny hraniční případy bojových překážek. Exportovaný číselný parametr 64 proto neznamená dosah 64 bodů a parametr 32 není rychlost střely.
+Program má samostatné zprávy IT IS A TIE a IT IS A STALEMATE. `$3DBC–$3DDE` potvrzuje prohru strany, jejíž poslední živá figura je uvězněná. `$4048` nastavuje čítač `$06A7=$FC`, když mají obě strany méně než tři figury a AI dojde do této větve; vstup do arény `$523D` jej nuluje. `$3D52` po druhém tahu kontroluje nulový spodní nibble před snížením. Není to univerzální remíza všech lidských partií ani pravidlo tří opakování.
+
+Pět Fénixových fází trvá po deseti voláních, zásahy se zkoušejí v pátém kroku každé fáze. Banshee používá vlastní čítač a zkouší zásah po pěti aktualizacích. Tyto větve jsou součástí 114 původních replayů, včetně weapon/AI stavů. Původní grafické překrytí ověřuje zvláštní test se stabilním úplným scanoutem; průběžné rasterové načasování zůstává rozdílné, viz PORTING.md.
+
+**Chyba návratu Měňavce:** `$552A` uloží energii, `$552B` zjistí typ 12, ale `$5533` čte `$564C,Y` s původním ID 25 místo typu. Záporný byte vede přes další `PLA` a uloží hodnotu ze zásobníku. Řízené návraty celé bitvy s energií 1/5/9 tak postupně uložily 32/198/15; nejde o potvrzení přirozené celé partie. Webový návrat na 10 a patologický souboj stejné figury po vadném Teleportu AI zatím nejsou uzavřený převod tohoto chování.

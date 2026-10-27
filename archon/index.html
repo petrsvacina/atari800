@@ -11,10 +11,13 @@
   <script defer src="assets/rules.js"></script>
   <script defer src="assets/sprites.js"></script>
   <script defer src="assets/palette.js"></script>
-  <script defer src="assets/audio.js"></script>
-  <script defer src="engine.js"></script>
-  <script defer src="audio.js"></script>
-  <script defer src="game.js"></script>
+  <script defer src="assets/audio.js?v=20261027-ntsc"></script>
+  <script defer src="assets/mechanics.js?v=20261027-ntsc"></script>
+  <script defer src="arena.js?v=20261027-ntsc"></script>
+  <script defer src="board-ai.js?v=20261027-ntsc"></script>
+  <script defer src="engine.js?v=20261027-ntsc"></script>
+  <script defer src="audio.js?v=20261027-ntsc"></script>
+  <script defer src="game.js?v=20261027-ntsc"></script>
 </head>
 <body>
 <div class="shell">
@@ -33,18 +36,18 @@
         <div class="game-bottom"><button id="cancel" disabled>↶ Zrušit výběr <kbd>ESC</kbd></button><div class="tools"><button id="pause" disabled>Ⅱ Pauza <kbd>P</kbd></button><button id="mute" aria-pressed="false">♪ Zvuk <kbd>M</kbd></button><button id="menu">↺ Nabídka <kbd>R</kbd></button><button id="fullscreen" aria-label="Celá obrazovka">⛶ <kbd>F</kbd></button></div></div>
       </section>
       <aside class="sidebar">
-        <section class="panel settings"><div class="section-heading"><span>01</span><h2>TVŮJ ARCHON</h2></div><label for="mode">STRANY</label><select id="mode"><option value="light">Světlo proti počítači</option><option value="dark">Stín proti počítači</option><option value="two">Dva hráči na jednom počítači</option></select><label for="difficulty">SOUPEŘ</label><select id="difficulty"><option value="easy">Lehký</option><option value="normal" selected>Střední</option><option value="hard">Těžký</option></select><button id="music-preview" class="text-button">♪ Poslechnout původní titulní hudbu</button><p id="audio-status" class="muted" role="status"></p></section>
+        <section class="panel settings"><div class="section-heading"><span>01</span><h2>TVŮJ ARCHON</h2></div><label for="mode">STRANY</label><select id="mode"><option value="light">Světlo proti počítači</option><option value="dark">Stín proti počítači</option><option value="two">Dva hráči na jednom počítači</option></select><label for="first-side">ZAČÍNÁ</label><select id="first-side"><option value="light">Světlo</option><option value="dark">Stín</option></select><button id="music-preview" class="text-button">♪ Poslechnout původní titulní hudbu</button><p id="audio-status" class="muted" role="status"></p></section>
         <section class="panel unit-panel"><div class="section-heading"><span>02</span><h2>VYBRANÁ FIGURA</h2></div><div class="unit-title"><canvas id="portrait" width="64" height="64" aria-label="Podoba vybrané figury"></canvas><div><small id="unit-side">ARMÁDA SVĚTLA</small><h3 id="unit-name">Rytíř</h3><span id="unit-move">Pozemní pohyb · 3 pole</span></div></div><div class="unit-stats"><div><span>ŽIVOTY</span><b id="unit-health">5 / 5</b></div><div><span>SÍLA ÚTOKU</span><b id="unit-damage">5</b></div><div><span>NABITÍ</span><b id="unit-reload">0,67 s</b></div></div><p id="unit-tip" class="muted">Spolehlivý bojovník zblízka. Ke střelci se musí dostat na dosah.</p><p id="terrain-info" class="terrain-info">Světlé pole zvýhodňuje Světlo, tmavé Stín.</p></section>
         <section class="panel magic-panel"><div class="section-heading"><span>03</span><h2>SEDM KOUZEL</h2></div><p class="muted">Každé jednou za hru. Kouzlí živý a volný mág; kouzlo nahradí tah.</p><div id="spell-list" class="spell-list"></div><div id="revive-list" class="revive-list" hidden><p>Koho chceš vrátit?</p><div id="revive-options"></div></div><p class="magic-note">Magické body chrání před kouzly. Každé použité kouzlo ubírá bod z obrany tvé domácí magické pozice.</p></section>
       </aside>
     </div>
     <div class="guide-layout">
-      <section class="panel guide"><div class="section-heading"><span>04</span><h2>DVA DRUHY SOUBOJE</h2></div><div class="guide-columns"><div><h3>Na desce</h3><p>Klikni na vlastní figuru a pak na zvýrazněné pole. Nebo pohybuj kurzorem šipkami a potvrzuj <kbd>SPACE</kbd> / <kbd>ENTER</kbd>. Pozemní figury nesmějí přes jiné figury; létající je přeskočí.</p><p>Útok na nepřítele otevře arénu. Barva napadeného pole přidá příslušné straně dočasné životy.</p></div><div><h3>V aréně</h3><p><b>Světlo:</b> šipky + <kbd>SPACE</kbd>.<br><b>Stín:</b> <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> + <kbd>Q</kbd>.</p><p>V sólové hře vždy ovládáš svou stranu šipkami a mezerníkem. S drženým FIRE stojíš a míříš. Každá zbraň se musí znovu nabít.</p></div><div><h3>Proměnlivá síla</h3><p>Po tahu obou stran se mění proměnlivá pole. Magický bod léčí svou figuru o jeden život za celé kolo. Vlastní vrchol světla či tmy léčí celou příslušnou armádu.</p><p>Vítězí všech pět bodů, vyřazení armády nebo uvěznění poslední soupeřovy figury.</p></div></div><p class="muted">Podporované jsou i standardní gamepady a dotykové ovládání. Při přepnutí okna se hra pozastaví.</p></section>
+      <section class="panel guide"><div class="section-heading"><span>04</span><h2>DVA DRUHY SOUBOJE</h2></div><div class="guide-columns"><div><h3>Na desce</h3><p>Klikni na vlastní figuru a pak na zvýrazněné pole. Nebo pohybuj kurzorem šipkami a potvrzuj <kbd>SPACE</kbd> / <kbd>ENTER</kbd>. Pozemní figury nesmějí přes jiné figury; létající je přeskočí.</p><p>Útok na nepřítele otevře arénu. Barva napadeného pole přidá příslušné straně dočasné životy.</p></div><div><h3>V aréně</h3><p><b>Světlo:</b> šipky + <kbd>SPACE</kbd>.<br><b>Stín:</b> <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> + <kbd>Q</kbd>.</p><p>V sólové hře vždy ovládáš svou stranu šipkami a mezerníkem. Pro útok drž směr společně s FIRE. Postava při míření stojí; samotné FIRE spouští plošný útok Fénixe a Bánší. Zvuk oznámí dobití zbraně.</p></div><div><h3>Proměnlivá síla</h3><p>Po tahu obou stran se mění proměnlivá pole. Magický bod léčí svou figuru o jeden život za celé kolo. Vlastní vrchol světla či tmy léčí celou příslušnou armádu.</p><p>Vítězí všech pět bodů, vyřazení armády nebo uvěznění poslední soupeřovy figury.</p></div></div><p class="muted">Podporované jsou i standardní gamepady a dotykové ovládání. Při přepnutí okna se hra pozastaví.</p></section>
       <section class="panel bestiary"><div class="section-heading"><span>05</span><h2>TVÁŘE ARCHONU</h2></div><div class="bestiary-tabs"><button data-army="light" class="selected" aria-pressed="true">SVĚTLO</button><button data-army="dark" aria-pressed="false">STÍN</button><button data-army="elemental" aria-pressed="false">ELEMENTÁLOVÉ</button></div><div id="bestiary"></div></section>
     </div>
   </main>
   <footer><span>ARCHON <i>·</i> Free Fall Associates / Electronic Arts, 1983</span><span>Samostatný přepis v JavaScriptu · Běží lokálně a offline</span></footer>
-  <p class="version-note">První hratelná webová verze. Původní grafika, tabulky jednotek a zvuk; nově napsaná pravidla hry, soubojová logika a počítačový soupeř.</p>
+  <p class="version-note">Nativní webová verze s původní grafikou a zvukem. Časování NTSC · Světlo a Stín · Jeden nebo dva hráči.</p>
 </div>
 <noscript><p>Pro hraní Archonu povol JavaScript.</p></noscript>
 </body>
