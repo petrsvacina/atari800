@@ -1,12 +1,20 @@
 # Nasazení portálu
 
-## River Raid — připravená oprava podle testerových postřehů
+## Aktuální veřejné vydání — opravy River Raidu podle originálu
 
-- Vydání `20261028T185524Z`; připravené k publikaci.
+- Vydání `20261028T185524Z`; **nasazené a ověřené přes HTTPS**.
+- Zdrojový commit `9402110`, odeslaný na `origin/main`.
 - Archiv `/private/tmp/atari800-portal-20261028T185524Z.tar.gz`.
+- Staging `/var/tmp/atari800-release-20261028T185524Z`.
+- Ověřená úplná záloha: `/root/atari800-backups/20261028T185524Z/site-before.tar.gz` (130 souborů).
 - SHA-256 `fc7281b24a83722e3cdc779f10090b353b5839b6d04b088b5dfc770060bb774e`.
 - Stále 130 veřejných souborů; mění se pouze šest souborů River Raidu,
   zbývajících 124 včetně portálu a ostatních šesti her je bytově shodných.
+- Před publikací souhlasilo všech 130 původních souborů s minulým vydáním.
+  Publisher ověřil zálohu i všechny živé hashe a vyměnil HTML jako poslední.
+- Veřejné HTTPS potvrdilo SHA-256 všech 130 souborů, osm kanonických cest,
+  MIME typy a sedm MP3 Range požadavků. Nezávislé místní stažení HTML hry
+  souhlasí s buildem. Konfigurace ani služby se neměnily.
 
 Břehy používají původní DLI barvu zvlášť nad a pod mostem. Palivoměr má
 původní E/½/F a všech 32 poloh markeru. Život navíc má podle původní
@@ -22,6 +30,13 @@ Soubory mají novou verzi URL pro cache. Výsledné vykreslení je zkontrolovan�
 jako obraz; nový ruční poslech ani fyzický gamepad se netvrdí. Aktuální
 browserová kontrola nebyla dostupná (`cgWindowNotFound`). Hranice úplné
 1:1 věrnosti zůstávají v `research/river-raid/PORTING.md`.
+
+Zápis do hlavního `.git` je v této relaci stále chráněný. Commit/push
+vznikl v `/private/tmp/atari800-river-presentation-20261028T185524Z`.
+Hlavní pracovní soubory odpovídají tomuto vydání; jejich metadata zůstala
+na `6729046`. Tentýž `/private/tmp/atari800-boulder-sync-git.py` je znovu
+připravený pro bezpečné srovnání v běžném terminálu, včetně kontrol bajtů
+všech souborů a ochrany cizích změn.
 
 ## Předchozí veřejné vydání — Boulder Dash
 
