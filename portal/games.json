@@ -88,5 +88,20 @@
     "logo": "assets/hero-logo.svg",
     "source": "hero",
     "featured": false
+  },
+  {
+    "id": "boulder-dash",
+    "title": "Boulder Dash",
+    "description": "Diamanty pod nohama, kameny nad hlavou. Prokopej původní jeskyně, přelsti motýly a najdi východ, než dojde čas.",
+    "genre": "Logická · akční",
+    "players": "1–2 hráči",
+    "multiplayer": true,
+    "year": "1984",
+    "author": "First Star Software",
+    "controls": "Klávesnice · gamepad · dotyk",
+    "image": "assets/boulder-dash.png",
+    "logo": "assets/boulder-dash-logo.png",
+    "source": "boulder-dash",
+    "featured": false
   }
 ]

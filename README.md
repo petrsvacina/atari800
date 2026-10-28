@@ -12,9 +12,11 @@ River Raid je nativní HTML5 hra v `river-raid/`, veřejně na **https://atari80
 
 H.E.R.O. je nativní HTML5 hra v `hero/`. Adresa v herně je **https://atari800.gmork.cz/hry/hero/**; ověřený stav zveřejnění je v `DEPLOYMENT.md`.
 
+Boulder Dash je nativní HTML5 hra v `boulder-dash/`. Cesta v herně je **https://atari800.gmork.cz/hry/boulder-dash/**; ověřený stav vydání a jeho limity uvádí `DEPLOYMENT.md`.
+
 ## Obsah repozitáře
 
-`portal/` obsahuje katalog, `web/` samostatné Dynakillers, `karate/` International Karate, `archon/` Archon, `goonies-web/` The Goonies, `river-raid/` River Raid a `hero/` H.E.R.O., včetně všech grafických a zvukových prostředků potřebných pro hraní. `tools/` obsahuje sestavení, extrakční nástroje a testy; `research/` dokumentuje rozbor a ukládá podklady potřebné pro opakování grafických exportů. Původní místní adresář `Goonies/` se do Gitu ani veřejného webu nekopíruje.
+`portal/` obsahuje katalog, `web/` samostatné Dynakillers, `karate/` International Karate, `archon/` Archon, `goonies-web/` The Goonies, `river-raid/` River Raid `hero/` H.E.R.O. a `boulder-dash/` Boulder Dash, včetně všech grafických a zvukových prostředků potřebných pro hraní. `tools/` obsahuje sestavení, extrakční nástroje a testy; `research/` dokumentuje rozbor a ukládá podklady potřebné pro opakování grafických exportů. Původní místní adresář `Goonies/` se do Gitu ani veřejného webu nekopíruje.
 
 Původní Atari soubory, referenční video, místní assemblerové podklady, SAP/WAV a pracovní binární výstupy se do Gitu nepřidávají. Pro hraní a sestavení portálu nejsou potřeba; vyžadují je jen některé vývojové extrakční nástroje. Vygenerovaný `dist/` je také ignorovaný. Po naklonování stačí `python3 tools/build_portal.py` a otevření `dist/index.html`, případně publikování obsahu `dist/`. Python používá jen standardní knihovnu; samotné hry pro hraní nepotřebují Python ani Node.js.
 
@@ -31,12 +33,19 @@ python3 tools/archon_render_cover.py
 python3 tools/goonies_render_cover.py
 python3 tools/river_render_cover.py
 node tools/hero_render_cover.mjs
+node tools/boulder_render_cover.mjs
 python3 tools/build_portal.py
 ```
 
-Prvních šest příkazů vytvoří náhledy her z jejich původních grafických dat; pro další hry přidej jejich vlastní obrázky do `portal/assets/`. Poslední vytvoří kompletní veřejný web v `dist/`: úvodní stránku, katalog a každou hru pod `hry/<id>/`. Do publikované kopie hry přidá návrat do katalogu místo hlavičky `.edition`. Samostatné místní verze her se nemění.
+Prvních sedm příkazů vytvoří náhledy her z jejich původních grafických dat; pro další hry přidej jejich vlastní obrázky do `portal/assets/`. Poslední vytvoří kompletní veřejný web v `dist/`: úvodní stránku, katalog a každou hru pod `hry/<id>/`. Do publikované kopie hry přidá návrat do katalogu místo hlavičky `.edition`. Samostatné místní verze her se nemění.
 
 Katalog umí hledat v názvu, žánru a popisu bez rozlišování diakritiky a filtrovat hry pro více hráčů. Odkazy na hry fungují i bez JavaScriptu. Na server patří pouze obsah `dist/`, nikoli kořen projektu s původními binárními soubory, pracovními daty a nástroji. Aktuální webový kořen Apache je `/var/www/atari800` na `mail.gmork.cz`; před jeho změnami pořiď zálohu. Existující konfigurace Apache a HTTPS není potřeba měnit.
+
+## Boulder Dash
+
+Otevři `boulder-dash/index.html`. Šipky nebo WASD řídí Rockforda; **mezerník + směr** sbírá na místě. **Enter** začíná/pokračuje, **Escape** vzdá jeskyni, **P** pozastaví, **M** přepne zvuk, **R** otevře nabídku a **F** celou obrazovku. Hra nabízí původní začátky A/E/I/M (na obtížnostech 4–5 pouze A), všech 16 jeskyní a čtyři mezihry v pěti obtížnostech. Dva hráči se střídají se společným ovládáním, nebo má druhý IJKL + pravý Shift / druhý gamepad. Dotyková tlačítka jsou pod obrazem. Titulní melodii lze spustit samostatným tlačítkem před hrou.
+
+Pravidla, generátor map, bitmapy, animace, hudba a registry zvuků vycházejí z dodaného ATR. Pro hraní není potřeba Atari soubor ani emulátor. Referenční nástroje a všech sedm testů `tools/test-boulder-*.mjs` ověřují původní mapy, stavy, kreslení, zvukové povely a CPU práci. Rozsah a známé hranice průběžného časování, RANDOM, zvuku a barev jsou v [research/boulder-dash/PORTING.md](research/boulder-dash/PORTING.md); úplná shoda celého programu 1:1 se netvrdí.
 
 ## H.E.R.O.
 

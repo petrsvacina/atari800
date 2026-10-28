@@ -1,6 +1,31 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — oprava Archonu podle XEX
+## Boulder Dash — připravené vydání
+
+- Vydání: `20261028T112129Z`; připravené, dosud bez potvrzení publikace.
+- Hra: https://atari800.gmork.cz/hry/boulder-dash/; sedmá hra v katalogu.
+- Archiv: `/private/tmp/atari800-portal-20261028T112129Z.tar.gz`.
+- SHA-256: `a8fcb34a1554f7a7003412d819cc4f591c1aecdbd51a62ff0a242dd9223d803f`.
+- Sestavení: **130 veřejných souborů, 114 platných místních HTML odkazů**.
+- Proti minulému vydání přibývá 16 souborů, mění se pouze úvodní HTML.
+  Zbývajících 113 souborů včetně všech dosavadních her je bytově shodných.
+
+Nativní JavaScript přebírá z dodaného ATR všech 100 variant jeskyní, fyziku,
+AI, skóre, životní cyklus, bitmapy, animace, posun obrazu, noty i zvukové
+registry. Veřejný web neobsahuje původní program ani emulátor.
+
+Prošlo všech sedm sad Boulder Dash: 100 generací, 20 replayů a 2 601 200
+porovnání stavů/buněk, 7 592 cílených původních skenů i jejich CPU práce,
+1 800 úplných VBI a dalších 6 000 VBI s řídkými kontrolními body, 422 400
+znakových kvadrantů, hudební kroky, hardware RANDOM, přechody a životní
+banky. Dalších 120 000 integrovaných snímků prošlo všemi 100 variantami
+bez neznámé časovací větve. Edge načetl a spustil místní hru; pozdější
+revize ověřují automatické testy. Telefon, gamepad ani ruční kompletní
+dohrání se nevydávají za ověřené. **Úplná shoda celé hry 1:1 se netvrdí:**
+průběžné DMA/VBI časování, fáze RANDOM, odkrývání/bonus a analogový POKEY
+mají výslovně uvedené hranice v `research/boulder-dash/PORTING.md`.
+
+## Předchozí veřejné vydání — oprava Archonu podle XEX
 
 - Vydání: `20261027T092825Z`; **nasazené a ověřené přes HTTPS**.
 - Hra: https://atari800.gmork.cz/hry/archon/; zdrojový commit `f6a328f`.

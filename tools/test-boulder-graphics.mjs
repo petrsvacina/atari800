@@ -1,0 +1,9 @@
+import {readFixture} from './boulder-fixture.mjs';
+import assert from'node:assert/strict';import fs from'node:fs';import vm from'node:vm';import path from'node:path';import{fileURLToPath}from'node:url';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),s=vm.createContext({});for(const p of ['assets/original.js','engine.js','raster.js','render.js','sound-core.js'])vm.runInContext(fs.readFileSync(path.join(root,'boulder-dash',p),'utf8'),s);
+let checked=0;for(const test of readFixture('boulder-graphics').cases){let seed=37,random=[],index=0;for(let i=0;i<256;i++){seed=(Math.imul(seed,1664525)+1013904223)>>>0;random.push(seed>>>24);}const g=new s.Boulder.Cave({cave:test.cave,randomByte:()=>random[index++&255]});g.preSpawn=g.spawnSeconds=0;
+ for(const step of test.steps){index=0;g.step({stick:step.stick});const wanted=Buffer.from(step.quads,'base64');for(let cell=0;cell<880;cell++)for(let part=0;part<4;part++){const actual=(g.appearance[cell]+[0,1,16,17][part])&255;assert.equal(actual,wanted[cell*4+part],`${test.cave} ${step.stick} ${cell} ${part}`);checked++;}}
+}
+const random=new s.BoulderSound.Random(0),points=readFixture('boulder-random').points;let matching=[];for(let offset=0;offset<131071;offset++)if(points.every(([cycle,value])=>random.at(cycle+offset)===value))matching.push(offset);assert.equal(matching.length,1,'Unique continuous match to hardware RANDOM');
+const music=new s.BoulderSound.Music(),wave=new s.BoulderSound.Wave(48000);let energy=0;for(let frame=0;frame<120;frame++){wave.set(music.frame());const out=new Float32Array(801);wave.process(out);for(const value of out){assert.ok(Number.isFinite(value)&&Math.abs(value)<1);energy+=value*value;}}assert.ok(energy>1,'Title audio has nonzero energy');
+console.log(`PASS ${checked} original character quadrants, 128 hardware RANDOM samples and native title-audio output.`);

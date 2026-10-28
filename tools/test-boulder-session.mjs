@@ -1,0 +1,5 @@
+import assert from 'node:assert/strict';import path from 'node:path';import{fileURLToPath}from'node:url';
+import fs from'node:fs';import vm from'node:vm';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),s=vm.createContext({});for(const p of ['assets/original.js','assets/timing.js','engine.js','timing.js','raster.js','sound-core.js','session.js'])vm.runInContext(fs.readFileSync(root+'/boulder-dash/'+p,'utf8'),s);const misses=new Set();let frames=0;
+for(let cave=1;cave<=20;cave++)for(let level=0;level<5;level++){let tick=0,seed=cave*37+level;const rng=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed>>>24;};const game=new s.BoulderSession({input:()=>({stick:[15,14,13,11,7,6,5,9,10][Math.floor(tick/17)%9],fire:tick%43<10})});game.start(cave,level);game.g.randomByte=rng;for(tick=0;tick<1200;tick++){if(game.phase==='ready')game.enter();game.frame();frames++;if(game.phase==='over')break;}for(const key of game.timingMisses)misses.add(key);}
+assert.deepEqual([...misses],[]);console.log(`PASS ${frames} integrated frames across all 100 cave variants, with all observed timing paths covered.`);
