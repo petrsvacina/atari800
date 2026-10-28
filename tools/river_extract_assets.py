@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Export River Raid numeric course and bitmaps; original CPU never enters runtime."""
-import base64,json,hashlib,struct,sys,argparse
+import gzip,base64,json,hashlib,struct,sys,argparse
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 ROM_SHA='dc55bef6fa336003772643e68b9bfade7155ff4dde1aad814e1cf56ad818805f'
@@ -48,6 +48,9 @@ def export(records,memory):
  print('Exported',len(track),'rows,',len(unique),'unique rows,',len(objects),'original encounters.',flush=True)
 def write(data):
  runtime={k:data[k] for k in ['sourceSha256','width','height','sprites','planes','glyphs','scores','mechanics','generator']}
+ presentation=json.loads(gzip.decompress((ROOT/'tools/fixtures/river-presentation-oracle.json.gz').read_bytes()))
+ hud=base64.b64decode(presentation['fuelBase']);x,y,width,height=80,171,82,16
+ runtime['mechanics']['fuelGauge']={'x':x,'y':y,'width':width,'height':height,'pixels':[hud[(yy-160)*320+xx] for yy in range(y,y+height) for xx in range(x,x+width)],'rawBase':92,'fuelShift':11,'rawToPixels':2,'rawOrigin':48,'markerY':176,'markerWidth':4,'markerHeight':10,'occlusion':0,'markerColor':30}
  (ROOT/'river-raid/assets/original.js').write_text('// Original art and numeric generator tables; no executable Atari code.\nglobalThis.RIVER_ASSETS = '+json.dumps(runtime,separators=(',',':'))+';\n')
  (ROOT/'river-raid/assets/course.js').unlink(missing_ok=True)
 if __name__=='__main__':

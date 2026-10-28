@@ -2,15 +2,23 @@
 (function(root){'use strict';
 const terrain=[[0,0,0],[0,128,0],[0,0,0],[0,42,174]];
 function color(code){const hue=code>>4,lum=code&15;if(!lum)return[0,0,0];if(hue===0)return[lum*17,lum*16,Math.min(255,lum*18)];if(code===0x1e)return[246,255,146];if(code===0x8e)return[148,202,255];const h=[0,50,24,5,335,310,275,245,215,192,170,150,125,108,85,65][hue]/60,v=Math.min(255,lum*20+8),c=v*.86,x=c*(1-Math.abs(h%2-1)),m=v-c;let rgb=h<1?[c,x,0]:h<2?[x,c,0]:h<3?[0,c,x]:h<4?[0,x,c]:h<5?[x,0,c]:[c,0,x];return rgb.map(n=>Math.round(n+m));}
+function landColors(game){
+ const a=game.assets;let code=(game.gen.flags&4)^0xd6;const nearest=game.gen.nearest<11?game.gen.actors[game.gen.nearest]:null;
+ if(nearest&&(nearest.flags&128)&&nearest.rawY<92)code^=4;
+ const rows=new Uint8Array(160).fill(code);
+ // AFD0 sets the top bank; B5D3 paints the road, then B5FA restores $0B
+ // below that bridge. A generator look-ahead never recolours the lower bank.
+ for(const e of game.enemies)if(e.flags&128){const height=a.sprites[e.type].height,y=game.screenY(e);for(let i=0;i<height;i++)if(y+i>=0&&y+i<160)rows[y+i]=a.mechanics.roadColors[height-1-i];if(y+height>0&&y+height<160)rows.fill((e.flags&4)|0xd2,Math.max(0,y+height));}
+ return rows;
+}
+function fuelGauge(assets,fuel){const a=assets.mechanics.fuelGauge,out=Uint8Array.from(a.pixels),left=(a.rawBase+(fuel>>a.fuelShift)-a.rawOrigin)*a.rawToPixels-a.x;
+ for(let y=a.markerY-a.y;y<a.markerY-a.y+a.markerHeight;y++)for(let x=left;x<left+a.markerWidth;x++){const at=y*a.width+x;if(x>=0&&x<a.width&&y>=0&&y<a.height&&out[at]!==a.occlusion)out[at]=a.markerColor;}
+ return out;
+}
 function render(game){
  const a=game.assets,w=320,h=192,out=new Uint8ClampedArray(w*h*4);for(let i=3;i<out.length;i+=4)out[i]=255;
  const dot=(x,y,c)=>{if(x<0||x>=320||y<0||y>=192)return;const i=(Math.floor(y)*w+Math.floor(x))*4;out[i]=c[0];out[i+1]=c[1];out[i+2]=c[2];};
- let landCode=(game.gen.flags&4)^0xd6;const nearest=game.gen.nearest<11?game.gen.actors[game.gen.nearest]:null;
- if(nearest&&(nearest.flags&128)&&nearest.rawY<92)landCode^=4;
- const land=Array.from({length:160},()=>landCode===0xd2?[0,80,0]:terrain[1]);
- // B5D3 changes COLPF0 per scanline. The bitmap and water stay untouched,
- // and the road remains after the bridge actor has finished exploding.
- for(const e of game.enemies)if(e.flags&128){const height=a.sprites[e.type].height,y=game.screenY(e);for(let i=0;i<height;i++)if(y+i>=0&&y+i<160)land[y+i]=color(a.mechanics.roadColors[height-1-i]);}
+ const codes=landColors(game),land=Array.from(codes,code=>code===0xd2?[0,80,0]:code===0xd6?terrain[1]:color(code));
  const water=game.waterRed?color(0x42):terrain[3];
  for(let y=0;y<160;y++){const row=game.course.row(Math.floor(159+game.scroll-y));if(!row)continue;for(let byte=0;byte<40;byte++)for(let p=0;p<4;p++){const index=row[byte]>>(6-p*2)&3,c=index===1?land[y]:index===3?water:terrain[index];dot(byte*8+p*2,y,c);dot(byte*8+p*2+1,y,c);}}
  function bitmap(bits,x,y,scale,colors){for(let yy=0;yy<bits.length;yy++){const c=Array.isArray(colors)?colors:color(colors[yy]);for(let xx=0;xx<8;xx++)if(bits[yy]&(128>>xx))for(let s=0;s<scale;s++)dot(Math.floor(x+xx*scale+s),Math.floor(y+yy),c);}}
@@ -24,10 +32,10 @@ function render(game){
  for(let y=160;y<192;y++)for(let x=0;x<320;x++)dot(x,y,[91,87,100]);
  function text(s,x,y,c=[242,255,156]){for(const ch of String(s).toUpperCase()){const code=ch===' '?0:ch>='0'&&ch<='9'?16+Number(ch):ch.charCodeAt(0)-32;const bits=a.glyphs[code]||a.glyphs[0];bitmap(bits,x,y,2,c);x+=16;}}
  text('P'+(game.playerIndex+1),16,161);text(String(game.score).padStart(6,'0'),64,161);text('HI',176,161,[0,0,0]);text(String(game.best).padStart(6,'0'),224,161);
- text('GAME',16,173,[0,0,0]);text(game.mode==='two'?'2':'1',80,182,[0,0,0]);text('BRIDGE',176,173);text(String(game.bridge).padStart(3,'0'),272,182);
- for(let y=173;y<189;y++)for(let x=86;x<169;x++)dot(x,y,[0,0,0]);text('E',90,181);text('F',151,181);const fuelX=100+Math.round(game.fuel/65535*46);for(let y=175;y<188;y++){dot(fuelX,y,game.fuel<16384&&game.tick%30<15?[255,110,100]:[246,255,146]);dot(fuelX+1,y,[246,255,146]);}for(let y=173;y<189;y++){dot(86,y,[167,183,164]);dot(168,y,[167,183,164]);}
+ text('GAME',16,173,[0,0,0]);text(game.mode==='two'?'2':'1',64,182,[0,0,0]);text('BRIDGE',176,173);text(String(game.bridge).padStart(3,'0'),272,182);
+ const gauge=a.mechanics.fuelGauge,gaugePixels=fuelGauge(a,game.fuel);for(let y=0;y<gauge.height;y++)for(let x=0;x<gauge.width;x++){const code=gaugePixels[y*gauge.width+x];dot(gauge.x+x,gauge.y+y,code===6?[91,87,100]:color(code));}
  // Reserve jets occupy the strip below the playfield and are also exposed in the UI.
  for(let i=0;i<Math.max(0,game.lives-1);i++){const x=180+i*9;for(let yy=0;yy<5;yy++)for(let xx=0;xx<7;xx++)if((yy===2||xx===3)&&yy<4)dot(x+xx,185+yy,[242,255,156]);}
  return out;
 }
-root.RiverRaster={render,color};})(globalThis);
+root.RiverRaster={render,color,landColors,fuelGauge};})(globalThis);

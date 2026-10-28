@@ -79,7 +79,7 @@ class Game{
  }
  addScore(n){
   const p=this.pilot,total=p.score+n,overflow=total>MAX_SCORE;p.score=Math.min(MAX_SCORE,total);this.best=Math.max(this.best,p.score);
-  while(p.score>=p.nextLife&&p.nextLife<=MAX_SCORE){p.nextLife+=10000;p.lives=Math.min(10,p.lives+1);this.emit('life');}
+  while(p.score>=p.nextLife&&p.nextLife<=MAX_SCORE){p.nextLife+=10000;if(p.lives<10){p.lives++;this.emit('life');}}
   if(overflow&&this.phase==='playing'){p.lives=1;this.crash('Dosaženo nejvyššího skóre.');}
  }
  destroy(e,frame=2,score=true){
@@ -87,7 +87,7 @@ class Game{
   if(score&&e.type===14){this.gen.bridgeDestroyed=true;this.waterFlash=23;this.pilot.bridge++;if(root.RiverMechanics.tankBonus(this.tank,e.rawX,this.bridge)){points=750;bonus=true;}this.emit('bridge');}
   this.emit('explosion',{tank:bonus});if(score)this.addScore(points);
  }
- crash(reason){
+ crash(reason,sound='impact'){
   if(this.phase!=='playing')return;
   const g=this.gen;
   // B1C0 reconciles the bridge under the plane with the generator's look-ahead.
@@ -96,7 +96,7 @@ class Game{
    else if(!g.bridgeDestroyed&&!(g.flags&128)){g.stage=g.previousCheckpoint.stage;g.checkpoint=g.previousCheckpoint;}
   }
   this.pilot.checkpoint=copyCheckpoint(g.checkpoint);this.pilot.checkpoint.stage=g.stage;
-  this.pilot.lives--;this.phase='crash';this.reason=reason;this.life=254;this.player.pose=6;this.bullet=null;g.gunnerSlot=11;this.gunner.rawX=0;this.emit('crash');
+  this.pilot.lives--;this.phase='crash';this.reason=reason;this.life=254;this.player.pose=6;this.bullet=null;g.gunnerSlot=11;this.gunner.rawX=0;this.emit('crash',{sound});
  }
  chooseNextPilot(){if(this.mode==='two')for(let n=1;n<=2;n++){const i=(this.playerIndex+n)%2;if(this.pilots[i].lives>0){this.playerIndex=i;return true;}}return this.pilot.lives>0;}
  actorPixels(e){return root.RiverMechanics.actorPicture(this.assets,e);}
@@ -128,7 +128,7 @@ class Game{
    else{if(e.frame===14)this.gen.bridgeDestroyed=true;this.crash(e.frame===14?'Srážka s mostem.':'Srážka s nepřítelem.');this.destroy(e,3);return;}
   }
   if(c.playerBank||c.gunnerShot||c.tankShot&&this.tank.phase>=17){this.crash(c.playerBank?'Zásah břehu nebo ostrova.':'Zásah nepřátelskou střelou.');return;}
-  if(this.fuel<32){this.crash('Došlo palivo.');return;}this.fuel-=32;
+  if(this.fuel<32){this.crash('Došlo palivo.','fuel');return;}this.fuel-=32;
   p.controls=this.priorControls;flight(p,input);
   const hit=c.bulletActor>=0?this.gen.actors[c.bulletActor]:null,blast=c.blastActor>=0?this.gen.actors[c.blastActor]:null;
   let consumed=c.bulletBank;

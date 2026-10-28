@@ -1,19 +1,22 @@
 #!/usr/bin/env python3
 """Render original River Raid POKEY sound routines offline; no CPU in browser."""
-import base64,hashlib,json,struct,sys,tempfile,subprocess,wave
+import argparse,base64,hashlib,json,struct,sys,tempfile,subprocess,wave
 from pathlib import Path
 from goonies_extract_audio import render
 FRAME_HZ=1789772.5/(114*262)
 ROOT=Path(__file__).resolve().parents[1]
 SHA='dc55bef6fa336003772643e68b9bfade7155ff4dde1aad814e1cf56ad818805f'
-EFFECTS={'engine':({},32,True),'fast':({0x59:248,0x19:14},32,True),'slow':({0x59:64,0x19:13},32,True),'shot':({0x7d:15},17,False),'explosion':({0x7a:1,0x7b:31},34,False),'refuel':({0x7a:3,0x7b:8},8,False),'full':({0x7a:4,0x7b:8},8,False),'life':({0x7e:64},64,False),'warning':({0x5b:32},64,True),'tank':({0x7f:9},10,False),'enemyExplosion':({0x7c:23},23,False),'tankExplosion':({0x7c:55},55,False),'tankBeam':({0x50:1},56,False)}
-def export():
+EFFECTS={'engine':({},32,True),'fast':({0x59:248,0x19:14},32,True),'slow':({0x59:64,0x19:13},32,True),'shot':({0x7d:15},17,False),'explosion':({0x7a:1,0x7b:31},34,False),'fuelExplosion':({0x7a:2,0x7b:35},38,False),'refuel':({0x7a:3,0x7b:8},8,False),'full':({0x7a:4,0x7b:8},8,False),'life':({0x7e:64},64,False),'warning':({0x5b:32},64,True),'tank':({0x7f:9},10,False),'enemyExplosion':({0x7c:23},23,False),'tankExplosion':({0x7c:55},55,False),'tankBeam':({0x50:1},56,False)}
+def export(selected=None):
  rom=(ROOT/'River Raid.rom').read_bytes();assert hashlib.sha256(rom).hexdigest()==SHA
  mem=bytearray(rom);assert mem[0x13db:0x13dd]==bytes.fromhex('e618');mem[0x13db]=0x60
  result={'sourceSha256':SHA,'sampleRate':22050,'frameHz':FRAME_HZ,'effects':{}}
+ if selected:
+  result=json.loads((ROOT/'river-raid/assets/audio.js').read_text().split('=',1)[1].strip().rstrip(';'));assert result['sourceSha256']==SHA
  with tempfile.TemporaryDirectory(prefix='river-audio-') as tmp:
   tmp=Path(tmp)
   for name,(state,ticks,loop) in EFFECTS.items():
+   if selected and name not in selected:continue
    code=bytearray()
    def setbyte(a,v):code.extend([0xa9,v,0x8d,a&255,a>>8])
    for a in range(0x100):setbyte(a,0)
@@ -32,4 +35,5 @@ def export():
    result['effects'][name]={'loop':loop,'duration':len(pcm)/44100,'data':base64.b64encode(pcm).decode(),'sha256':hashlib.sha256(pcm).hexdigest()}
    print('Rendered',name,flush=True)
  (ROOT/'river-raid/assets/audio.js').write_text('// Original POKEY routines rendered offline.\nglobalThis.RIVER_AUDIO = '+json.dumps(result,separators=(',',':'))+';\n')
-if __name__=='__main__':export()
+if __name__=='__main__':
+ p=argparse.ArgumentParser();p.add_argument('--effect',action='append',choices=EFFECTS);args=p.parse_args();export(args.effect)

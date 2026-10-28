@@ -1,17 +1,25 @@
 /* Pre-rendered original POKEY voices, mixed with native Web Audio. */
 (function(root){'use strict';
 class RiverAudio{
- constructor(options={}){this.assets=options.assets||root.RIVER_AUDIO;this.contextFactory=options.contextFactory||(()=>{const C=root.AudioContext||root.webkitAudioContext;return C?new C():null;});this.buffers=new Map();this.voices=new Set();this.channels=new Map();this.muted=false;this.engine=null;this.channelOne=null;this.unlocked=false;}
+ constructor(options={}){this.assets=options.assets||root.RIVER_AUDIO;this.contextFactory=options.contextFactory||(()=>{const C=root.AudioContext||root.webkitAudioContext;return C?new C():null;});this.buffers=new Map();this.voices=new Set();this.channels=new Map();this.muted=false;this.engine=null;this.channelOne=null;this.unlocked=false;this.lifeVoice=null;this.shotBase=null;}
  unlock(){this.unlocked=true;if(this.context){this.context.resume?.().catch?.(()=>{});return;}this.context=this.contextFactory();if(!this.context)return;this.gain=this.context.createGain();this.gain.gain.value=.32;this.gain.connect(this.context.destination);
   for(const[name,e]of Object.entries(this.assets.effects)){const raw=root.atob(e.data),buffer=this.context.createBuffer(1,raw.length/2,this.assets.sampleRate),pcm=buffer.getChannelData(0);for(let i=0;i<pcm.length;i++){let n=raw.charCodeAt(i*2)|raw.charCodeAt(i*2+1)<<8;if(n&32768)n-=65536;pcm[i]=n/32768;}this.buffers.set(name,buffer);}}
- stop(v){if(!v)return;v.onended=null;try{v.stop();}catch(_){}v.disconnect?.();this.voices.delete(v);for(const[k,value]of this.channels)if(value===v)this.channels.delete(k);if(v===this.channelOne)this.channelOne=null;if(v===this.engine)this.engine=null;}
- stopAll(){for(const v of [...this.voices])this.stop(v);this.engineName=null;this.enemyBase=null;this.gunnerVoice=null;}
+ stop(v){if(!v)return;v.onended=null;try{v.stop();}catch(_){}v.disconnect?.();this.voices.delete(v);for(const[k,value]of this.channels)if(value===v)this.channels.delete(k);if(v===this.channelOne)this.channelOne=null;if(v===this.engine)this.engine=null;if(v===this.lifeVoice)this.lifeVoice=null;}
+ stopAll(){for(const v of [...this.voices])this.stop(v);this.engineName=null;this.enemyBase=null;this.gunnerVoice=null;this.lifeVoice=null;this.shotBase=null;}
  play(name,loop=false,offset=0,ended){if(!this.context||!this.unlocked||this.muted||!this.buffers.has(name))return null;const v=this.context.createBufferSource();v.buffer=this.buffers.get(name);v.loop=loop;v.connect(this.gain);this.voices.add(v);v.onended=()=>{this.voices.delete(v);if(this.channelOne===v)this.channelOne=null;for(const[k,value]of this.channels)if(value===v)this.channels.delete(k);v.disconnect?.();ended?.();};v.start(0,offset);return v;}
  resumeEnemy(){const e=this.enemyBase,now=this.context.currentTime||0;if(!e||now>=e.end)return;const v=this.play(e.name,false,Math.max(0,now-e.start));if(v)this.channels.set(1,v);}
+ resumeShot(){const e=this.shotBase,now=this.context.currentTime||0;if(this.lifeVoice||!e||now>=e.end)return;const v=this.play('shot',false,Math.max(0,now-e.start));if(v)this.channels.set(2,v);}
  event(e){if(e.type==='reset'||e.type==='over'||e.type==='complete'){this.stopAll();return;}
-  const name=e.type==='crash'?'explosion':e.type==='explosion'?(e.tank?'tankExplosion':'enemyExplosion'):e.type;
-  if(!['shot','explosion','enemyExplosion','tankExplosion','refuel','full','life','tank','tankBeam'].includes(name)||!this.context||this.muted)return;
+  const name=e.type==='crash'?(e.sound==='fuel'?'fuelExplosion':'explosion'):e.type==='explosion'?(e.tank?'tankExplosion':'enemyExplosion'):e.type;
+  if(!['shot','explosion','fuelExplosion','enemyExplosion','tankExplosion','refuel','full','life','tank','tankBeam'].includes(name)||!this.context||this.muted)return;
   const channel=['shot','life'].includes(name)?2:['tank','enemyExplosion','tankExplosion'].includes(name)?1:name==='tankBeam'?3:0;
+  if(channel===2){
+   const now=this.context.currentTime||0;
+   if(name==='life'){
+    this.stop(this.channels.get(2));const v=this.play(name,false,0,()=>{if(this.lifeVoice===v)this.lifeVoice=null;this.resumeShot();});this.lifeVoice=v;if(v)this.channels.set(2,v);
+   }else{this.shotBase={start:now,end:now+this.assets.effects.shot.duration};if(!this.lifeVoice){this.stop(this.channels.get(2));this.resumeShot();}}
+   return;
+  }
   if(channel===1){
    const now=this.context.currentTime||0;
    if(name==='tank'){

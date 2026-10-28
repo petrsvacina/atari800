@@ -1,6 +1,29 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — Boulder Dash
+## River Raid — připravená oprava podle testerových postřehů
+
+- Vydání `20261028T185524Z`; připravené k publikaci.
+- Archiv `/private/tmp/atari800-portal-20261028T185524Z.tar.gz`.
+- SHA-256 `fc7281b24a83722e3cdc779f10090b353b5839b6d04b088b5dfc770060bb774e`.
+- Stále 130 veřejných souborů; mění se pouze šest souborů River Raidu,
+  zbývajících 124 včetně portálu a ostatních šesti her je bytově shodných.
+
+Břehy používají původní DLI barvu zvlášť nad a pod mostem. Palivoměr má
+původní E/½/F a všech 32 poloh markeru. Život navíc má podle původní
+POKEY rutiny přednost před střelbou; nevzniká při plné rezervě. Doplněný
+zvuk dojití paliva je odlišný od nárazu jako v originálu. Všech dosavadních
+13 PCM proudů zůstalo bytově shodných, přibyl pouze tento čtrnáctý.
+
+Prošlo 26 herních a 15 zvukových kontrol i všechny dosavadní generátorové,
+bojové a 7 996 úplných herních replay kroků. Nové řízené stavy skutečného
+Atari rastru ověřují 80 DLI scén / 12 800 řádků a 33 stavů paliva / 43 296
+pixelů; 285 původních zvukových kroků ověřuje POKEY registry a čítače.
+Soubory mají novou verzi URL pro cache. Výsledné vykreslení je zkontrolované
+jako obraz; nový ruční poslech ani fyzický gamepad se netvrdí. Aktuální
+browserová kontrola nebyla dostupná (`cgWindowNotFound`). Hranice úplné
+1:1 věrnosti zůstávají v `research/river-raid/PORTING.md`.
+
+## Předchozí veřejné vydání — Boulder Dash
 
 - Vydání: `20261028T112129Z`; **nasazené a ověřené přes HTTPS**.
 - Hra: https://atari800.gmork.cz/hry/boulder-dash/; sedmá hra v katalogu.

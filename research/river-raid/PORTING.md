@@ -37,9 +37,51 @@ Checkpoint zachovává seed a střed řeky. `$B1C0` podle polohy mostu a přízn
 
 ## Zvuk
 
-Třináct PCM prostředků na 22 050 Hz vzniká vykonáním původní POKEY rutiny `$B2A5–$B3D8` v soukromé SAP obálce. Samotné zvukové instrukce se nemění; následující nezvuková část VBI končí návratem. Exportované kanály se izolují, aby se motor nepřidával vícekrát. Metadata obsahují SHA-256 každého PCM proudu.
+Čtrnáct PCM prostředků na 22 050 Hz vzniká vykonáním původní POKEY rutiny `$B2A5–$B3D8` v soukromé SAP obálce. Samotné zvukové instrukce se nemění; následující nezvuková část VBI končí návratem. Exportované kanály se izolují, aby se motor nepřidával vícekrát. Metadata obsahují SHA-256 každého PCM proudu.
 
 Vedle motoru, rychlosti, střely, tankování, plné nádrže, rezervy a varování jsou oddělené původní výbuchy letadla, nepřítele a tanku, vrtulníkový výstřel a celý zvukový průběh tankové střely. Nepřátelský výbuch používá jiný kanál než motor. Vrtulník jej dočasně překryje; pak se obnoví zbývající část. Výbuch letadla se při přepnutí do fáze smrti okamžitě nevypíná. Tanková střela má vlastní čtvrtý kanál.
+
+## Opravy podle testerových postřehů (28. 10. 2026)
+
+Původní DLI nastaví na začátku pole barvu přes `$AFD0`, u mostu ji po
+jednotlivých řádcích mění tabulkou `$B4E5` a po posledním řádku obnoví `$0B`
+(`$B5FA–$B5FC`). Web dříve správně volil horní barvu a silnici, ale nesprávně
+ji používal také pod mostem. `RiverRaster.landColors` nyní zachovává oba
+úseky současně. Funguje i s mostem částečně mimo obraz a po jeho zničení.
+
+Palivoměr je skutečný statický rastr původní stupnice (E, ½, F a rám) a
+původní překrývání markeru písmem. `$B527–$B52F` určuje 32 poloh M1 z
+horního bajtu paliva; marker má čtyři pixely na deset řádků. Původní webový
+výpočet `100 + round(fuel / 65535 * 46)` i roztažené písmo byly chybné.
+
+Život navíc má v původním třetím POKEY kanálu přednost před střelbou:
+`$B399–$B3AD` přepíše oba zvukové registry, dokud běží `$7E`. Čítač výstřelu
+`$7D` se přitom stále zkracuje. Web už život nepřerušuje novou střelou; po
+něm může dohrát pouze ještě aktuální část výstřelu. Na maximálních devíti
+rezervách se nový život ani jeho zvuk nevyvolá, podle `$A57C–$A587`.
+
+Běžný zvuk výbuchu se podle dojmu neměnil: všech dosavadních třináct PCM
+proudů je bytově shodných. Doplněný čtrnáctý zvuk rozlišuje dojití paliva
+(`$7A=2`, `$7B=$23`, první AUDF1 `$11`) od nárazu (`$7A=1`, `$7B=$1F`,
+první AUDF1 `$39`), jak určuje `$A43F–$A44E`. Je vykreslen stejnou původní
+rutinou jako ostatní efekty, nikoliv upravenou náhradní syntézou.
+
+Nové nezávislé reference:
+
+- 80 skutečných DLI rastrů, 12 800 řádků PF0: oba směry změny barvy,
+  oříznutí mostu nahoře i dole, živý i zničený most;
+- 33 stavů paliva pokrývajících všech 32 poloh, 43 296 porovnaných pixelů
+  původního palivoměru;
+- 285 vykonaných původních zvukových aktualizací, skutečné POKEY registry
+  a čítače, včetně života pod opakovanou střelbou a obou zvuků zániku.
+
+`tools/river_capture_presentation.py` používá vývojový Atari800 s monitorovým
+`DUMPSCREEN`; první uložený řádek odpovídá fyzickému scanline 8. Herní pole
+proto začíná v uloženém obraze na Y=20 (fyzicky 28), HUD na Y=180.
+`tools/river_capture_sound.py` používá běžný Atari800. Obě komprimované
+fixture jsou pouze vývojové. Nové testy jsou `test-river-presentation.mjs`
+a rozšířené `test-river-audio.mjs`. Analogová fáze POKEY a subjektivní
+shoda poslechu zůstávají původními výslovnými limity.
 
 ## Ověření
 
@@ -47,7 +89,7 @@ Vedle motoru, rychlosti, střely, tankování, plné nádrže, rezervy a varová
 - **952 vzniků tanku**: všechny původní souřadnice, směry a rychlosti.
 - **7 996 kroků celé původní herní smyčky**: řízení, palivo, všech jedenáct slotů a jejich kontaktní příznaky, tank, střely, skóre, pilot, checkpointy a SHA-256 všech 160 širokých obrazových řádků po každém kroku. 3 136 kroků izoluje pohyb bez zásahů hráče, 2 160 používá skutečné kolize a střelbu a 2 700 řízené zásahy pro větve checkpointů. NPC kolize s břehy zůstávají ve všech scénářích skutečné. Devět restartů potvrzuje i třináct dodatečných VBI při čištění paměti.
 - **960 izolovaných aktualizací NPC/tanku, 384 tankové a 144 vrtulníkové střely**, včetně obou směrů a zlomkových rychlostí.
-- **480 původních aktualizací řízení**, skutečný původní ready raster a souřadnice, **25 herních kontrol** a **11 zvukových kontrol**.
+- **480 původních aktualizací řízení**, skutečný původní ready raster a souřadnice, **26 herních kontrol** a **15 zvukových kontrol**.
 - Čistě vstupní replay projde prvním mostem za **880 kroků**, s **1 860 body** a všemi čtyřmi letadly. Nepoužívá teleport ani nesmrtelnost.
 - Brave zobrazil nové místní sestavení, začátek 5, běžící let se střelbou, bodování, ztrátu života a tlačítko pauzy. Vykreslené stavy mostu, tanku a výbuchu byly také přímo zkontrolované.
 
@@ -70,6 +112,7 @@ node tools/test-river-game-oracle.mjs
 node tools/test-river-raid.mjs
 node tools/test-river-combat.mjs
 node tools/test-river-audio.mjs
+node tools/test-river-presentation.mjs
 python3 tools/build_portal.py
 ```
 
@@ -84,6 +127,8 @@ python3 tools/river_capture_combat.py
 python3 tools/river_capture_scene.py
 python3 tools/river_capture_flight.py
 python3 tools/river_extract_audio.py
+python3 tools/river_capture_presentation.py
+python3 tools/river_capture_sound.py
 ```
 
 ROM/XEX, video, RAM, strojové obálky a vývojový emulátor zůstávají mimo Git a veřejný web. Veřejný balíček tvoří jen HTML/CSS/JS a herní prostředky.
