@@ -1,14 +1,21 @@
 # Nasazení portálu
 
-## Boulder Dash — připravené vydání
+## Aktuální veřejné vydání — Boulder Dash
 
-- Vydání: `20261028T112129Z`; připravené, dosud bez potvrzení publikace.
+- Vydání: `20261028T112129Z`; **nasazené a ověřené přes HTTPS**.
 - Hra: https://atari800.gmork.cz/hry/boulder-dash/; sedmá hra v katalogu.
+- Zdrojový commit: `8ff5cde`, odeslaný na `origin/main`.
+- Staging: `/var/tmp/atari800-release-20261028T112129Z`.
+- Ověřená záloha předchozích 114 souborů: `/root/atari800-backups/20261028T112129Z/site-before.tar.gz`.
 - Archiv: `/private/tmp/atari800-portal-20261028T112129Z.tar.gz`.
 - SHA-256: `a8fcb34a1554f7a7003412d819cc4f591c1aecdbd51a62ff0a242dd9223d803f`.
 - Sestavení: **130 veřejných souborů, 114 platných místních HTML odkazů**.
 - Proti minulému vydání přibývá 16 souborů, mění se pouze úvodní HTML.
   Zbývajících 113 souborů včetně všech dosavadních her je bytově shodných.
+- Ověřeno přes veřejné HTTPS: SHA-256 všech 130 souborů, osm kanonických
+  cest, MIME typy a sedm MP3 Range požadavků. Nezávislé místní stažení
+  HTML nové hry je shodné. Publikace ověřila zálohu i úplné živé hashe;
+  nové soubory se zveřejnily před HTML hry a portálu. Konfigurace se neměnila.
 
 Nativní JavaScript přebírá z dodaného ATR všech 100 variant jeskyní, fyziku,
 AI, skóre, životní cyklus, bitmapy, animace, posun obrazu, noty i zvukové
@@ -24,6 +31,15 @@ revize ověřují automatické testy. Telefon, gamepad ani ruční kompletní
 dohrání se nevydávají za ověřené. **Úplná shoda celé hry 1:1 se netvrdí:**
 průběžné DMA/VBI časování, fáze RANDOM, odkrývání/bonus a analogový POKEY
 mají výslovně uvedené hranice v `research/boulder-dash/PORTING.md`.
+
+Místní `.git` je v této relaci chráněný proti zápisu. Commit a push proto
+vznikly v čistém checkoutu `/private/tmp/atari800-boulder-release-20261028T112129Z`.
+Soubory v hlavním projektu odpovídají vydání, ale jeho Git metadata zůstala
+na původním `705c8a5`. Je připraven `/private/tmp/atari800-boulder-sync-git.py`
+pro spuštění v běžném terminálu: stáhne remote refs, ověří původní HEAD,
+prázdný staging a shodu všech pracovních souborů s cílovými Git objekty;
+teprve potom srovná pouze HEAD/index. Při cizích změnách skončí bez resetu.
+Neodstraňuje původní Atari soubory ani žádné pracovní soubory.
 
 ## Předchozí veřejné vydání — oprava Archonu podle XEX
 
