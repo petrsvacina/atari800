@@ -1,12 +1,20 @@
 # Nasazení portálu
 
-## River Raid — připravená oprava motorové smyčky
+## Aktuální veřejné vydání — plynulá motorová smyčka River Raidu
 
-- Vydání `20261029T040010Z`; připravené k publikaci.
+- Vydání `20261029T040010Z`; **nasazené a ověřené přes HTTPS**.
+- Zdrojový commit `0508abf`, odeslaný na `origin/main`.
 - Archiv `/private/tmp/atari800-portal-20261029T040010Z.tar.gz`.
+- Staging `/var/tmp/atari800-release-20261029T040010Z`.
+- Ověřená úplná záloha: `/root/atari800-backups/20261029T040010Z/site-before.tar.gz` (130 souborů).
 - SHA-256 `571379569e4ff9b835657a10b8fd813282e54c1d6b5ac597fb12eca5ce9b69ff`.
 - Stále 130 veřejných souborů: mění se jen zvuková metadata, přehrávač
   a HTML River Raidu. Ostatních 127 souborů je bytově shodných.
+- Před publikací souhlasilo všech 130 živých souborů s minulým vydáním.
+  Ověřená je záloha i kompletní nové živé hashe; HTML se vyměnilo poslední.
+- Veřejné HTTPS ověřilo SHA-256 všech 130 souborů, osm kanonických cest,
+  MIME typy a sedm MP3 Range požadavků. Nezávislé místní stažení nového
+  verzovaného zvukového assetu souhlasí s buildem.
 
 Půlsekundový export původního motoru obsahoval na začátku krátký náběh
 s tichem; opakování celého bufferu chybně vytvářelo pulzování. Přehrávač
@@ -21,6 +29,12 @@ nepřerušeného držení rychlosti, priorit efektů a původních POKEY registr
 Uživatelské nahrávky `atari001.wav` a `river.m4a` zůstávají pouze lokálními
 podklady. Analogová shoda a subjektivní poslech se tím nevydávají za
 potvrzené 1:1. Podrobnosti jsou v `research/river-raid/PORTING.md`.
+
+Zápis do hlavního `.git` je stále chráněný; commit/push vznikl v
+`/private/tmp/atari800-river-motor-20261029T040010Z`. Hlavní pracovní soubory obsahují opravu,
+metadata zůstala na `6729046`. Tentýž `/private/tmp/atari800-boulder-sync-git.py`
+je připraven pro bezpečné srovnání v běžném terminálu s kontrolou všech
+pracovních souborů a ochranou cizích změn.
 
 ## Předchozí veřejné vydání — opravy River Raidu podle originálu
 
