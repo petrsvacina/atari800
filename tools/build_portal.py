@@ -6,6 +6,7 @@ from pathlib import Path
 import re
 import shutil
 import tempfile
+from build_game_i18n import build as check_game_translations
 
 ROOT = Path(__file__).resolve().parents[1]
 PORTAL = ROOT / "portal"
@@ -105,6 +106,7 @@ def render_portal(games, language):
 
 
 def build():
+    check_game_translations(check=True)
     games = load_games()
     pages = {language: render_portal(games, language) for language in LANGUAGES}
     with tempfile.TemporaryDirectory(prefix="atari-portal-build-", dir=ROOT) as folder:

@@ -24,7 +24,11 @@ Původní Atari soubory, referenční video, místní assemblerové podklady, SA
 
 Zdroj úvodní stránky je v `portal/`. Katalog se spravuje v `portal/games.json`: každá skutečně dostupná hra má unikátní `id`, název, popis, obrázek/logo, počet hráčů a adresář se spustitelnou webovou verzí v položce `source`. Právě jedna hra má `featured: true` a zobrazí se v hlavní nabídce. Nevydané hry se mezi hratelné nezařazují.
 
-Český portál je na `/`, anglický na `/en/`; přepínají se odkazy CZ/EN v hlavičce. Obě stránky vznikají ze stejné HTML šablony. Texty portálu jsou v `portal/locales/cs.json` a `portal/locales/en.json`; anglický soubor obsahuje také překlady popisů, žánrů, počtu hráčů a ovládání všech her. Přidání hry vyžaduje doplnění anglického překladu, jinak sestavení skončí s chybou. Anglické odkazy na hry nesou `?lang=en`, aby návrat vedl do anglického katalogu. Překlad se týká portálu a společné navigace; texty uvnitř her mají vlastní implementaci.
+Český portál je na `/`, anglický na `/en/`; přepínají se odkazy CZ/EN v hlavičce. Obě stránky vznikají ze stejné HTML šablony. Texty portálu jsou v `portal/locales/cs.json` a `portal/locales/en.json`; anglický soubor obsahuje také překlady popisů, žánrů, počtu hráčů a ovládání všech her. Přidání hry vyžaduje doplnění anglického překladu, jinak sestavení skončí s chybou. Anglické odkazy na hry nesou `?lang=en`, který volí také anglické rozhraní všech sedmi her a návrat do anglického katalogu.
+
+Překlady herních nabídek, ovládání, průběžných hlášek, výsledků, názvů, tooltipů a nápovědy se spravují v `localization/games.en.json`. Společná prezentační vrstva je v `localization/game-i18n.js`; herní pravidla, původní tabulky, obrazové a zvukové prostředky se nepřekládají ani neupravují. Každá hra má vlastní generovaný `i18n.js`, aby fungovala samostatně a offline; angličtinu vybere i při místním otevření s `?lang=en`. Bez parametru zůstává česká verze. Jazyk se zachová při kliknutí na herní logo a v názvech/pokynech se mění až zobrazený text, nikoli stav původního enginu.
+
+Po změně překladů spusť `python3 tools/build_game_i18n.py`. Sestavení kontroluje aktuálnost všech sedmi balíčků a shodu parametrů v překladech. Nové dynamické texty procházejí `AtariI18n.t`, HTML texty `AtariI18n.html`; pokrytí stránek, výsledkových stavů, původních pohybů/kouzel a všech osmi návodů Goonies ověřuje `node tools/test-game-i18n.mjs`.
 
 Po sestavení lze odkazy, jazyková metadata a překlady ověřit příkazem `python3 tools/test-portal-build.py`.
 

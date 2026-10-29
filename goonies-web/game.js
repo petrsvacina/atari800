@@ -1,11 +1,12 @@
 (function () {
   'use strict';
+const I=globalThis.AtariI18n||{t:value=>value,html:value=>value,locale:'cs-CZ'};
   const $ = id => document.getElementById(id), E = globalThis.GooniesEngine;
   const graphics = globalThis.GOONIES_GRAPHICS, levels = globalThis.GOONIES_LEVELS;
   const canvas = $('game'), view = canvas.getContext('2d');
   const surface = document.createElement('canvas'); surface.width = 336; surface.height = 240;
   const ctx = surface.getContext('2d'); ctx.imageSmoothingEnabled = view.imageSmoothingEnabled = false;
-  const audio = new GooniesAudio({ onStatus: text => { $('audio-status').textContent = text; } });
+  const audio = new GooniesAudio({ onStatus: text => { $('audio-status').textContent = I.t(text); } });
   const keys = new Set(), touch = new Set(), images = new Map();
   let game = null, muted = false, ready = false, last = 0, accumulator = 0, best = 0, stamp = '', gamepadFire = false;
   try { best = Number(localStorage.getItem('atari800.goonies.best')) || 0; muted = localStorage.getItem('atari800.goonies.muted') === 'true'; } catch (_) {}
@@ -13,10 +14,10 @@
   $('start').disabled = true;
   Promise.all(imageSources.map(src => new Promise((resolve, reject) => {
     const image = new Image(); image.onload = () => { images.set(src, image); resolve(); }; image.onerror = reject; image.src = src;
-  }))).then(() => { ready = true; $('start').disabled = false; draw(); }, () => { $('overlay-copy').textContent = 'Grafiku se nepodařilo načíst. Zkus obnovit stránku.'; });
+  }))).then(() => { ready = true; $('start').disabled = false; draw(); }, () => { $('overlay-copy').textContent = I.t('Grafiku se nepodařilo načíst. Zkus obnovit stránku.'); });
   function text(value, x, y, color = '#6352ff', align = 'left', size = 7) {
     ctx.font = `${size}px ${getComputedStyle(document.body).getPropertyValue('--mono') || 'monospace'}`;
-    ctx.textBaseline = 'top'; ctx.textAlign = align; ctx.fillStyle = color; ctx.fillText(value, x, y);
+    ctx.textBaseline = 'top'; ctx.textAlign = align; ctx.fillStyle = color; ctx.fillText(I.t(value), x, y);
   }
   // Filled in from the original bitmap frames; every frame remains pixel aligned.
   const spriteCache = new Map();
@@ -58,32 +59,32 @@
   function updateUI() {
     const signature = !game ? `menu:${audio.preview}:${muted}` : [game.scene, game.selected, game.phase, game.paused, game.score, game.lives, game.message, game.players.map(p => `${p.escaped}:${p.attached}:${p.climbing}:${p.rail}`).join('/'), muted].join('|');
     if (signature === stamp) return; stamp = signature;
-    $('mute').setAttribute('aria-pressed', String(muted)); $('mute').firstChild.textContent = muted ? '♪ Ztlumeno ' : '♪ Zvuk ';
-    $('music-preview').textContent = audio.preview ? '■ Zastavit původní hudbu' : '♪ Přehrát původní hudbu';
+    $('mute').setAttribute('aria-pressed', String(muted)); $('mute').firstChild.textContent = I.t(muted ? '♪ Ztlumeno ' : '♪ Zvuk ');
+    $('music-preview').textContent = I.t(audio.preview ? '■ Zastavit původní hudbu' : '♪ Přehrát původní hudbu');
     $('pause').disabled = !game || ['over', 'complete'].includes(game.phase);
     $('switch').disabled = !game || game.mode === 'two' || game.paused;
-    $('pause').firstChild.textContent = game?.paused ? '▶ Pokračovat ' : 'Ⅱ Pauza ';
+    $('pause').firstChild.textContent = I.t(game?.paused ? '▶ Pokračovat ' : 'Ⅱ Pauza ');
     const level = game?.level || levels[Number($('scene').value)];
-    $('objective-title').textContent = level.name; $('objective-copy').textContent = level.objective;
-    $('hint-copy').textContent = level.hint;
-    $('scene-label').textContent = game ? level.name.toUpperCase() : 'CESTA K POKLADU';
-    $('stage-count').textContent = game ? `${String(game.scene + 1).padStart(2, '0')} / 08` : '08 SCÉN · DVA KAMARÁDI';
-    $('message').textContent = game?.message || 'Jeden drží. Druhý hledá cestu. Spolu se dostanou dál.';
+    $('objective-title').textContent = I.t(level.name); $('objective-copy').textContent = I.t(level.objective);
+    $('hint-copy').textContent = I.t(level.hint);
+    $('scene-label').textContent = I.t(game ? level.name.toUpperCase() : 'CESTA K POKLADU');
+    $('stage-count').textContent = I.t(game ? `${String(game.scene + 1).padStart(2, '0')} / 08` : '08 SCÉN · DVA KAMARÁDI');
+    $('message').textContent = I.t(game?.message || 'Jeden drží. Druhý hledá cestu. Spolu se dostanou dál.');
     for (let i = 0; i < 2; i++) {
       const button = $('player-' + i), p = game?.players[i];
       button.classList.toggle('active', !!game && (game.mode === 'two' || i === game.selected));
       button.classList.toggle('escaped', !!p?.escaped); button.setAttribute('aria-pressed', String(!!game && i === game.selected));
-      $('player-' + i + '-status').textContent = p?.escaped ? 'V BEZPEČÍ' : p?.attached || p?.rail ? 'DRŽÍ MECHANISMUS' : game && (game.mode === 'two' || i === game.selected) ? 'TVŮJ TAH' : 'ČEKÁ NA PARŤÁKA';
+      $('player-' + i + '-status').textContent = I.t(p?.escaped ? 'V BEZPEČÍ' : p?.attached || p?.rail ? 'DRŽÍ MECHANISMUS' : game && (game.mode === 'two' || i === game.selected) ? 'TVŮJ TAH' : 'ČEKÁ NA PARŤÁKA');
       const portrait = button.querySelector('canvas').getContext('2d'); portrait.clearRect(0, 0, 32, 40); drawActor(p || { id: i, facing: 1 }, portrait);
     }
-    $('progress').replaceChildren(...levels.map((l, i) => { const bar = document.createElement('span'); bar.className = i < (game?.scene || 0) ? 'done' : i === (game?.scene || 0) ? 'current' : ''; bar.title = `${i + 1}. ${l.name}`; return bar; }));
+    $('progress').replaceChildren(...levels.map((l, i) => { const bar = document.createElement('span'); bar.className = i < (game?.scene || 0) ? 'done' : i === (game?.scene || 0) ? 'current' : ''; bar.title = I.t(`${i + 1}. ${l.name}`); return bar; }));
     const ended = game && ['over', 'complete'].includes(game.phase);
     $('overlay').hidden = !!game && !ended;
     if (ended) {
-      $('overlay-title').textContent = game.phase === 'over' ? 'Nevzdávej se, Goonie.' : game.practice ? 'Místnost je vaše.' : 'Jste praví Goonies!';
-      $('overlay-kicker').textContent = game.phase === 'over' ? 'DALŠÍ POKUS ČEKÁ' : 'SPOLU AŽ K POKLADU';
-      $('overlay-copy').textContent = `Skóre ${game.score.toLocaleString('cs-CZ')}. ${game.practice ? 'Vyber další trénink, nebo celou výpravu.' : game.phase === 'complete' ? 'Oba kamarádi jsou v bezpečí.' : 'Každá past má řešení. Zkus jinou cestu.'}`;
-      $('start').firstChild.textContent = 'ZAČÍT ZNOVU ';
+      $('overlay-title').textContent = I.t(game.phase === 'over' ? 'Nevzdávej se, Goonie.' : game.practice ? 'Místnost je vaše.' : 'Jste praví Goonies!');
+      $('overlay-kicker').textContent = I.t(game.phase === 'over' ? 'DALŠÍ POKUS ČEKÁ' : 'SPOLU AŽ K POKLADU');
+      $('overlay-copy').textContent = I.t(`Skóre ${game.score.toLocaleString(I.locale)}. ${game.practice ? 'Vyber další trénink, nebo celou výpravu.' : game.phase === 'complete' ? 'Oba kamarádi jsou v bezpečí.' : 'Každá past má řešení. Zkus jinou cestu.'}`);
+      $('start').firstChild.textContent = I.t('ZAČÍT ZNOVU ');
       if (game.score > best) { best = game.score; try { localStorage.setItem('atari800.goonies.best', String(best)); } catch (_) {} }
     }
   }
@@ -94,10 +95,10 @@
   }
   function menu() {
     game = null; globalThis.goonies = null; keys.clear(); touch.clear(); stamp = '';
-    $('overlay-title').innerHTML = 'Poklad nepočká.<br>Kamaráda nenecháš.';
-    $('overlay-kicker').textContent = 'DATASOFT · STEVEN SPIELBERG';
-    $('overlay-copy').innerHTML = 'Dva Goonies. Osm nástrah.<br>Najdi cestu z domu Fratelliových až na pirátskou loď.';
-    $('start').firstChild.textContent = 'VYRAZIT ZA POKLADEM '; updateUI();
+    $('overlay-title').innerHTML = I.html('Poklad nepočká.<br>Kamaráda nenecháš.');
+    $('overlay-kicker').textContent = I.t('DATASOFT · STEVEN SPIELBERG');
+    $('overlay-copy').innerHTML = I.html('Dva Goonies. Osm nástrah.<br>Najdi cestu z domu Fratelliových až na pirátskou loď.');
+    $('start').firstChild.textContent = I.t('VYRAZIT ZA POKLADEM '); updateUI();
   }
   function pause() { if (game && !['over', 'complete'].includes(game.phase)) { game.paused = !game.paused; keys.clear(); touch.clear(); } }
   function toggleMute() { audio.unlock(); muted = !muted; try { localStorage.setItem('atari800.goonies.muted', String(muted)); } catch (_) {} }

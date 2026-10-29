@@ -1,11 +1,12 @@
 (function () {
   'use strict';
+const I=globalThis.AtariI18n||{t:value=>value,html:value=>value,locale:'cs-CZ'};
   const $=id=>document.getElementById(id), Engine=globalThis.KarateEngine;
   const canvas=$('arena'),ctx=canvas.getContext('2d'),keys=new Set(),touches=new Map();
   const storage={get(key,fallback){try{return localStorage.getItem('karate-'+key)||fallback;}catch(_){return fallback;}},set(key,value){try{localStorage.setItem('karate-'+key,value);}catch(_){}}};
   let game=null,paused=false,muted=storage.get('muted','false')==='true',lastTime=0,accumulator=0;
   let menuScene=0,moveTab='normal',uiStamp='',lastPhase='',touchFire=false,gamepadFire=false,gamepadPause=false;
-  const audio=new KarateAudio({onStatus:message=>$('audio-status').textContent=message});
+  const audio=new KarateAudio({onStatus:message=>$('audio-status').textContent=I.t(message)});
   const backgrounds=KARATE_BACKGROUNDS.map(item=>{const image=new Image();image.src=item.src;return {...item,image};});
   for(const id of ['mode','difficulty','sound-mode']) {
     const value=storage.get(id,$(id).value);
@@ -41,7 +42,7 @@
   function updateSettings(){
     const active=!!game;
     $('mode').disabled=active;$('difficulty').disabled=active||$('mode').value==='two';$('music-preview').disabled=active;
-    $('name-two').textContent=($('mode').value==='two'?'ČERVENÝ · HRÁČ 2':'ČERVENÝ · POČÍTAČ');
+    $('name-two').textContent=I.t(($('mode').value==='two'?'ČERVENÝ · HRÁČ 2':'ČERVENÝ · POČÍTAČ'));
   }
   function clearInput(){keys.clear();touches.clear();touchFire=false;for(const button of document.querySelectorAll('.held'))button.classList.remove('held');}
   function startGame(){
@@ -64,12 +65,12 @@
   }
   function toggleMute(){muted=!muted;storage.set('muted',String(muted));audio.unlock();syncAudio();updateSoundButton();}
   function updateSoundButton(){
-    $('mute').innerHTML=`${muted?'♩ Ztlumeno':'♪ Zvuk'} <kbd>M</kbd>`;
+    $('mute').innerHTML=I.html(`${muted?'♩ Ztlumeno':'♪ Zvuk'} <kbd>M</kbd>`);
     $('mute').setAttribute('aria-pressed',String(muted));
-    $('music-preview').textContent=audio.preview?'Ⅱ Zastavit titulní hudbu':'♪ Poslechnout původní hudbu';
+    $('music-preview').textContent=I.t(audio.preview?'Ⅱ Zastavit titulní hudbu':'♪ Poslechnout původní hudbu');
   }
   async function fullscreen(){
-    try{if(document.fullscreenElement)await document.exitFullscreen();else await $('screen').requestFullscreen();}catch(_){$('hint').textContent='Celou obrazovku tento prohlížeč nepovolil.';}
+    try{if(document.fullscreenElement)await document.exitFullscreen();else await $('screen').requestFullscreen();}catch(_){$('hint').textContent=I.t('Celou obrazovku tento prohlížeč nepovolil.');}
   }
   $('start').addEventListener('click',()=>paused?setPaused(false):startGame());
   $('pause').addEventListener('click',()=>{audio.unlock();setPaused(!paused);});
@@ -129,8 +130,8 @@
     $('move-grid').replaceChildren();
     const ids=[8,1,2,7,0,3,6,5,4];
     for(const id of ids){const cell=document.createElement('div');cell.className='move'+(!id?' center':'');
-      if(!id)cell.textContent=moveTab==='fire'?'+ FIRE':'JOYSTICK';
-      else{const b=document.createElement('b'),name=document.createElement('span');b.textContent=arrows[id-1];name.textContent=Engine.MOVES[id+(moveTab==='fire'?8:0)].name;cell.append(b,name);}
+      if(!id)cell.textContent=I.t(moveTab==='fire'?'+ FIRE':'JOYSTICK');
+      else{const b=document.createElement('b'),name=document.createElement('span');b.textContent=I.t(arrows[id-1]);name.textContent=I.t(Engine.MOVES[id+(moveTab==='fire'?8:0)].name);cell.append(b,name);}
       $('move-grid').append(cell);
     }
   }
@@ -142,35 +143,35 @@
   function pips(id,points){
     const el=$(id);el.replaceChildren();
     for(let i=0;i<2;i++){const pip=document.createElement('span');pip.className='pip'+(points>=i*2+2?' full':points===i*2+1?' half':'');el.append(pip);}
-    el.setAttribute('aria-label',`${points/2} bodu`);
+    el.setAttribute('aria-label',I.t(`${points/2} bodu`));
   }
   function updateUI(){
     const phase=game?.phase||'menu',stamp=[phase,paused,game?.seconds,game?.points,game?.score,game?.wins,game?.round,game?.belt].join('|');
     if(stamp===uiStamp)return;uiStamp=stamp;
     const over=phase==='gameover',overlay=!game||paused||over;
     $('overlay').hidden=!overlay;$('pause').disabled=!game||over;
-    $('pause').innerHTML=paused?'▶ Pokračovat <kbd>P</kbd>':'Ⅱ Pauza <kbd>P</kbd>';
+    $('pause').innerHTML=I.html(paused?'▶ Pokračovat <kbd>P</kbd>':'Ⅱ Pauza <kbd>P</kbd>');
     if(!game){
-      $('overlay-kicker').textContent='SYSTEM 3 · ARCHER MACLEAN';$('overlay-title').innerHTML='Každý pohyb<br>se počítá.';
-      $('overlay-copy').innerHTML='Dva karatisté. Dva body k vítězství.<br>Původní pixelové souboje z Atari.';
-      $('start').innerHTML='VSTOUPIT DO SOUBOJE <span>↵</span>';
+      $('overlay-kicker').textContent=I.t('SYSTEM 3 · ARCHER MACLEAN');$('overlay-title').innerHTML=I.html('Každý pohyb<br>se počítá.');
+      $('overlay-copy').innerHTML=I.html('Dva karatisté. Dva body k vítězství.<br>Původní pixelové souboje z Atari.');
+      $('start').innerHTML=I.html('VSTOUPIT DO SOUBOJE <span>↵</span>');
     }else if(paused){
-      $('overlay-kicker').textContent='SOUBOJ POČKÁ';$('overlay-title').textContent='Chvíle na nádech.';
-      $('overlay-copy').textContent='Pokračuj, až budeš připravený.';$('start').innerHTML='POKRAČOVAT <span>↵</span>';
+      $('overlay-kicker').textContent=I.t('SOUBOJ POČKÁ');$('overlay-title').textContent=I.t('Chvíle na nádech.');
+      $('overlay-copy').textContent=I.t('Pokračuj, až budeš připravený.');$('start').innerHTML=I.html('POKRAČOVAT <span>↵</span>');
     }else if(over){
-      $('overlay-kicker').textContent=game.mode==='solo'?`PÁSEK: ${game.beltInfo[1].toUpperCase()}`:`SÉRIE ${game.wins[0]} : ${game.wins[1]}`;
-      $('overlay-title').textContent=game.message;
-      $('overlay-copy').textContent=game.mode==='solo'?`Skóre ${game.score[0].toLocaleString('cs-CZ')} · vyhrané souboje ${game.wins[0]}. Zkus další cestu k černému pásku.`:'Odveta? Spusť novou sérii na dvě vítězství.';
-      $('start').innerHTML='NOVÝ SOUBOJ <span>↵</span>';
+      $('overlay-kicker').textContent=I.t(game.mode==='solo'?`PÁSEK: ${game.beltInfo[1].toUpperCase()}`:`SÉRIE ${game.wins[0]} : ${game.wins[1]}`);
+      $('overlay-title').textContent=I.t(game.message);
+      $('overlay-copy').textContent=I.t(game.mode==='solo'?`Skóre ${game.score[0].toLocaleString(I.locale)} · vyhrané souboje ${game.wins[0]}. Zkus další cestu k černému pásku.`:'Odveta? Spusť novou sérii na dvě vítězství.');
+      $('start').innerHTML=I.html('NOVÝ SOUBOJ <span>↵</span>');
     }
-    $('phase-label').textContent=!game?'VSTUP DO DÓDŽÓ':paused?'HRA POZASTAVENA':phase.startsWith('bonus')?'BONUSOVÁ ZKOUŠKA':over?'KONEC SOUBOJE':phase==='fight'?'HRAJEME · BOJUJ':phase==='point'?'ZÁSAH':phase==='round'?'VÝSLEDEK SOUBOJE':'PŘIPRAV SE';
-    $('round-label').textContent=game?`SOUBOJ ${String(game.round).padStart(2,'0')} · ${backgrounds[game.scene%backgrounds.length].name.toUpperCase()}`:'PŮVODNÍ ATARI KLASIKA';
-    $('clock').textContent=game?game.seconds:'30';$('clock').parentElement.classList.toggle('urgent',!!game&&game.seconds<=10);
-    for(let i=0;i<2;i++){$(i?'score-two':'score-one').textContent=String(game?.score[i]||0).padStart(6,'0');pips(i?'points-two':'points-one',game?.points[i]||0);}
-    const belt=game?.beltInfo||Engine.BELTS[0];$('belt-swatch').style.backgroundColor=belt[2];$('belt-label').textContent=belt[1];
+    $('phase-label').textContent=I.t(!game?'VSTUP DO DÓDŽÓ':paused?'HRA POZASTAVENA':phase.startsWith('bonus')?'BONUSOVÁ ZKOUŠKA':over?'KONEC SOUBOJE':phase==='fight'?'HRAJEME · BOJUJ':phase==='point'?'ZÁSAH':phase==='round'?'VÝSLEDEK SOUBOJE':'PŘIPRAV SE');
+    $('round-label').textContent=I.t(game?`SOUBOJ ${String(game.round).padStart(2,'0')} · ${backgrounds[game.scene%backgrounds.length].name.toUpperCase()}`:'PŮVODNÍ ATARI KLASIKA');
+    $('clock').textContent=I.t(game?game.seconds:'30');$('clock').parentElement.classList.toggle('urgent',!!game&&game.seconds<=10);
+    for(let i=0;i<2;i++){$(i?'score-two':'score-one').textContent=I.t(String(game?.score[i]||0).padStart(6,'0'));pips(i?'points-two':'points-one',game?.points[i]||0);}
+    const belt=game?.beltInfo||Engine.BELTS[0];$('belt-swatch').style.backgroundColor=belt[2];$('belt-label').textContent=I.t(belt[1]);
     const wins=game?.wins[0]||0;
-    $('wins').textContent=game?.mode==='two'?`${game.wins[0]} : ${game.wins[1]}`:`${wins} ${wins===1?'VÝHRA':wins>1&&wins<5?'VÝHRY':'VÝHER'}`;
-    $('hint').textContent=game?.bonus&&phase.startsWith('bonus')?(game.bonus.kind==='tiles'?'Počkej na GO a stiskni mezerník / FIRE.':'Vysoká zbraň: dolů. Nízká zbraň: nahoru.'):'Šipky + mezerník. Směr drž až do provedení pohybu.';
+    $('wins').textContent=I.t(game?.mode==='two'?`${game.wins[0]} : ${game.wins[1]}`:`${wins} ${wins===1?'VÝHRA':wins>1&&wins<5?'VÝHRY':'VÝHER'}`);
+    $('hint').textContent=I.t(game?.bonus&&phase.startsWith('bonus')?(game.bonus.kind==='tiles'?'Počkej na GO a stiskni mezerník / FIRE.':'Vysoká zbraň: dolů. Nízká zbraň: nahoru.'):'Šipky + mezerník. Směr drž až do provedení pohybu.');
     updateSoundButton();
   }
   function fighter(p,baseline=198){
@@ -184,16 +185,16 @@
     ctx.drawImage(refereeSprites.get(state.frame)||refereeSprites.get('neutral'),x,y);
     if(state.message){
       ctx.save();ctx.font='bold 6px monospace';
-      const width=Math.ceil(ctx.measureText(state.message).width)+6,left=x-width-5,top=y+3;
+      const width=Math.ceil(ctx.measureText(I.t(state.message)).width)+6,left=x-width-5,top=y+3;
       ctx.fillStyle=KARATE_REFEREE.palette[1];ctx.fillRect(left-1,top-1,width+2,12);
       ctx.fillStyle=KARATE_REFEREE.palette[3];ctx.fillRect(left,top,width,10);ctx.fillRect(x-5,top+5,4,2);
-      ctx.fillStyle=KARATE_REFEREE.palette[1];ctx.textAlign='center';ctx.fillText(state.message,left+width/2,top+7);
+      ctx.fillStyle=KARATE_REFEREE.palette[1];ctx.textAlign='center';ctx.fillText(I.t(state.message),left+width/2,top+7);
       ctx.restore();
     }
   }
   function label(text,y,color='#f7edce',size=9){
-    ctx.font=`bold ${size}px monospace`;ctx.textAlign='center';ctx.fillStyle='#0d171c';ctx.fillRect(160-ctx.measureText(text).width/2-9,y-size-5,ctx.measureText(text).width+18,size+12);
-    ctx.fillStyle=color;ctx.fillText(text,160,y);
+    ctx.font=`bold ${size}px monospace`;ctx.textAlign='center';ctx.fillStyle='#0d171c';ctx.fillRect(160-ctx.measureText(I.t(text)).width/2-9,y-size-5,ctx.measureText(I.t(text)).width+18,size+12);
+    ctx.fillStyle=color;ctx.fillText(I.t(text),160,y);
   }
   function render(now){
     ctx.setTransform(2,0,0,2,0,0);ctx.imageSmoothingEnabled=false;
@@ -203,8 +204,8 @@
     if(scene.image.complete&&scene.image.naturalWidth)ctx.drawImage(scene.image,0,24,320,98);
     ctx.fillStyle=scene.floor||KARATE_PALETTE.floor;ctx.fillRect(0,122,320,88);
     ctx.fillStyle='#2e3940';ctx.fillRect(0,201,320,9);ctx.fillStyle='#d7b98b';ctx.fillRect(0,200,320,1);
-    ctx.fillStyle='#aec1bd';ctx.font='7px monospace';ctx.textAlign='left';ctx.fillText('INTERNATIONAL KARATE',9,15);
-    ctx.textAlign='right';ctx.fillStyle='#d6b980';ctx.fillText(scene.name.toUpperCase(),311,15);
+    ctx.fillStyle='#aec1bd';ctx.font='7px monospace';ctx.textAlign='left';ctx.fillText(I.t('INTERNATIONAL KARATE'),9,15);
+    ctx.textAlign='right';ctx.fillStyle='#d6b980';ctx.fillText(I.t(scene.name.toUpperCase()),311,15);
     referee();
     if(game){
       const phase=game.phase;

@@ -1,7 +1,8 @@
 (function () {
   'use strict';
+const I=globalThis.AtariI18n||{t:value=>value,html:value=>value,locale:'cs-CZ'};
   const $ = id => document.getElementById(id);
-  const setText = (id, text) => { if ($(id).textContent !== text) $(id).textContent = text; };
+  const setText = (id, text) => { text=I.t(text); if ($(id).textContent !== text) $(id).textContent = I.t(text); };
   const assets = globalThis.DYNA_ASSETS;
   const { Game, W, H, TILE, FPS } = globalThis.DynakillersEngine;
   const canvas = $('game'), ctx = canvas.getContext('2d', { alpha: false });
@@ -86,7 +87,7 @@
     }
     c.fillStyle = playerColors[0]; c.fillRect(2, 2, 6, 6);
     c.fillStyle = playerColors[1]; c.fillRect(192, 2, 6, 6);
-    $('arena-number').textContent = `0${selectedArena + 1} / 08`;
+    $('arena-number').textContent = I.t(`0${selectedArena + 1} / 08`);
     $('arena').value = selectedArena;
     if (game.state === 'menu') draw();
   }
@@ -119,7 +120,7 @@
     $('countdown').hidden = game.state !== 'ready' || paused;
     if (game.state === 'ready') setText('countdown', game.countdown > 25 ? 'PŘIPRAV SE' : 'START!');
   }
-  function label(id) { return game.options.bot && id === 1 ? 'POČÍTAČ' : names[id]; }
+  function label(id) { return I.t(game.options.bot && id === 1 ? 'POČÍTAČ' : names[id]); }
   function scores() {
     const players = game.state === 'menu' ? Array.from({ length: game.options.players }, (_, id) => ({ id, alive: true, bombs: 1, power: 3 })) : game.players;
     const signature = JSON.stringify([game.state === 'menu', players.map(p => [p.alive, p.bombs, p.power, p.effect]), game.scores, game.options.bot]);
@@ -131,18 +132,18 @@
       const icon = document.createElement('canvas'); icon.width = 32; icon.height = 24;
       sprite(icon.getContext('2d'), { ...p, direction: 0 }, 0, 0, 2);
       const info = document.createElement('div'), name = document.createElement('span'), detail = document.createElement('small');
-      name.className = 'name'; name.style.color = playerColors[p.id]; name.textContent = label(p.id);
-      detail.textContent = !p.alive ? 'MIMO HRU' : p.effect !== undefined && p.effect !== null ? game.effectName(p) : `BOMBY ${p.bombs} · DOSAH ${p.power - 1}`;
+      name.className = 'name'; name.style.color = playerColors[p.id]; name.textContent = I.t(label(p.id));
+      detail.textContent = I.t(!p.alive ? 'MIMO HRU' : p.effect !== undefined && p.effect !== null ? game.effectName(p) : `BOMBY ${p.bombs} · DOSAH ${p.power - 1}`);
       info.append(name, detail);
-      const score = document.createElement('span'); score.className = 'score'; score.textContent = game.scores?.[p.id] || 0;
+      const score = document.createElement('span'); score.className = 'score'; score.textContent = I.t(game.scores?.[p.id] || 0);
       card.append(icon, info, score); $('scoreboard').append(card);
     }
   }
   function showOverlay(kicker, title, text, button, hint = '') {
     $('overlay').hidden = false;
-    $('overlay-kicker').textContent = kicker; $('overlay-title').textContent = title;
-    $('overlay-text').textContent = text; $('play').replaceChildren(document.createTextNode(button + '  ↵'));
-    $('overlay-hint').textContent = hint;
+    $('overlay-kicker').textContent = I.t(kicker); $('overlay-title').textContent = I.t(title);
+    $('overlay-text').textContent = I.t(text); $('play').replaceChildren(document.createTextNode(I.t(button) + '  ↵'));
+    $('overlay-hint').textContent = I.t(hint);
   }
   function ui() {
     syncAudio();
@@ -164,7 +165,7 @@
     const active = game.state !== 'menu' && game.state !== 'matchOver';
     $('settings').disabled = active;
     $('pause').disabled = !['playing', 'ready'].includes(game.state);
-    $('pause').querySelector('span').textContent = paused ? 'Pokračovat' : 'Pauza';
+    $('pause').querySelector('span').textContent = I.t(paused ? 'Pokračovat' : 'Pauza');
     setText('screen-label', game.state === 'menu' ? 'PŘIPRAVEN K BOJI' : paused ? 'HRA POZASTAVENA' : game.state === 'playing' ? 'SOUBOJ PROBÍHÁ' : game.state === 'ready' ? 'ZA CHVÍLI ZAČÍNÁME' : 'KOLO UKONČENO');
     setText('round-label', game.state === 'menu' ? 'ATARI XL / XE → WEB' : `KOLO ${String(game.round).padStart(2, '0')} / ${String(game.options.rounds).padStart(2, '0')} · ARÉNA 0${game.arena + 1}`);
     setText('elapsed', `${String(Math.floor(game.tick / FPS / 60)).padStart(2, '0')}:${String(Math.floor(game.tick / FPS) % 60).padStart(2, '0')}`);
@@ -205,14 +206,14 @@
   }
   function updateSound() {
     $('sound').setAttribute('aria-pressed', String(muted));
-    $('sound').querySelector('span').textContent = muted ? 'Zvuk vypnutý' : 'Zvuk zapnutý';
+    $('sound').querySelector('span').textContent = I.t(muted ? 'Zvuk vypnutý' : 'Zvuk zapnutý');
   }
   async function fullscreen() {
     try {
       if (document.fullscreenElement) await document.exitFullscreen();
       else await document.querySelector('.arcade').requestFullscreen();
       canvas.focus({ preventScroll: true });
-    } catch (_) { $('game-status').textContent = 'Prohlížeč nepovolil celou obrazovku.'; }
+    } catch (_) { $('game-status').textContent = I.t('Prohlížeč nepovolil celou obrazovku.'); }
   }
   function inputs() {
     const result = bindings.map((map, id) => Object.fromEntries(Object.entries(map).map(([action, key]) => [action, keys.has(key) || (id === 0 && touch.has(action))])));
@@ -266,7 +267,7 @@
   $('arena-next').addEventListener('click', () => { selectedArena = (selectedArena + 1) % 8; preview(); });
   function updateMode() {
     document.querySelector('.third-control').hidden = $('mode').value !== '3';
-    $('settings-note').textContent = $('mode').value === 'bot' ? 'Režim proti počítači je doplněk webové verze.' : 'Lokální souboj. Všichni hráči hrají na tomto počítači.';
+    $('settings-note').textContent = I.t($('mode').value === 'bot' ? 'Režim proti počítači je doplněk webové verze.' : 'Lokální souboj. Všichni hráči hrají na tomto počítači.');
     if (game.state === 'menu') {
       game.options.players = $('mode').value === '3' ? 3 : 2;
       game.options.bot = $('mode').value === 'bot';
@@ -294,13 +295,13 @@
     const release = () => { touch.delete(b.dataset.control); b.classList.remove('active'); };
     b.addEventListener('pointerup', release); b.addEventListener('pointercancel', release); b.addEventListener('lostpointercapture', release);
   }
-  window.addEventListener('gamepadconnected', () => { $('gamepad-note').textContent = 'Gamepad připojen. Směrový kříž / páčka + A pro bombu.'; });
+  window.addEventListener('gamepadconnected', () => { $('gamepad-note').textContent = I.t('Gamepad připojen. Směrový kříž / páčka + A pro bombu.'); });
   for (const [tile, title, description] of [[3, 'NÁHODA', 'Efekt na 30 sekund'], [4, 'STOP', 'Zruší náhodný efekt'], [5, 'BOMBA +', 'Více bomb najednou'], [6, 'PLAMEN +', 'Delší výbuch']]) {
     const item = document.createElement('div'); item.className = 'bonus-item';
     const icon = document.createElement('canvas'); icon.width = icon.height = 16;
     icon.getContext('2d').drawImage(tileImage(tile), 0, 0);
     const text = document.createElement('div'), strong = document.createElement('strong'), small = document.createElement('small');
-    strong.textContent = title; small.textContent = description; text.append(strong, small); item.append(icon, text); $('bonus-list').append(item);
+    strong.textContent = I.t(title); small.textContent = I.t(description); text.append(strong, small); item.append(icon, text); $('bonus-list').append(item);
   }
   updateMode();
   updateSound(); preview(); ui(); requestAnimationFrame(frame);
