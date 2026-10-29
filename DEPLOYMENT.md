@@ -1,6 +1,49 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — souvislý motor River Raidu
+## Aktuální veřejné vydání — český a anglický portál
+
+- Vydání `20261029T084716Z`; **nasazené a ověřené přes HTTPS**.
+- Zdrojový commit `dabe6e1`, odeslaný na `origin/main`.
+- Český portál: `https://atari800.gmork.cz/`.
+- Anglický portál: `https://atari800.gmork.cz/en/`.
+- Archiv `/private/tmp/atari800-portal-20261029T084716Z.tar.gz`.
+- SHA-256 `b62e368d4a7ee12dba14fc57b5def49bd4eaf77310b6a049c68bf4fad81ed78c`.
+- Staging `/var/tmp/atari800-release-20261029T084716Z`.
+- Ověřená úplná záloha: `/root/atari800-backups/20261029T084716Z/site-before.tar.gz` (132 souborů).
+- 134 veřejných souborů: nová anglická stránka a společná navigace,
+  změněné oba sdílené prostředky portálu, česká stránka a sedm herních
+  HTML se společným navigačním skriptem. Ostatních 122 souborů souhlasí.
+  Veškerý herní JavaScript, obrazové a zvukové prostředky jsou bytově stejné.
+- Preflight ověřil všech 132 původních živých souborů. Publisher ověřil
+  zálohu, nové soubory i živé hashe; kořenové HTML publikoval poslední.
+- HTTPS ověřilo všech 134 veřejných souborů, devět kanonických cest,
+  MIME typy a sedm MP3 Range požadavků. Nezávislé místní stažení `/en/`
+  a verzovaného navigačního skriptu souhlasí s buildem.
+
+Portál se sestavuje ze společné HTML šablony a katalogu. Samostatné
+překlady pokrývají všechny texty, metadata, popisy sedmi her, žánry,
+hráče, ovládání i dynamické hledání, počítadla a obměnu hlavní hry.
+Obě adresy fungují i jako statické stránky bez překládání až po načtení.
+Hlavička obsahuje CZ/EN, stránky mají vlastní canonical, jazyk a hreflang.
+Anglické odkazy na hry nesou `?lang=en`; společná navigace pak vrací do
+`/en/`. Překlady textů uvnitř jednotlivých her jsou samostatný rozsah.
+
+Prošlo pět integračních kontrol sestavení: místní cíle odkazů a assetů,
+jazyk v odkazech na hry, canonical/hreflang a aktivní jazyk, běhové texty,
+povinné překlady nových her a bezpečný obsah JSON skriptu. Samostatná
+JS kontrola ověřila návrat do českého/anglického katalogu a zachování
+jazyka při kliknutí na herní logo. V místním Edge je ověřený desktopový
+vzhled, anglické hledání (1/7), prázdný stav (0/7), multiplayer (6/7)
+a obměna hlavní hry. Mobilní hlavička má dvouřádkové rozložení; spolehlivé
+vizuální ověření mobilní emulací se v tomto běhu nepodařilo dokončit.
+
+Commit/push vznikl v `/private/tmp/atari800-river-motor-20261029T040010Z`
+kvůli chráněnému hlavnímu `.git`. Pracovní soubory jsou shodné s vydáním;
+hlavní metadata zůstala na `0ab6871`. Aktualizovaný
+`/private/tmp/atari800-boulder-sync-git.py` je bezpečně srovná v běžném
+terminálu po kontrole všech souborů proti vzdálenému stromu.
+
+## Předchozí veřejné vydání — souvislý motor River Raidu
 
 - Vydání `20261029T042025Z`; **nasazené a ověřené přes HTTPS**.
 - Zdrojový commit `71b9790`, odeslaný na `origin/main`.
