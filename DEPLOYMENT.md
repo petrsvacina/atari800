@@ -1,6 +1,60 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — český a anglický portál
+## Aktuální veřejné vydání — angličtina uvnitř všech sedmi her
+
+- Vydání `20261029T093114Z`; **nasazené a ověřené přes HTTPS**.
+- Zdrojový commit `98f08bc`, odeslaný na `origin/main`.
+- Anglický vstup: `https://atari800.gmork.cz/en/`; hry přebírají `?lang=en`.
+- Archiv `/private/tmp/atari800-portal-20261029T093114Z.tar.gz`.
+- SHA-256 `0e45a1bd0f7ab00a5c301b256b3936e700ca62e9ac16a8da8fad2b49bbd8613f`.
+- Staging `/var/tmp/atari800-release-20261029T093114Z`.
+- Ověřená úplná záloha: `/root/atari800-backups/20261029T093114Z/site-before.tar.gz` (134 souborů).
+- 141 veřejných souborů: pro každou hru nový překladový balíček,
+  změněný prezentační `game.js` a HTML s verzovanými odkazy. Všech 120
+  ostatních souborů je bytově shodných: herní enginy, původní tabulky,
+  obrázky, zvuky i portál. Kopírovaná herní HTML přidávají stejnou navigaci.
+- Před publikací souhlasilo všech 134 živých souborů. Publisher ověřil
+  archiv, staging, úplnou zálohu a všech 141 nových živých hashů.
+- HTTPS ověřilo všech 141 veřejných souborů, devět kanonických cest,
+  MIME typy a sedm MP3 Range požadavků. Samostatné místní stažení
+  verzovaného překladového balíčku Dynakillers a rozhraní River Raidu
+  souhlasí s buildem.
+
+Angličtina nyní zahrnuje Dynakillers, International Karate, Archon,
+The Goonies, River Raid, H.E.R.O. a Boulder Dash: nabídky, ovládání,
+volby režimů, pauzu, výsledky, hlášky během hraní, přístupné popisky,
+texty kreslené do Canvasu, názvy postav/pohybů/kouzel a nápovědu.
+Goonies mají přeložené všechny názvy scén, úvodní pokyny, cíle, podrobné
+návody osmi místností a herní upozornění. Výběr jazyka zůstává v URL
+při návratu do portálu i kliknutí na logo samostatné hry.
+
+Společný zdroj je v `localization/game-i18n.js`, překlady v
+`localization/games.en.json`. Generátor vytváří sedm samostatných
+`i18n.js`, takže místní/offline hry nepotřebují portál. Hra bez parametru
+zůstává česká. Statické uzly a atributy se překládají při načtení;
+dynamické texty explicitně procházejí prezentačními funkcemi. Původní
+stav enginu, pravidla, vstupy, skóre ani časování se kvůli jazyku nemění.
+
+Ověření: 799 kontrol překladů, pět integračních kontrol portálu a kontroly
+aktuálnosti balíčků/parametrů překladů. Regrese: Dynakillers 11, Karate 19,
+Archon 27, Goonies 57 a River Raid 26 kontrol; H.E.R.O. 28 184 kroků
+proti původní referenci a Boulder Dash 120 000 integrovaných snímků
+všech 100 variant jeskyní. V místním Edge jsou ověřené anglické nabídky
+všech sedmi her, spuštění a pauza Karate/Boulder Dash/Dynakillers,
+aktivní pokyny ke kouzlům Archonu a podrobná nápověda Goonies.
+
+V tomto běhu spojení SSH bez PTY po autorizaci uvázlo. Přenos úspěšně
+proběhl přes `ssh -e none -tt` a `--rsync-path='stty raw -echo; rsync'`;
+příkazy preflight/publisher/verifier přes `ssh -tt`. Žádná konfigurace
+serveru se kvůli tomu neměnila; obsah je ověřený stejnými SHA kontrolami.
+
+Commit/push vznikl v `/private/tmp/atari800-river-motor-20261029T040010Z`
+kvůli chráněnému hlavnímu `.git`. Pracovní soubory obsahují vydání;
+hlavní metadata zůstala na `729b42c`. Aktualizovaný
+`/private/tmp/atari800-boulder-sync-git.py` je srovná v běžném terminálu
+po úplné kontrole pracovních souborů proti vzdálenému stromu.
+
+## Předchozí veřejné vydání — český a anglický portál
 
 - Vydání `20261029T084716Z`; **nasazené a ověřené přes HTTPS**.
 - Zdrojový commit `dabe6e1`, odeslaný na `origin/main`.
