@@ -1,6 +1,44 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — plynulá motorová smyčka River Raidu
+## Aktuální veřejné vydání — souvislý motor River Raidu
+
+- Vydání `20261029T042025Z`; **nasazené a ověřené přes HTTPS**.
+- Zdrojový commit `71b9790`, odeslaný na `origin/main`.
+- Archiv `/private/tmp/atari800-portal-20261029T042025Z.tar.gz`.
+- Staging `/var/tmp/atari800-release-20261029T042025Z`.
+- Ověřená úplná záloha: `/root/atari800-backups/20261029T042025Z/site-before.tar.gz` (130 souborů).
+- SHA-256 `4adb02cfeb5105004b52ed0d69c205a07ff6a58dfe812c4769410e0a48840811`.
+- 132 veřejných souborů: dva nové moduly motoru, změněný přehrávač
+  a HTML River Raidu. Zbývajících 128 souborů je bytově shodných.
+- Před publikací souhlasilo všech 130 živých souborů s minulým vydáním.
+  Záloha je ověřená, HTML se vyměnilo poslední a souhlasí všechny nové hashe.
+- HTTPS ověřilo všech 132 veřejných souborů, osm kanonických cest,
+  MIME typy a sedm MP3 Range požadavků. Místní stažení obou verzovaných
+  modulů motoru také souhlasí s buildem.
+
+První oprava odstranila opakované ticho na začátku PCM, ale uživatelský
+test potvrdil, že pulzování krátké opakované textury zůstává. Nové vydání
+už motorové PCM smyčky nepoužívá. Nativní generátor drží průběžný
+17bitový polynom a mění dělič/hlasitost podle původních registrů.
+AudioWorklet i náhradní ScriptProcessor používají stejnou implementaci.
+Ostatní původní zvukové prostředky a jejich priority se nezměnily.
+
+Prošlo 24 zvukových kontrol a 26 herních regresí. Nový Atari800 záznam
+ověřuje 768 motorových stavů v původním XEX, včetně vlastní inicializace
+AUDCTL/SKCTL. Testy ověřují kontinuitu přes callbacky při 44,1/48/96 kHz,
+absenci půlsekundového opakování, změny plynu, mute/pauzu a opožděné
+načtení či selhání workletu. Místní Edge kontrola zvukového grafu prošla;
+uživatel následně potvrdil funkční místní test. Analogová shoda celého
+POKEY a počáteční frekvenční náběh přes `$052C` tím nejsou prokázány.
+Podrobnosti a přesné hranice jsou v `research/river-raid/PORTING.md`.
+
+Commit/push vznikl v `/private/tmp/atari800-river-motor-20261029T040010Z`,
+protože hlavní `.git` je chráněný. Hlavní pracovní soubory obsahují stejné
+změny; metadata zůstala na `6f767db`. Aktualizovaný
+`/private/tmp/atari800-boulder-sync-git.py` srovná metadata v běžném
+terminálu až po kontrole všech souborů proti vzdálenému stromu.
+
+## Předchozí veřejné vydání — první oprava motorové smyčky River Raidu
 
 - Vydání `20261029T040010Z`; **nasazené a ověřené přes HTTPS**.
 - Zdrojový commit `0508abf`, odeslaný na `origin/main`.
