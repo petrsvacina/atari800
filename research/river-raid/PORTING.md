@@ -83,36 +83,54 @@ fixture jsou pouze vývojové. Nové testy jsou `test-river-presentation.mjs`
 a rozšířené `test-river-audio.mjs`. Analogová fáze POKEY a subjektivní
 shoda poslechu zůstávají původními výslovnými limity.
 
-## Plynulá motorová smyčka (29. 10. 2026)
+## Souvislý motor (29. 10. 2026)
 
-Nahrávky uživatele `atari001.wav` (originál) a `river.m4a` (web) pomohly
-lokalizovat nechtěné pulzování. Původní rutina při ustáleném výkonu drží
-AUDF1/AUDC1; referenčních 85 aktualizací má konstantně `$17/$84`.
+Uživatel dodal `atari001.wav` (originál) a `river.m4a` (web). První oprava
+posunula začátek krátké PCM smyčky za náběh. Odstranila opakované ticho,
+ale podle následného uživatelského testu pulzování zůstalo. Kontrola
+20ms RMS oken nedokázala odhalit opakování celé krátké šumové textury.
+Tato oprava je proto nahrazena souvislým nativním generováním motoru.
 
-Dosavadní motorové PCM mělo 32 VBI / přibližně 0,534 s. Záznam začíná před
-první aktualizací POKEY a obsahuje krátké ticho/náběh. Opakování celého
-bufferu jej chybně vracelo každého půlsekundového cyklu. V 20ms oknech
-klesala úroveň běžné motorové smyčky až na 28 % jejího mediánu.
+`motor-core.js` převádí ustálenou větev `$B32C–$B34F`: AUDF1 je
+`31 - (speed >> 4)` a AUDC1 pochází z původní tabulky `$B4AC`:
+`[0, $83, $86, $84][controls & 3]`. Zvuk tak má původní hlasitost
+při brzdění, zrychlování i neutrálu; současné stisknutí obou směrů
+má původní nulovou hlasitost. Dělič kanálu je `(AUDF1 + 1) * 28`
+CPU cyklů. Původní inicializace v Atari800 potvrzuje AUDCTL=0, SKCTL=3;
+nový záznam tyto registry sám nenastavuje.
 
-`loopStart` je nyní uvnitř ustáleného původního PCM, mezi čtvrtým a osmým
-VBI. Nástroj vybírá spojení podle posledních šestnácti vzorků a návaznosti
-načítané hodnoty. `loopEnd` je původní konec bufferu. Web Audio přehraje
-počáteční náběh pouze jednou a opakuje tento ustálený úsek. Nevkládá se
-fade, ticho, další envelope ani náhradní zvuková syntéza. Všech čtrnáct
-PCM proudů zůstává bytově shodných, mění se jen hranice tří motorových
-smyček. Kontrola obálky přes všechny tři režimy a rychlosti 64/128/248
-nehlásí propad pod 80 % mediánu; výška tónu a její dosavadní závislost na
-výkonu zůstává stejná. Varovná smyčka s úmyslným pulzováním se nemění.
+17bitový polynom postupuje průběžně na NTSC hodinách 1 789 772,5 Hz,
+stejně jako v [POKEY Atari800 7.2.1](https://github.com/atari800/atari800/blob/ATARI800_7_2_1/src/pokey.c).
+Kanál jeho bit vzorkuje až při doběhnutí děliče. Změna plynu, zvukový
+callback ani návrat po tankování polynom neresetují. Výstup integruje
+hrany uvnitř vzorku a odstraňuje DC; nevytváří dodatečnou obálku motoru.
+AudioWorklet i náhradní ScriptProcessor používají totožný generátor.
+Ani náhradní cesta se nevrací k krátké motorové PCM smyčce.
 
-Samotná metadata lze reprodukovat bez nového vykreslování PCM:
+Původních čtrnáct PCM prostředků zůstává bytově shodných. Tři motorové
+klipy se už ve hře nepřehrávají; ostatní efekty včetně priorit života,
+střelby, výbuchů, tankování a palivového varování zůstávají zachované.
+Metadata starých smyček lze nadále reprodukovat exportérem, ale nové
+přehrávání motoru na nich nezávisí.
+
+Ověření:
 
 ```sh
-python3 tools/river_extract_audio.py --refresh-motor-loops
+python3 tools/river_capture_motor.py
 node tools/test-river-audio.mjs
 ```
 
-Úvodní náběh a opakovaný úsek se testují zvlášť. Ověření neznamená shodu
-analogového filtru, libovolné fáze POKEY nebo celého zvukového výstupu 1:1.
+768 původních stavů pokrývá rychlosti 64–255 a všechny čtyři kombinace
+plynu. Další kontroly ověřují dvanáctisekundový výstup bez opakování
+staré půlsekundové textury, shodu přes hranice callbacků na
+44,1/48/96 kHz, zachování fáze, worklet i jeho selhání a zvukové priority.
+Místní kontrola v Edge při 48 kHz naměřila na běžícím ScriptProcessoru
+RMS 0,02012–0,02111 během čtyř sekund, bez PCM motorového hlasu.
+Uživatel následně potvrdil, že oprava při místním testu funguje.
+
+Zde ověřené registry patří ustálené větvi `$052C < $1B`; počáteční
+frekvenční náběh přes `$052C` tento záznam neověřuje. Absolutní fáze
+originálního čipu a jeho analogový filtr nejsou prokázány jako 1:1.
 Dodané uživatelské nahrávky se do Gitu ani veřejného balíčku nekopírují.
 
 ## Ověření
