@@ -1,6 +1,28 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — opravy River Raidu podle originálu
+## River Raid — připravená oprava motorové smyčky
+
+- Vydání `20261029T040010Z`; připravené k publikaci.
+- Archiv `/private/tmp/atari800-portal-20261029T040010Z.tar.gz`.
+- SHA-256 `571379569e4ff9b835657a10b8fd813282e54c1d6b5ac597fb12eca5ce9b69ff`.
+- Stále 130 veřejných souborů: mění se jen zvuková metadata, přehrávač
+  a HTML River Raidu. Ostatních 127 souborů je bytově shodných.
+
+Půlsekundový export původního motoru obsahoval na začátku krátký náběh
+s tichem; opakování celého bufferu chybně vytvářelo pulzování. Přehrávač
+nyní zahraje náběh jednou a opakuje pouze ustálený úsek původního PCM.
+Hranice smyčky mezi čtvrtým a osmým VBI se vybírá podle návaznosti vzorků.
+Všech čtrnáct PCM proudů, zrychlování/zpomalování a ostatní efekty zůstaly
+nezměněné. Varovný zvuk s úmyslnou modulací se neupravoval.
+
+Prošlo 19 zvukových kontrol, včetně absence opakovaných útlumů motoru
+u všech tří režimů a rychlostí 64/128/248, zachování prvního náběhu,
+nepřerušeného držení rychlosti, priorit efektů a původních POKEY registrů.
+Uživatelské nahrávky `atari001.wav` a `river.m4a` zůstávají pouze lokálními
+podklady. Analogová shoda a subjektivní poslech se tím nevydávají za
+potvrzené 1:1. Podrobnosti jsou v `research/river-raid/PORTING.md`.
+
+## Předchozí veřejné vydání — opravy River Raidu podle originálu
 
 - Vydání `20261028T185524Z`; **nasazené a ověřené přes HTTPS**.
 - Zdrojový commit `9402110`, odeslaný na `origin/main`.

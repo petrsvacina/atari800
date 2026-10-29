@@ -19,6 +19,8 @@ __pycache__/
 /*.mkv
 /*.mp4
 /*.mov
+/*.wav
+/*.m4a
 /*.tgz
 /*.tar.gz
 /*.zip

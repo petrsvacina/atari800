@@ -83,6 +83,38 @@ fixture jsou pouze vývojové. Nové testy jsou `test-river-presentation.mjs`
 a rozšířené `test-river-audio.mjs`. Analogová fáze POKEY a subjektivní
 shoda poslechu zůstávají původními výslovnými limity.
 
+## Plynulá motorová smyčka (29. 10. 2026)
+
+Nahrávky uživatele `atari001.wav` (originál) a `river.m4a` (web) pomohly
+lokalizovat nechtěné pulzování. Původní rutina při ustáleném výkonu drží
+AUDF1/AUDC1; referenčních 85 aktualizací má konstantně `$17/$84`.
+
+Dosavadní motorové PCM mělo 32 VBI / přibližně 0,534 s. Záznam začíná před
+první aktualizací POKEY a obsahuje krátké ticho/náběh. Opakování celého
+bufferu jej chybně vracelo každého půlsekundového cyklu. V 20ms oknech
+klesala úroveň běžné motorové smyčky až na 28 % jejího mediánu.
+
+`loopStart` je nyní uvnitř ustáleného původního PCM, mezi čtvrtým a osmým
+VBI. Nástroj vybírá spojení podle posledních šestnácti vzorků a návaznosti
+načítané hodnoty. `loopEnd` je původní konec bufferu. Web Audio přehraje
+počáteční náběh pouze jednou a opakuje tento ustálený úsek. Nevkládá se
+fade, ticho, další envelope ani náhradní zvuková syntéza. Všech čtrnáct
+PCM proudů zůstává bytově shodných, mění se jen hranice tří motorových
+smyček. Kontrola obálky přes všechny tři režimy a rychlosti 64/128/248
+nehlásí propad pod 80 % mediánu; výška tónu a její dosavadní závislost na
+výkonu zůstává stejná. Varovná smyčka s úmyslným pulzováním se nemění.
+
+Samotná metadata lze reprodukovat bez nového vykreslování PCM:
+
+```sh
+python3 tools/river_extract_audio.py --refresh-motor-loops
+node tools/test-river-audio.mjs
+```
+
+Úvodní náběh a opakovaný úsek se testují zvlášť. Ověření neznamená shodu
+analogového filtru, libovolné fáze POKEY nebo celého zvukového výstupu 1:1.
+Dodané uživatelské nahrávky se do Gitu ani veřejného balíčku nekopírují.
+
 ## Ověření
 
 - **268 288 po sobě jdoucích původních řádků**: SHA-256 normalizovaného záznamu zahrnuje všech 48 obrazových bytů, stav generátoru, všechny sloty a checkpoint. Nejde jen o vybrané obrázky. Další test ověřuje pokračování za někdejším koncem exportu.
