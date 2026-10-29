@@ -24,6 +24,10 @@ Původní Atari soubory, referenční video, místní assemblerové podklady, SA
 
 Zdroj úvodní stránky je v `portal/`. Katalog se spravuje v `portal/games.json`: každá skutečně dostupná hra má unikátní `id`, název, popis, obrázek/logo, počet hráčů a adresář se spustitelnou webovou verzí v položce `source`. Právě jedna hra má `featured: true` a zobrazí se v hlavní nabídce. Nevydané hry se mezi hratelné nezařazují.
 
+Český portál je na `/`, anglický na `/en/`; přepínají se odkazy CZ/EN v hlavičce. Obě stránky vznikají ze stejné HTML šablony. Texty portálu jsou v `portal/locales/cs.json` a `portal/locales/en.json`; anglický soubor obsahuje také překlady popisů, žánrů, počtu hráčů a ovládání všech her. Přidání hry vyžaduje doplnění anglického překladu, jinak sestavení skončí s chybou. Anglické odkazy na hry nesou `?lang=en`, aby návrat vedl do anglického katalogu. Překlad se týká portálu a společné navigace; texty uvnitř her mají vlastní implementaci.
+
+Po sestavení lze odkazy, jazyková metadata a překlady ověřit příkazem `python3 tools/test-portal-build.py`.
+
 Při každém dalším načtení portálu ve stejné kartě se hlavní nabídka posune na další hru v katalogu a po poslední začne znovu. Společně se změní obrázek, logo, název, údaje, pořadové číslo i oba spouštěcí odkazy. Poslední volbu si pamatuje `sessionStorage`; při prvním otevření nebo zablokovaném úložišti zůstává výchozí hra označená `featured`. Bez JavaScriptu je výchozí nabídka i katalog plně přístupný.
 
 ```sh
@@ -37,7 +41,7 @@ node tools/boulder_render_cover.mjs
 python3 tools/build_portal.py
 ```
 
-Prvních sedm příkazů vytvoří náhledy her z jejich původních grafických dat; pro další hry přidej jejich vlastní obrázky do `portal/assets/`. Poslední vytvoří kompletní veřejný web v `dist/`: úvodní stránku, katalog a každou hru pod `hry/<id>/`. Do publikované kopie hry přidá návrat do katalogu místo hlavičky `.edition`. Samostatné místní verze her se nemění.
+Prvních sedm příkazů vytvoří náhledy her z jejich původních grafických dat; pro další hry přidej jejich vlastní obrázky do `portal/assets/`. Poslední vytvoří kompletní veřejný web v `dist/`: český portál na `/`, anglický na `/en/` a každou hru pod `hry/<id>/`. Do publikované kopie hry přidá návrat do katalogu místo hlavičky `.edition`. Samostatné místní verze her se nemění.
 
 Katalog umí hledat v názvu, žánru a popisu bez rozlišování diakritiky a filtrovat hry pro více hráčů. Odkazy na hry fungují i bez JavaScriptu. Na server patří pouze obsah `dist/`, nikoli kořen projektu s původními binárními soubory, pracovními daty a nástroji. Aktuální webový kořen Apache je `/var/www/atari800` na `mail.gmork.cz`; před jeho změnami pořiď zálohu. Existující konfigurace Apache a HTTPS není potřeba měnit.
 

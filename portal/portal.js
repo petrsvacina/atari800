@@ -1,5 +1,13 @@
 (function () {
   'use strict';
+  const messageElement = document.getElementById('portal-messages');
+  // Keep cached Czech pages usable while their shared script is being updated.
+  const messages = messageElement ? JSON.parse(messageElement.textContent) : {
+    play: 'Hrát {title}', preview: 'Ukázka hry {title} s původní grafikou',
+    ready_one: '{total} hra připravená ke spuštění', ready_few: '{total} hry připravené ke spuštění',
+    ready_other: '{total} her připravených ke spuštění', shown: 'Zobrazeno: {visible} z {total}'
+  };
+  function text(key, values) { return messages[key].replace(/\{(\w+)\}/g, (_, name) => values[name]); }
   const cards = Array.from(document.querySelectorAll('[data-game]'));
   const featured = document.querySelector('.featured-game');
   if (featured && cards.length) {
@@ -16,13 +24,13 @@
     const action = document.getElementById('featured-action');
     featured.href = action.href = href;
     featured.dataset.featuredId = card.dataset.game;
-    featured.setAttribute('aria-label', `Hrát ${title}`);
-    document.getElementById('featured-action-label').textContent = `Hrát ${title}`;
+    featured.setAttribute('aria-label', text('play', {title}));
+    document.getElementById('featured-action-label').textContent = text('play', {title});
     document.getElementById('featured-title').textContent = title;
     document.getElementById('featured-position').textContent = `${String(index + 1).padStart(2, '0')} / ${String(cards.length).padStart(2, '0')}`;
     const image = featured.querySelector('.arena-image');
     image.src = card.querySelector('img').getAttribute('src');
-    image.alt = `Ukázka hry ${title} s původní grafikou`;
+    image.alt = text('preview', {title});
     const logo = featured.querySelector('.screen-logo img');
     logo.src = card.dataset.logo;
     logo.alt = title;
@@ -48,7 +56,9 @@
     }
     upcoming.hidden = !!query || activeFilter !== 'all';
     empty.hidden = visible !== 0;
-    count.textContent = query || activeFilter !== 'all' ? `Zobrazeno: ${visible} z ${cards.length}` : `${cards.length} ${cards.length === 1 ? 'hra připravená' : cards.length < 5 ? 'hry připravené' : 'her připravených'} ke spuštění`;
+    count.textContent = query || activeFilter !== 'all'
+      ? text('shown', {visible, total: cards.length})
+      : text(cards.length === 1 ? 'ready_one' : cards.length < 5 ? 'ready_few' : 'ready_other', {total: cards.length});
   }
   for (const filter of filters) filter.addEventListener('click', () => {
     activeFilter = filter.dataset.filter;

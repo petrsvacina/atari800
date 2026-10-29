@@ -31,7 +31,9 @@ def verify(root, base):
             if file.suffix == ".js":
                 assert mime in ("text/javascript", "application/javascript"), (relative, mime)
         count += 1
-    routes=[("/", root / "index.html")]+[("/hry/"+directory.name+"/",directory/"index.html") for directory in sorted((root/"hry").iterdir()) if directory.is_dir()]
+    routes=[("/", root / "index.html")]
+    routes += [("/"+directory.name+"/", directory/"index.html") for directory in sorted(root.iterdir()) if directory.is_dir() and (directory/"index.html").is_file()]
+    routes += [("/hry/"+directory.name+"/",directory/"index.html") for directory in sorted((root/"hry").iterdir()) if directory.is_dir()]
     for route, file in routes:
         with urlopen(base + route, timeout=20) as response:
             assert response.status == 200

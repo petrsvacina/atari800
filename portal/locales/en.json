@@ -1,0 +1,96 @@
+{
+  "meta_description": "Atari XL/XE lives on. Play Dynakillers, International Karate, Archon, The Goonies, River Raid, H.E.R.O. and Boulder Dash right in your browser.",
+  "og_title": "ATARI800 — Eight bits. Still the same joy.",
+  "og_description": "Atari XL/XE classics in a new web arcade. Pick a game and play.",
+  "page_title": "ATARI800 — Atari XL/XE Web Arcade",
+  "og_locale": "en_GB",
+  "skip": "Skip to games",
+  "home_label": "ATARI800 home",
+  "arcade": "WEB ARCADE",
+  "navigation": "Main navigation",
+  "nav_games": "Games",
+  "nav_about": "About",
+  "language_switch": "Portal language",
+  "hero_eyebrow": "BACK TO ATARI",
+  "hero_title_first": "Eight bits.",
+  "hero_title_second": "Still the same",
+  "hero_title_last": "joy.",
+  "hero_description_first": "Remember that feeling? Just one more game.",
+  "hero_description_second": "Atari XL/XE classics, now ready to play right in your browser.",
+  "browse": "Browse the arcade",
+  "no_install": "No installation",
+  "jump_in": "Jump straight in",
+  "featured_now": "NOW IN THE ARCADE",
+  "launch": "PLAY GAME",
+  "library_eyebrow": "PICK A GAME AND PLAY",
+  "library_title": "Our arcade",
+  "filter_label": "Filter games",
+  "all_games": "All games",
+  "multiplayer": "Multiplayer",
+  "search_label": "Search games",
+  "search_placeholder": "Find a game…",
+  "coming_eyebrow": "THIS IS JUST THE BEGINNING",
+  "coming_title": "More classics to come.",
+  "coming_first": "The arcade grows one game at a time.",
+  "coming_second": "There is already room for the next one.",
+  "empty": "We do not have that game yet. Try another search.",
+  "about_eyebrow": "OLD FAVOURITES, A NEW ARCADE",
+  "about_title_first": "Atari never switches off.",
+  "about_title_second": "It just changes screens.",
+  "about_first": "We are returning to the games we loved on the Atari XL/XE. We are bringing their graphics, music and ideas to web versions you can play on a modern computer.",
+  "about_second": "Bombs, well-timed punches, moves on Archon's board, or a treasure hunt with the Goonies? Pick a game or invite someone to share the keyboard. Then play one more.",
+  "about_signature": "8 BITS · NO RUSH · JUST PLAY",
+  "footer": "Atari XL/XE lives on.",
+  "play": "Play {title}",
+  "screenshot": "{title} gameplay",
+  "preview": "{title} gameplay with original graphics",
+  "available": "READY TO PLAY",
+  "ready_one": "{total} game ready to play",
+  "ready_few": "{total} games ready to play",
+  "ready_other": "{total} games ready to play",
+  "shown": "Showing {visible} of {total}",
+  "games": {
+    "dynakillers": {
+      "description": "Bombs, boulders and the last player standing. Blast your way to your rivals and watch out for your own explosions.",
+      "genre": "Action",
+      "players": "1–3 players",
+      "controls": "Keyboard · gamepad"
+    },
+    "international-karate": {
+      "description": "Land the right punch. Dodge at the right moment. Enter the tournament with the original animations and Rob Hubbard's music, or challenge a second player.",
+      "genre": "Fighting",
+      "players": "1–2 players",
+      "controls": "Keyboard · gamepad"
+    },
+    "archon": {
+      "description": "Strategy on the board, reflexes in the arena. Lead the forces of Light or Dark, cast spells and capture the five power points.",
+      "genre": "Strategy · action",
+      "players": "1–2 players",
+      "controls": "Mouse · keyboard · gamepad"
+    },
+    "goonies": {
+      "description": "Two friends, eight challenges and a pirate treasure. One works the machinery while the other finds a way through. Goonies never say die.",
+      "genre": "Adventure · platformer",
+      "players": "1–2 players",
+      "controls": "Keyboard · gamepad"
+    },
+    "river-raid": {
+      "description": "Stay on course, refuel in flight and blast through the next bridge. The original river, ships and helicopters in a classic that never lets up.",
+      "genre": "Arcade · flying",
+      "players": "1–2 players",
+      "controls": "Keyboard · gamepad"
+    },
+    "hero": {
+      "description": "A propeller pack, a laser and six sticks of dynamite. Fly through the original caves, blast obstacles and rescue the miner before your power runs out.",
+      "genre": "Action · adventure",
+      "players": "1 player",
+      "controls": "Keyboard · gamepad · touch"
+    },
+    "boulder-dash": {
+      "description": "Diamonds underfoot, boulders overhead. Dig through the original caves, outsmart the butterflies and find the exit before time runs out.",
+      "genre": "Puzzle · action",
+      "players": "1–2 players",
+      "controls": "Keyboard · gamepad · touch"
+    }
+  }
+}
