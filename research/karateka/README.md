@@ -5,7 +5,7 @@ Stav 30. 10. 2026: propojená nativní webová kampaň, publikovaná po schvále
 
 Původní pokyn nezařazovat hru automaticky do portálu platil během společného
 ladění. Uživatel následně schválil vydání („je to perfektni, nasad ji“).
-Vydání `20261030T062042Z`, zdrojový commit `5701e6b`, je na Gitu i veřejném
+První vydání `20261030T062042Z`, zdrojový commit `5701e6b`, je na Gitu i veřejném
 webu; Karateka je osmou hrou českého/anglického katalogu. Ostatních sedm her
 zůstalo bytově shodných. Zálohu a veřejné kontroly dokumentuje
 [`DEPLOYMENT.md`](../../DEPLOYMENT.md).
@@ -84,8 +84,8 @@ fyzický gamepad zatím nebyly zkoušeny.
 
 Filmy jsou offline obrazové/zvukové záznamy z ATR, ne výřezy dodaného MKV.
 Uživatel před publikováním zkrátil začátky klipů `court`, `palace-intro`
-a `court-palace`. MP4 soubory zůstaly zachované; časování i hashe nyní
-odpovídají těmto upraveným souborům. Původní údaje exportu zachovává
+a `court-palace`. Časování i hashe odpovídají upraveným souborům.
+Původní údaje exportu zachovává
 `untrimmedCapture` v provenance. Obraz palácového úvodu trvá 4,456 s,
 pozdější scéna s Mariko 7,746 s; konec hudby je vedený samostatně.
 `assets/movies/provenance.json` a `assets/movies.js` rozlišují konec obrazu a
@@ -102,6 +102,26 @@ než vyhodnotí konec obrazu. Událost konce předchozího klipu nesmí ukončit
 nový klip ani zrušit jeho dozvuk. Mezi titulkem a prologem zůstává video
 neprůhledné a viditelné; během načítání neodhalí herní plochu.
 
+Při dalším ověření se chyba podařila zachytit v Safari: původní zkrácené
+`court` a `palace-intro` začínaly událostí `playing` až na čase 3,872 s.
+Z palácového úvodu pak zbývalo přibližně 0,85 s včetně načítání. Klíčový
+snímek zůstal před nulou v zahazovaných paketech; Edge dokázal potřebné
+snímky před začátkem dekódovat, Safari přešlo na další klíčový snímek.
+Tři střižené klipy proto mají nové kódování H.264 High/CRF 1 s klíčovým
+snímkem přesně v čase nula, bez B snímků a s kopírovanými AAC pakety.
+Zůstává všech 494 / 267 / 464 dekódovaných obrazů, střih i původní zvuk.
+Rozdíl délky obrazové stopy je nejvýše 2,696 ms (méně než jeden NTSC snímek).
+Původní uživatelovy MP4 jsou dohledatelné v předchozím Gitu a v
+`/private/tmp/karateka-user-edits-before-safari/`; jejich hashe zachovává
+`userEditedSource` v provenance. Parametry nového kódování zaznamenává
+`webEncoding`; obraz je znovu komprimovaný, nikoli bytově shodný s původním
+MP4. Obsah záběrů nebyl nově stříhán.
+Po opravě byly všechny tři klipy v Safari zkoušeny ve stejné návaznosti:
+událost `playing` už vždy nesla čas 0,000 s. Palácový úvod trval 4,573 s
+včetně načítání (poslední pozorovaný čas média 4,459 s), místo původních
+0,850 s. Jde o cílený test přehrávače s nativní kampaní; přechodové události
+jsou v této prohlížečové pomůcce vyvolané, nejde o ručně odehranou kampaň.
+
 ## Ověření a jeho hranice
 
 Příkazy:
@@ -110,11 +130,16 @@ Příkazy:
 node tools/test-karateka.mjs
 node tools/test-karateka-integration.mjs
 node tools/test-karateka-movies.mjs
+node tools/test-karateka-entry.mjs
 ```
 
 Poslední sada vyžaduje `ffprobe`: kontroluje skutečné délky a hashe všech
 šesti MP4, zpožděné načítání, přirozený konec titulku/prologu, palácové
 scény při 8/12 krocích/s, zvukový dozvuk, pauzu, přeskočení a restart.
+Kontroluje také první použitelný klíčový snímek v nule. Sada `entry`
+prochází nativní kampaň přes klávesové události skutečného `app.js` při
+obou rychlostech, bez vkládání události přechodu nebo změn herního stavu;
+prohlížeč a média jsou v tomto testu simulované.
 
 Obě sady prošly. Celkem **148 200 porovnání** původních rutin a vybraných
 stavů/inicializací, nikoli 148 200 kroků celé hry:

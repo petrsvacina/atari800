@@ -25,13 +25,13 @@
     },
     {
       "name": "court",
-      "visualDuration": 8.244,
+      "visualDuration": 8.243948,
       "audioContinuesAfterPicture": true,
       "start": "79A0",
       "end": "subroutine return",
-      "sha256": "caf433e3b2632c74bb689048622d44d35a261556d07dc3769faabe5a7f11482f",
+      "sha256": "8a94ff0dc75fdbf1c69516e165dcae3a69923689a649e8bce5860eb9c74fb50d",
       "duration": "9.796009",
-      "size": "170674",
+      "size": "173213",
       "untrimmedCapture": {
         "visualDuration": 8.544335019103931,
         "duration": "10.096009",
@@ -39,17 +39,30 @@
         "sha256": "85da914f00fc4d8a0c93a2c6e2c9a5db87858977a95cf1783b30e203be313fff"
       },
       "leadingGameplayTrimSeconds": 0.3,
-      "trimNote": "User shortened this clip before publication; the opening gameplay image is omitted. Runtime timing follows the edited MP4."
+      "trimNote": "User shortened this clip before publication; the opening gameplay image is omitted. Runtime timing follows the edited MP4.",
+      "userEditedSource": {
+        "visualDuration": 8.244,
+        "duration": "9.796009",
+        "size": "170674",
+        "sha256": "caf433e3b2632c74bb689048622d44d35a261556d07dc3769faabe5a7f11482f"
+      },
+      "webEncoding": {
+        "reason": "Safari skipped negative-time preroll from the user stream-copy trim and began palace-intro at 3.872 s; start the published clip with an IDR at zero.",
+        "video": "libx264 High, level 3.1, CRF 1, preset slow, bf 0, g 120, yuv420p, fps_mode passthrough",
+        "audio": "AAC packets copied unchanged",
+        "decodedFramesBefore": 494,
+        "decodedFramesAfter": 494
+      }
     },
     {
       "name": "palace-intro",
-      "visualDuration": 4.456,
+      "visualDuration": 4.455737,
       "audioContinuesAfterPicture": true,
       "start": "AD8C",
       "end": "subroutine return",
-      "sha256": "ecb6f9a00394fcf6deebb0f798ee5e1ab81a7da0d9ef79d9e51f946dc1c38236",
+      "sha256": "a5a25fee79464264d911a903f42bc98fbb570243dc07395911af3107c161a4a2",
       "duration": "9.295011",
-      "size": "149038",
+      "size": "141421",
       "untrimmedCapture": {
         "visualDuration": 4.756123985243399,
         "duration": "9.595011",
@@ -57,7 +70,20 @@
         "sha256": "25f391118528a374e8a5b19effacaf62a4bc567799c93aec71eef40bc55f8623"
       },
       "leadingGameplayTrimSeconds": 0.3,
-      "trimNote": "User shortened this clip before publication; the opening gameplay image is omitted. Runtime timing follows the edited MP4."
+      "trimNote": "User shortened this clip before publication; the opening gameplay image is omitted. Runtime timing follows the edited MP4.",
+      "userEditedSource": {
+        "visualDuration": 4.456,
+        "duration": "9.295011",
+        "size": "149038",
+        "sha256": "ecb6f9a00394fcf6deebb0f798ee5e1ab81a7da0d9ef79d9e51f946dc1c38236"
+      },
+      "webEncoding": {
+        "reason": "Safari skipped negative-time preroll from the user stream-copy trim and began palace-intro at 3.872 s; start the published clip with an IDR at zero.",
+        "video": "libx264 High, level 3.1, CRF 1, preset slow, bf 0, g 120, yuv420p, fps_mode passthrough",
+        "audio": "AAC packets copied unchanged",
+        "decodedFramesBefore": 267,
+        "decodedFramesAfter": 267
+      }
     },
     {
       "name": "hawk-intro",
@@ -71,13 +97,13 @@
     },
     {
       "name": "court-palace",
-      "visualDuration": 7.746,
+      "visualDuration": 7.743304,
       "audioContinuesAfterPicture": true,
       "start": "79A0",
       "end": "subroutine return",
-      "sha256": "24e2d0a64f1c15a72afba05be4fb3af78e6524b8c8fc1b1e639c392963f85fcf",
+      "sha256": "7473427df23a2144e4312366599bee4f8c8719ee9fb8538ba9357b5cc9f72080",
       "duration": "9.598005",
-      "size": "153842",
+      "size": "161646",
       "untrimmedCapture": {
         "visualDuration": 9.846011057170546,
         "duration": "11.698005",
@@ -85,7 +111,20 @@
         "sha256": "458f24a57359d91ba9dac46f13aedf3a7f98ecb86dfe030891de0272c39f1de4"
       },
       "leadingGameplayTrimSeconds": 2.1,
-      "trimNote": "User shortened this clip before publication; the opening gameplay image is omitted. Runtime timing follows the edited MP4."
+      "trimNote": "User shortened this clip before publication; the opening gameplay image is omitted. Runtime timing follows the edited MP4.",
+      "userEditedSource": {
+        "visualDuration": 7.746,
+        "duration": "9.598005",
+        "size": "153842",
+        "sha256": "24e2d0a64f1c15a72afba05be4fb3af78e6524b8c8fc1b1e639c392963f85fcf"
+      },
+      "webEncoding": {
+        "reason": "Safari skipped negative-time preroll from the user stream-copy trim and began palace-intro at 3.872 s; start the published clip with an IDR at zero.",
+        "video": "libx264 High, level 3.1, CRF 1, preset slow, bf 0, g 120, yuv420p, fps_mode passthrough",
+        "audio": "AAC packets copied unchanged",
+        "decodedFramesBefore": 464,
+        "decodedFramesAfter": 464
+      }
     }
   ]
 }

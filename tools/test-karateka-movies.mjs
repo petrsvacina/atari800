@@ -14,15 +14,19 @@ const manifest=vm.createContext({});vm.runInContext(metadata,manifest);
 const provenance=JSON.parse(fs.readFileSync(path.join(root,'karateka/assets/movies/provenance.json'),'utf8'));
 assert.equal(provenance.movies.length,6);
 for(const entry of provenance.movies){
- const clip=manifest.KARATEKA_MOVIES[entry.name],file=path.join(root,'karateka',clip.file),bytes=fs.readFileSync(file);
+ const clip=manifest.KARATEKA_MOVIES[entry.name],file=path.join(root,'karateka',clip.file.split('?')[0]),bytes=fs.readFileSync(file);
  assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),entry.sha256,entry.name+' capture hash');
  const probe=JSON.parse(execFileSync('ffprobe',['-v','error','-show_entries','stream=codec_type,duration:format=duration','-of','json',file]));
  const picture=Number(probe.streams.find(s=>s.codec_type==='video').duration);
  assert.ok(Math.abs(clip.pictureEnd-picture)<.001,entry.name+' picture must end on the MP4 clock');
  assert.ok(Math.abs(clip.soundEnd-Number(probe.format.duration))<.001,entry.name+' sound tail must end on the MP4 clock');
  assert.equal(entry.visualDuration,clip.pictureEnd);
+ // Safari/AVFoundation starts at the next usable keyframe when a stream-copy
+ // trim leaves only discarded, negative-time video packets before t=0.
+ const packets=JSON.parse(execFileSync('ffprobe',['-v','error','-select_streams','v:0','-read_intervals','%+0.1','-show_packets','-show_entries','packet=pts_time,flags','-of','json',file])).packets;
+ assert.ok(Number(packets[0].pts_time)===0&&packets[0].flags.includes('K')&&!packets[0].flags.includes('D'),entry.name+' must start with a playable keyframe at zero for Safari');
 }
-console.log('PASS six captured MP4 hashes and actual video/audio durations');
+console.log('PASS six captured MP4 hashes, video/audio durations and playable first keyframes at zero');
 
 function shell(){
  const elements=new Map(),events={},loads=[];let raf,audio,now=0;
