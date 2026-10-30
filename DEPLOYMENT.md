@@ -1,6 +1,45 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — začátky střižených videí v Safari
+## Aktuální veřejné vydání — mobilní joystick pro sedm her
+
+- Vydání `20261030T084926Z`; **nasazené a ověřené přes HTTPS**.
+- Zdrojový commit `f2243a997ca0971de6b64711322c0c4e11498b25`, odeslaný na `origin/main`.
+- Archiv `/private/tmp/atari800-portal-20261030T084926Z.tar.gz`, 18 869 189 B.
+- SHA-256 `e453ee78ca77243a128c6f3f64294f4ff41e31d78b95fb552103b69f7d432be7`.
+- Staging `/var/tmp/atari800-release-20261030T084926Z`.
+- Ověřená úplná záloha: `/root/atari800-backups/20261030T084926Z/site-before.tar.gz`
+  (188 původních souborů); záznam `release.json` v témže adresáři.
+- 190 veřejných souborů: dva nové prostředky v `/shared/`, změněné herní
+  `game.js` a HTML sedmi her a dva katalogy. Zbývajících 172 souborů je
+  bytově shodných, včetně všech enginů, obrazových/zvukových prostředků
+  a všech souborů Karateky.
+- Preflight ověřil všech 188 původních souborů, publisher úplnou zálohu
+  a všech 190 nových živých hashů. Nejprve publikoval prostředky/presentery,
+  potom herní HTML a nakonec oba katalogy. Konfigurace ani služby se neměnily.
+- HTTPS ověřilo 190 souborů, deset cest portálu/her, MIME typy a
+  13 MP3/MP4 Range požadavků. Samostatně stažený verzovaný joystick a veřejné
+  HTML River Raidu souhlasí s buildem i relativními odkazy.
+
+Levý palec ovládá digitální osmisměrný joystick a pravý nezávislé FIRE.
+Ovladač používají Dynakillers, International Karate, Archon, The Goonies,
+River Raid, H.E.R.O. a Boulder Dash. Uživatel upřesnil, že Karateka má
+zachovat dosavadní klávesové/dotykové povely; zůstala tedy beze změny.
+Ovladač má CZ/EN popisky, mrtvou zónu, zachycení jednotlivých pointerů,
+uvolnění při zrušení kontaktu/viditelnosti/otočení a propojení s pauzou.
+Předává stejné digitální povely jako fyzický joystick; pravidla, rychlosti
+ani AI enginů se neměnily. Podrobnosti jsou v `shared/README.md`.
+
+Prošly testy pointerů/souběhu směr+FIRE, 126 srovnání skutečných funkcí vstupu
+sedmi her proti gamepadu, přepnutí postavy Goonies, ovládání Stínu v Archonu
+a oddělení druhého joysticku Boulder Dashe. Dále 799 lokalizačních kontrol,
+pět kontrol portálu a regresní sady všech sedmi enginů včetně 120 000
+integrovaných snímků Boulder Dashe a 28 184 referenčních kroků H.E.R.O.
+V Brave byl viditelný panel a spuštění River Raidu/Boulder Dashe v náhledu
+šířky 390 px. Testovací karta se zavřela a původní fullscreen okna se obnovil.
+Skutečný dvouprstý kontakt, pohodlí úchopu a fullscreen mobilního Safari
+nebyly ověřeny na fyzickém telefonu; náhled je nenahrazuje.
+
+## Předchozí veřejné vydání — začátky střižených videí v Safari
 
 - Vydání `20261030T073349Z`; **nasazené a ověřené přes HTTPS**.
 - Zdrojový commit `7b4844dd21f1bfac03eb6d6287026815ffb749ba`, odeslaný na `origin/main`.
