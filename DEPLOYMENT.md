@@ -1,6 +1,44 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — Karateka v českém a anglickém portálu
+## Aktuální veřejné vydání — přechody filmových scén Karateky
+
+- Vydání `20261030T065920Z`; **nasazené a ověřené přes HTTPS**.
+- Zdrojový commit `324c62a51cf653d502fb59f61bbd7e4dedd0f991`, odeslaný na `origin/main`.
+- Hra: <https://atari800.gmork.cz/hry/karateka/> (také `?lang=en`).
+- Archiv `/private/tmp/atari800-portal-20261030T065920Z.tar.gz`, 18 858 117 B.
+- SHA-256 `a4556b03caeb6c764a7145b975f8c6c0960d916822dbe1656102294fac67e9eb`.
+- Staging `/var/tmp/atari800-release-20261030T065920Z`.
+- Ověřená úplná záloha: `/root/atari800-backups/20261030T065920Z/site-before.tar.gz`
+  (188 původních souborů); záznam `release.json` v témže adresáři.
+- Změněny čtyři soubory: `hry/karateka/app.js`, `assets/movies.js`,
+  `style.css` a `index.html`. Zbývajících 184 souborů je bytově shodných,
+  včetně portálu, ostatních her a všech šesti uživatelových MP4.
+- Preflight ověřil všech 188 původních souborů. Publisher ověřil archiv,
+  úplnou zálohu a všechny živé hashe; nové HTML zveřejnil poslední.
+- HTTPS ověřilo 188 souborů, deset cest portálu/her, MIME typy a
+  13 MP3/MP4 Range požadavků. Konfigurace ani služby se neměnily.
+
+Mezi titulkem a prologem zůstává viditelná neprůhledná video vrstva.
+Konec obrazu se kontroluje až po spuštění vlastního klipu; starý čas či
+opožděná událost předchozího videa nesmí ukončit novou palácovou scénu.
+Pauza během načítání i obnovení používají stejnou kontrolu. Konec titulku
+nesmí zrušit dozvuk nového prologu. Tři klipy uživatel před publikováním
+zkrátil: metadata nyní odpovídají skutečným MP4 a zachovávají i původní
+údaje exportu. Video soubory se při této opravě neměnily.
+
+Prošla nová sada `tools/test-karateka-movies.mjs` (včetně `ffprobe`, hashů
+a délek všech šesti klipů), integrace nativní kampaně včetně příchodů,
+zvuku a vstupů a všech pět integračních kontrol portálu. Změněné JS/CSS
+odkazy mají verzi `20261030-movies`, aby se nepoužila stará cache.
+
+V Edge místní hra přirozeně dokončila titulek i prolog a vrátila se do hry.
+Samostatná neveřejná testovací stránka se stejným přehrávačem a veřejnými
+prostředky vyvolala palácové scény: poslední naměřený čas obrazu byl
+4,464 s (`palace-intro`) a 7,746 s (`court-palace`), poté se obnovila hra.
+Jde o cílenou kontrolu přehrávání, nikoli o ručně odehranou cestu do paláce
+nebo důkaz shody celé kampaně 1:1.
+
+## Předchozí veřejné vydání — Karateka v českém a anglickém portálu
 
 - Vydání `20261030T062042Z`; **nasazené a ověřené přes HTTPS**.
 - Zdrojový commit `5701e6bfe37e9ac24eb53c6e21d41c30f52cd1e0`, odeslaný na `origin/main`.

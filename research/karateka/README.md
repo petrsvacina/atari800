@@ -93,6 +93,9 @@ konec zvuku: po konci obrazu se obnoví nativní hra, hudba může ještě dozn�
 Nová hudba nebo brána tento dozvuk přeruší. V prohlížeči byl zkoušen start,
 přeskočení titulku/prologu a pauza; všechny přirozené konce filmů nejsou
 ručně odehrané při každé volbě tempa.
+Po opravě přehrávače v Edge přirozeně doběhl titulek i prolog. V samostatném
+testu přehrávače s veřejnými prostředky doběhly oba palácové klipy (naměřeno
+4,464 a 7,746 s obrazu); tento test neodehrává příchod do paláce.
 
 Přehrávač čeká na dokončení vlastního `play()` požadavku a dostupná data,
 než vyhodnotí konec obrazu. Událost konce předchozího klipu nesmí ukončit
