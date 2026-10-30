@@ -7,7 +7,7 @@ import crypto from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const scope=vm.createContext({atob:s=>Buffer.from(s,'base64').toString('binary')});
-const files=[...fs.readFileSync(path.join(root,'karateka/index.html'),'utf8').matchAll(/src="([^"]+\.js)"/g)].map(m=>m[1]).filter(f=>f!=='app.js');
+const files=[...fs.readFileSync(path.join(root,'karateka/index.html'),'utf8').matchAll(/src="([^"?]+\.js)(?:\?[^\"]*)?"/g)].map(m=>m[1]).filter(f=>f!=='app.js');
 for(const file of files)vm.runInContext(fs.readFileSync(path.join(root,'karateka',file),'utf8'),scope,{filename:file});
 const fixtures=JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(root,'research/karateka/presentation-oracle.json.gz'))));
 for(const c of fixtures){
@@ -94,7 +94,7 @@ console.log(`PASS ${frames}-step native cliff-to-palace replay, later-bank rende
 // resuming the game must still respond, and skipping each movie must advance.
 const html=fs.readFileSync(path.join(root,'karateka/index.html'),'utf8'),elements=new Map(),translations=[...html.matchAll(/data-t="([^"]+)"/g)].map(m=>({dataset:{t:m[1]}}));
 const tempoOptions=[...html.match(/<select id="tempo">(.*?)<\/select>/s)[1].matchAll(/<option value="(\d+)"( selected)?/g)];assert.deepEqual(tempoOptions.map(m=>Number(m[1])),[8,12]);const defaultTempo=tempoOptions.find(m=>m[2])[1];assert.equal(defaultTempo,'12');
-const element=id=>{if(!elements.has(id))elements.set(id,{hidden:false,value:id==='tempo'?defaultTempo:'',textContent:'',currentTime:0,ended:false,focus(){},pause(){},play(){return Promise.resolve();},addEventListener(){},getContext(){return {putImageData(){}};}});return elements.get(id);};
+const element=id=>{if(!elements.has(id))elements.set(id,{hidden:false,value:id==='tempo'?defaultTempo:'',textContent:'',currentTime:0,ended:false,focus(){},pause(){},load(){this.currentTime=0;},play(){return Promise.resolve();},addEventListener(){},getContext(){return {putImageData(){}};}});return elements.get(id);};
 const events={};let raf;
 class PendingAudio extends AudioContextFake{constructor(){super();this.state='suspended';}resume(){return new Promise(()=>{});}}
 const browser=vm.createContext({atob:s=>Buffer.from(s,'base64').toString('binary'),console,URLSearchParams,location:{search:'?lang=en',protocol:'file:'},navigator:{getGamepads:()=>[]},performance:{now:()=>0},requestAnimationFrame:f=>{raf=f;},ImageData:class{},AudioContext:PendingAudio,document:{hidden:false,documentElement:{},querySelector:s=>s.startsWith('#')?element(s.slice(1)):translations.find(e=>e.dataset.t==='title'),querySelectorAll:s=>s==='[data-t]'?translations:[],addEventListener(){}}});browser.window=browser;browser.addEventListener=(name,f)=>{events[name]=f;};

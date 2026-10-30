@@ -128,7 +128,7 @@ def build():
             page, replacements = edition.subn('<div class="edition"><a class="portal-back" href="../../">← VŠECHNY HRY</a><small>ATARI800 · WEBOVÁ HERNA</small></div>', page, count=1)
             if replacements != 1:
                 raise ValueError(f"Missing portal navigation insertion point in {game['id']}")
-            page = page.replace('<link rel="stylesheet" href="style.css">', '<link rel="stylesheet" href="style.css">\n  <style>.portal-back{color:#e3bd76;text-decoration:none}.portal-back:hover{text-decoration:underline}.portal-back:focus-visible{outline:2px solid #e3bd76;outline-offset:5px}</style>')
+            page = re.sub(r'(<link rel="stylesheet" href="style\.css(?:\?[^\"]*)?">)', r'\1\n  <style>.portal-back{color:#e3bd76;text-decoration:none}.portal-back:hover{text-decoration:underline}.portal-back:focus-visible{outline:2px solid #e3bd76;outline-offset:5px}</style>', page, count=1)
             page = page.replace("Samostatný přepis v JavaScriptu · Běží lokálně a offline", "Webová herna Atari XL/XE · atari800.gmork.cz")
             page = page.replace("</head>", '<script defer src="../../game-nav.js?v=20261029-i18n"></script></head>')
             (dest / "index.html").write_text(page)

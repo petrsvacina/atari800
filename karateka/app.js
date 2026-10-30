@@ -21,8 +21,26 @@ function status(){const g=campaign.game;let text=failed?t.errorText:paused?t.pau
 function stopMovie(){video.pause();video.hidden=true;$('#skip').hidden=true;cinematic=tail=null;introNext=null;}
 function reset(){stopMovie();audio.stop();campaign.reset();clearInput();queue=[];wait=accumulator=0;finalText=failed=paused=false;started=true;overlay.hidden=true;audio.pause(false);status();canvas.focus();}
 function start(withIntro=false){audio.unlock().catch(error=>console.warn('Karateka audio',error));reset();if(withIntro){introNext='prologue';playMovie('title');}}
-function finishPicture(skip=false){if(!cinematic)return;const id=cinematic.id;cinematic=null;video.hidden=true;$('#skip').hidden=true;if(skip){video.pause();tail=null;}if(id==='title'&&introNext){const next=introNext;introNext=null;playMovie(next);return;}campaign.game.continueMovie();accumulator=0;status();pump();}
-function playMovie(id){const data=root.KARATEKA_MOVIES[id];if(!data)throw Error('Missing cinematic '+id);audio.stop();video.pause();tail={...data,id};cinematic=tail;video.src=data.file;video.currentTime=0;video.muted=audio.muted;video.hidden=false;$('#skip').hidden=false;clearInput();video.play().catch(()=>{$('#status').textContent=t.movieError;});status();}
+function finishPicture(skip=false){
+ if(!cinematic)return;const id=cinematic.id;
+ // Keep the opaque movie layer in place while the next introduction loads.
+ if(id==='title'&&introNext){const next=introNext;introNext=null;playMovie(next);return;}
+ cinematic=null;video.hidden=true;$('#skip').hidden=true;if(skip){video.pause();tail=null;}
+ campaign.game.continueMovie();accumulator=0;status();pump();
+}
+function playMovie(id){
+ const data=root.KARATEKA_MOVIES[id];if(!data)throw Error('Missing cinematic '+id);audio.stop();video.pause();
+ const playback={...data,id,ready:false};cinematic=tail=playback;
+ video.src=data.file;video.load();video.muted=audio.muted;video.hidden=false;$('#skip').hidden=false;clearInput();
+ // Replacing src is asynchronous. Until this play request starts, currentTime
+ // or queued media events can still belong to the previous (longer) clip.
+ if(!paused)resumeMovie();status();
+}
+function resumeMovie(){
+ const playback=tail;if(!playback)return;
+ video.play().then(()=>{if(tail===playback)playback.ready=true;}).catch(error=>{if(cinematic===playback&&error.name!=='AbortError')$('#status').textContent=t.movieError;});
+}
+function pictureEnded(){return cinematic?.ready&&video.readyState>=2&&!video.seeking&&video.currentTime>=cinematic.pictureEnd;}
 function pump(){while(queue.length&&!wait&&!cinematic){const e=queue.shift();if(e.type==='wait'){wait=e.id*1000/FPS;break;}if(e.type==='scene'){campaign.next(e.id);queue.unshift(...campaign.events);clearInput();continue;}if(e.type==='movie'){playMovie(e.id);break;}audio.event(e);if(e.type==='music'&&e.id===20&&campaign.game.phase==='won')finalText=true;}status();}
 // Like the Atari $DD/$DF latch, a fresh key replaces the pending key. It is
 // never a FIFO of every press made while an animation or hit pause runs.
@@ -32,12 +50,13 @@ function input(now){const g=campaign.game,pad=navigator.getGamepads?.().find(p=>
 }
 function fail(error){console.error('Karateka',error);failed=true;audio.stop();video.pause();showOverlay(t.error,t.errorText,t.again,()=>start());status();}
 function paint(){context.putImageData(new ImageData(renderer.frame(campaign.game,finalText),320,240),0,0);}
-function frame(now){try{const delta=Math.min(150,Math.max(0,now-previous));previous=now;if(started&&!paused&&!failed&&!document.hidden){if(cinematic&&video.currentTime>=cinematic.pictureEnd)finishPicture();if(wait){wait=Math.max(0,wait-delta);if(!wait)pump();accumulator=0;}else if(!cinematic){pump();if(!wait&&!cinematic&&campaign.game.phase==='playing'){accumulator+=delta;const step=1000/Number($('#tempo').value);let count=0;while(accumulator>=step&&count++<4){queue.push(...stepGame(now));accumulator-=step;pump();if(wait||cinematic){accumulator=0;break;}}}}}else accumulator=0;paint();if(started&&!failed&&!paused&&!cinematic&&!wait){if(campaign.game.phase==='lost')showOverlay(t.lost,t.lostText,t.again,()=>start());else if(campaign.game.phase==='won'&&finalText)showOverlay(t.won,t.wonText,t.again,()=>start());}status();}catch(error){fail(error);}requestAnimationFrame(frame);}
-function togglePause(){if(!started||failed)return;paused=!paused;clearInput();accumulator=0;if(paused){video.pause();audio.pause(true).catch(()=>{});showOverlay(t.paused,t.pausedText,t.resume,togglePause);}else{audio.unlock().catch(()=>{});if(tail&&!video.ended)video.play().catch(()=>{});overlay.hidden=true;}status();}
+function frame(now){try{const delta=Math.min(150,Math.max(0,now-previous));previous=now;if(started&&!paused&&!failed&&!document.hidden){if(pictureEnded())finishPicture();if(wait){wait=Math.max(0,wait-delta);if(!wait)pump();accumulator=0;}else if(!cinematic){pump();if(!wait&&!cinematic&&campaign.game.phase==='playing'){accumulator+=delta;const step=1000/Number($('#tempo').value);let count=0;while(accumulator>=step&&count++<4){queue.push(...stepGame(now));accumulator-=step;pump();if(wait||cinematic){accumulator=0;break;}}}}}else accumulator=0;paint();if(started&&!failed&&!paused&&!cinematic&&!wait){if(campaign.game.phase==='lost')showOverlay(t.lost,t.lostText,t.again,()=>start());else if(campaign.game.phase==='won'&&finalText)showOverlay(t.won,t.wonText,t.again,()=>start());}status();}catch(error){fail(error);}requestAnimationFrame(frame);}
+function togglePause(){if(!started||failed)return;paused=!paused;clearInput();accumulator=0;if(paused){video.pause();audio.pause(true).catch(()=>{});showOverlay(t.paused,t.pausedText,t.resume,togglePause);}else{audio.unlock().catch(()=>{});if(tail&&!video.ended)resumeMovie();overlay.hidden=true;}status();}
 const accepted=new Set(Object.keys(codes));window.addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey||/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;if(e.code==='Escape'&&cinematic){finishPicture(true);e.preventDefault();return;}if(e.code==='KeyP'||e.code==='Escape'){if(!e.repeat)togglePause();e.preventDefault();return;}if(!accepted.has(e.code))return;e.preventDefault();if(!started){if(e.code==='Space')start();return;}if(!paused&&!cinematic&&!e.repeat)keyDown(e.code);});window.addEventListener('keyup',e=>keys.delete(e.code));
 window.addEventListener('blur',()=>{clearInput();if(started&&!paused&&!failed)togglePause();});document.addEventListener('visibilitychange',()=>{if(document.hidden&&started&&!paused&&!failed)togglePause();});
 for(const b of document.querySelectorAll('[data-key]')){b.addEventListener('pointerdown',e=>{e.preventDefault();if(!started||paused||cinematic)return;b.setPointerCapture(e.pointerId);keyDown(b.dataset.key);});for(const name of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(name,()=>keys.delete(b.dataset.key));}
-$('#reset').onclick=()=>start();$('#pause').onclick=togglePause;$('#intro').onclick=()=>start(true);$('#skip').onclick=()=>finishPicture(true);$('#mute').onclick=()=>{audio.mute(!audio.muted);video.muted=audio.muted;$('#mute').textContent=audio.muted?t.muted:t.mute;};$('#tempo').onchange=()=>{accumulator=0;};$('#fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await $('#arcade').requestFullscreen?.();}catch(error){console.warn(error);}};canvas.onclick=()=>{canvas.focus();if(paused)togglePause();};video.onended=()=>{if(cinematic)finishPicture();tail=null;};video.onerror=()=>{$('#status').textContent=t.movieError;};
+$('#reset').onclick=()=>start();$('#pause').onclick=togglePause;$('#intro').onclick=()=>start(true);$('#skip').onclick=()=>finishPicture(true);$('#mute').onclick=()=>{audio.mute(!audio.muted);video.muted=audio.muted;$('#mute').textContent=audio.muted?t.muted:t.mute;};$('#tempo').onchange=()=>{accumulator=0;};$('#fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await $('#arcade').requestFullscreen?.();}catch(error){console.warn(error);}};canvas.onclick=()=>{canvas.focus();if(paused)togglePause();};
+video.onended=()=>{if(!video.ended)return;const ended=tail;if(pictureEnded())finishPicture();if(tail===ended&&!cinematic)tail=null;};video.onerror=()=>{$('#status').textContent=t.movieError;};
 showOverlay('KARATEKA',t.welcome,t.start,()=>start(),true);paint();status();requestAnimationFrame(frame);
 root.karatekaPreview={campaign,get game(){return campaign.game;},get paused(){return paused;},get loaded(){return true;},get failed(){return failed;},get cinematic(){return cinematic?.id||null;}};
 })(globalThis);

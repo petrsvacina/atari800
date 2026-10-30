@@ -83,11 +83,21 @@ s analogovým/mixovaným zvukem POKEY nebyla změřena. HTTP používá AudioWor
 fyzický gamepad zatím nebyly zkoušeny.
 
 Filmy jsou offline obrazové/zvukové záznamy z ATR, ne výřezy dodaného MKV.
+Uživatel před publikováním zkrátil začátky klipů `court`, `palace-intro`
+a `court-palace`. MP4 soubory zůstaly zachované; časování i hashe nyní
+odpovídají těmto upraveným souborům. Původní údaje exportu zachovává
+`untrimmedCapture` v provenance. Obraz palácového úvodu trvá 4,456 s,
+pozdější scéna s Mariko 7,746 s; konec hudby je vedený samostatně.
 `assets/movies/provenance.json` a `assets/movies.js` rozlišují konec obrazu a
 konec zvuku: po konci obrazu se obnoví nativní hra, hudba může ještě doznít.
 Nová hudba nebo brána tento dozvuk přeruší. V prohlížeči byl zkoušen start,
 přeskočení titulku/prologu a pauza; všechny přirozené konce filmů nejsou
 ručně odehrané při každé volbě tempa.
+
+Přehrávač čeká na dokončení vlastního `play()` požadavku a dostupná data,
+než vyhodnotí konec obrazu. Událost konce předchozího klipu nesmí ukončit
+nový klip ani zrušit jeho dozvuk. Mezi titulkem a prologem zůstává video
+neprůhledné a viditelné; během načítání neodhalí herní plochu.
 
 ## Ověření a jeho hranice
 
@@ -96,7 +106,12 @@ Příkazy:
 ```sh
 node tools/test-karateka.mjs
 node tools/test-karateka-integration.mjs
+node tools/test-karateka-movies.mjs
 ```
+
+Poslední sada vyžaduje `ffprobe`: kontroluje skutečné délky a hashe všech
+šesti MP4, zpožděné načítání, přirozený konec titulku/prologu, palácové
+scény při 8/12 krocích/s, zvukový dozvuk, pauzu, přeskočení a restart.
 
 Obě sady prošly. Celkem **148 200 porovnání** původních rutin a vybraných
 stavů/inicializací, nikoli 148 200 kroků celé hry:
