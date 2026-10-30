@@ -1,6 +1,56 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — angličtina uvnitř všech sedmi her
+## Aktuální veřejné vydání — Karateka v českém a anglickém portálu
+
+- Vydání `20261030T062042Z`; **nasazené a ověřené přes HTTPS**.
+- Zdrojový commit `5701e6bfe37e9ac24eb53c6e21d41c30f52cd1e0`, odeslaný na `origin/main`.
+- Hra: <https://atari800.gmork.cz/hry/karateka/>; anglicky s `?lang=en`.
+- Karateka je osmou hrou v českém i anglickém katalogu. Uživatel po
+  společném ladění výslovně schválil publikování („je to perfektni, nasad ji“).
+- Archiv `/private/tmp/atari800-portal-20261030T062042Z.tar.gz`, 18 858 313 B.
+- SHA-256 `088bcca841dd6bd2c9cc4ea8154f06fa241c027004698be33afb029c570d5c06`.
+- Staging `/var/tmp/atari800-release-20261030T062042Z`.
+- Ověřená úplná záloha: `/root/atari800-backups/20261030T062042Z/site-before.tar.gz`
+  (141 původních souborů), SHA-256
+  `01aea1c60e03a5c7c639adad6c062471d1a7fe21c6b83982c09c1138440950cb`.
+- Serverový záznam: `/root/atari800-backups/20261030T062042Z/release.json`.
+- 188 veřejných souborů: 47 nových, změněné pouze dva dosavadní soubory
+  (`index.html`, `en/index.html`), žádné odstraněné. Všech 139 ostatních
+  původních souborů je bytově shodných, včetně všech sedmi dosavadních her.
+- Preflight ověřil všech 141 původních souborů. Publisher ověřil archiv,
+  úplnou zálohu a všechny nové živé hashe. Prostředky a hra se publikovaly
+  před katalogy, kořenové HTML poslední; každý soubor atomickým přejmenováním.
+- HTTPS ověřilo všech 188 souborů, deset cest portálu/her, MIME typy a
+  13 Range požadavků (sedm MP3 a šest MP4). Samostatně stažené veřejné HTML
+  Karateky i obou katalogů souhlasí s buildem; katalogy mají správné CZ/EN
+  odkazy na hru. Konfigurace ani služby se neměnily.
+
+Závěrečnou interaktivní kontrolu veřejného webu v místním Edge se nepodařilo
+dokončit: po načtení titulku zůstal obsah stránky prázdný i po obnovení.
+HTTP shoda souborů ani předchozí lokální hraní nejsou náhradou této kontroly;
+veřejné spuštění zvuku/workletu v tomto běhu není ručně potvrzené.
+
+Karateka používá nativní JavaScript, originální grafiku/zvuk z dodaného ATR,
+šest offline zachycených filmových scén a vlastní české/anglické rozhraní.
+Výchozí tempo je 12 kroků/s, volitelně 8. Součástí vydání jsou opravy
+příchodů stráží a spotřebování kláves po boji. Výzkumné soubory, ATR,
+provenance JSON a starý izolovaný souboj nejsou ve veřejném balíčku.
+
+Ověření: 148 200 porovnání původních rutin a vybraných stavů/inicializací,
+240 příchodových sekvencí (2 558 obrazů), propojený replay 1 500 kroků,
+kontroly zvuku, tempa a rychlých vstupů po boji. Dále prošlo pět integračních
+kontrol portálu, aktuálnost překladových balíčků a 799 kontrol překladů
+dosavadních sedmi her. To není důkaz úplné shody celé hry 1:1;
+konkrétní zbývající limity zachovává `research/karateka/README.md`.
+
+Commit/push vznikl v `/private/tmp/atari800-river-motor-20261029T040010Z`
+kvůli chráněnému hlavnímu `.git`. Pracovní soubory obsahují vydání;
+hlavní metadata zůstala na `cff7ded`. Pomocník
+`/private/tmp/atari800-boulder-sync-git.py` je aktualizovaný pro toto vydání
+a v běžném terminálu je srovná až po úplné kontrole souborů proti vzdálenému
+stromu; během nasazení se chráněná metadata neměnila.
+
+## Předchozí veřejné vydání — angličtina uvnitř všech sedmi her
 
 - Vydání `20261029T093114Z`; **nasazené a ověřené přes HTTPS**.
 - Zdrojový commit `98f08bc`, odeslaný na `origin/main`.

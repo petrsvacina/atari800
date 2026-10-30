@@ -1,4 +1,4 @@
-# Karateka — lokální hraní
+# Karateka — webová verze
 
 Otevři `index.html` v prohlížeči. Česká verze je výchozí, anglická má
 `?lang=en`. Hrát začne přímo u útesu; Původní úvod přidá titulní scénu/prolog.
@@ -15,5 +15,7 @@ meziscény. Je to **pracovní verze k ladění**, shoda celého průchodu 1:1 je
 není ověřena. Přehled testů a konkrétních limitů je v
 [`research/karateka/README.md`](../research/karateka/README.md).
 
-Hra není zařazená v portálu ani publikovaná. Runtime je nativní JavaScript;
-neobsahuje emulátor původního CPU.
+Po schválení uživatelem byla 30. 10. 2026 publikována jako osmá hra portálu:
+[česky](https://atari800.gmork.cz/hry/karateka/) a
+[anglicky](https://atari800.gmork.cz/hry/karateka/?lang=en).
+Runtime je nativní JavaScript; neobsahuje emulátor původního CPU.

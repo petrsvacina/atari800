@@ -1,11 +1,17 @@
-# Karateka — lokální verze k ladění
+# Karateka — nativní webová verze
 
-Stav 29. 10. 2026 po obnovení práce: propojená nativní webová kampaň.
+Stav 30. 10. 2026: propojená nativní webová kampaň, publikovaná po schválení.
 **Není označena za dokončený převod celé hry 1:1.**
 
-Uživatel výslovně určil: **nezařazovat Karateku automaticky do portálu**.
-Nejdříve společné ladění, katalog a publikování až na další výslovný pokyn.
-Portál ani ostatní hry se nezměnily; neproběhl commit, push ani deployment.
+Původní pokyn nezařazovat hru automaticky do portálu platil během společného
+ladění. Uživatel následně schválil vydání („je to perfektni, nasad ji“).
+Vydání `20261030T062042Z`, zdrojový commit `5701e6b`, je na Gitu i veřejném
+webu; Karateka je osmou hrou českého/anglického katalogu. Ostatních sedm her
+zůstalo bytově shodných. Zálohu a veřejné kontroly dokumentuje
+[`DEPLOYMENT.md`](../../DEPLOYMENT.md).
+
+- <https://atari800.gmork.cz/hry/karateka/> — česky;
+- <https://atari800.gmork.cz/hry/karateka/?lang=en> — anglicky.
 
 Otevření přímo ze souboru:
 
