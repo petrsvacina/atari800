@@ -1,0 +1,97 @@
+{
+  "sourceSha256": "4db2200ce3fbefa109f337fe835fc0fbd7efd1144f598e14aafffb62e256d675",
+  "routine": "$6815 and lower mask pointer table",
+  "bitmapCount": 134,
+  "tables": {
+    "legLow": {
+      "address": "6000",
+      "count": 42
+    },
+    "legHigh": {
+      "address": "602A",
+      "count": 42
+    },
+    "legX": {
+      "address": "6054",
+      "count": 42
+    },
+    "legY": {
+      "address": "607E",
+      "count": 42
+    },
+    "legMaskLow": {
+      "address": "60A8",
+      "count": 42
+    },
+    "legMaskHigh": {
+      "address": "60D2",
+      "count": 42
+    },
+    "legMaskX": {
+      "address": "60FC",
+      "count": 42
+    },
+    "legMaskY": {
+      "address": "6126",
+      "count": 42
+    },
+    "bodyX": {
+      "address": "6150",
+      "count": 42
+    },
+    "bodyPhase": {
+      "address": "617A",
+      "count": 42
+    },
+    "headForm": {
+      "address": "61A4",
+      "count": 38
+    },
+    "heroHeadHigh": {
+      "address": "61CA",
+      "count": 3
+    },
+    "heroHeadLow": {
+      "address": "61CD",
+      "count": 3
+    },
+    "headMaskHigh": {
+      "address": "61D6",
+      "count": 3
+    },
+    "headMaskLow": {
+      "address": "61D9",
+      "count": 3
+    },
+    "headX": {
+      "address": "61DA",
+      "count": 38
+    },
+    "headY": {
+      "address": "6200",
+      "count": 38
+    },
+    "armLow": {
+      "address": "6226",
+      "count": 38
+    },
+    "armHigh": {
+      "address": "624C",
+      "count": 38
+    },
+    "armX": {
+      "address": "6272",
+      "count": 38
+    },
+    "armY": {
+      "address": "6298",
+      "count": 38
+    },
+    "mirroredLeg": {
+      "address": "62BE",
+      "count": 42
+    }
+  },
+  "runtime": "Bitmap graphics and named geometry only; no original executable program",
+  "sha256": "fc15fd15b46394eaf36bf7a7f79ef4eba9e09b43d12d16168bd076be2899bd31"
+}

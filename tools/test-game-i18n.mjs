@@ -5,7 +5,8 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {execFileSync} from 'node:child_process';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const games=JSON.parse(fs.readFileSync(path.join(root,'portal/games.json')));
+// Games with their own bilingual UI are covered by their native shell tests.
+const games=JSON.parse(fs.readFileSync(path.join(root,'portal/games.json'))).filter(g=>g.i18n!=='embedded');
 const corpus=JSON.parse(execFileSync('python3',[path.join(root,'tools/game_i18n_texts.py')],{encoding:'utf8'}));
 const czech=/[ěščřžýáíéůúďťňĚŠČŘŽÝÁÍÉŮÚĎŤŇ]/u;
 function load(directory,language){const env=vm.createContext({URLSearchParams,location:{search:language==='en'?'?lang=en':''}});vm.runInContext(fs.readFileSync(path.join(root,directory,'i18n.js'),'utf8'),env);return env;}

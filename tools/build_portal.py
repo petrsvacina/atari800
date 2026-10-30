@@ -121,7 +121,7 @@ def build():
         shutil.copytree(PORTAL / "assets", stage / "assets")
         for game in games:
             dest = stage / "hry" / game["id"]
-            shutil.copytree(ROOT / game["source"], dest, ignore=shutil.ignore_patterns(".DS_Store"))
+            shutil.copytree(ROOT / game["source"], dest, ignore=shutil.ignore_patterns(".DS_Store", *game.get("exclude", [])))
             page = (dest / "index.html").read_text()
             # Keep the local standalone game intact. Only the published copy gets navigation.
             edition = re.compile(r'<div class="edition">.*?</div>', re.DOTALL)

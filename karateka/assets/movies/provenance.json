@@ -1,0 +1,67 @@
+{
+  "sourceSha256": "4db2200ce3fbefa109f337fe835fc0fbd7efd1144f598e14aafffb62e256d675",
+  "content": "Original fixed cinematics rendered from the supplied ATR; no reference-video footage",
+  "paletteSha256": "adb1f23a45027ff964f85e243b445c475d8f3000f1bd7d2013322cfaeba3f65b",
+  "movies": [
+    {
+      "name": "title",
+      "visualDuration": 74.79630772582777,
+      "audioContinuesAfterPicture": false,
+      "start": "B775",
+      "end": "B8C9",
+      "sha256": "4f1d30e48a8fbc852b5470a4aa07efbbb434b8ec6b504d2dde1d3fe5fdfc9a3e",
+      "duration": "74.796308",
+      "size": "702163"
+    },
+    {
+      "name": "prologue",
+      "visualDuration": 38.699829900980504,
+      "audioContinuesAfterPicture": true,
+      "start": "B400",
+      "end": "B4DB",
+      "sha256": "6321e69aba7ef166405b74295766ce89d74bbe2f83ee16a454e0063a8d5a8f0c",
+      "duration": "43.356009",
+      "size": "655057"
+    },
+    {
+      "name": "court",
+      "visualDuration": 8.544335019103931,
+      "audioContinuesAfterPicture": true,
+      "start": "79A0",
+      "end": "subroutine return",
+      "sha256": "85da914f00fc4d8a0c93a2c6e2c9a5db87858977a95cf1783b30e203be313fff",
+      "duration": "10.096009",
+      "size": "170704"
+    },
+    {
+      "name": "palace-intro",
+      "visualDuration": 4.756123985243399,
+      "audioContinuesAfterPicture": true,
+      "start": "AD8C",
+      "end": "subroutine return",
+      "sha256": "25f391118528a374e8a5b19effacaf62a4bc567799c93aec71eef40bc55f8623",
+      "duration": "9.595011",
+      "size": "149068"
+    },
+    {
+      "name": "hawk-intro",
+      "visualDuration": 8.99491518612699,
+      "audioContinuesAfterPicture": true,
+      "start": "B206",
+      "end": "subroutine return",
+      "sha256": "fc0d8f628c0ea16b4e081840c020d4dd06054bff86ac75c790a580148ac42a77",
+      "duration": "13.733991",
+      "size": "203592"
+    },
+    {
+      "name": "court-palace",
+      "visualDuration": 9.846011057170546,
+      "audioContinuesAfterPicture": true,
+      "start": "79A0",
+      "end": "subroutine return",
+      "sha256": "458f24a57359d91ba9dac46f13aedf3a7f98ecb86dfe030891de0272c39f1de4",
+      "duration": "11.698005",
+      "size": "196402"
+    }
+  ]
+}

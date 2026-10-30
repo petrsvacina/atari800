@@ -1,0 +1,361 @@
+{
+  "sourceSha256": "4db2200ce3fbefa109f337fe835fc0fbd7efd1144f598e14aafffb62e256d675",
+  "clock": 1789790,
+  "frameHz": 59.9227434,
+  "driver": "$0C51 and $1044, including original DLI/VBI calls",
+  "continuousEffect8": "Captured for audit only; a finite PCM loop is not a continuous POKEY implementation.",
+  "effects": [
+    {
+      "id": 0,
+      "sampleRate": 22050,
+      "encoding": "s16le",
+      "duration": 0.1017687074829932,
+      "record": [
+        1,
+        1,
+        0,
+        4,
+        0,
+        180,
+        0,
+        50,
+        0
+      ],
+      "holds": false,
+      "source": "0D1F",
+      "sha256": "cfaa0df1db97e8c19a7bd285df4a47bbf3edd6c4cc236ad7e7707ebfb6dceb35",
+      "stems": [
+        {
+          "sampleRate": 22050,
+          "sha256": "b6afa076652ab12fcb6d06bea0f894994f4dd871c189f946df0e8c0771dee8ca"
+        },
+        {
+          "sampleRate": 22050,
+          "sha256": "24ce386553e28d9f71650e1e77352f194db6c328d4fd31d91e680cd49390f9d1"
+        }
+      ],
+      "stemMixRelativeRms": 0.18586788064176346
+    },
+    {
+      "id": 1,
+      "sampleRate": 22050,
+      "encoding": "s16le",
+      "duration": 0.14834467120181405,
+      "record": [
+        1,
+        0,
+        1,
+        8,
+        0,
+        250,
+        0,
+        10,
+        0
+      ],
+      "holds": false,
+      "source": "0D28",
+      "sha256": "0c11ad4ba072accc08bf23d24d2923c9b5942a73a87334a3e8b479c5c3686410",
+      "stems": [
+        {
+          "sampleRate": 22050,
+          "sha256": "e7441b4cc493d792414fe882186cd4d52aa57808aed9a962244de6de37de255c"
+        },
+        {
+          "sampleRate": 22050,
+          "sha256": "5676b330cb75fc822fbe654b130fabda313030a1e393698368748b30078d7a51"
+        }
+      ],
+      "stemMixRelativeRms": 0.03752506389044602
+    },
+    {
+      "id": 2,
+      "sampleRate": 22050,
+      "encoding": "s16le",
+      "duration": 0.14825396825396825,
+      "record": [
+        1,
+        0,
+        1,
+        8,
+        0,
+        244,
+        1,
+        10,
+        0
+      ],
+      "holds": false,
+      "source": "0D31",
+      "sha256": "e6a0b8d7784e01e4217940549addc87b573f5dcab120f3aae8e2c5dad68054b3",
+      "stems": [
+        {
+          "sampleRate": 22050,
+          "sha256": "4573beb6de87616f58f7baa9af7eae0d52181203f5417342820d724146374fa5"
+        },
+        {
+          "sampleRate": 22050,
+          "sha256": "1fb9de30e7ae27d35207224ae9b0c60af9157440abf1be3eb5f64c67c3860f9c"
+        }
+      ],
+      "stemMixRelativeRms": 0.04162285148200073
+    },
+    {
+      "id": 3,
+      "sampleRate": 22050,
+      "encoding": "s16le",
+      "duration": 0.14816326530612245,
+      "record": [
+        1,
+        0,
+        1,
+        8,
+        0,
+        94,
+        1,
+        10,
+        0
+      ],
+      "holds": false,
+      "source": "0D3A",
+      "sha256": "d34abfbc327501e8822489073c506e7f25c339c9f15971be3502a69fcea90537",
+      "stems": [
+        {
+          "sampleRate": 22050,
+          "sha256": "d69db322c85b0158d132759236ae6a74a291cfcc3330edfac5f97ec6eb6ba434"
+        },
+        {
+          "sampleRate": 22050,
+          "sha256": "0f0d2951f6c190e193cc79c2289b50d8f1ba893495f966f2a531a74728a93fdb"
+        }
+      ],
+      "stemMixRelativeRms": 0.1709067387688649
+    },
+    {
+      "id": 4,
+      "sampleRate": 22050,
+      "encoding": "s16le",
+      "duration": 0.24108843537414967,
+      "record": [
+        0,
+        0,
+        1,
+        15,
+        160,
+        208,
+        7,
+        10,
+        0
+      ],
+      "holds": false,
+      "source": "0D43",
+      "sha256": "0e49f7382e3e5ce8529a9493eada51047c970a7dfa130c81bcfb87589ca0e7fa",
+      "stems": [
+        {
+          "sampleRate": 22050,
+          "sha256": "a175902f33618833186f74eb34ed37747388308b23a0b6a10eccbd389b69cc80"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "sampleRate": 22050,
+      "encoding": "s16le",
+      "duration": 0.42848072562358275,
+      "record": [
+        1,
+        0,
+        3,
+        15,
+        0,
+        192,
+        18,
+        10,
+        0
+      ],
+      "holds": false,
+      "source": "0D4C",
+      "sha256": "aabf526c6dcdb1a196122363d52a4d740071db4bfcea66739d9bb43561c39114",
+      "stems": [
+        {
+          "sampleRate": 22050,
+          "sha256": "b9173f2b4d83ef15b2c005207afa96db28d5c8228d63cdbf5ad49058ecd3b438"
+        },
+        {
+          "sampleRate": 22050,
+          "sha256": "b586137eef4f3d5b17ec9a7e0606305ba4f1f279f7d89c87240ee44a23aae667"
+        }
+      ],
+      "stemMixRelativeRms": 0.164359088311306
+    },
+    {
+      "id": 8,
+      "sampleRate": 22050,
+      "encoding": "s16le",
+      "duration": 2.0026303854875285,
+      "record": [
+        1,
+        0,
+        0,
+        3,
+        0,
+        108,
+        7,
+        10,
+        255
+      ],
+      "holds": true,
+      "source": "0D55",
+      "sha256": "3a733212fc61b5c1e8a678ac4c82f85d62d684ef7750162300fc2ab6bbc9ffd0"
+    },
+    {
+      "id": 9,
+      "sampleRate": 22050,
+      "encoding": "s16le",
+      "duration": 0.24154195011337867,
+      "record": [
+        1,
+        0,
+        1,
+        15,
+        0,
+        216,
+        14,
+        10,
+        0
+      ],
+      "holds": false,
+      "source": "0D5E",
+      "sha256": "f2759dc24e24af017609e3862575f9fd0e25c7d578b9c5bc0fa02229a0a7558d",
+      "stems": [
+        {
+          "sampleRate": 22050,
+          "sha256": "4234a4602a9d235d23bc1d295755dc662f48f2410f0ce01dc29ffd141fabb14f"
+        },
+        {
+          "sampleRate": 22050,
+          "sha256": "6c222aaceb9eacc8738350e4fb2033c6a83e04f262834e650cde551b6bda3f90"
+        }
+      ],
+      "stemMixRelativeRms": 0.20005142078978666
+    },
+    {
+      "id": 10,
+      "sampleRate": 22050,
+      "encoding": "s16le",
+      "duration": 0.08149659863945578,
+      "record": [
+        1,
+        0,
+        1,
+        3,
+        0,
+        216,
+        14,
+        10,
+        0
+      ],
+      "holds": false,
+      "source": "0D67",
+      "sha256": "5848fee391fd1221ff1ffae945b72b0d3ae933db25762653e91c669614d81278",
+      "stems": [
+        {
+          "sampleRate": 22050,
+          "sha256": "5a31893fabaf31bdc65b5f7913ff9b9f148d0b28d8498edfd6e22fad9313c21f"
+        },
+        {
+          "sampleRate": 22050,
+          "sha256": "f664576fb44ae134432ace728347ed33c561c2c27034e379136c04570e5468a4"
+        }
+      ],
+      "stemMixRelativeRms": 0.016926314927520857
+    },
+    {
+      "id": 11,
+      "sampleRate": 22050,
+      "encoding": "s16le",
+      "duration": 0.0816780045351474,
+      "record": [
+        1,
+        0,
+        1,
+        3,
+        0,
+        184,
+        11,
+        10,
+        0
+      ],
+      "holds": false,
+      "source": "0D70",
+      "sha256": "6a85310f55048e809ece81314cb892e165b2f7039aeb8f009ee21ad2f38b6e47",
+      "stems": [
+        {
+          "sampleRate": 22050,
+          "sha256": "b19b5050c28d44307aebaa31bd9e41b1ceea9d3a61f63f29f9793b2c95ce0166"
+        },
+        {
+          "sampleRate": 22050,
+          "sha256": "01b93df0cc7bed00342152bb37f249ae9394b61ba49a393f84057459073d2794"
+        }
+      ],
+      "stemMixRelativeRms": 0.024241840225888097
+    },
+    {
+      "id": 12,
+      "sampleRate": 22050,
+      "encoding": "s16le",
+      "duration": 0.24154195011337867,
+      "record": [
+        1,
+        0,
+        1,
+        15,
+        0,
+        184,
+        11,
+        10,
+        0
+      ],
+      "holds": false,
+      "source": "0D79",
+      "sha256": "056278275d86f5d362f0d1ea05ef6b53aa58ae300821ce557332d28f080fed58",
+      "stems": [
+        {
+          "sampleRate": 22050,
+          "sha256": "6b5aac728ed29dcd2337e87a1eac2641fe3075ac0bfbb408f87e533fdb677988"
+        },
+        {
+          "sampleRate": 22050,
+          "sha256": "b662c0cc5d780c4984987f2eada9eed8c2aa2de7dcc00fbdb94bc6b3ede72d6f"
+        }
+      ],
+      "stemMixRelativeRms": 0.20669484831044227
+    },
+    {
+      "id": 13,
+      "sampleRate": 22050,
+      "encoding": "s16le",
+      "duration": 0.15424036281179138,
+      "record": [
+        0,
+        0,
+        4,
+        4,
+        0,
+        240,
+        10,
+        10,
+        0
+      ],
+      "holds": false,
+      "source": "0D82",
+      "sha256": "56941d73ca90b8f0e49308437b7b8fdb280a9ca14dc17ea340e62e81bd7c3b2d",
+      "stems": [
+        {
+          "sampleRate": 22050,
+          "sha256": "ccdaa1e0809f15c62403d021e8497fdab636d980f151f29a3dc0fc422897f176"
+        }
+      ]
+    }
+  ],
+  "fileSha256": "1ee6296ad5c08b47860cb3b7aa46afc9e89e540e54412676c426907517ab5310"
+}

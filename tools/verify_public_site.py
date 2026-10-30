@@ -20,6 +20,8 @@ def verify(root, base):
             mime = response.headers.get_content_type()
             if file.suffix == ".mp3":
                 assert mime == "audio/mpeg", (relative, mime)
+            if file.suffix == ".mp4":
+                assert mime == "video/mp4", (relative, mime)
             if file.suffix == ".css":
                 assert mime == "text/css", (relative, mime)
             if file.suffix == ".html":
@@ -38,15 +40,15 @@ def verify(root, base):
         with urlopen(base + route, timeout=20) as response:
             assert response.status == 200
             assert hashlib.sha256(response.read()).digest() == hashlib.sha256(file.read_bytes()).digest(), route
-    audio_files=sorted(root.rglob("*.mp3"))
-    for file in audio_files:
+    media_files=sorted(root.rglob("*.mp3"))+sorted(root.rglob("*.mp4"))
+    for file in media_files:
         audio_path = "/"+file.relative_to(root).as_posix()
         request = Request(base + quote(audio_path), headers={"Range": "bytes=0-31"})
         with urlopen(request, timeout=20) as response:
             assert response.status == 206, (audio_path, response.status)
-            assert len(response.read()) == 32
+            assert response.read() == file.read_bytes()[:32]
             assert response.headers["Content-Range"].startswith("bytes 0-31/")
-    print(f"Verified HTTPS: {count} identical public files, {len(routes)} portal/game routes, MIME types and {len(audio_files)} MP3 range requests.")
+    print(f"Verified HTTPS: {count} identical public files, {len(routes)} portal/game routes, MIME types and {len(media_files)} MP3/MP4 range requests.")
 
 
 if __name__ == "__main__":

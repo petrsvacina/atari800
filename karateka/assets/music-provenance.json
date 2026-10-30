@@ -1,0 +1,94 @@
+{
+  "sourceSha256": "4db2200ce3fbefa109f337fe835fc0fbd7efd1144f598e14aafffb62e256d675",
+  "music": [
+    {
+      "id": 16,
+      "scene": 4,
+      "encoding": "s16le",
+      "sampleRate": 22050,
+      "duration": 11.781859410430839,
+      "sha256": "0df8b620f81c8948ca13d62ffd52e871d5c14414c77ef03856c6340559d4b3ba"
+    },
+    {
+      "id": 17,
+      "scene": 4,
+      "encoding": "s16le",
+      "sampleRate": 22050,
+      "duration": 5.690657596371882,
+      "sha256": "b2e48c54b23f281d67831333fd895430f6f7b97499616d7200300c8a1e7c0de7"
+    },
+    {
+      "id": 18,
+      "scene": 4,
+      "encoding": "s16le",
+      "sampleRate": 22050,
+      "duration": 3.9050340136054422,
+      "sha256": "f5bca339bd4056bc02d30f8d218bbd2076f1758c4de43b2a6c13543c63e08916"
+    },
+    {
+      "id": 19,
+      "scene": 4,
+      "encoding": "s16le",
+      "sampleRate": 22050,
+      "duration": 11.631655328798185,
+      "sha256": "0a307d43ff79e85936c70afd1b77b58f5a9470e9aaec126580d2fd77eab3ef1d"
+    },
+    {
+      "id": 20,
+      "scene": 4,
+      "encoding": "s16le",
+      "sampleRate": 22050,
+      "duration": 20.74340136054422,
+      "sha256": "0e3f3f980e36f40a0b70b838be387b5b951f35237b45bddf35591f88fa521a11"
+    },
+    {
+      "id": 21,
+      "scene": 1,
+      "encoding": "s16le",
+      "sampleRate": 22050,
+      "duration": 1.118095238095238,
+      "sha256": "c4546b59b99f26354fccec035302b7595d73ff4b6f670655e3dbe1c4b2c60074"
+    },
+    {
+      "id": 22,
+      "scene": 1,
+      "encoding": "s16le",
+      "sampleRate": 22050,
+      "duration": 9.295328798185942,
+      "sha256": "1769341116d8777b285494895efb8cd1e26e265933fe429d7ea119bc390ae631"
+    },
+    {
+      "id": 23,
+      "scene": 1,
+      "encoding": "s16le",
+      "sampleRate": 22050,
+      "duration": 2.503219954648526,
+      "sha256": "3fb0e37a947683bcfb5ff7c95df4c48077873bc43b765ad0f3d728830dfe9c9b"
+    },
+    {
+      "id": 24,
+      "scene": 1,
+      "encoding": "s16le",
+      "sampleRate": 22050,
+      "duration": 9.695827664399093,
+      "sha256": "6a5a5bfa900c9cb6f275d7a43dcf88915d8a8a4f5e8518c8eccfe84c2e0efc1a"
+    },
+    {
+      "id": 25,
+      "scene": 1,
+      "encoding": "s16le",
+      "sampleRate": 22050,
+      "duration": 2.486530612244898,
+      "sha256": "3dacf1ad785c9bd29a7ac2d3baed0c745ecb323ca2e8d2db5fd8434b87d1a3dc"
+    },
+    {
+      "id": 26,
+      "scene": 1,
+      "encoding": "s16le",
+      "sampleRate": 22050,
+      "duration": 4.622630385487528,
+      "sha256": "704bc2d8440e9f1a9ff6cc15c7c6bd0f9061497ff7d7e42ad58d66817190b4eb"
+    }
+  ],
+  "driver": "$2400, real gameplay VBI/DLI cadence"
+}

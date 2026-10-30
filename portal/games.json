@@ -103,5 +103,29 @@
     "logo": "assets/boulder-dash-logo.png",
     "source": "boulder-dash",
     "featured": false
+  },
+  {
+    "id": "karateka",
+    "title": "Karateka",
+    "description": "Z útesu až do Akumova paláce. Překonej stráže, unikni padající bráně a zachraň Mariko v příběhu s původní grafikou a hudbou.",
+    "genre": "Bojová · dobrodružná",
+    "players": "1 hráč",
+    "multiplayer": false,
+    "year": "1984",
+    "author": "Brøderbund",
+    "controls": "Klávesnice · gamepad · dotyk",
+    "image": "assets/karateka.png",
+    "logo": "assets/karateka-logo.svg",
+    "source": "karateka",
+    "featured": false,
+    "i18n": "embedded",
+    "exclude": [
+      "README.md",
+      "fight.js",
+      "preview.js",
+      "*provenance.json",
+      "cliff-preview.png",
+      "background-data.js"
+    ]
   }
 ]

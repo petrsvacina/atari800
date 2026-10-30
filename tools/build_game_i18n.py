@@ -7,6 +7,7 @@ def bundles():
  catalog=json.loads((ROOT/'localization/games.en.json').read_text())
  core=(ROOT/'localization/game-i18n.js').read_text()
  for game in json.loads((ROOT/'portal/games.json').read_text()):
+  if game.get('i18n')=='embedded':continue
   messages={**catalog['common'],**catalog['games'][game['id']]}
   if any(not isinstance(value,str) or not value for value in messages.values()):raise ValueError(game['id'])
   for source,target in messages.items():

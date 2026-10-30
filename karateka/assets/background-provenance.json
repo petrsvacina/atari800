@@ -1,0 +1,17 @@
+{
+  "sourceSha256": "4db2200ce3fbefa109f337fe835fc0fbd7efd1144f598e14aafffb62e256d675",
+  "scene": 1,
+  "camera": 27,
+  "routines": [
+    "2800",
+    "B00E",
+    "AD03",
+    "AD06",
+    "B090",
+    "BC00"
+  ],
+  "paletteIsProvisional": true,
+  "scope": "One static preview of scenery only; not a campaign map.",
+  "file": "cliff-preview.png",
+  "sha256": "b1bbb3a9e939ff47e48a502e790f48b010cffa154553ea835fca5c396aa65508"
+}

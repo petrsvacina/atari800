@@ -1,0 +1,84 @@
+--- a/src/monitor.c
++++ b/src/monitor.c
+@@ -26,6 +26,8 @@
+ 
+ #include "config.h"
+ #include "screen.h"
++#include "file_export.h"
++#include "pokeysnd.h"
+ #include <stdio.h>
+ #include <string.h>
+ #include <stdlib.h>
+@@ -3954,6 +3956,18 @@
+ #ifndef PAGED_MEM
+ 		else if (strcmp(t, "READ") == 0)
+ 			monitor_read_from_file(&addr);
++        else if (strcmp(t, "RECORDPAIR") == 0) {
++            const char *pair = get_token();
++            POKEYSND_recording_pair = pair && strcmp(pair, "ALL") ? atoi(pair) : -1;
++            printf("Recording pair: %d\n", POKEYSND_recording_pair);
++        }
++        else if (strcmp(t, "RECORD") == 0) {
++            const char *name = get_token();
++            if (name) printf("Record: %d\n", File_Export_StartRecording(name));
++        }
++        else if (strcmp(t, "STOPRECORD") == 0) {
++            printf("Stop recording: %d\n", File_Export_StopRecording());
++        }
+ 		else if (strcmp(t, "DUMPSCREEN") == 0) {
+             const char *name = get_token();
+             FILE *out = name ? fopen(name,"wb") : NULL;
+--- a/src/sound.c
++++ b/src/sound.c
+@@ -26,6 +26,7 @@
+ #include <stdio.h>
+ 
+ #include "sound.h"
++#include "file_export.h"
+ 
+ #include "atari.h"
+ #include "log.h"
+@@ -395,6 +396,15 @@
+ 			sync_est_fill = fill - est_gap;
+ 	}
+ 
++#ifdef AUDIO_RECORDING
++    /* Offline capture: keep every emulated sample, without waiting for the
++       dummy device or dropping turbo frames. Browser runtime uses PCM only. */
++    if (Atari800_turbo && File_Export_IsRecording()) {
++        POKEYSND_UpdateProcessBuffer();
++        PLATFORM_SoundUnlock();
++        return;
++    }
++#endif
+ 	if (Atari800_turbo && sync_est_fill > sync_max_fill) {
+ 		PLATFORM_SoundUnlock();
+ 		return;
+--- a/src/pokeysnd.c
++++ b/src/pokeysnd.c
+@@ -154,6 +154,7 @@
+ #endif
+ 
+ int POKEYSND_volume = 0x100;
++int POKEYSND_recording_pair = -1;
+ 
+ /* multiple sound engine interface */
+ static void pokeysnd_process_8(void *sndbuffer, int sndn);
+@@ -396,6 +397,7 @@
+ void POKEYSND_Update(UWORD addr, UBYTE val, UBYTE chip, UBYTE gain)
+ {
+     Update_synchronized_sound();
++    if (POKEYSND_recording_pair >= 0 && (addr & 15) < 8 && (addr & 1) && (((addr & 7) >> 2) != POKEYSND_recording_pair)) val &= 0xf0;
+ 	POKEYSND_Update_ptr(addr, val, chip, gain);
+ }
+ 
+--- a/src/pokeysnd.h
++++ b/src/pokeysnd.h
+@@ -83,6 +83,7 @@
+ extern UBYTE POKEYSND_num_pokeys;
+ extern int POKEYSND_snd_flags;
+ extern int POKEYSND_volume;
++extern int POKEYSND_recording_pair; /* Offline stem capture: -1=all, 0/1=joined pair. */
+ 
+ extern int POKEYSND_enable_new_pokey;
+ extern int POKEYSND_stereo_enabled;

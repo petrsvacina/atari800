@@ -1,5 +1,5 @@
 {
-  "meta_description": "Atari XL/XE lives on. Play Dynakillers, International Karate, Archon, The Goonies, River Raid, H.E.R.O. and Boulder Dash right in your browser.",
+  "meta_description": "Atari XL/XE lives on. Play Dynakillers, International Karate, Archon, The Goonies, River Raid, H.E.R.O., Boulder Dash and Karateka right in your browser.",
   "og_title": "ATARI800 — Eight bits. Still the same joy.",
   "og_description": "Atari XL/XE classics in a new web arcade. Pick a game and play.",
   "page_title": "ATARI800 — Atari XL/XE Web Arcade",
@@ -90,6 +90,12 @@
       "description": "Diamonds underfoot, boulders overhead. Dig through the original caves, outsmart the butterflies and find the exit before time runs out.",
       "genre": "Puzzle · action",
       "players": "1–2 players",
+      "controls": "Keyboard · gamepad · touch"
+    },
+    "karateka": {
+      "description": "From the cliff to Akuma’s palace. Defeat the guards, escape the falling gate and rescue Mariko in a story with the original graphics and music.",
+      "genre": "Fighting · adventure",
+      "players": "1 player",
       "controls": "Keyboard · gamepad · touch"
     }
   }
