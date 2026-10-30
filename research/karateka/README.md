@@ -87,7 +87,7 @@ Uživatel před publikováním zkrátil začátky klipů `court`, `palace-intro`
 a `court-palace`. Časování i hashe odpovídají upraveným souborům.
 Původní údaje exportu zachovává
 `untrimmedCapture` v provenance. Obraz palácového úvodu trvá 4,456 s,
-pozdější scéna s Mariko 7,746 s; konec hudby je vedený samostatně.
+pozdější scéna s Mariko 7,743 s; konec hudby je vedený samostatně.
 `assets/movies/provenance.json` a `assets/movies.js` rozlišují konec obrazu a
 konec zvuku: po konci obrazu se obnoví nativní hra, hudba může ještě doznít.
 Nová hudba nebo brána tento dozvuk přeruší. V prohlížeči byl zkoušen start,

@@ -1,6 +1,47 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — přechody filmových scén Karateky
+## Aktuální veřejné vydání — začátky střižených videí v Safari
+
+- Vydání `20261030T073349Z`; **nasazené a ověřené přes HTTPS**.
+- Zdrojový commit `7b4844dd21f1bfac03eb6d6287026815ffb749ba`, odeslaný na `origin/main`.
+- Archiv `/private/tmp/atari800-portal-20261030T073349Z.tar.gz`, 18 864 141 B.
+- SHA-256 `9f1fde083205e9a080404aaf4bce784827945f884bbb7857815cd9b40654f000`.
+- Staging `/var/tmp/atari800-release-20261030T073349Z`.
+- Ověřená úplná záloha: `/root/atari800-backups/20261030T073349Z/site-before.tar.gz`
+  (188 původních souborů); záznam `release.json` v témže adresáři.
+- Změněno pět souborů Karateky: `assets/movies/{court,palace-intro,court-palace}.mp4`,
+  `assets/movies.js` a `index.html`. Zbývajících 183 veřejných souborů je
+  bytově shodných, včetně portálu, všech herních pravidel a ostatních her.
+- Preflight ověřil všech 188 původních souborů, publisher ověřil úplnou zálohu
+  a všech 188 nových živých hashů. HTML se publikovalo poslední.
+- HTTPS ověřilo 188 souborů, deset cest portálu/her, MIME typy a
+  13 MP3/MP4 Range požadavků. Konfigurace ani služby se neměnily.
+
+Příčina zbývajícího problému byla reprodukovaná v Safari: po uživatelském
+zkrácení klipů zůstal první klíčový snímek v zahazovaných paketech před
+časem nula. Safari spouštělo `court` i `palace-intro` až na čase 3,872 s,
+takže z Mariko zbylo přibližně 0,85 s včetně načítání. Edge tyto soubory
+přehrával od začátku; dřívější kontrola v Edge tuto odchylku neodhalila.
+
+Tři střižené klipy mají nové kódování H.264 High/CRF 1 s klíčovým snímkem
+v čase nula. Všech 494 / 267 / 464 dekódovaných obrazů zůstalo zachovaných,
+AAC pakety jsou shodné a nevznikl další střih. Původní uživatelské MP4 jsou
+v historii Gitu, ověřené serverové záloze a místní kopii
+`/private/tmp/karateka-user-edits-before-safari/`. Provenance zaznamenává
+původní hashe a nové kódování. Změněné klipy i odkazy mají verzi
+`20261030-safari`; není potřeba ručně mazat cache.
+
+V Safari cílený test přehrávače potvrdil začátek všech tří klipů v čase
+0,000 s; palácový úvod nově trval 4,573 s včetně načítání, s posledním
+pozorovaným časem média 4,459 s. Testovací panel se po ověření zavřel.
+Prošly kontroly hashů/délek a prvních klíčových snímků všech šesti videí,
+asynchronního přehrávače, nativní integrace a pěti případů sestavení portálu.
+Nový test `tools/test-karateka-entry.mjs` prošel celou první částí přes
+klávesové události skutečného `app.js` při 8 i 12 krocích/s a ověřil, že
+palác čeká na dokončení úvodu. Používá simulované prohlížečové/mediální API;
+nejde o důkaz úplné shody celé kampaně 1:1.
+
+## Předchozí veřejné vydání — přechody filmových scén Karateky
 
 - Vydání `20261030T065920Z`; **nasazené a ověřené přes HTTPS**.
 - Zdrojový commit `324c62a51cf653d502fb59f61bbd7e4dedd0f991`, odeslaný na `origin/main`.
