@@ -54,31 +54,31 @@
       "description": "Bombs, boulders and the last player standing. Blast your way to your rivals and watch out for your own explosions.",
       "genre": "Action",
       "players": "1–3 players",
-      "controls": "Keyboard · gamepad"
+      "controls": "Keyboard · gamepad · touch"
     },
     "international-karate": {
       "description": "Land the right punch. Dodge at the right moment. Enter the tournament with the original animations and Rob Hubbard's music, or challenge a second player.",
       "genre": "Fighting",
       "players": "1–2 players",
-      "controls": "Keyboard · gamepad"
+      "controls": "Keyboard · gamepad · touch"
     },
     "archon": {
       "description": "Strategy on the board, reflexes in the arena. Lead the forces of Light or Dark, cast spells and capture the five power points.",
       "genre": "Strategy · action",
       "players": "1–2 players",
-      "controls": "Mouse · keyboard · gamepad"
+      "controls": "Mouse · keyboard · gamepad · touch"
     },
     "goonies": {
       "description": "Two friends, eight challenges and a pirate treasure. One works the machinery while the other finds a way through. Goonies never say die.",
       "genre": "Adventure · platformer",
       "players": "1–2 players",
-      "controls": "Keyboard · gamepad"
+      "controls": "Keyboard · gamepad · touch"
     },
     "river-raid": {
       "description": "Stay on course, refuel in flight and blast through the next bridge. The original river, ships and helicopters in a classic that never lets up.",
       "genre": "Arcade · flying",
       "players": "1–2 players",
-      "controls": "Keyboard · gamepad"
+      "controls": "Keyboard · gamepad · touch"
     },
     "hero": {
       "description": "A propeller pack, a laser and six sticks of dynamite. Fly through the original caves, blast obstacles and rescue the miner before your power runs out.",

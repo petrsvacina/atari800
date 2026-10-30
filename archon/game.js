@@ -22,7 +22,8 @@ const I=globalThis.AtariI18n||{t:value=>value,html:value=>value,locale:'cs-CZ'};
     $(id).addEventListener('change',()=>{store.set(id,$(id).value);settings();});
   }
   function settings(){$('mode').disabled=!!game;$('first-side').disabled=!!game;$('music-preview').disabled=!!game;}
-  function clearInput(){keys.clear();touches.clear();touchFire=false;boardFire=false;boardRepeat=0;for(const b of document.querySelectorAll('.held'))b.classList.remove('held');}
+  const joystick=globalThis.AtariTouchJoystick?.mount({host:$('touch'),action:'confirm',enabled:()=>!!game&&!paused&&game.phase!=='gameover',onInteract:()=>audio.unlock()});
+  function clearInput(){joystick?.clear();keys.clear();touches.clear();touchFire=false;boardFire=false;boardRepeat=0;for(const b of document.querySelectorAll('.held'))b.classList.remove('held');}
   function syncAudio(){audio.sync(!!game,paused,muted);game?.arena?.native.syncSound();}
   function soundUI(){$('mute').innerHTML=I.html(`${muted?'♩ Ztlumeno':'♪ Zvuk'} <kbd>M</kbd>`);$('mute').setAttribute('aria-pressed',String(muted));$('music-preview').textContent=I.t(audio.preview?'Ⅱ Zastavit titulní hudbu':'♪ Poslechnout původní titulní hudbu');}
   function start(){
@@ -73,6 +74,7 @@ const I=globalThis.AtariI18n||{t:value=>value,html:value=>value,locale:'cs-CZ'};
     const primary={x:Number(keys.has('ArrowRight'))-Number(keys.has('ArrowLeft')),y:Number(keys.has('ArrowDown'))-Number(keys.has('ArrowUp')),fire:keys.has('Space')||touchFire};
     const secondary={x:Number(keys.has('KeyD'))-Number(keys.has('KeyA')),y:Number(keys.has('KeyS'))-Number(keys.has('KeyW')),fire:keys.has('KeyQ')};
     for(const[x,y]of touches.values()){primary.x+=x;primary.y+=y;}
+    joystick?.axes(primary);
     let pads=[];try{pads=Array.from(navigator.getGamepads?.()||[]).filter(Boolean);}catch(_){}
     let pressedPause=false,pressedFire=false;
     for(let i=0;i<Math.min(2,pads.length);i++){

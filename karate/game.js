@@ -44,7 +44,8 @@ const I=globalThis.AtariI18n||{t:value=>value,html:value=>value,locale:'cs-CZ'};
     $('mode').disabled=active;$('difficulty').disabled=active||$('mode').value==='two';$('music-preview').disabled=active;
     $('name-two').textContent=I.t(($('mode').value==='two'?'ČERVENÝ · HRÁČ 2':'ČERVENÝ · POČÍTAČ'));
   }
-  function clearInput(){keys.clear();touches.clear();touchFire=false;for(const button of document.querySelectorAll('.held'))button.classList.remove('held');}
+  const joystick=globalThis.AtariTouchJoystick?.mount({host:$('touch'),action:'attack',enabled:()=>!!game&&!paused&&game.phase!=='gameover',onInteract:()=>audio.unlock()});
+  function clearInput(){joystick?.clear();keys.clear();touches.clear();touchFire=false;for(const button of document.querySelectorAll('.held'))button.classList.remove('held');}
   function startGame(){
     audio.unlock();audio.preview=false;clearInput();
     game=new Engine.Game({mode:$('mode').value,difficulty:$('difficulty').value});
@@ -109,6 +110,7 @@ const I=globalThis.AtariI18n||{t:value=>value,html:value=>value,locale:'cs-CZ'};
     const inputs=[{x:Number(keys.has('ArrowRight'))-Number(keys.has('ArrowLeft')),y:Number(keys.has('ArrowDown'))-Number(keys.has('ArrowUp')),fire:keys.has('Space')||touchFire},
       {x:Number(keys.has('KeyD'))-Number(keys.has('KeyA')),y:Number(keys.has('KeyS'))-Number(keys.has('KeyW')),fire:keys.has('KeyQ')}];
     for(const [x,y]of touches.values()){inputs[0].x+=x;inputs[0].y+=y;}
+    joystick?.axes(inputs[0]);
     let pads=[];try{pads=Array.from(navigator.getGamepads?.()||[]).filter(Boolean);}catch(_){}
     let fire=false,pausePressed=false;
     for(let i=0;i<Math.min(pads.length,2);i++){

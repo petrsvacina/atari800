@@ -119,10 +119,14 @@ def build():
         for filename in ("portal.css", "portal.js", "game-nav.js"):
             shutil.copyfile(PORTAL / filename, stage / filename)
         shutil.copytree(PORTAL / "assets", stage / "assets")
+        (stage / "shared").mkdir()
+        for filename in ("touch-joystick.js", "touch-joystick.css"):
+            shutil.copyfile(ROOT / "shared" / filename, stage / "shared" / filename)
         for game in games:
             dest = stage / "hry" / game["id"]
             shutil.copytree(ROOT / game["source"], dest, ignore=shutil.ignore_patterns(".DS_Store", *game.get("exclude", [])))
             page = (dest / "index.html").read_text()
+            page = page.replace('"../shared/', '"../../shared/')
             # Keep the local standalone game intact. Only the published copy gets navigation.
             edition = re.compile(r'<div class="edition">.*?</div>', re.DOTALL)
             page, replacements = edition.subn('<div class="edition"><a class="portal-back" href="../../">← VŠECHNY HRY</a><small>ATARI800 · WEBOVÁ HERNA</small></div>', page, count=1)

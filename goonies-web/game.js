@@ -88,19 +88,20 @@ const I=globalThis.AtariI18n||{t:value=>value,html:value=>value,locale:'cs-CZ'};
       if (game.score > best) { best = game.score; try { localStorage.setItem('atari800.goonies.best', String(best)); } catch (_) {} }
     }
   }
+  const joystick=globalThis.AtariTouchJoystick?.mount({host:document.querySelector('.touch-controls'),parent:$('arcade'),action:'switch',enabled:()=>!!game&&!game.paused&&!['over','complete'].includes(game.phase),onInteract:()=>audio.unlock()});
   function start() {
     if (!ready) return; audio.unlock(); audio.preview = false;
     const scene = Number($('scene').value); game = new E.Game({ mode: $('mode').value, scene, practice: scene !== 0 });
-    globalThis.goonies = game; keys.clear(); touch.clear(); stamp = ''; canvas.focus(); $('hint-copy').hidden = true; $('hint').setAttribute('aria-expanded', 'false'); updateUI();
+    globalThis.goonies = game; keys.clear(); touch.clear();joystick?.clear(); stamp = ''; canvas.focus(); $('hint-copy').hidden = true; $('hint').setAttribute('aria-expanded', 'false'); updateUI();
   }
   function menu() {
-    game = null; globalThis.goonies = null; keys.clear(); touch.clear(); stamp = '';
+    game = null; globalThis.goonies = null; keys.clear(); touch.clear();joystick?.clear(); stamp = '';
     $('overlay-title').innerHTML = I.html('Poklad nepočká.<br>Kamaráda nenecháš.');
     $('overlay-kicker').textContent = I.t('DATASOFT · STEVEN SPIELBERG');
     $('overlay-copy').innerHTML = I.html('Dva Goonies. Osm nástrah.<br>Najdi cestu z domu Fratelliových až na pirátskou loď.');
     $('start').firstChild.textContent = I.t('VYRAZIT ZA POKLADEM '); updateUI();
   }
-  function pause() { if (game && !['over', 'complete'].includes(game.phase)) { game.paused = !game.paused; keys.clear(); touch.clear(); } }
+  function pause() { if (game && !['over', 'complete'].includes(game.phase)) { game.paused = !game.paused; keys.clear(); touch.clear();joystick?.clear(); } }
   function toggleMute() { audio.unlock(); muted = !muted; try { localStorage.setItem('atari800.goonies.muted', String(muted)); } catch (_) {} }
   function switchActor(id) { if (!game || game.mode !== 'solo') return; if (id !== undefined) { if (game.selected !== id) game.switchActor(); } else game.switchActor(); }
   $('start').addEventListener('click', start); $('music-preview').addEventListener('click', () => { audio.togglePreview(); stamp = ''; });
@@ -126,7 +127,7 @@ const I=globalThis.AtariI18n||{t:value=>value,html:value=>value,locale:'cs-CZ'};
     }
   });
   window.addEventListener('keyup', event => keys.delete(event.code));
-  function loseFocus() { keys.clear(); touch.clear(); if (game && game.phase === 'playing') game.paused = true; }
+  function loseFocus() { keys.clear(); touch.clear();joystick?.clear(); if (game && game.phase === 'playing') game.paused = true; }
   window.addEventListener('blur', loseFocus); document.addEventListener('visibilitychange', () => { if (document.hidden) loseFocus(); });
   for (const button of document.querySelectorAll('[data-key]')) {
     const release = event => { event.preventDefault(); touch.delete(button.dataset.key); };
@@ -135,6 +136,7 @@ const I=globalThis.AtariI18n||{t:value=>value,html:value=>value,locale:'cs-CZ'};
   }
   function inputs() {
     const result = [{}, {}], first = { left: keys.has('ArrowLeft') || touch.has('left'), right: keys.has('ArrowRight') || touch.has('right'), up: keys.has('ArrowUp') || touch.has('up'), down: keys.has('ArrowDown') || touch.has('down') };
+    joystick?.buttons(first,null);
     if (!game) return result;
     result[game.mode === 'solo' ? game.selected : 0] = first;
     if (game.mode === 'two') result[1] = { left: keys.has('KeyA'), right: keys.has('KeyD'), up: keys.has('KeyW'), down: keys.has('KeyS') };
@@ -146,7 +148,7 @@ const I=globalThis.AtariI18n||{t:value=>value,html:value=>value,locale:'cs-CZ'};
       target.up ||= pad.axes[1] < -.35 || pad.buttons[12]?.pressed;
       target.down ||= pad.axes[1] > .35 || pad.buttons[13]?.pressed;
     });
-    const fire = pads[0]?.buttons[0]?.pressed || false;
+    const fire = pads[0]?.buttons[0]?.pressed || joystick?.read().fire || false;
     if (fire && !gamepadFire) switchActor(); gamepadFire = fire;
     return result;
   }

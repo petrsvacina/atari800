@@ -31,6 +31,7 @@ const I=globalThis.AtariI18n||{t:value=>value,html:value=>value,locale:'cs-CZ'};
 
   $('audio-mode').value = audioMode;
   const sound = new globalThis.DynakillersAudio(assets, { onStatus: message => setText('music-status', message) });
+  const joystick=globalThis.AtariTouchJoystick?.mount({host:document.querySelector('.touch-controls'),parent:document.querySelector('.arcade'),action:'bomb',enabled:()=>!paused&&['playing','ready'].includes(game.state),onInteract:()=>sound.init()});
   function syncAudio() { sound.synchronize(game.state, paused || document.hidden, audioMode, muted); }
 
   // Approximation of the PAL hues. Pixels, maps and animation shapes come from the original.
@@ -178,7 +179,7 @@ const I=globalThis.AtariI18n||{t:value=>value,html:value=>value,locale:'cs-CZ'};
   }
   function start() {
     sound.init();
-    keys.clear(); touch.clear(); accumulator = 0;
+    keys.clear(); touch.clear();joystick?.clear(); accumulator = 0;
     if (paused) { paused = false; ui(); canvas.focus({ preventScroll: true }); return; }
     if (game.state === 'roundOver') game.nextRound();
     else {
@@ -192,11 +193,11 @@ const I=globalThis.AtariI18n||{t:value=>value,html:value=>value,locale:'cs-CZ'};
   }
   function pause() {
     if (!['playing', 'ready'].includes(game.state)) return;
-    paused = !paused; keys.clear(); touch.clear(); accumulator = 0; ui();
+    paused = !paused; keys.clear(); touch.clear();joystick?.clear(); accumulator = 0; ui();
     if (!paused) canvas.focus({ preventScroll: true });
   }
   function menu() {
-    paused = false; keys.clear(); touch.clear();
+    paused = false; keys.clear(); touch.clear();joystick?.clear();
     game = new Game(assets); overlayState = 'menu'; lastPanel = '';
     showOverlay('KLASIKA Z ATARI. NOVĚ V PROHLÍŽEČI.', 'Poslední přežije.', 'Proboř si cestu. Sbírej bonusy. A hlavně uteč před vlastní bombou.', 'SPUSTIT HRU', 'Nastav si souboj v panelu nastavení.');
     updateMode(); preview(); ui();
@@ -217,6 +218,7 @@ const I=globalThis.AtariI18n||{t:value=>value,html:value=>value,locale:'cs-CZ'};
   }
   function inputs() {
     const result = bindings.map((map, id) => Object.fromEntries(Object.entries(map).map(([action, key]) => [action, keys.has(key) || (id === 0 && touch.has(action))])));
+    joystick?.buttons(result[0],'bomb');
     let pads = [];
     try { pads = Array.from(navigator.getGamepads?.() || []).filter(Boolean); } catch (_) {}
     for (let i = 0; i < Math.min(pads.length, result.length); i++) {
@@ -287,7 +289,7 @@ const I=globalThis.AtariI18n||{t:value=>value,html:value=>value,locale:'cs-CZ'};
     if (e.code === 'KeyF') fullscreen();
   });
   document.addEventListener('keyup', e => keys.delete(e.code));
-  window.addEventListener('blur', () => { keys.clear(); touch.clear(); if (!paused && ['playing', 'ready'].includes(game.state)) pause(); });
+  window.addEventListener('blur', () => { keys.clear(); touch.clear();joystick?.clear(); if (!paused && ['playing', 'ready'].includes(game.state)) pause(); });
   document.addEventListener('visibilitychange', () => { if (document.hidden && !paused && ['playing', 'ready'].includes(game.state)) pause(); syncAudio(); });
   window.addEventListener('pagehide', () => sound.stop());
   for (const b of document.querySelectorAll('[data-control]')) {
