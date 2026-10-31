@@ -1,10 +1,42 @@
 # Nasazení portálu
 
-## Připraveno místně — International Karate podle původních rutin
+## Aktuální veřejné vydání — International Karate podle původních rutin
 
-Změny z 31. 10. 2026 v `karate/` a sestaveném `dist/` zatím **nejsou nasazené**. Nahrazují odhadovanou AI a bojové mechanismy nativním překladem Atari rutin, doplňují původní úklonu, časové body a multiplayerové přetahování. Dopracované jsou i původní bonusové disciplíny, přechody a změna všech sedmi prostředí po bonusu. Reference zahrnuje 7 278 bonusových/přechodových stavů, 70 řízených průběhů a 96 GTIA kontaktů. Rozsah a známé limity jsou v `research/international-karate/FIDELITY.md`. Veřejné vydání zůstává níže uvedené `20261030T084926Z`.
+- Vydání `20261031T223539Z`; **nasazené a ověřené přes HTTPS**.
+- Zdrojový commit `45069262ea685d47e88d17c7f7504725762646f6`, odeslaný na `origin/main`.
+- Hra: <https://atari800.gmork.cz/hry/international-karate/>; anglicky s `?lang=en`.
+- Archiv `/private/tmp/atari800-portal-20261031T223539Z.tar.gz`, 18 868 180 B.
+- SHA-256 `c5cc14242f1197078ad661e3a14d89d6c3386d241973f73668bdf8c0f0dad6b6`.
+- Staging `/var/tmp/atari800-release-20261031T223539Z`.
+- Ověřená úplná záloha: `/root/atari800-backups/20261031T223539Z/site-before.tar.gz`
+  (190 původních souborů); záznam `release.json` v témže adresáři.
+- 193 veřejných souborů: změněno pět souborů International Karate a přidány
+  `original.js`, `bonus.js`, `assets/routines.js`. Zbývajících **185 souborů je
+  bytově shodných**, včetně portálu, všech ostatních her a původních médií.
+- Preflight ověřil všech 190 dosavadních hashů proti předchozímu vydání.
+  Publisher ověřil celý archiv, úplnou zálohu a 193 nových živých hashů.
+  Nové prostředky a herní skripty publikoval před atomickou výměnou HTML.
+- HTTPS ověřilo 193 souborů, deset cest portálu/her, MIME typy a 13 MP3/MP4
+  Range požadavků. Anglická URL i verzovaný `bonus.js` byly navíc samostatně
+  staženy a porovnány s buildem. Konfigurace ani služby se neměnily.
 
-## Aktuální veřejné vydání — mobilní joystick pro sedm her
+Přeložené jsou původní rutiny ovládání, animací, AI, zásahů, bonusových disciplín
+s původními bitmapami a výsledkové přechody turnaje. Prostředí se mění po
+bonusové disciplíně obou hráčů postupně přes všech sedm scén. Zůstává nativní
+JavaScript, nikoli běžící Atari CPU. Rozsah důkazu a zbývající limity jsou v
+`research/international-karate/FIDELITY.md`; neoznačujeme celou hru za úplně
+prokázanou snímkovou kopii 1:1.
+
+Prošlo 30 000 původních bojových stavů, 7 278 bonusových/přechodových stavů,
+70 řízených průběhů celých původních rutin a 96 izolovaných GTIA kontaktů.
+Dále osm bonusových/kampaňových, 15 základních herních, 12 zvukových testů,
+799 lokalizačních kontrol, 126 srovnání vstupů sedmi her a pět kontrol portálu.
+V místním Edge bylo ručně ověřeno rozbití deseti dlaždic, 2 000 bodů a skutečný
+přechod do New Yorku; anglické pokyny i spuštění ověřeny v Brave. Soukromé
+vývojové ovladače, RAM, snapshoty, původní ATR ani výzkumné reference nejsou
+součástí veřejného archivu.
+
+## Předchozí veřejné vydání — mobilní joystick pro sedm her
 
 - Vydání `20261030T084926Z`; **nasazené a ověřené přes HTTPS**.
 - Zdrojový commit `f2243a997ca0971de6b64711322c0c4e11498b25`, odeslaný na `origin/main`.
