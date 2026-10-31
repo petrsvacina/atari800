@@ -5,7 +5,7 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const scope=vm.createContext({Promise});
-for(const file of ['assets/sfx.js','assets/animations.js','engine.js','audio.js'])vm.runInContext(fs.readFileSync(path.join(root,'karate',file),'utf8'),scope,{filename:file});
+for(const file of ['assets/sfx.js','assets/animations.js','assets/fighters.js','assets/routines.js','original.js','bonus.js','engine.js','audio.js'])vm.runInContext(fs.readFileSync(path.join(root,'karate',file),'utf8'),scope,{filename:file});
 let passed=0;
 async function test(name,body){await body();passed++;console.log('PASS '+name);}
 function fixture({deferred=false,context=null}={}){

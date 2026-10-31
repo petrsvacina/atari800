@@ -136,30 +136,32 @@ node tools/diagnose-archon-raster.mjs
 
 ## International Karate
 
-Otevři `karate/index.html` přímo v prohlížeči. Výsledná hra je čistý JavaScript + Canvas; neobsahuje emulátor, ROM ani původní ATR. Není potřeba HTTP server ani instalace balíčků.
+Otevři `karate/index.html` přímo v prohlížeči. Hra používá nativní JavaScript + Canvas; nepotřebuje emulátor, ROM, ATR, HTTP server ani instalaci balíčků.
 
-- Turnaj proti počítači se třemi obtížnostmi; prohra ukončí turnaj.
-- Dva hráči na jedné klávesnici nebo dvou standardních gamepadech, série na dvě vítězství.
-- Všech 16 joystickových pohybů, původní snímky, sekvence, posuny a rychlost 5 PAL snímků na krok.
-- Vyhodnocení zásahů používá osm původních útoků, šest tělesných oblastí a 27 tříd postojů z dodaného ATR. Stejné tabulky určují plné/poloviční zásahy a skóre.
-- Sedm původních prostředí s barevnými grafickými vrstvami, původní hudba Roba Hubbarda (4:31,10) a šest původních digitálních zvukových samplů.
-- Původní samostatná postava rozhodčího 24 × 32 pixelů. V bodovací přestávce oznámí barvu útočníka a potom celý/půl bodu. Po vítězném plném bodu karatista přehraje původní gesto: fouknutí do pěsti a zatřepání rukou za zády.
-- Souboje na 30 sekund a dva body, pásky podle skóre; po třech výhrách střídavě bonus s dlaždicemi a úhyby zbraním.
+- Pohyb, kontextové ovládání, blokování, AI a kontakty jsou přeložené z dodaného ATR. Zachovávají vracení přípravné animace, držení úderu, otočky, hranice podle snímku a původní prioritu útočníků.
+- Souboj běží PAL 50 Hz, animace po pěti snímcích a po sedmi při zásahu. Sólo má 30 sekund a dva body k vítězství; zbytek času přidává 100 bodů za sekundu.
+- Dva hráči mají 60 sekund a původní přetahovací ukazatel se dvanácti kroky. Vítěz série pokračuje proti počítači. Bonusové vložky pro oba hráče i výsledkové přechody jsou přeložené podle ATR.
+- Původní bitmapy, všechny sekvence a sedm exportovaných pozadí, rozhodčí, hudba Roba Hubbarda a šest původních digitálních samplů zůstávají zachované. Prostředí se již svévolně nemění po každém souboji.
+- Původní úklona i gesto fouknutí do pěsti jsou animované. Bodování oznámí rozhodčí; v sólu se body zapíší po 50 PAL snímcích.
 
-Bílý: **šipky + mezerník**. Červený: **WASD + Q**. Směry jsou relativní k otočení postavy; tabulka pod hrou ukazuje obě sady pohybů. Drž směr do zásahu, potom jej uvolni. Ústup blokuje vysoké útoky, podmety vyžadují jinou obranu. Zadní útoky postavu otočí. Gamepad používá páčku/kříž a A/B; Start přepíná pauzu. Na úzkém displeji je dotykový joystick a FIRE. Skutečný gamepad ani telefon zatím nebyly fyzicky ověřené.
+Bílý: **šipky + mezerník**. Červený: **WASD + Q**. Po otočce uvolni směr. Ústup a blokování závisí na vzdálenosti a pohybu soupeře. Předčasná změna směru může rozpracovaný útok vrátit zpět. Fungují gamepady a mobilní joystick s nezávislým FIRE.
 
-**P / Escape:** pauza; **M:** zvuk; **R:** nabídka; **F:** celá obrazovka. Přepnutí okna/karty hru automaticky pozastaví. Hudba začne po kliknutí, při pauze si pamatuje pozici; lze zvolit hudbu s efekty, samotnou hudbu nebo samotné efekty. Zvuky používají všech šest původních čtyřbitových samplů přímo z ATR. Spouštějí je změny původních animačních snímků a zásahy, včetně opožděného opakování a tří různých pádů. Vždy hraje jeden sample, nový přeruší předchozí; během něj hudba ztichne a její čas pokračuje. Pauza, M a návrat do nabídky zastaví i rozběhnuté a čekající efekty.
+**P / Escape:** pauza; **M:** zvuk; **R:** nabídka; **F:** celá obrazovka. Přepnutí okna/karty hru pozastaví. Hudba a samply respektují odemčení zvuku kliknutím, pauzu, ztlumení a původní priority efektů.
 
-První hratelný přepis není úplný překlad instrukcí originálu. Nové jsou CPU, řízení soubojů, blokování a bonusové disciplíny. Původní tabulky kolizí i animací jsou zachované; úplná snímková shoda s původním programem ještě není potvrzená. Ve dvou hráčích se série ukončí výsledkem, nepřechází automaticky na souboj vítěze proti počítači. Prostředí se střídají mezi souboji. Hudební nahrávka se opakuje celá od začátku. Podklady jsou v `research/international-karate/`.
+Bonusy i přechody jsou nyní nativním překladem originálu. Prostředí se mění po bonusu obou hráčů, postupně přes všech sedm scén. Dlaždice vyžadují po GO změnit směr joysticku; čisté dokončení každé disciplíny dává 2 000 bodů.
 
-Barvy Sydney, podlahy a obou postav jsou kalibrované podle uživatelem dodaného videa. Export prostředí opravuje prioritu GTIA `$04`, takže bílé vrstvy nepřekrývají černé části mostu. Video ukazuje pouze Sydney; zbývající odstíny ostatních scén jsou extrapolované, nikoli přímo ověřené videem. Referenční video zůstává mimo veřejné soubory.
+**Úplná shoda celé hry 1:1 zatím není potvrzena.** Zůstávají hranice průběžného rasteru, hardwarové náhody, pásků podle skóre a zvuku/barev; HUD a bubliny jsou webové. Přesná evidence i zbývající odchylky jsou v [research/international-karate/FIDELITY.md](research/international-karate/FIDELITY.md).
 
 ```sh
+node tools/test-ik-original.mjs
+node tools/test-ik-bonus-original.mjs
+node tools/test-ik-flow-original.mjs
+node tools/test-karate-bonuses.mjs
 node tools/test-karate.mjs
 node tools/test-karate-audio.mjs
 ```
 
-Devatenáct herních kontrol zahrnuje všech 16 vstupů, 5snímkové časování, otočení/posuny, předčasné uvolnění a držení útoku, přesné plné/poloviční zásahy, více než 15 tisíc porovnání s původním souřadnicovým výpočtem, bodování, remízy, čas, konec turnaje/série, bonusy, pásky, okraje obrazovky, zprávy rozhodčího, podmínky vítězného gesta pro oba hráče a 20 delších simulací. Po zásahu se animace mění po sedmi PAL snímcích; gesto používá všech dvanáct původních kroků a během bodovací přestávky jej neovlivní hráčův vstup. Dvanáct zvukových kontrol ověřuje zákaz autoplay, přechody, pauzu, ztlumení, odmítnuté/opožděné spuštění, dekódování šesti původních samplů, výběr podle snímků a zásahu, pád pouze při změně postoje, 80/100ms opakování, prioritu hráčů a potlačení hudby bez zastavení jejího času.
+30 000 stavů a společných kroků obou bojovníků souhlasí s výsledky původních Atari rutin včetně spotřeby náhodných bytů. Dále 7 278 bonusových/přechodových stavů, 70 celých řízených průběhů, 96 GTIA kontaktů, osm bonusových, 15 základních integračních a 12 zvukových testů ověřuje napojení, odpočet, body, gesto, přetahování, návaznost bonusů a zvukové události. Nejde o souvislý replay celého turnaje. V Edge byl místně ověřen start, pohyb, pauza a české/anglické menu i multiplayerový ukazatel. Fyzický telefon a gamepad nebyly ověřené.
 
 ## Samostatná hra Dynakillers
 

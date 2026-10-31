@@ -1,5 +1,9 @@
 # Nasazení portálu
 
+## Připraveno místně — International Karate podle původních rutin
+
+Změny z 31. 10. 2026 v `karate/` a sestaveném `dist/` zatím **nejsou nasazené**. Nahrazují odhadovanou AI a bojové mechanismy nativním překladem Atari rutin, doplňují původní úklonu, časové body a multiplayerové přetahování. Dopracované jsou i původní bonusové disciplíny, přechody a změna všech sedmi prostředí po bonusu. Reference zahrnuje 7 278 bonusových/přechodových stavů, 70 řízených průběhů a 96 GTIA kontaktů. Rozsah a známé limity jsou v `research/international-karate/FIDELITY.md`. Veřejné vydání zůstává níže uvedené `20261030T084926Z`.
+
 ## Aktuální veřejné vydání — mobilní joystick pro sedm her
 
 - Vydání `20261030T084926Z`; **nasazené a ověřené přes HTTPS**.

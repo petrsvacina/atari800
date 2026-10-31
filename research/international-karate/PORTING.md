@@ -1,5 +1,7 @@
 # International Karate — rozbor a nativní webový přepis
 
+**Aktualizace 31. 10. 2026:** bojová logika, AI, bonusy a přechody turnaje byly nahrazeny nativním překladem původních rutin. Aktuální rozsah, 30 000 srovnávacích případů a zbývající odchylky jsou v [FIDELITY.md](FIDELITY.md). Níže uvedené poznámky zachycují i starší stav prvního přepisu.
+
 Původní `International Karate.atr` má 92 176 bytů, platnou hlavičku ATR, 720 sektorů po 128 bytech a SHA-256 `b30ddd0920a00a99d8b41d97b24d72cc57150e73e9a3686e0f35cb74f3b62bec`. Originál zůstává beze změny. Pracovní kopie úspěšně nabootovala v místním Atari800 do běžícího demonstračního souboje. Emulátor zde slouží pouze pro rozbor; výsledná webová hra by používala vlastní JavaScriptovou logiku.
 
 ## Ověřená grafická data
@@ -25,7 +27,7 @@ Výpis se získá v monitoru Atari800 příkazem `write 0000 bfff /path/to/ram.b
 
 `karate/` obsahuje samostatnou hratelnou HTML5 verzi. Prohlížeč používá původní bitmapové snímky, animační tabulky a tabulky tělesných oblastí; herní smyčka je nově napsaná v JavaScriptu a běží 50 Hz. Původní animace mění snímek každých pět kroků. Při otočení se kromě znaménka DX přepočítá i kotva snímku: v původních barevných hodinách je střed E0+12 doprava a E0+24 doleva. Tato kompenzace zabraňuje nechtěnému skoku při zadním výpadu.
 
-Tabulky ovládání, kolizí, skóre a jejich adresy jsou v [CONTROLS.md](CONTROLS.md), extrakce všech sedmi původních pozadí a původní hudby v [ASSETS.md](ASSETS.md). Původní hra kombinuje bitmapu, PMG vrstvy a změny palety; ty se rekonstruují pouze při vývojovém exportu do PNG. Prohlížeč nesimuluje Atari hardware. CPU, herní stavový automat a bonusy jsou nově napsané; úplná shoda celé hry s originálem nebyla potvrzená.
+Tabulky ovládání, kolizí, skóre a jejich adresy jsou v [CONTROLS.md](CONTROLS.md), extrakce všech sedmi původních pozadí a původní hudby v [ASSETS.md](ASSETS.md). Původní hra kombinuje bitmapu, PMG vrstvy a změny palety; ty se rekonstruují pouze při vývojovém exportu do PNG. Prohlížeč nesimuluje Atari hardware. Souboje, bonusy a přechody turnaje jsou nyní přeložené podle ATR. Úplná shoda celé hry s originálem nebyla potvrzená.
 
 Zvuky byly následně nahrazené šesti původními digitálními samply z ATR. [sfx/README.md](sfx/README.md) popisuje jejich nibble, rozsahy, DAC a časování. [SOUND_EVENTS.md](SOUND_EVENTS.md) zachycuje původní výběr efektu podle změny snímku, zásahu či pádu. Browserový přehrávač je monofonní, respektuje původní prioritu hráčů a opakování po 4/5 PAL snímcích. Během samplu ztiší hudbu bez přerušení jejího času, stejně jako původní driver se stavem `$CF`. Drobné rozdíly původního IRQ časování a analogového filtrování nejsou úplně reprodukované.
 
@@ -35,6 +37,6 @@ Katalog zdrojů v `portal/games.json` zahrnuje novou hru; `tools/build_portal.py
 
 `karate/assets/referee.js` obsahuje samostatnou původní 96bytovou grafiku rozhodčího, převod znaků po sloupcích na bitmapu 24 × 32 bodů. Ve webovém poli je na x=288, y=131; není zmenšenou kopií bojovníka. Zdroj, pozice a reprodukce jsou v [referee/README.md](referee/README.md).
 
-Po vítězném plném bodu se nyní spouští původní akce 32, včetně fouknutí do pěsti a pohybu ruky za zády. Podmínka, snímky a původní časování jsou v [REFEREE_GESTURE.md](REFEREE_GESTURE.md). V bodovací fázi animace běží po sedmi PAL snímcích na krok. Sólo používá třísekundovou přestávku; naše série pro dva hráče používá dvě sekundy při běžném zásahu a tři při vítězném plném bodu. Jde o přiblížení původnímu multiplayeru, který má odlišný systém přetahování.
+Po vítězném plném bodu se nyní spouští původní akce 32, včetně fouknutí do pěsti a pohybu ruky za zády. Podmínka, snímky a původní časování jsou v [REFEREE_GESTURE.md](REFEREE_GESTURE.md). V bodovací fázi animace běží po sedmi PAL snímcích na krok. Sólo používá třísekundovou přestávku; režim pro dva hráče používá dvě sekundy při běžném zásahu a tři při dosažení okraje původního ukazatele přetahování.
 
 Rozhodčí má jednu doloženou statickou pózu. Body oznamuje samostatnou bublinou v češtině: barva hráče, potom celý/půl bodu, nakonec ticho před pokračováním. České texty kreslí Canvas; nejde o původní bitmapové anglické popisky. Barvy i ostatní grafická data se tím nemění.

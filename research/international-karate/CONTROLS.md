@@ -1,4 +1,6 @@
-# International Karate — ovládání a pravidla pro první webovou verzi
+# International Karate — ovládání a pravidla
+
+**Aktuální audit a omezení:** [FIDELITY.md](FIDELITY.md). Ovládání, pohyb, AI a kontakty nyní určuje přímo přeložený Atari program. Popisy převzaté z manuálů jiných platforem níže jsou historické podklady, nikoli autorita proti dodanému ATR.
 
 ## Primární podklady a rozdíly platforem
 
@@ -23,9 +25,20 @@ Při otočení doleva se směry zrcadlí. Útok je třeba držet do provedení; 
 
 Plný / poloviční zásah: výpady a údery z dřepu 800/400; kopy na holeně 200/100; letící a obloukový kop 1000/500; kop do břicha 200/100; do obličeje 800/400; podmet 400/200. [Dobový manuál původního IK](https://www.gamesdatabase.org/Media/SYSTEM/Sinclair_ZX_Spectrum/Manual/formated/International_Karate_-_1985_-_System_3_Software.htm)
 
-## Turnaj a bonusy
+## Turnaj a bonusy podle Atari ATR
 
-Solo: 30 sekund, vítězí první se dvěma body; prohra ukončí turnaj. Po třech soubojích bonus: střídavě dlaždice a úhyby zbraním. Dlaždice: reagovat na GO, deset kusů, každý 100 bodů; všechny přidají 2000. Zbraně: za každý úhyb 100, dokončení 2000. Multiplayer: nejlepší ze tří soubojů, potom vítěz proti počítači. [Manuál C64](https://www.c64.com/games/no-frame.php?from=0&range=222&searchfor=&searchfor_special=9&show_info=1&showid=195)
+Sólo má 30 sekund a hranici čtyř půlbodů; shodu při čase nula rozliší skóre
+souboje a poslední bodovaný zásah. Zbytek času dává 100 bodů za sekundu.
+Dlaždice jsou ve fázi 4, zbraně ve fázi 9, pak se cyklus opakuje (13/18 atd.).
+Při GO je potřeba změnit směr joysticku; samotný FIRE v neutrálu nepůsobí.
+Za všech deset dlaždic je celkem 2 000, jinak počet krát 100. Zbraně mají
+původních 8/12/16 kusů podle stupně a 2 000 za čisté dokončení, bez nových
+bodů za jednotlivé úhyby. Dva lidé absolvují každý vlastní pokus.
+
+Multiplayer má 60 sekund, původní přetahovací ukazatel a bonusy ve fázích 2/4
+mezi souboji 1/3/5. Po ukončení celé disciplíny obou hráčů se načítá další
+prostředí. Výsledkové větve a doložená zvláštnost převodu D1 jsou v
+[FIDELITY.md](FIDELITY.md).
 
 Pásky mají prahy: bílý 0, žlutý 6000, zelený 12000, fialový 18000, hnědý 24000, černý 40000. Uvádí je dobový hráčský tip v [Atari User, listopad 1987, strana 61](https://vtda.org/pubs/AtariUser/AtariUser31-Nov87.pdf). Zatím nebyly potvrzeny z kódu.
 
@@ -36,7 +49,7 @@ Pásky mají prahy: bílý 0, žlutý 6000, zelený 12000, fialový 18000, hněd
 - `$558D–$55B0`: 36 hranic sekvencí (první 0, poslední 199).
 - `$55B1–$5677`: 199 indexů snímků. Pohyby 1–16 odpovídají očíslování tabulky ovládání.
 - `$5679` + index kroku: vodorovný posun se znaménkem. Použití potvrzuje rutina `$5509`: sčítá nebo odčítá podle orientace.
-- `$5740` + index kroku: původní stavové příznaky. Jejich úplná interpretace není hotová, JSON je uchovává bez domyšlených názvů.
+- `$5740` + index kroku: původní stavové příznaky. Jejich interpretace je nyní přímo v `karate/original.js` a byla ověřena proti rutině `$53BC`.
 
 Kód `$53BC–$5508` vybírá a aktualizuje snímek přes tabulku `$55B1`, odděleně zpracovává orientaci a pohyb. Hlavičky posunů byly zjištěny z operandů kódu. Surová čísla nejsou odhad vizuálních animací.
 

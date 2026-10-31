@@ -45,7 +45,9 @@ console.log('PASS Archon touch controls follow the human player on the dark side
 for(const [directory]of configs){
  const page=fs.readFileSync(path.join(root,directory,'index.html'),'utf8');
  assert.ok(page.includes('../shared/touch-joystick.css?v=20261030-touch'));
- assert.ok(page.indexOf('../shared/touch-joystick.js')<page.indexOf('game.js?v=20261030-touch'));
+ const scripts=[...page.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g)].map(match=>match[1].split('?')[0]);
+ const joystick=scripts.indexOf('../shared/touch-joystick.js'),presenter=scripts.indexOf('game.js');
+ assert.ok(joystick>=0&&presenter>joystick,'The joystick must load before the presenter, regardless of its cache version');
 }
 assert.ok(!fs.readFileSync(path.join(root,'karateka/index.html'),'utf8').includes('touch-joystick'),'Karateka keeps its keyboard-style controls');
 console.log('PASS shared assets load before all seven presenters and Karateka remains excluded');

@@ -1,321 +1,313 @@
-/* Native 50 Hz game logic. Original animation frames, displacements and cadence. */
-(function (root) {
+/* Native PAL game. Combat routines are translated from the supplied ATR. */
+(function(root){
   'use strict';
-  const HZ = 50, POSE_TICKS = 5, HIT_POSE_TICKS = 7;
-  const BELTS = [[0, 'Bílý', '#eee9d7'], [6000, 'Žlutý', '#eac953'], [12000, 'Zelený', '#6c9c68'],
-    [18000, 'Fialový', '#a97cb5'], [24000, 'Hnědý', '#986d43'], [40000, 'Černý', '#303844']];
-  // Input names and action metadata; hit geometry uses the original ATR tables.
-  const MOVES = {
-    1: {name:'Skok', air:true}, 2:{name:'Přední úder', height:'high', reach:40, active:[1], value:800},
-    3: {name:'Krok vpřed', walk:true}, 4:{name:'Kop do hrudi', height:'high', reach:53, active:[2], value:800},
-    5: {name:'Podmet', height:'low', reach:37, active:[1], value:400},
-    6: {name:'Úder z dřepu', height:'mid', reach:39, active:[1], value:400, low:true},
-    7: {name:'Ústup / blok', walk:true, guard:true}, 8:{name:'Zadní úder', height:'high', reach:40, active:[2], value:800, turn:1},
-    9: {name:'Letící kop', height:'high', reach:52, active:[2,3], value:1000, air:true},
-    10:{name:'Salto vpřed', air:true}, 11:{name:'Přední kop', height:'mid', reach:52, active:[2], value:200},
-    12:{name:'Přední boční kop', height:'low', reach:43, active:[1], value:200, low:true},
-    13:{name:'Zadní úder z dřepu', height:'mid', reach:39, active:[2], value:400, turn:1, low:true},
-    14:{name:'Zadní boční kop', height:'low', reach:43, active:[2], value:200, turn:1, low:true},
-    15:{name:'Obloukový kop', height:'high', reach:56, active:[4], value:1000},
-    16:{name:'Salto vzad', air:true}
-  };
-  const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
-  const neutral = () => ({x:0,y:0,fire:false});
-  const player = (id, x, facing) => ({id,x,facing,frame:0,action:0,pose:0,age:0,lock:false,
-    connected:false,turned:false,guard:false,low:false,air:false,cancelled:false,lastInput:0,strikeTicks:0});
-  function inputAction(input, facing) {
-    const x = Math.sign(input?.x || 0) * facing, y = Math.sign(input?.y || 0);
-    let direction = 0;
-    if (y < 0) direction = x > 0 ? 2 : x < 0 ? 8 : 1;
-    else if (y > 0) direction = x > 0 ? 4 : x < 0 ? 6 : 5;
-    else if (x) direction = x > 0 ? 3 : 7;
-    return direction ? direction + (input.fire ? 8 : 0) : 0;
+  const Original=root.KarateOriginal,Bonus=root.KarateBonus;
+  const HZ=50,POSE_TICKS=5,HIT_POSE_TICKS=7;
+  const BELTS=[[0,'Bílý','#eee9d7'],[6000,'Žlutý','#eac953'],[12000,'Zelený','#6c9c68'],[18000,'Fialový','#a97cb5'],[24000,'Hnědý','#986d43'],[40000,'Černý','#303844']];
+  const MOVES = {1: {'name': 'Skok'}, 2: {'name': 'Přední úder'}, 3: {'name': 'Krok vpřed'}, 4: {'name': 'Kop do hrudi'}, 5: {'name': 'Podmet'}, 6: {'name': 'Úder z dřepu'}, 7: {'name': 'Ústup / blok'}, 8: {'name': 'Zadní úder'}, 9: {'name': 'Letící kop'}, 10: {'name': 'Salto vpřed'}, 11: {'name': 'Přední kop'}, 12: {'name': 'Přední boční kop'}, 13: {'name': 'Zadní úder z dřepu'}, 14: {'name': 'Zadní boční kop'}, 15: {'name': 'Obloukový kop'}, 16: {'name': 'Salto vzad'}};
+  const neutral=()=>({x:0,y:0,fire:false});
+  function player(id,origin,facing){
+    const p={id,origin,facing,frame:0,action:0,pose:0,nextPose:0,age:0,uninterrupted:0,
+      reverse:0,preparation:0,strikeTicks:0,inputFlipped:0,frozen:0,flags:0,previousFlags:0,threat:0,idleCounter:0,idleVariant:0};
+    Object.defineProperty(p,'x',{enumerable:true,get(){return (this.origin+(this.facing===1?12:24)-16)*2;},set(x){this.origin=Math.round(x/2)+16-(this.facing===1?12:24);}});
+    return p;
   }
-  class KarateGame {
-    constructor(options = {}) {
-      this.mode = options.mode === 'two' ? 'two' : 'solo';
-      this.difficulty = ['easy','normal','hard'].includes(options.difficulty) ? options.difficulty : 'normal';
-      this.animations = options.animations || root.KARATE_ANIMATIONS;
-      this.hitData = options.hitData || root.KARATE_HIT_DATA;
-      if (!this.animations?.[16]) throw new Error('Chybějí původní animace.');
-      this.random = options.random || Math.random;
-      this.round = 1; this.wins = [0,0]; this.score = [0,0]; this.points = [0,0];
-      this.belt = 0; this.phase = 'ready'; this.phaseTicks = 90; this.time = 30 * HZ;
-      this.events = []; this.message = 'Připrav se'; this.totalTicks = 0; this.scene = 0;
-      this.ai = {cooldown:0,hold:0,input:neutral(),last:-1};
-      this.resetFighters();
+  // Static move guide. Gameplay reads the original context-dependent input tables.
+  function inputAction(input,facing){
+    const x=Math.sign(input?.x||0)*facing,y=Math.sign(input?.y||0);
+    const d=y<0?(x>0?2:x<0?8:1):y>0?(x>0?4:x<0?6:5):x>0?3:x<0?7:0;
+    return d?d+(input?.fire?8:0):0;
+  }
+  class KarateGame{
+    constructor(options={}){
+      this.mode=options.mode==='two'?'two':'solo';this.human=0;
+      this.animations=root.KARATE_ANIMATIONS;this.hitData=root.KARATE_HIT_DATA;
+      this.random=options.random||Math.random;this.randomByte=()=>Math.floor(this.random()*256)&255;
+      this.scanline=()=>Math.floor(this.random()*156);
+      this.round=1;this.stage=1;this.cycle=1;this.level=0;this.scene=0;this.belt=0;this.weaponDifficulty=0;
+      this.wins=[0,0];this.soloWins=0;this.score=[0,0];this.points=[0,0];this.roundScore=[0,0];this.tug=60;
+      this.events=[];this.totalTicks=0;this.priority=0;this.attackOwner=0;this.stepClock=0;this.poseClock=0;this.frameByte=0;this.message='Připrav se';
+      this.time=(this.mode==='two'?60:30)*HZ;this.secondClock=25;this.lastWinner=null;this.resetFighters();
     }
-    emit(type, data = {}) { this.events.push({type,tick:this.totalTicks,...data}); }
-    drainEvents() { const events = this.events; this.events = []; return events; }
-    resetFighters() { this.players = [player(0,90,1),player(1,230,-1)]; this.ai.hold=0; this.lastPoint=null; }
-    get beltInfo() { return BELTS[this.belt]; }
-    get seconds() { return Math.ceil(this.time / HZ); }
-    get referee() {
-      const state={frame:'neutral',message:null};
-      if(this.phase==='point'&&this.lastPoint) {
-        const age=this.pointDuration-this.phaseTicks;
-        if(age<this.pointDuration-20)state.message=age<50
-          ?(this.lastPoint.player===0?'BÍLÝ':'ČERVENÝ')
-          :(this.lastPoint.units===2?'CELÝ BOD':'PŮL BODU');
+    emit(type,data={}){this.events.push({type,tick:this.totalTicks,...data});}
+    drainEvents(){const events=this.events;this.events=[];return events;}
+    isHuman(id){return this.mode==='two'||id===this.human;}
+    resetFighters(){
+      this.players=[player(0,48,1),player(1,104+(this.randomByte()&7),-1)];
+      const bow=this.mode==='solo'||this.seconds===60;
+      for(const p of this.players){
+        Original.select(p,bow?28:0,this.randomByte);
+        this.animate(p,0,this.isHuman(p.id));
       }
-      return state;
+      this.lastPoint=null;this.hitState=0;this.stepClock=0;this.phase=bow?'ready':'fight';
+      this.phaseTicks=bow?70:0;
     }
-    startAction(p, id) {
-      p.action=id; p.pose=0; p.age=0; p.connected=false; p.turned=false; p.cancelled=false; p.strikeTicks=0;
-      p.lock=!MOVES[id]?.walk; this.applyPose(p);
-      if (MOVES[id]?.active) this.emit('swing',{player:p.id});
+    get beltInfo(){return BELTS[this.belt];}
+    get seconds(){return Math.max(0,Math.ceil(this.time/HZ));}
+    get referee(){
+      let message=null;
+      if(this.phase==='ready')message='HRAJEME!'; // Original $2E92: BEGIN during the bow.
+      if(this.phase==='round')message=this.roundPrompt==='SCORE'?(this.mode==='two'?`+${this.roundAward||0}`:String(this.seconds)):this.roundPrompt;
+      if(this.phase==='point'&&this.lastPoint){
+        const df=150-this.phaseTicks;
+        if(this.mode==='two')message=df<100?(this.lastPoint.player===0?'BÍLÝ':'ČERVENÝ'):String(this.seconds);
+        else if(df<130)message=df<50?(this.lastPoint.player===0?'BÍLÝ':'ČERVENÝ'):(this.lastPoint.units===2?'CELÝ BOD':'PŮL BODU');
+      }
+      return {frame:'neutral',message};
     }
-    applyPose(p) {
-      const anim = this.animations[p.action];
-      const move = MOVES[p.action] || {};
-      const previousFrame=p.frame;
-      if (move.turn === p.pose && !p.turned) {
-        const oldAnchor=p.facing===1?12:24;
-        p.facing *= -1; p.turned=true;
-        p.x+=2*((p.facing===1?12:24)-oldAnchor);
-      }
-      p.frame = anim.frames[p.pose] ?? 0;
-      p.x = clamp(p.x + (anim.dx[p.pose] || 0) * 2 * p.facing, 20,300);
-      p.guard=!!move.guard; p.low=!!move.low || [17,18,21,32,33,38,39,44,45,46,47].includes(p.frame);
-      p.air=!!move.air && p.pose>0 && p.pose<anim.frames.length-2;
-      if(p.frame!==previousFrame)this.emit('pose',{player:p.id,frame:p.frame,flags:anim.flags[p.pose]||0,falling:[17,18,19,31].includes(p.action)});
+    startAction(p,id){Original.select(p,id,this.randomByte);p.age=0;}
+    updatePlayer(p,input,stepTicks=POSE_TICKS){
+      if(++p.age<stepTicks)return;
+      p.age=0;this.animate(p,Original.controls(p,this.players.find(q=>q.id!==p.id),input),this.isHuman(p.id));
     }
-    updatePlayer(p, input, stepTicks=POSE_TICKS) {
-      const requested = inputAction(input,p.facing);
-      if (!requested) p.lock=false;
-      if(MOVES[p.action]?.walk&&requested!==p.action&&(this.animations[p.action].flags[p.pose]&16)) {
-        p.action=0;p.frame=0;p.guard=false;
-      }
-      if (p.action) {
-        const move=MOVES[p.action];
-        // Releasing an attack during its preparation cancels it. A held attack
-        // does not restart until the joystick is released.
-        if (move?.active && !p.cancelled && !p.connected && !requested && p.pose<move.active[0]) {
-          p.cancelled=true; p.action=0; p.frame=0; p.age=0; p.low=false; p.air=false; p.guard=false;
-        } else {
-          if(this.hitData.attackFrames.includes(p.frame))p.strikeTicks++;
-          const heldStrike=!!(this.animations[p.action].flags[p.pose]&8)&&requested;
-          const knockedDown=p.pose===this.animations[p.action].frames.length-1&&(this.animations[p.action].flags[p.pose]&32);
-          if(!heldStrike&&!knockedDown)p.age++;
-          if (p.age>=stepTicks) {
-            p.age=0; p.pose++;
-            if (p.pose>=this.animations[p.action].frames.length) {
-              p.action=0; p.frame=0; p.guard=false; p.low=false; p.air=false;
-            } else this.applyPose(p);
-          }
-        }
-      }
-      if (!p.action && requested && (!p.lock || MOVES[requested]?.walk)) {
-        // Turning is deliberate: attacks 8/13/14 turn the original character.
-        this.startAction(p,requested);
-      }
-      if (!p.action && !requested) { p.frame=0; p.guard=false; p.low=false; p.air=false; }
-      p.lastInput=requested;
+    animate(p,command,human,forced=false){
+      const before=p.frame;Original.motion(p,command,human,this.randomByte,forced);
+      if(p.frame!==before)this.emit('pose',{player:p.id,frame:p.frame,flags:p.flags,falling:[17,18,19,31].includes(p.action)});
     }
-    separatePlayers() {
-      const [a,b]=this.players;
-      if (a.air || b.air) return;
-      const diff=b.x-a.x;
-      if (Math.abs(diff)<25) {
-        const direction=diff<0?-1:1,center=clamp((a.x+b.x)/2,32.5,287.5);
-        a.x=center-direction*12.5;b.x=center+direction*12.5;
-      }
-    }
-    attackResult(attacker,defender) {
-      const data=this.hitData,index=data.attackFrames.indexOf(attacker.frame);
-      if(!MOVES[attacker.action]?.active||index<0||attacker.connected||attacker.cancelled||attacker.strikeTicks>=10)return null;
-      let bodyClass=data.frameClasses[defender.frame];
-      if(attacker.frame===18&&defender.frame===32)bodyClass=26;
-      if(bodyClass===255||!data.bodyOffsets[bodyClass])return null;
-      const ax=attacker.x/2+attacker.facing*(data.attackX[index]-12);
-      for(let zone=0;zone<6;zone++) {
-        const offset=data.bodyOffsets[bodyClass][zone];
-        if(!(data.zoneMasks[index]&data.zoneBits[zone])||offset===128)continue;
-        const tx=defender.x/2+defender.facing*(offset-12);
-        let distance=attacker.facing===1?ax-tx:tx-ax;
-        if(attacker.facing===defender.facing)distance+=data.halfRange[index];
-        if(distance<0||distance>data.halfRange[index])continue;
-        const move=MOVES[attacker.action];
-        if(defender.guard&&defender.facing===-attacker.facing&&move.height!=='low')return {blocked:true,attacker,defender};
-        const full=distance<data.fullRange[index];
-        return {blocked:false,attacker,defender,units:full?2:1,value:full?data.fullScores[index]:data.halfScores[index]};
-      }
-      return null;
-    }
-    resolveCombat() {
-      const [a,b]=this.players;
-      const hits=[this.attackResult(a,b),this.attackResult(b,a)].filter(Boolean);
-      const scoring=hits.filter(h=>!h.blocked);
-      for (const hit of hits) {
-        hit.attacker.connected=true;
-        if (hit.blocked) { this.emit('block',{player:hit.defender.id}); this.message='Blok'; }
-      }
-      if (!scoring.length) return;
-      if (scoring.length===2) {
-        this.message='Současný zásah'; this.emit('clash');
-        this.phase='point'; this.phaseTicks=65; this.pendingRound=false;this.lastPoint=null;
-        for (const p of this.players) { p.action=0; p.frame=19; }
+    combatStep(inputs,hit=false){
+      if(!hit){
+        const frames=this.players.map(p=>p.frame);
+        this.priority=Original.step(this.players,inputs,[this.isHuman(0),this.isHuman(1)],this.level,this.priority,this.randomByte,this.scanline);
+        this.attackOwner=this.priority; // Both $3D00 calls write D4, even for human actors.
+        for(const p of this.players)if(p.frame!==frames[p.id])this.emit('pose',{player:p.id,frame:p.frame,flags:p.flags,falling:[17,18,19,31].includes(p.action)});
+        if(this.phase==='fight')this.resolveCombat();
         return;
       }
-      const hit=scoring[0], id=hit.attacker.id;
-      const previousPoints=this.points[id];
-      this.points[id]=Math.min(4,this.points[id]+hit.units); this.score[id]+=hit.value;
-      this.belt=this.computeBelt();
-      this.message=hit.units===2?'Celý bod':'Půl bodu'; this.lastWinner=id;
-      this.emit('hit',{player:id,units:hit.units,frame:hit.attacker.frame});
-      this.startAction(hit.defender,MOVES[hit.attacker.action]?.height==='low'?17:18);
-      // Original $28D8: a full point with at least one existing point starts
-      // action 32 (blow on the fist, then shake it behind the back).
-      const flourish=hit.units===2&&previousPoints>=2;
+      const commands=this.players.map((p,i)=>Original.controls(p,this.players[i^1],hit?neutral():inputs[i]));
+      for(const i of [1,0]){
+        const p=this.players[i];
+        this.animate(p,commands[i],this.isHuman(i),hit);
+      }
+      this.priority^=1; // $3C06 alternates the first eligible attacker before contact.
+    }
+    attackResult(attacker,defender){
+      const hit=Original.contact(attacker,defender,this.hitData);
+      return hit?{...hit,attacker,defender}:null;
+    }
+    resolveCombat(){
+      // $415A stops after the first eligible attack, even when its contact misses.
+      const result=Original.arbitrate(this.players,this.priority,this.hitData,id=>{this.attackOwner=id;});
+      if(!result)return;
+      const hit={...result,attacker:this.players[result.player],defender:this.players[result.player^1]};
+      const id=hit.attacker.id,previous=this.points[id];this.lastWinner=id;this.hitState=hit.units;
+      this.lastPoint={player:id,units:hit.units,value:hit.value,awarded:false};
+      let units=hit.units,flourish=units===2&&previous>=2;
+      if(this.mode==='two'){
+        this.tug+=id===0?1:-1;
+        this.pendingRound=this.tug<=54||this.tug>=66;
+        units=this.pendingRound?2:0;flourish=this.pendingRound;
+      }else this.pendingRound=previous+units>=4;
+      this.lastPoint.pointUnits=units;
+      this.startAction(hit.defender,hit.fall);
       if(flourish)this.startAction(hit.attacker,32);
-      else {hit.attacker.action=0;hit.attacker.frame=0;}
-      this.lastPoint={player:id,units:hit.units};
-      this.phase='point';this.pointDuration=this.mode==='solo'||flourish?150:100;
-      this.phaseTicks=this.pointDuration;this.pendingRound=this.points[id]>=4;
+      else Original.select(hit.attacker,0,this.randomByte,true);
+      this.emit('hit',{player:id,units:hit.units,frame:hit.attacker.frame});
+      this.message=hit.units===2?'Celý bod':'Půl bodu';
+      this.phase='point';this.pointDuration=this.mode==='two'&&!this.pendingRound?100:150;this.phaseTicks=this.pointDuration;
+      this.stepClock=0;
+      this.combatStep([neutral(),neutral()],true);
+      // Ordinary multiplayer starts DF at 50, so its score is displayed immediately.
+      if(this.pointDuration===100)this.awardPoint();
     }
-    computeBelt() { let index=0; for(let i=1;i<BELTS.length;i++) if(this.score[0]>=BELTS[i][0]) index=i; return index; }
-    cpuInput() {
-      const cpu=this.players[1],human=this.players[0];
-      if (this.ai.hold>0) { this.ai.hold--; return this.ai.input; }
-      const difficulty={easy:0,normal:1,hard:2}[this.difficulty];
-      const distance=Math.abs(cpu.x-human.x);
-      const direction=Math.sign(human.x-cpu.x)||-1;
-      const orient=direction*cpu.facing;
-      if (cpu.action) { this.ai.input=neutral(); return this.ai.input; }
-      if (this.ai.cooldown>0) { this.ai.cooldown--; this.ai.input=neutral(); return this.ai.input; }
-      if (orient<0) {
-        this.ai.input={x:-cpu.facing,y:-1,fire:false}; this.ai.hold=24; return this.ai.input;
-      }
-      const threat=MOVES[human.action]?.active && !human.connected;
-      let input;
-      if (distance>49) input={x:direction,y:0,fire:false};
-      else if (threat && this.random()<.2+difficulty*.2) {
-        input=MOVES[human.action].height==='low'?{x:0,y:-1,fire:false}:{x:-direction,y:0,fire:false};
-      } else if (distance<30 && this.random()<.45) input={x:-direction,y:0,fire:false};
-      else {
-        const attacks=distance>42?[3,5,9,15]:distance>30?[2,4,6,11,12]:[2,6,12];
-        let action=attacks[Math.floor(this.random()*attacks.length)];
-        if (action===this.ai.last) action=attacks[(attacks.indexOf(action)+1)%attacks.length];
-        this.ai.last=action;
-        const d=(action-1)%8+1;
-        const vectors={1:[0,-1],2:[1,-1],3:[1,0],4:[1,1],5:[0,1],6:[-1,1],7:[-1,0],8:[-1,-1]};
-        const [x,y]=vectors[d]; input={x:x*cpu.facing,y,fire:action>8};
-        this.ai.cooldown=[22,12,5][difficulty]+Math.floor(this.random()*13);
-      }
-      this.ai.input=input; this.ai.hold=inputAction(input,cpu.facing)===3||inputAction(input,cpu.facing)===7?10:45; return input;
+    awardPoint(){
+      const hit=this.lastPoint;if(!hit||hit.awarded)return;hit.awarded=true;
+      this.score[hit.player]+=hit.value;this.roundScore[hit.player]+=hit.value;
+      this.points[hit.player]=Math.min(5,this.points[hit.player]+hit.pointUnits);this.belt=this.computeBelt();
     }
-    endRound(winner) {
-      this.roundWinner=winner;
-      if (winner!==null) this.wins[winner]++;
-      this.phase='round'; this.phaseTicks=135;
-      this.message=winner===null?'Remíza':winner===0?'Vítězí bílý':'Vítězí červený';
-      this.emit('round',{winner});
-      if (winner!==null) this.startAction(this.players[winner],28);
+    computeBelt(){let index=0;for(let i=1;i<BELTS.length;i++)if(this.score[this.human]>=BELTS[i][0])index=i;return index;}
+    timeoutWinner(){
+      if(this.mode==='two')return this.tug===60?(this.roundScore[0]===this.roundScore[1]?null:this.roundScore[0]>this.roundScore[1]?0:1):this.tug>60?0:1;
+      if(this.points[0]!==this.points[1])return this.points[0]>this.points[1]?0:1;
+      if(this.roundScore[0]!==this.roundScore[1])return this.roundScore[0]>this.roundScore[1]?0:1;
+      return this.lastWinner??this.roundWinner??0;
     }
-    nextRound() {
-      const winner=this.roundWinner;
-      if (this.mode==='solo' && winner===1 || this.mode==='two' && this.wins.some(w=>w>=2)) {
-        this.phase='gameover'; this.message=this.mode==='solo'?'Turnaj skončil':`Vítězí ${this.wins[0]>this.wins[1]?'bílý':'červený'}`;
-        this.emit('end'); return;
-      }
-      if (this.mode==='solo' && winner===0 && this.wins[0]%3===0) { this.startBonus(); return; }
-      this.prepareRound(winner!==null);
+    endRound(winner){
+      this.roundWinner=winner;this.phase='round';this.message=winner===null?'Remíza':winner===0?'Vítězí bílý':'Vítězí červený';this.emit('round',{winner});
+      this.poseClock=16;this.resultProgram=this.resultSequence(winner);this.resumeResult();
     }
-    prepareRound(advance=true) {
-      if (advance) this.round++;
-      this.scene=(this.round-1)%7; this.points=[0,0]; this.time=30*HZ;
-      this.resetFighters(); this.phase='ready'; this.phaseTicks=80; this.message='Připrav se';
-      this.emit('ready');
+    *displayWait(frames){
+      this.displayTimer=frames;
+      do{yield {sync:true,hit:!!this.hitState};}while(this.displayTimer>0);
     }
-    startBonus() {
-      const kind=Math.floor(this.wins[0]/3)%2===1?'tiles':'dodge';
-      this.bonus={kind,age:0,goAt:100+Math.floor(this.random()*85),fired:false,previousFire:false,
-        broken:0,dodged:0,misses:0,objects:[],nextObject:70,count:0};
-      this.phase='bonus-ready'; this.phaseTicks=125;
-      this.message=kind==='tiles'?'Bonus · rozbíjení dlaždic':'Bonus · vyhýbej se zbraním';
-      this.players=[player(0,kind==='tiles'?140:160,1),player(1,230,-1)];
-      this.players[0].frame=kind==='tiles'?50:0;
-      this.emit('bonus',{kind});
-    }
-    updateBonus(input) {
-      const bonus=this.bonus,p=this.players[0]; bonus.age++;
-      if (bonus.kind==='tiles') {
-        const fire=!!input.fire;
-        if (fire&&!bonus.previousFire&&!bonus.fired) {
-          bonus.fired=true;
-          const delta=bonus.age-bonus.goAt;
-          bonus.broken=delta<0?0:clamp(10-Math.floor(delta/4),0,10);
-          this.score[0]+=bonus.broken*100+(bonus.broken===10?2000:0);
-          p.frame=delta<0?50:51;
-          this.message=delta<0?'Příliš brzy':bonus.broken?`${bonus.broken} z 10 dlaždic`:'Pozdě';
-          this.emit('break',{count:bonus.broken}); this.phase='bonus-result'; this.phaseTicks=140;
+    *resultSequence(winner){ // $2918-$2B9F, with original display waits and score countdown.
+      if(this.time<=0)for(const p of this.players)p.frame=48;
+      const facing=Original.geometry(this.players[0],this.players[1]).context&4;
+      for(const p of this.players)if(p.frame<39||p.frame>=48){p.facing=((facing?1:0)^p.id)?-1:1;p.origin=Math.max(16,Math.min(136,p.origin));}
+      if(this.mode==='solo'){
+        if(winner===this.human)this.soloWins++;
+        const p=this.players[winner];this.roundPrompt=winner===0?'BÍLÝ':'ČERVENÝ';p.frame=49;p.origin++;
+        yield 25;yield 50;this.roundPrompt=null;p.frame=48;p.origin--;yield 25;
+        if(this.time>0){this.roundPrompt='SCORE';while(this.time>0){this.time-=HZ;this.score[winner]+=100;this.belt=this.computeBelt();yield 4;}}
+        yield 50;
+      }else{
+        if(this.time<=0){this.roundPrompt='STOP';yield* this.displayWait(75);}
+        if(winner===null){
+          if(!this.roundScore.some(Boolean)){this.resultProgram=null;this.phase='gameover';this.message='Remíza';this.emit('end');return;}
+          this.roundPrompt='Remíza';yield* this.displayWait(100);
+        }else{
+          this.wins[winner]++;this.roundPrompt=winner===0?'BÍLÝ':'ČERVENÝ';
+          if(this.tug<=54||this.tug>=66){yield* this.displayWait(75);this.score[winner]+=1000;this.roundAward=1000;this.roundPrompt='SCORE';}
+          const p=this.players[winner];p.frame=49;p.origin++;yield* this.displayWait(50);p.frame=48;p.origin--;yield* this.displayWait(75);
         }
-        bonus.previousFire=fire;
-        if (bonus.age>bonus.goAt+90&&!bonus.fired) {
-          this.message='Čas vypršel'; this.phase='bonus-result'; this.phaseTicks=100;
-        }
-      } else {
-        // Bonus uses the same jump and crouch positions as the original fighters.
-        if (p.action) this.updatePlayer(p,input);
-        else if (input.y<0) this.startAction(p,1);
-        else { p.low=input.y>0; p.frame=p.low?17:0; p.air=false; }
-        if (bonus.count<8&&bonus.age>=bonus.nextObject) {
-          const high=this.random()<.5,side=bonus.count%2;
-          bonus.objects.push({x:side?335:-15,y:high?151:176,dir:side?-1:1,high,checked:false});
-          bonus.count++; bonus.nextObject+=75-Math.min(20,this.wins[0]);
-          this.emit('throw');
-        }
-        for(const object of bonus.objects) {
-          object.x+=object.dir*(2.7+this.wins[0]*.08);
-          if(!object.checked&&Math.abs(object.x-p.x)<8) {
-            object.checked=true;
-            if(object.high?p.low:p.air) {bonus.dodged++;this.score[0]+=100;this.emit('dodge');}
-            else {bonus.misses++;this.emit('hit',{player:1,units:0});}
+        if(this.stage>=5||this.wins.some(w=>w>=2)){
+          const survivor=this.wins[0]!==this.wins[1]?(this.wins[0]>this.wins[1]?0:1):this.score[0]!==this.score[1]?(this.score[0]>this.score[1]?0:1):null;
+          if(survivor===null){
+            this.roundPrompt='Remíza';yield* this.displayWait(75);this.roundPrompt='KONEC SOUBOJE';yield* this.displayWait(200);
+            this.resultProgram=null;this.phase='gameover';this.message='Remíza';this.emit('end');return;
           }
-        }
-        bonus.objects=bonus.objects.filter(o=>o.x>-30&&o.x<350);
-        if(bonus.count===8&&!bonus.objects.length) {
-          if(!bonus.misses)this.score[0]+=2000;
-          this.message=`Úhyby ${bonus.dodged} z 8${bonus.misses?'':' · perfektní!'}`;
-          this.phase='bonus-result';this.phaseTicks=140;
+          this.roundPrompt=survivor===0?'Vítězí bílý':'Vítězí červený';yield* this.displayWait(100);
+          if(this.stage<5){this.score[survivor]+=5000;this.roundAward=5000;this.roundPrompt='SCORE';yield* this.displayWait(100);}
         }
       }
-      this.belt=this.computeBelt();
+      this.roundPrompt=null;this.resultProgram=null;this.nextRound();
     }
-    tick(inputs=[neutral(),neutral()]) {
-      this.totalTicks++;
-      if (this.phase==='gameover') return;
-      if (this.phase==='ready') {
-        if(--this.phaseTicks<=0) {this.phase='fight';this.message='Hrajeme!';this.emit('fight');}
-        return;
+    resumeResult(){
+      for(let guard=0;guard<50;guard++){
+        const result=this.resultProgram.next();if(result.done)return;
+        const request=result.value;
+        if(typeof request==='number'){this.resultWait=request;this.resultSync=0;return;}
+        const period=request.hit?HIT_POSE_TICKS:POSE_TICKS;
+        if(this.poseClock>=period){this.poseClock=0;this.priority^=1;continue;}
+        this.resultWait=period-this.poseClock;this.resultSync=period;return;
       }
-      if (this.phase==='point') {
-        for(const p of this.players) if(p.action>=17)this.updatePlayer(p,neutral(),HIT_POSE_TICKS);
-        if(--this.phaseTicks<=0) {
-          if(this.pendingRound)this.endRound(this.lastWinner);
-          else if(this.time<=0)this.endRound(this.points[0]===this.points[1]?null:this.points[0]>this.points[1]?0:1);
-          else {this.resetFighters();this.phase='ready';this.phaseTicks=55;this.message='Připrav se';}
+      throw new Error('Invalid result transition');
+    }
+    nextRound(){
+      const winner=this.roundWinner;
+      if(this.mode==='solo'&&winner!==this.human){this.phase='gameover';this.message='Turnaj skončil';this.emit('end');return;}
+      if(this.mode==='two'&&(this.stage>=5||this.wins.some(w=>w>=2))){
+        let survivor;
+        if(this.wins[0]!==this.wins[1])survivor=this.wins[0]>this.wins[1]?0:1;
+        else if(this.score[0]!==this.score[1])survivor=this.score[0]>this.score[1]?0:1;
+        else {this.phase='gameover';this.message='Remíza';this.emit('end');return;}
+        // $2B6E/$2B76 announce the series result but do not replace D1. $2C0E
+        // therefore retains the last bout's winner (or D4 after a drawn bout).
+        const retained=winner??this.attackOwner;
+        this.mode='solo';this.human=retained;this.score[retained^1]=0;
+        // $2C0E uses the winner's BCD ten-thousands byte as the table index.
+        const high=Math.floor(this.score[retained]/10000),index=high?Math.floor(high/10)*16+high%10+10:0;
+        this.stage=root.KARATE_ROUTINE_DATA.transferLevels[index]||0;this.cycle=this.stage;this.level=this.stage;
+      }
+      this.prepareRound();
+    }
+    advanceStage(){
+      const state={stage:this.stage,cycle:this.cycle,level:this.level,weaponDifficulty:this.weaponDifficulty,multiplayer:this.mode==='two'};
+      const mode=Bonus.advance(state);Object.assign(this,{stage:state.stage,round:state.stage,cycle:state.cycle,level:state.level,weaponDifficulty:state.weaponDifficulty});
+      return mode;
+    }
+    prepareRound(){
+      const mode=this.advanceStage();
+      this.points=[0,0];this.roundScore=[0,0];this.tug=60;this.lastWinner=null;this.time=(this.mode==='two'?60:30)*HZ;this.secondClock=25;
+      this.resetFighters();this.message='Připrav se';this.emit('ready');
+      if(mode===4||mode===5)this.startBonus(mode===4?'tiles':'dodge');
+    }
+    bonusCommand(id){return Original.controls(this.players[id],this.players[id^1],this.inputs?.[id]||neutral());}
+    bonusMotion(id,command,falling=false){
+      const p=this.players[id],before=p.frame;Original.motion(p,command,true,this.randomByte,falling);
+      // $39AE runs here only during a knockdown, not ordinary bonus movements.
+      if(falling&&p.frame!==before)this.emit('pose',{player:id,frame:p.frame,flags:p.flags,falling:true});
+    }
+    startBonus(kind=this.cycle===4?'tiles':'dodge'){
+      this.bonus={kind,player:0,age:0,df:0,broken:0,target:0,points:0,prompt:null,weapon:null};
+      this.bonusProgram=this.bonusSequence(kind);this.resumeBonus();
+    }
+    *bonusSequence(kind){
+      for(let id=0;id<2;id++)if(this.isHuman(id)){
+        if(kind==='tiles')yield* this.tileTrial(id);else yield* this.weaponTrial(id);
+      }
+      this.phase='bonus-result';yield 40;
+      this.bonusProgram=null;this.bonus=null;
+      // $303C: finish both players, advance the stage, then invoke $4389.
+      this.prepareRound();this.scene=(this.scene+1)%7;this.emit('scene',{scene:this.scene});
+    }
+    resumeBonus(){
+      for(let guard=0;guard<100;guard++){
+        const result=this.bonusProgram.next();if(result.done)return;
+        const request=result.value;
+        if(typeof request==='number'){if(!request)continue;this.bonusWait=request;this.bonusSync=0;return;}
+        const period=request.hit?HIT_POSE_TICKS:POSE_TICKS;
+        if(this.poseClock>=period){this.poseClock=0;this.priority^=1;continue;}
+        this.bonusWait=period-this.poseClock;this.bonusSync=period;return;
+      }
+      throw new Error('Invalid bonus transition');
+    }
+    *tileTrial(id){ // $3059-$31A7, including quiet-input calibration before GO.
+      const b=this.bonus,p=this.players[id];b.player=id;b.broken=0;b.target=0;b.points=0;b.prompt=null;b.weapon=null;
+      p.origin=84;p.facing=1;p.frame=52;p.action=0;p.inputFlipped=0;
+      this.phase='bonus-ready';this.message='Bonus · rozbíjení dlaždic';yield {sync:true};yield 100;
+      yield 25;b.prompt='WAIT';yield 100;yield {sync:true};yield ((this.randomByte()&63)|15);
+      b.df=0;this.frameByte=0;b.clockWraps=0;let previous=this.bonusCommand(id);
+      for(;;){
+        const command=this.bonusCommand(id);
+        if(command===previous){if(b.df>=13){b.df=0;break;}}
+        else {previous=command;b.df=0;if(b.clockWraps){b.df=25;break;}}
+        yield 1;
+      }
+      b.prompt='GO';this.phase='bonus';
+      while(this.bonusCommand(id)===previous&&b.df<100)yield 1;
+      if(this.bonusCommand(id)===previous){
+        b.prompt='SLOW';this.phase='bonus-result';this.message='Pozdě';yield 100;
+      }else{
+        b.reaction=b.df;b.target=Bonus.tileCount(b.df);p.frame=53;
+        do{
+          yield {sync:true};b.broken++;this.emit('break',{player:id,count:b.broken});yield b.broken;
+        }while(b.broken<b.target);
+        p.frame=52;yield {sync:true};yield 50;
+        b.points=Bonus.tileScore(b.target);this.score[id]+=b.points;this.belt=this.computeBelt();
+        b.prompt='SCORE';this.phase='bonus-result';this.message=`${b.broken} z 10 dlaždic`;yield 100;
+      }
+      b.prompt=null;
+    }
+    *weaponTrial(id){ // $2F3E-$3047; VBI movement is separate from the five-frame actor loop.
+      const b=this.bonus,p=this.players[id];b.player=id;b.df=0;b.age=0;b.points=0;b.prompt='WAIT';
+      b.weapon=Bonus.weaponState(id,this.weaponDifficulty);p.origin=84;p.facing=id?-1:1;p.frame=0;p.frozen=0;
+      Original.select(p,0,this.randomByte,true);this.poseClock=16;this.phase='bonus-ready';this.message='Bonus · vyhýbej se zbraním';
+      do{yield {sync:true};this.bonusMotion(id,this.bonusCommand(id));}while(b.df<80);
+      b.prompt=null;
+      do{this.bonusMotion(id,this.bonusCommand(id));yield {sync:true};}while(b.df<200);
+      b.weapon.enabled=1;this.phase='bonus';
+      do{this.bonusMotion(id,this.bonusCommand(id));yield {sync:true};}while(!b.weapon.failed&&b.weapon.remaining);
+      this.phase='bonus-result';
+      if(b.weapon.failed){
+        b.df=id;b.prompt=null;const fall=(b.weapon.dir^(p.facing===-1?1:0))?18:17;
+        Original.select(p,fall,this.randomByte,true);
+        do{this.bonusMotion(id,0,true);yield {sync:true,hit:true};}while(b.df<128);
+      }else{
+        b.weapon.enabled=0;b.df=0;b.points=2000;this.score[id]+=2000;this.belt=this.computeBelt();b.prompt='SCORE';
+        do{this.bonusMotion(id,0);yield {sync:true};}while(b.df<128);
+      }
+      b.weapon.enabled=0;b.prompt=null;
+    }
+    tickBonus(){
+      const b=this.bonus;b.age++;b.df=(b.df+1)&255;if(this.frameByte===0)b.clockWraps=(b.clockWraps||0)+1;
+      if(b.weapon){Bonus.latchCollision(b.weapon,Bonus.weaponContact(b.weapon,this.players[b.player]));Bonus.weaponFrame(b.weapon,this.frameByte,this.randomByte);}
+      if(--this.bonusWait<=0){if(this.bonusSync){this.poseClock=0;this.priority^=1;}this.resumeBonus();}
+    }
+    tick(inputs=[neutral(),neutral()]){
+      this.totalTicks++;this.frameByte=(this.frameByte+1)&255;this.poseClock=(this.poseClock+1)&255;this.inputs=inputs;
+      if(this.phase==='gameover')return;
+      if(this.displayTimer>0)this.displayTimer--;
+      if(this.resultProgram){if(--this.resultWait<=0){if(this.resultSync){this.poseClock=0;this.priority^=1;}this.resumeResult();}return;}
+      if(this.bonusProgram){this.tickBonus();return;}
+      if(this.phase==='ready'||this.phase==='fight'){
+        if(this.phase==='fight'&&--this.secondClock<=0){this.time=Math.max(0,this.time-HZ);this.secondClock=HZ;}
+        if(++this.stepClock>=POSE_TICKS){this.stepClock=0;this.poseClock=0;this.combatStep(inputs);}
+        if(this.phase==='ready'){
+          this.phaseTicks=Math.max(0,this.phaseTicks-1);
+          if(this.players.every(p=>p.action!==28)){this.phase='fight';this.message='Hrajeme!';this.emit('fight');}
         }
+        if(this.phase==='fight'&&this.time<=0)this.endRound(this.timeoutWinner());
         return;
       }
-      if (this.phase==='round') {
-        for(const p of this.players) if(p.action)this.updatePlayer(p,neutral());
-        if(--this.phaseTicks<=0)this.nextRound(); return;
-      }
-      if (this.phase==='bonus-ready') {
-        if(--this.phaseTicks<=0) {this.phase='bonus';this.message=this.bonus.kind==='tiles'?'Čekej na GO':'Uhýbej!';}
+      if(this.phase==='point'){
+        this.phaseTicks--;
+        if(++this.stepClock>=HIT_POSE_TICKS){this.stepClock=0;this.poseClock=0;this.combatStep([neutral(),neutral()],true);}
+        if(150-this.phaseTicks>=50)this.awardPoint();
+        if(this.phaseTicks<=0){if(this.pendingRound)this.endRound(this.lastWinner);else this.resetFighters();}
         return;
       }
-      if (this.phase==='bonus-result') {
-        if(--this.phaseTicks<=0)this.prepareRound(); return;
-      }
-      if (this.phase==='bonus') {this.updateBonus(inputs[0]||neutral());return;}
-      this.time--;
-      const cpu=this.mode==='solo'?this.cpuInput():inputs[1]||neutral();
-      this.updatePlayer(this.players[0],inputs[0]||neutral());
-      this.updatePlayer(this.players[1],cpu);
-      this.separatePlayers(); this.resolveCombat();
-      if(this.phase==='fight'&&this.time<=0)this.endRound(this.points[0]===this.points[1]?null:this.points[0]>this.points[1]?0:1);
+
+
     }
   }
   root.KarateEngine={Game:KarateGame,MOVES,BELTS,HZ,POSE_TICKS,HIT_POSE_TICKS,inputAction,neutral};

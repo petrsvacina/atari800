@@ -274,7 +274,20 @@
       "Japonsko": "Japan",
       "Atény": "Athens",
       "Hora Fudži": "Mount Fuji",
-      "1 bodu": "1 point"
+      "1 bodu": "1 point",
+      "Dva hráči · přetahování o vítězství": "Two players · tug of war",
+      "Síla počítače roste podle původního Atari programu.": "Computer strength increases as in the original Atari program.",
+      "Tabulka platí pro postavu otočenou doprava. Po otočce uvolni směr. Ústup a blokování se řídí vzdáleností a pohybem soupeře. Předčasná změna směru může rozpracovaný útok vrátit zpět.": "The guide shows a fighter facing right. Release the direction after turning. Retreat and blocking depend on distance and the opponent’s move. Changing direction early can reverse an attack in progress.",
+      "V turnaji prohra znamená konec. Mezi souboji přijdou bonusy: rozbíjení dlaždic a úhyby zbraním. Získané skóre ti přináší vyšší pásek.": "One loss ends the tournament. Tile breaking and weapon dodging appear between bouts. Higher scores earn higher belts.",
+      "Ve dvou hráčích máš 60 sekund. Každý zásah posune ukazatel; dotažení k okraji ukončí souboj. Vítěz série pak pokračuje proti počítači.": "Two-player bouts last 60 seconds. Each hit moves the marker; reaching an edge ends the bout. The series winner then continues against the computer.",
+      "Přetahování o vítězství": "Tug of war",
+      "BÍLÝ · POČÍTAČ": "WHITE · COMPUTER",
+      "Nativní přepis původních rutin pohybu, ovládání, AI a zásahů. Shodu celé hry 1:1 zatím nepotvrzujeme; bonusové disciplíny a část průběhu turnaje ještě vyžadují ověření.": "Native translation of the original movement, input, AI and contact routines. Full-game 1:1 fidelity is not yet confirmed; bonus events and parts of the tournament flow still need verification.",
+      "Dva karatisté. Minuta na vítězství.": "Two fighters. One minute to win.",
+      "Počkej na GO a změň směr joysticku, například dolů.": "Wait for GO, then change joystick direction, for example down.",
+      "Uhýbej zbraním původními pohyby joysticku.": "Dodge weapons using the original joystick moves.",
+      "Dlaždice: počkej na GO a pohni joystickem. Za všech deset je 2 000 bodů. Zbraním uhýbej běžnými pohyby; čisté dokončení přidá 2 000 bodů.": "Tiles: wait for GO and move the joystick. Breaking all ten earns 2,000 points. Dodge weapons with the usual moves; completing the trial without a hit earns 2,000 points.",
+      "Nativní přepis původních rutin soubojů, bonusů a turnaje. Ověřeno proti Atari programu; úplná snímková shoda celé hry zatím není potvrzena.": "Native translation of the original combat, bonus and tournament routines. Checked against the Atari program; full-game frame-by-frame fidelity is not yet confirmed."
     },
     "river-raid": {
       "River Raid z Atari XL/XE jako samostatná HTML5 hra. Původní řeka, letadla a zvuky. Proleť, doplň palivo, prostřel most.": "River Raid for Atari XL/XE as a standalone HTML5 game. The original river, aircraft and sounds. Fly, refuel and blast through the bridge.",
