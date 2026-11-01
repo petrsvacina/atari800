@@ -54,7 +54,7 @@ def install(source, target, release):
         if temp.exists(): temp.unlink()
 
 
-def verify_https(stage, backup):
+def verify_https(stage, backup, game_id='neverending-story'):
     count = 0
     headers = backup / 'http-headers.txt'
 
@@ -80,11 +80,11 @@ def verify_https(stage, backup):
     routes = [('/', stage / 'index.html'), ('/en/', stage / 'en/index.html')]
     routes += [('/hry/' + p.name + '/', p / 'index.html') for p in sorted((stage / 'hry').iterdir()) if p.is_dir()]
     for route, file in routes: request(route, file)
-    request('/hry/neverending-story/?lang=en', stage / 'hry/neverending-story/index.html')
-    game = stage / 'hry/neverending-story/index.html'
+    request(f'/hry/{game_id}/?lang=en', stage / f'hry/{game_id}/index.html')
+    game = stage / f'hry/{game_id}/index.html'
     for link in re.findall(r'(?:src|href)="([^"]+)"', game.read_text()):
         if '?v=' in link:
-            url = urlsplit(urljoin(BASE + '/hry/neverending-story/', link))
+            url = urlsplit(urljoin(BASE + f'/hry/{game_id}/', link))
             request(url.path + '?' + url.query, stage / url.path.lstrip('/'))
     media = [p for p in sorted(stage.rglob('*')) if p.suffix in ('.mp3', '.mp4', '.pdf')]
     for file in media: request('/' + quote(file.relative_to(stage).as_posix()), file, partial=True)
@@ -104,6 +104,10 @@ def main():
     if kind == 'loading-art':
         assert set(d['changed']) == {'hry/neverending-story/' + f for f in ('index.html', 'game.js', 'style.css')}
         assert set(d['added']) == {'hry/neverending-story/assets/loading.png'}
+    elif kind == 'shift-release':
+        assert set(d['changed']) == {'index.html', 'en/index.html'}
+        assert set(d['added']) == {'assets/shift.png', 'assets/shift-logo.png',
+                                  *['hry/shift/' + f for f in ('index.html', 'game.js', 'style.css', 'assets/audio.js', 'assets/data.js')]}
     else:
         assert kind == 'game-release'
         assert set(d['changed']) == {'index.html', 'en/index.html'}
@@ -136,12 +140,13 @@ def main():
     record = backup / 'release.json'; record.write_text(json.dumps(d, indent=2) + '\n')
     exact(SITE, d['old'])
     affected = set(d['added']) | set(d['changed'])
-    tail = ['hry/neverending-story/index.html', 'en/index.html', 'index.html']
+    game_id = 'shift' if kind == 'shift-release' else 'neverending-story'
+    tail = [f'hry/{game_id}/index.html', 'en/index.html', 'index.html']
     order = sorted(affected - set(tail)) + [name for name in tail if name in affected]
     try:
         for name in order: install(stage / name, SITE / name, d['release'])
         exact(SITE, d['files'])
-        d.update(verify_https(stage, backup))
+        d.update(verify_https(stage, backup, game_id))
         d.update(status='published', liveHashesVerified=True, previousFilesUnchanged=len(d['old']) - len(d['changed']))
         record.write_text(json.dumps(d, indent=2) + '\n')
     except BaseException as error:

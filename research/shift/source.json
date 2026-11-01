@@ -1,0 +1,14 @@
+{
+  "file": "shift.xex",
+  "sha256": "1e0f317e36ca10190dd8f4d328bb85a3c968f4dbae0ced1d91bd52f540fdb9e8",
+  "bytes": 28635,
+  "levels": 36,
+  "secretLevels": 1,
+  "run": "$3C00",
+  "rules": "$3C00-$4F60",
+  "levelPointers": "$7E80/$7EA6",
+  "flags": "$7F30-$802F",
+  "sprites": "$8052-$8301",
+  "music": "$0403 init / $0406 tick, copied from $8E00; CMC module $8400",
+  "referenceOnly": "py65 and Atari800 run offline; web uses native JavaScript."
+}

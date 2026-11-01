@@ -1,0 +1,56 @@
+{
+  "verifiedAt": "2026-11-01T23:16:09.737334+00:00",
+  "sourceSha256": "1e0f317e36ca10190dd8f4d328bb85a3c968f4dbae0ced1d91bd52f540fdb9e8",
+  "core": {
+    "cases": 299,
+    "states": 63479,
+    "rooms": 37,
+    "result": "all matched",
+    "oracle": "offline py65, logical original frame boundaries; raster polling and sound busy waits shortened"
+  },
+  "raster": {
+    "frames": 74,
+    "pixels": 5683200,
+    "result": "all matched against real Atari800 ANTIC/GTIA scanout"
+  },
+  "browser": {
+    "name": "Microsoft Edge headless, isolated desktop and mobile contexts",
+    "errors": 0,
+    "passed": [
+      "original title",
+      "code validation and level start",
+      "move and jump",
+      "world inversion",
+      "pause/resume and frozen state",
+      "all 7 audio files decoded",
+      "music/effects mode",
+      "mute",
+      "English UI",
+      "two simultaneous real touch contacts",
+      "mobile overflow",
+      "ending replay and return controls with injected UI state"
+    ]
+  },
+  "limits": [
+    "Full game walkthrough not completed",
+    "Exact physical raster timing in effects mode not established",
+    "Death/exit colors use Default palette",
+    "Native Safari/iOS and physical gamepad not tested",
+    "Subject number uses original table but title-loop CPU timing is not synchronized"
+  ],
+  "hashes": {
+    "shift/game.js": "9dcfb4305584eaef422ec12aba70ebd5d9c085b21c13f1e8123ca5a1fa40462d",
+    "shift/assets/data.js": "8d0350138af728cc09b5112b95a62e85894b79a0a2a3b7f855c2e648b74ff726",
+    "shift/assets/audio.js": "eb844fbcdb8b2fb9335fdfe399f4137a86ad159158fd5a4e4104b903415cfa59",
+    "research/shift/oracle.json.gz": "fd33be0c122279421f1d8390e9cdd4a67d6cd71d9c701a1852492716f79d24f2",
+    "research/shift/raster-oracle.json.gz": "4e87f6e5c9937ef8ffeb162b739560dcb08a42d8a0d1e5d700af4e98284cf0bb",
+    "shift/style.css": "16ee8eb6e2d56b9ed986d22e324de2069a9d241c27c1f3c985272d9d7dd3c06d"
+  },
+  "fullscreen": {
+    "engine": "Microsoft Edge headless",
+    "viewports": 4,
+    "canvasFillsAvailableArea": true,
+    "aspectRatioPreserved": true,
+    "catalogsAndEnglishBackLinkVerified": true
+  }
+}

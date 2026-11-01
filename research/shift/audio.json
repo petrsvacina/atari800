@@ -1,0 +1,54 @@
+{
+  "sourceSha256": "1e0f317e36ca10190dd8f4d328bb85a3c968f4dbae0ced1d91bd52f540fdb9e8",
+  "player": "Original CMC at $0403/$0406; data $8400, not an emulated browser runtime",
+  "loop": {
+    "firstFullState": 16641,
+    "repeatedFullState": 33281,
+    "frames": 16640
+  },
+  "effects": {
+    "step": "$4B24",
+    "switch": "$4B3D",
+    "gate": "$4B56",
+    "death": "$4B6F",
+    "key": "$4B88",
+    "shift": "$4BA1"
+  },
+  "recordings": {
+    "music": {
+      "duration": 667.4587528344671,
+      "wavSha256": "32cc4e29c8d64193edc92fb7af76db96cf7f78ec493de659057b2a99f258f823",
+      "mp3Sha256": "136d93b5733946671dc9182d795abc226369bd5f14d410e22cb4f3a41ad5194d"
+    },
+    "step": {
+      "duration": 0.10029478458049887,
+      "wavSha256": "734a5a0cacefa814e6af677db189424deea9e277f1a1c8ae6a21bddd58390f2e",
+      "mp3Sha256": "d28669d6d3b96f1abfdd6032972e542e03385a709c8f05d4d5449d28bf690b3c"
+    },
+    "switch": {
+      "duration": 0.12034013605442177,
+      "wavSha256": "943b29253126abca1b06e4392b430719f7f7f162eb8a2314e0a991eeb6883d2b",
+      "mp3Sha256": "a9cc7896ad38f6b6cc77eda1466d8ad739d174dc1f48d29aff69798b366cc55e"
+    },
+    "gate": {
+      "duration": 0.10027210884353742,
+      "wavSha256": "cc0a4f9ace6eb189387f2bb8100c08e44010017c12a2550ed5a7e285d2957c87",
+      "mp3Sha256": "2404e2e7ac8c132acff6b72bf9265dbbace65f22b25c96fbd75907db7fbc83a3"
+    },
+    "death": {
+      "duration": 0.10027210884353742,
+      "wavSha256": "8173d4c0e5c116105849a31f6f341925f12bf2a1eba640a258066f25bf2b06e8",
+      "mp3Sha256": "30eb4b01bcc1e0f2e1291063ce97f5eba8436a4f8b6a3554ea77157b10614c65"
+    },
+    "key": {
+      "duration": 0.10027210884353742,
+      "wavSha256": "0326016ab5d3f39325c2784663b9656021ad0961cedc4d4457eeb7ba101561cf",
+      "mp3Sha256": "287b533f3a9ccf664e4678e61eb8145658ee019110e9c3ea3023ebde260b52de"
+    },
+    "shift": {
+      "duration": 0.12034013605442177,
+      "wavSha256": "c25a1eb3a5111f6794fa3551167df08afb8f8d914162d0b52e3ea3c958527ed4",
+      "mp3Sha256": "8ce56a4c0cc5cbd22a5c447a162ee8b4b71531fea29be7befad8092e796fc9e7"
+    }
+  }
+}

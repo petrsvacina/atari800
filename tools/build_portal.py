@@ -143,7 +143,7 @@ def build():
                 page = page.replace('id="back" href="../"', 'id="back" href="../../"', 1)
                 if game.get("manual"):
                     page = page.replace('href="assets/manual-cs.pdf"', 'href="../../' + game["manual"] + '"')
-                for filename in ("style.css", "game.js", "assets/data.js", "assets/audio.js", "assets/loading.png"):
+                for filename in game.get("versionedAssets", ("style.css", "game.js", "assets/data.js", "assets/audio.js", "assets/loading.png")):
                     digest = hashlib.sha256((dest / filename).read_bytes()).hexdigest()[:12]
                     page = page.replace('"' + filename + '"', '"' + filename + '?v=' + digest + '"')
                 (dest / "index.html").write_text(page)

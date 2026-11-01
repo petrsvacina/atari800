@@ -1,0 +1,19 @@
+{
+  "source": "supplied preview video, colors only",
+  "video": "SHIFT =+ WALKTHROUGH - NEW PREVIEW GAME 2024 [Z9j6nIUS0hY].mkv",
+  "videoSha256": "aab6525efe0b505151ddf44165a159be5e216ff78b9ce6d2d26818196b2c64e3",
+  "timeSeconds": 30,
+  "observed": {
+    "0": [
+      0,
+      0,
+      0
+    ],
+    "14": [
+      238,
+      238,
+      238
+    ]
+  },
+  "otherColors": "Atari800 Default palette; death/exit colors not calibrated from this preview"
+}

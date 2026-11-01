@@ -146,5 +146,24 @@
     "navigation": "embedded",
     "manual": "manuals/neverending-story-cs.pdf",
     "exclude": ["README.md", "*.mjs", "manual-cs.pdf"]
+  },
+  {
+    "id": "shift",
+    "title": "Shift",
+    "description": "Černá se změní v bílou a podlaha ve strop. Převracej svět, hledej klíče a otevři cestu ke dveřím v původních 36 úrovních.",
+    "genre": "Logická · plošinovka",
+    "players": "1 hráč",
+    "multiplayer": false,
+    "year": "2024",
+    "author": "Haplo",
+    "controls": "Klávesnice · gamepad · dotyk",
+    "image": "assets/shift.png",
+    "logo": "assets/shift-logo.png",
+    "source": "shift",
+    "featured": false,
+    "i18n": "embedded",
+    "navigation": "embedded",
+    "versionedAssets": ["style.css", "game.js", "assets/data.js", "assets/audio.js"],
+    "exclude": ["README.md", "*.mjs"]
   }
 ]
