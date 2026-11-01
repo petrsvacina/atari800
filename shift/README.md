@@ -1,8 +1,13 @@
 # Shift — nativní webová verze
 
-Otevři `shift/index.html`, nebo přes místní HTTP server
-<http://127.0.0.1:8010/shift/>. Anglické rozhraní: `?lang=en`.
-Hra zatím není přidaná do katalogu ani nasazená na veřejný web.
+Veřejná hra: <https://atari800.gmork.cz/hry/shift/>, anglicky s `?lang=en`.
+Vydání `20261101T232915Z` je desátou hrou českého i anglického portálu.
+Lokálně otevři `shift/index.html`, nebo <http://127.0.0.1:8010/shift/>.
+
+Fullscreen využívá zbývající plochu pod horní lištou a nad ovládáním;
+obraz zachovává poměr stran 4:3. Dřívější `width:auto` ponechával canvas
+na jeho základní šířce 320 px. Oprava je ověřená přímo přes HTTPS v Edge
+na rozměrech 1280×1000, 1996×1236, 390×844 a 844×390 včetně návratu z fullscreenu.
 
 Převod vychází z dodaného `shift.xex`, SHA-256
 `1e0f317e36ca10190dd8f4d328bb85a3c968f4dbae0ced1d91bd52f540fdb9e8`.

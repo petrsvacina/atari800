@@ -1,6 +1,36 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — původní načítací obrázek NeverEnding Story
+## Aktuální veřejné vydání — Shift a oprava fullscreenu
+
+- Vydání `20261101T232915Z`, nasazené a ověřené přes HTTPS:
+  <https://atari800.gmork.cz/hry/shift/>, anglicky s `?lang=en`.
+- Zdrojový commit `95c172b0d95669a30a551e6665a70d3220d1929b` je na `origin/main`.
+- Desátá hra českého i anglického katalogu. Nativní JavaScript obsahuje
+  původních 36 úrovní a tajnou místnost, kódy, grafiku, animace, CMC hudbu,
+  POKEY efekty a virtuální joystick. Vývojové CPU se na webu nespouští.
+- Fullscreen nyní roztahuje canvas do dostupné plochy s `object-fit: contain`;
+  původní `width:auto` jej nechával na základní šířce 320 px. Zachovaný je
+  poměr stran, ovládací lišty, mobilní joystick i návrat z fullscreenu.
+- Archiv `/private/tmp/shift-release-20261101T232915Z/atari800-20261101T232915Z.tar.gz`,
+  32 994 059 B, SHA-256 `43d1bd2166e53c0d6fd7d841248bfc253e984572942f5849b38339396b7aa18b`.
+- Úplná ověřená záloha: `/root/atari800-backups/20261101T232915Z/site-before.tar.gz`;
+  publikační záznam `release.json` ve stejném adresáři. Lokální kopie v
+  `research/shift/release-20261101T232915Z.json`.
+- 209 veřejných souborů: sedm nových, změněny jen oba katalogy. Zbývajících
+  **200 souborů je bytově shodných**, včetně všech ostatních her a médií.
+  Prostředky se publikovaly před herním HTML a katalogy, s automatickým rollbackem.
+- HTTPS porovnalo všech 209 hashů a MIME typy, 12 cest portálu/her, anglickou
+  adresu Shiftu, jeho verzované prostředky a 14 Range požadavků na média/PDF.
+- Prošlo sedm kontrol sestavení portálu. Oddělený headless Microsoft Edge
+  ověřil skutečný fullscreen na místním i veřejném webu ve čtyřech rozměrech
+  monitoru a mobilu, ukončení fullscreenu, oba katalogy a anglický návrat do herny;
+  bez chyb JavaScriptu. Veřejný výsledek je v `research/shift/fullscreen-live-edge.json`.
+- Dosavadní herní ověření: 63 479 shodných původních stavů a 5 683 200 pixelů
+  ze 74 skutečných snímků Atari800. Nejde o důkaz všech dosažitelných stavů:
+  celý průchod hrou, přesné fyzické časování režimu efektů a reálné Safari/iOS
+  zůstávají neověřené, viz `shift/README.md` a `research/shift/README.md`.
+
+## Předchozí veřejné vydání — původní načítací obrázek NeverEnding Story
 
 - Vydání `20261101T202211Z`, nasazené na
   <https://atari800.gmork.cz/hry/neverending-story/>.

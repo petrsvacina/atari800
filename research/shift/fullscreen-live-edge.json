@@ -1,0 +1,122 @@
+{
+  "engine": "edge",
+  "version": "156.0.4314.58",
+  "url": "https://atari800.gmork.cz/",
+  "fullscreen": [
+    {
+      "name": "desktop",
+      "dimensions": {
+        "viewport": {
+          "width": 1280,
+          "height": 1000
+        },
+        "arcade": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 1000
+        },
+        "screen": {
+          "x": 0,
+          "y": 45,
+          "width": 1280,
+          "height": 901
+        },
+        "canvas": {
+          "x": 0,
+          "y": 45,
+          "width": 1280,
+          "height": 901
+        },
+        "fit": "contain"
+      }
+    },
+    {
+      "name": "wide",
+      "dimensions": {
+        "viewport": {
+          "width": 1996,
+          "height": 1236
+        },
+        "arcade": {
+          "x": 0,
+          "y": 0,
+          "width": 1996,
+          "height": 1236
+        },
+        "screen": {
+          "x": 0,
+          "y": 45,
+          "width": 1996,
+          "height": 1137
+        },
+        "canvas": {
+          "x": 0,
+          "y": 45,
+          "width": 1996,
+          "height": 1137
+        },
+        "fit": "contain"
+      }
+    },
+    {
+      "name": "portrait",
+      "dimensions": {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "arcade": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        },
+        "screen": {
+          "x": 0,
+          "y": 34,
+          "width": 390,
+          "height": 527
+        },
+        "canvas": {
+          "x": 0,
+          "y": 34,
+          "width": 390,
+          "height": 527
+        },
+        "fit": "contain"
+      }
+    },
+    {
+      "name": "landscape",
+      "dimensions": {
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "arcade": {
+          "x": 0,
+          "y": 0,
+          "width": 844,
+          "height": 390
+        },
+        "screen": {
+          "x": 0,
+          "y": 29,
+          "width": 844,
+          "height": 161
+        },
+        "canvas": {
+          "x": 0,
+          "y": 29,
+          "width": 844,
+          "height": 161
+        },
+        "fit": "contain"
+      }
+    }
+  ],
+  "errors": [],
+  "englishBackLinkVerified": true,
+  "bothCatalogsVerified": true
+}

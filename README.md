@@ -14,9 +14,11 @@ H.E.R.O. je nativní HTML5 hra v `hero/`. Adresa v herně je **https://atari800.
 
 Boulder Dash je nativní HTML5 hra v `boulder-dash/`. Cesta v herně je **https://atari800.gmork.cz/hry/boulder-dash/**; ověřený stav vydání a jeho limity uvádí `DEPLOYMENT.md`.
 
+Shift je nativní HTML5 hra v `shift/`, veřejně na **https://atari800.gmork.cz/hry/shift/**. Obsahuje 36 původních úrovní a tajnou místnost, grafiku, CMC hudbu, POKEY efekty, CZ/EN rozhraní a mobilní joystick. Ověřený rozsah shody i zbývající limity jsou v `shift/README.md`; aktuální nasazení a opravu fullscreenu zaznamenává `DEPLOYMENT.md`.
+
 ## Obsah repozitáře
 
-`portal/` obsahuje katalog, `web/` samostatné Dynakillers, `karate/` International Karate, `archon/` Archon, `goonies-web/` The Goonies, `river-raid/` River Raid `hero/` H.E.R.O. a `boulder-dash/` Boulder Dash, včetně všech grafických a zvukových prostředků potřebných pro hraní. `tools/` obsahuje sestavení, extrakční nástroje a testy; `research/` dokumentuje rozbor a ukládá podklady potřebné pro opakování grafických exportů. Původní místní adresář `Goonies/` se do Gitu ani veřejného webu nekopíruje.
+`portal/` obsahuje katalog, `web/` samostatné Dynakillers, `karate/` International Karate, `archon/` Archon, `goonies-web/` The Goonies, `river-raid/` River Raid, `hero/` H.E.R.O., `boulder-dash/` Boulder Dash, `karateka/` Karateku, `neverending-story/` The NeverEnding Story a `shift/` Shift, včetně grafických a zvukových prostředků potřebných pro hraní. `tools/` obsahuje sestavení, extrakční nástroje a testy; `research/` dokumentuje rozbor a ukládá podklady potřebné pro opakování grafických exportů. Původní místní adresář `Goonies/` se do Gitu ani veřejného webu nekopíruje.
 
 Původní Atari soubory, referenční video, místní assemblerové podklady, SAP/WAV a pracovní binární výstupy se do Gitu nepřidávají. Pro hraní a sestavení portálu nejsou potřeba; vyžadují je jen některé vývojové extrakční nástroje. Vygenerovaný `dist/` je také ignorovaný. Po naklonování stačí `python3 tools/build_portal.py` a otevření `dist/index.html`, případně publikování obsahu `dist/`. Python používá jen standardní knihovnu; samotné hry pro hraní nepotřebují Python ani Node.js.
 
@@ -24,7 +26,7 @@ Původní Atari soubory, referenční video, místní assemblerové podklady, SA
 
 Zdroj úvodní stránky je v `portal/`. Katalog se spravuje v `portal/games.json`: každá skutečně dostupná hra má unikátní `id`, název, popis, obrázek/logo, počet hráčů a adresář se spustitelnou webovou verzí v položce `source`. Právě jedna hra má `featured: true` a zobrazí se v hlavní nabídce. Nevydané hry se mezi hratelné nezařazují.
 
-Český portál je na `/`, anglický na `/en/`; přepínají se odkazy CZ/EN v hlavičce. Obě stránky vznikají ze stejné HTML šablony. Texty portálu jsou v `portal/locales/cs.json` a `portal/locales/en.json`; anglický soubor obsahuje také překlady popisů, žánrů, počtu hráčů a ovládání všech her. Přidání hry vyžaduje doplnění anglického překladu, jinak sestavení skončí s chybou. Anglické odkazy na hry nesou `?lang=en`, který volí také anglické rozhraní všech sedmi her a návrat do anglického katalogu.
+Český portál je na `/`, anglický na `/en/`; přepínají se odkazy CZ/EN v hlavičce. Obě stránky vznikají ze stejné HTML šablony. Texty portálu jsou v `portal/locales/cs.json` a `portal/locales/en.json`; anglický soubor obsahuje také překlady popisů, žánrů, počtu hráčů a ovládání všech her. Přidání hry vyžaduje doplnění anglického překladu, jinak sestavení skončí s chybou. Anglické odkazy na hry nesou `?lang=en`, který volí také anglické rozhraní hry a návrat do anglického katalogu. Karateka, NeverEnding Story a Shift mají lokalizaci vestavěnou přímo ve své webové obálce.
 
 Překlady herních nabídek, ovládání, průběžných hlášek, výsledků, názvů, tooltipů a nápovědy se spravují v `localization/games.en.json`. Společná prezentační vrstva je v `localization/game-i18n.js`; herní pravidla, původní tabulky, obrazové a zvukové prostředky se nepřekládají ani neupravují. Každá hra má vlastní generovaný `i18n.js`, aby fungovala samostatně a offline; angličtinu vybere i při místním otevření s `?lang=en`. Bez parametru zůstává česká verze. Jazyk se zachová při kliknutí na herní logo a v názvech/pokynech se mění až zobrazený text, nikoli stav původního enginu.
 

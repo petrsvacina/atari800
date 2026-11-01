@@ -52,5 +52,14 @@
     "canvasFillsAvailableArea": true,
     "aspectRatioPreserved": true,
     "catalogsAndEnglishBackLinkVerified": true
+  },
+  "deployment": {
+    "release": "20261101T232915Z",
+    "url": "https://atari800.gmork.cz/hry/shift/",
+    "sourceCommit": "95c172b0d95669a30a551e6665a70d3220d1929b",
+    "liveHashesVerified": true,
+    "publicFiles": 209,
+    "unchanged": 200,
+    "fullscreenLiveVerified": true
   }
 }
