@@ -1,6 +1,67 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — International Karate podle původních rutin
+## Aktuální veřejné vydání — původní načítací obrázek NeverEnding Story
+
+- Vydání `20261101T202211Z`, nasazené na
+  <https://atari800.gmork.cz/hry/neverending-story/>.
+- Úvod zobrazuje celý původní Atari načítací obrázek z obou dodaných ATR,
+  se symbolem Aurynu, titulky a logem Datasoft. Barvy jsou kalibrované podle
+  dodaného snímku; tlačítko spuštění je pod obrázkem. Herní canvas a pravidla
+  se nemění. Po spuštění se obrázek skryje i z přístupnostního stromu.
+- Archiv `/private/tmp/neverstory-loading-release/atari800-20261101T202211Z.tar.gz`,
+  27 669 939 B, SHA-256 `f15322ffeb5772f1083f27fa0efcd2b4b5116a0e1c1fa9a5a78dbf60f0e473ee`.
+- Úplná ověřená záloha: `/root/atari800-backups/20261101T202211Z/site-before.tar.gz`;
+  publikační manifest `release.json` ve stejném adresáři.
+- 202 veřejných souborů: přidán `assets/loading.png` do herní složky, upraveny
+  její HTML, CSS a sestavený `game.js`. Zbývajících **198 souborů je bytově
+  shodných**, včetně katalogů, médií a ostatních her.
+- Ověřeny hashe všech 202 souborů přes HTTPS, MIME typy, 11 herních/portálových
+  adres, anglická varianta, verzované prostředky a 14 Range požadavků.
+- Prošlo šest kontrol sestavení portálu a původní herní oracle testy.
+  V Edge ověřen obrázek na místní i veřejné stránce, kliknutí na „Začít příběh“,
+  skrytí obrázku, původní úvod s hudbou a zpřístupnění herních příkazů.
+  Metadata obrázku a původní hashe jsou v `research/neverending-story/loading-art.json`.
+
+## Předchozí veřejné vydání — The NeverEnding Story, CZ/EN
+
+- Vydání `20261101T200111Z`; hra je **nasazená a ověřená přes HTTPS**:
+  <https://atari800.gmork.cz/hry/neverending-story/>, anglicky s `?lang=en`.
+- Devátá hra v českém i anglickém katalogu. Přepínač CZ/EN mění i původní
+  herní texty a příkazy; sdílené uložené pozice a český PDF návod zůstávají dostupné.
+- Archiv `/private/tmp/neverstory-web-release/atari800-20261101T200111Z.tar.gz`,
+  27 665 909 B, SHA-256 `fd0ce16b349486c37c86fd17acbe16eecf9e51ae2c127f9bba2ca34a4c9f3d5f`.
+- Úplná ověřená záloha: `/root/atari800-backups/20261101T200111Z/site-before.tar.gz`;
+  kompletní publikační manifest v `release.json` ve stejném adresáři.
+- 201 veřejných souborů: sedm nových, změněny pouze oba katalogy. Zbývajících
+  **192 dosavadních souborů je bytově shodných**. Nové prostředky a herní HTML
+  byly publikované před odkazy v katalozích; publisher má automatický rollback.
+- HTTPS porovnalo všech 201 souborů, MIME typy, 11 adres portálu/her,
+  anglickou herní adresu, verzované prostředky a 14 Range požadavků na média/PDF.
+- V Edge na skutečné HTTPS adrese ověřeno spuštění, hudba, tah `ne`, přepnutí
+  rozehrané hry EN → CZ, přeložená navigace a správná adresa návodu. Český
+  katalog v prohlížeči zobrazil devět her a odkaz na NeverEnding Story.
+- Prošly původní oracle testy (1 029 rutin, 304 parserů, 72 obrázků, oba
+  přechody částí), 1 280 případů sfing, čekání a předání krystalu, jazykové
+  uložené pozice a šest kontrol sestavení portálu. Runtime je nativní JS.
+
+Publikovaná je dosavadní schválená verze; známé hranice shody včetně automatického
+WAIT a neověřeného celého průchodu zůstávají popsané v `neverending-story/README.md`
+a `research/neverending-story/README.md`. Vývojové `.mjs`, dokumentace, původní
+diskety, RAM capture ani testovací data nejsou součástí veřejné herní složky.
+
+## Samostatný PDF návod NeverEnding Story
+
+- Vydání `20261101T194708Z`; zveřejněn pouze původní český PDF návod:
+  <https://atari800.gmork.cz/manuals/neverending-story-cs.pdf>.
+- 7 793 941 B, SHA-256 `013bd719ce088c074a16553b529f4bdc80a4ab2d0bcf33369edfa04fe87674b9`.
+- Úplná ověřená záloha: `/root/atari800-backups/neverstory-manual-20261101T194708Z/site-before.tar.gz`;
+  publikační záznam `release.json` ve stejném adresáři.
+- Ověřen hash celého PDF přes HTTPS, MIME `application/pdf` i Range `206`.
+  Všech 193 dosavadních veřejných souborů zůstalo bytově shodných.
+- `portal/manuals.json` zajišťuje zahrnutí návodu do dalších sestavení portálu.
+  V tomto vydání ještě hra NeverEnding Story zůstávala lokální a mimo katalog.
+
+## Předchozí veřejné vydání — International Karate podle původních rutin
 
 - Vydání `20261031T223539Z`; **nasazené a ověřené přes HTTPS**.
 - Zdrojový commit `45069262ea685d47e88d17c7f7504725762646f6`, odeslaný na `origin/main`.

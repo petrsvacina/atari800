@@ -72,10 +72,11 @@ class PortalTests(unittest.TestCase):
             self.assertEqual(selected[0]["lang"], language)
 
     def test_runtime_strings_follow_the_page_language(self):
-        for language, expected in (("cs", "Zobrazeno: 1 z 7"), ("en", "Showing 1 of 7")):
+        total = len(self.games)
+        for language, expected in (("cs", f"Zobrazeno: 1 z {total}"), ("en", f"Showing 1 of {total}")):
             page = Page(portal.render_portal(self.games, language))
             messages = json.loads(page.messages)
-            self.assertEqual(messages["shown"].format(visible=1, total=7), expected)
+            self.assertEqual(messages["shown"].format(visible=1, total=total), expected)
             self.assertEqual(set(messages), set(portal.CLIENT_MESSAGES))
 
     def test_adding_a_game_requires_its_english_translation(self):
@@ -89,6 +90,22 @@ class PortalTests(unittest.TestCase):
             html = portal.render_portal(self.games, "en")
         self.assertNotIn("</script><img", html)
         self.assertEqual(json.loads(Page(html).messages)["play"], locale["play"])
+
+    def test_neverending_story_publishes_only_runtime_and_uses_shared_manual(self):
+        root = portal.ROOT / "dist" / "hry" / "neverending-story"
+        self.assertEqual({p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file()},
+                         {"index.html", "style.css", "game.js", "assets/data.js", "assets/audio.js", "assets/loading.png"})
+        page = Page((root / "index.html").read_text())
+        self.assertIn(("body", {"data-portal-home": "../../"}), page.elements)
+        back = next(attrs for tag, attrs in page.elements if attrs.get("id") == "back")
+        manual = next(attrs for tag, attrs in page.elements if attrs.get("id") == "manual")
+        base = "https://atari800.gmork.cz/hry/neverending-story/"
+        self.assertEqual(urljoin(base, back["href"]), "https://atari800.gmork.cz/")
+        self.assertEqual(urljoin(base, manual["href"]), "https://atari800.gmork.cz/manuals/neverending-story-cs.pdf")
+        for tag, attrs in page.elements:
+            resource = attrs.get("src") or (attrs.get("href") if tag == "link" else None)
+            if resource:
+                self.assertTrue((root / urlparse(resource).path).is_file(), resource)
 
 
 if __name__ == "__main__":

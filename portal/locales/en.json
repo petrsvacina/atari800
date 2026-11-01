@@ -1,5 +1,5 @@
 {
-  "meta_description": "Atari XL/XE lives on. Play Dynakillers, International Karate, Archon, The Goonies, River Raid, H.E.R.O., Boulder Dash and Karateka right in your browser.",
+  "meta_description": "Atari XL/XE lives on. Play Dynakillers, International Karate, Archon, The Goonies, River Raid, H.E.R.O., Boulder Dash, Karateka and The NeverEnding Story right in your browser.",
   "og_title": "ATARI800 — Eight bits. Still the same joy.",
   "og_description": "Atari XL/XE classics in a new web arcade. Pick a game and play.",
   "page_title": "ATARI800 — Atari XL/XE Web Arcade",
@@ -97,6 +97,12 @@
       "genre": "Fighting · adventure",
       "players": "1 player",
       "controls": "Keyboard · gamepad · touch"
+    },
+    "neverending-story": {
+      "description": "Join Atreyu on a quest to save Fantasia. Explore the world, collect items and find your way through the story in English or Czech.",
+      "genre": "Graphic · text adventure",
+      "players": "1 player",
+      "controls": "Keyboard · touch commands"
     }
   }
 }

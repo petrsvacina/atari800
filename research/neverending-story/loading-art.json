@@ -1,0 +1,50 @@
+{
+  "sources": {
+    "en": {
+      "source": "neverending_story.atr",
+      "sourceSha256": "ceae1484d4ba5475a5180eea746db79abffccd21117ce42e72f9386a15358acd",
+      "frameSha256": "77286641544dc5df5e54fa60e19de1bd4d650d4f63a3c4c7e9e0b5a6d165d694",
+      "indicesSha256": "3d10dc4537757113bf9498e86de29ce5cc820a7805e5302cacb6a67a82bcd9b9"
+    },
+    "cs": {
+      "source": "nekonecny_pribeh.atr",
+      "sourceSha256": "7133abc4f8e9b686beddcdacc73470a54bc3c5ffd30b08b14d549b9fe8b616e7",
+      "frameSha256": "77286641544dc5df5e54fa60e19de1bd4d650d4f63a3c4c7e9e0b5a6d165d694",
+      "indicesSha256": "3d10dc4537757113bf9498e86de29ce5cc820a7805e5302cacb6a67a82bcd9b9"
+    }
+  },
+  "capture": "Original $2000 loading-art routine, stopped at $8F40; real VBI/DLI scanout",
+  "crop": {
+    "x": 32,
+    "y": 0,
+    "width": 320,
+    "height": 240
+  },
+  "palette": {
+    "reference": "User-supplied loading-screen screenshot, 2026-11-01",
+    "colors": {
+      "154": [
+        85,
+        167,
+        218
+      ],
+      "224": [
+        26,
+        7,
+        0
+      ],
+      "38": [
+        159,
+        76,
+        0
+      ],
+      "254": [
+        224,
+        214,
+        98
+      ]
+    }
+  },
+  "output": "assets/loading.png",
+  "pngSha256": "026e2a710970f8072637956db4adac042106b7900b1de464b739693393d27653"
+}

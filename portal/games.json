@@ -127,5 +127,24 @@
       "cliff-preview.png",
       "background-data.js"
     ]
+  },
+  {
+    "id": "neverending-story",
+    "title": "The NeverEnding Story",
+    "description": "Vydej se s Atreyem zachránit Fantasii. Prozkoumávej svět, sbírej předměty a hledej cestu příběhem v češtině nebo angličtině.",
+    "genre": "Grafická · textová adventura",
+    "players": "1 hráč",
+    "multiplayer": false,
+    "year": "1986",
+    "author": "Datasoft",
+    "controls": "Klávesnice · dotykové příkazy",
+    "image": "assets/neverending-story.png",
+    "logo": "assets/neverending-story-logo.svg",
+    "source": "neverending-story",
+    "featured": false,
+    "i18n": "embedded",
+    "navigation": "embedded",
+    "manual": "manuals/neverending-story-cs.pdf",
+    "exclude": ["README.md", "*.mjs", "manual-cs.pdf"]
   }
 ]

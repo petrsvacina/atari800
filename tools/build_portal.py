@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Build a static portal + isolated game directories into dist/."""
 import html
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -119,6 +120,14 @@ def build():
         for filename in ("portal.css", "portal.js", "game-nav.js"):
             shutil.copyfile(PORTAL / filename, stage / filename)
         shutil.copytree(PORTAL / "assets", stage / "assets")
+        # Published manuals remain available even while a game is outside the catalog.
+        for manual in json.loads((PORTAL / "manuals.json").read_text()):
+            source = ROOT / manual["source"]
+            if hashlib.sha256(source.read_bytes()).hexdigest() != manual["sha256"]:
+                raise ValueError(f"Unexpected manual content: {source}")
+            dest = stage / "manuals" / manual["file"]
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(source, dest)
         (stage / "shared").mkdir()
         for filename in ("touch-joystick.js", "touch-joystick.css"):
             shutil.copyfile(ROOT / "shared" / filename, stage / "shared" / filename)
@@ -127,6 +136,18 @@ def build():
             shutil.copytree(ROOT / game["source"], dest, ignore=shutil.ignore_patterns(".DS_Store", *game.get("exclude", [])))
             page = (dest / "index.html").read_text()
             page = page.replace('"../shared/', '"../../shared/')
+            if game.get("navigation") == "embedded":
+                if '<body>' not in page or 'id="back" href="../"' not in page:
+                    raise ValueError(f"Missing embedded portal navigation in {game['id']}")
+                page = page.replace('<body>', '<body data-portal-home="../../">', 1)
+                page = page.replace('id="back" href="../"', 'id="back" href="../../"', 1)
+                if game.get("manual"):
+                    page = page.replace('href="assets/manual-cs.pdf"', 'href="../../' + game["manual"] + '"')
+                for filename in ("style.css", "game.js", "assets/data.js", "assets/audio.js", "assets/loading.png"):
+                    digest = hashlib.sha256((dest / filename).read_bytes()).hexdigest()[:12]
+                    page = page.replace('"' + filename + '"', '"' + filename + '?v=' + digest + '"')
+                (dest / "index.html").write_text(page)
+                continue
             # Keep the local standalone game intact. Only the published copy gets navigation.
             edition = re.compile(r'<div class="edition">.*?</div>', re.DOTALL)
             page, replacements = edition.subn('<div class="edition"><a class="portal-back" href="../../">← VŠECHNY HRY</a><small>ATARI800 · WEBOVÁ HERNA</small></div>', page, count=1)

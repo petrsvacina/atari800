@@ -1,0 +1,16 @@
+{
+  "source": "neverending_story.atr",
+  "sourceSha256": "ceae1484d4ba5475a5180eea746db79abffccd21117ce42e72f9386a15358acd",
+  "player": "$9811 init, $9800 per PAL VBI",
+  "render": "Atari800 POKEY, original CPU offline only",
+  "frames": 3584,
+  "statePeriod": {
+    "first": 1792,
+    "repeat": 3584,
+    "frames": 1792
+  },
+  "loopStart": 35.94007936507936,
+  "loopEnd": 71.88015873015873,
+  "wavSha256": "5c1275345141049e296e0328c4da37c578596d3acbc1a1de15efa4f565ca3725",
+  "mp3Sha256": "e00ffe658dfad4e80aec8ba97688798cb5a0269f829af79ef16b26504ee64265"
+}
