@@ -1,6 +1,23 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — sjednocené herní stránky a fullscreen
+## Aktuální veřejné vydání — hlavička Shiftu podle `.edition`
+
+- Vydání `20261102T004440Z`, zdrojový commit
+  `8e3f561a2c07aaaa3de549d734fdeebb965645dd` na `origin/main`.
+- Z hlavičky Shiftu odstraněn přepínač CZ/EN. Návrat do katalogu a podtitulek
+  `ATARI800 · WEBOVÁ HERNA` používají společný dvouřádkový blok `.edition`.
+  Anglický portál dál otevře anglickou hru a návrat vede na `/en/`.
+- Archiv `/private/tmp/shift-header-release-20261102T004440Z/atari800-20261102T004440Z.tar.gz`,
+  32 998 167 B, SHA-256 `155ba3ffec0601e4a6ada476533ff4f0c7fd28854d44996a276d09f14d63936a`.
+- Úplná ověřená záloha: `/root/atari800-backups/20261102T004440Z/site-before.tar.gz`;
+  záznam je také v `research/portal-layout/release-20261102T004440Z.json`.
+- Změněny pouze HTML, CSS a sestavený `game.js` Shiftu. **208 ostatních
+  souborů zůstalo bytově shodných.** HTTPS ověřilo všech 211 souborů,
+  12 cest portálu/her, anglickou variantu, verzované prostředky a 14 Range požadavků.
+- Prošlo sedm kontrol portálu; izolovaný Edge ověřil hlavičku bez jazykového
+  přepínače, návratové odkazy a spuštění hry česky, anglicky i na mobilní šířce.
+
+## Předchozí veřejné vydání — sjednocené herní stránky a fullscreen
 
 - Vydání `20261102T001121Z`, zdrojový commit
   `de2808f78ef99fbf1862905d1e2e50cfd539af4b` na `origin/main`.
