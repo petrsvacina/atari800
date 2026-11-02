@@ -145,6 +145,7 @@
     "i18n": "embedded",
     "navigation": "embedded",
     "manual": "manuals/neverending-story-cs.pdf",
+    "versionedAssets": ["style.css", "game.js", "assets/data.js", "assets/audio.js", "assets/loading.png", "assets/logo.svg"],
     "exclude": ["README.md", "*.mjs", "manual-cs.pdf"]
   },
   {
@@ -163,7 +164,7 @@
     "featured": false,
     "i18n": "embedded",
     "navigation": "embedded",
-    "versionedAssets": ["style.css", "game.js", "assets/data.js", "assets/audio.js"],
+    "versionedAssets": ["style.css", "game.js", "assets/data.js", "assets/audio.js", "assets/logo.png"],
     "exclude": ["README.md", "*.mjs"]
   }
 ]

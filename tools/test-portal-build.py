@@ -94,7 +94,7 @@ class PortalTests(unittest.TestCase):
     def test_neverending_story_publishes_only_runtime_and_uses_shared_manual(self):
         root = portal.ROOT / "dist" / "hry" / "neverending-story"
         self.assertEqual({p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file()},
-                         {"index.html", "style.css", "game.js", "assets/data.js", "assets/audio.js", "assets/loading.png"})
+                         {"index.html", "style.css", "game.js", "assets/data.js", "assets/audio.js", "assets/loading.png", "assets/logo.svg"})
         page = Page((root / "index.html").read_text())
         self.assertIn(("body", {"data-portal-home": "../../"}), page.elements)
         back = next(attrs for tag, attrs in page.elements if attrs.get("id") == "back")
@@ -110,13 +110,13 @@ class PortalTests(unittest.TestCase):
     def test_shift_publishes_runtime_with_versioned_assets_and_embedded_navigation(self):
         root = portal.ROOT / "dist" / "hry" / "shift"
         self.assertEqual({p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file()},
-                         {"index.html", "style.css", "game.js", "assets/data.js", "assets/audio.js"})
+                         {"index.html", "style.css", "game.js", "assets/data.js", "assets/audio.js", "assets/logo.png"})
         page = Page((root / "index.html").read_text())
         self.assertIn(("body", {"data-portal-home": "../../"}), page.elements)
         back = next(attrs for tag, attrs in page.elements if attrs.get("id") == "back")
         self.assertEqual(urljoin("https://atari800.gmork.cz/hry/shift/", back["href"]), "https://atari800.gmork.cz/")
-        resources = [attrs.get("src") or attrs.get("href") for tag, attrs in page.elements if tag in ("script", "link")]
-        for filename in ("style.css", "game.js", "assets/data.js", "assets/audio.js"):
+        resources = [attrs.get("src") or attrs.get("href") for tag, attrs in page.elements if tag in ("script", "link", "img")]
+        for filename in ("style.css", "game.js", "assets/data.js", "assets/audio.js", "assets/logo.png"):
             self.assertTrue(any(url and url.startswith(filename + "?v=") for url in resources), filename)
 
 

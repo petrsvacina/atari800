@@ -7,7 +7,7 @@ const messages = {
   eyebrow:'2024 · PUZZLE PLATFORMER',intro:'Change your perspective. Find a way.',
   paused:'PAUSED',resume:'▶ Continue',start:'Start game →','start-hint':'The original world. A different point of view.',
   'code-label':'Level code','code-play':'Play →','code-skip':'From the beginning',restart:'↺ Restart · R',pause:'Ⅱ Pause · P',
-  mute:'Sound on',fullscreen:'⛶ Fullscreen',how:'Two worlds. One way out.',
+  mute:'Sound on',fullscreen:'⛶ Fullscreen · F',how:'Two worlds. One way out.',controls:'CONTROLS','fullscreen-key':'Fullscreen',
   guide:'Reach the gate. Flip the black and white world, find keys and operate platforms. Watch out for spikes — everything changes when you turn it around.',
   move:'Move',jump:'Jump',shift:'Flip the world',keys:'Restart · music/effects · pause',
   original:'Based on the game by Antony Lavelle and Armor Games.',author:'Original game ↗'
@@ -16,10 +16,11 @@ const $ = id => document.getElementById(id), canvas = $('game'), screen = new Sc
 if (en) {
   document.documentElement.lang = 'en';
   document.querySelectorAll('[data-t]').forEach(el => el.textContent = messages[el.dataset.t]);
-  $('back').textContent = '← BACK TO THE ARCADE';
+  $('back').textContent = '← ALL GAMES';
   canvas.setAttribute('aria-label','Shift · game screen');
 }
 $('back').href=(document.body.dataset.portalHome||'../')+(en?'en/':'');
+const brand=document.querySelector('.brand');if(brand)brand.href='index.html'+(en?'?lang=en':'');
 $(en ? 'en' : 'cs').setAttribute('aria-current','page');
 let phase = 'title', game = new Shift(SHIFT_DATA), paused = false, panel = [...SHIFT_DATA.panels[0]], keys = new Set();
 let cursor = 0, menuDelay = 0, previousFire = false, randomCursor = 0x2d, reveal = null, endingConfirm = false;
@@ -138,7 +139,8 @@ $('fullscreen').addEventListener('click',async()=>{
 });
 const mapped = new Set(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','KeyA','KeyD','KeyW','Space','ShiftLeft','ShiftRight']);
 document.addEventListener('keydown',event=>{
-  if(event.target instanceof HTMLInputElement)return;
+  if(event.metaKey||event.ctrlKey||event.altKey||event.target.isContentEditable||['INPUT','TEXTAREA','SELECT'].includes(event.target.tagName))return;
+  if(event.code==='KeyF'){event.preventDefault();if(!event.repeat)$('fullscreen').click();return;}
   if(mapped.has(event.code)){event.preventDefault();keys.add(event.code);}
   if(event.repeat)return;
   if(event.code==='KeyP'||event.code==='Escape'){event.preventDefault();pause();}

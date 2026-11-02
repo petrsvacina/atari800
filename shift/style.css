@@ -10,3 +10,30 @@
 .arcade:is(:fullscreen,:-webkit-full-screen)>form,
 .arcade:is(:fullscreen,:-webkit-full-screen)>.touch-controls{flex:0 0 auto}
 .arcade:is(:fullscreen,:-webkit-full-screen)>.toolbar{background:var(--panel)}
+
+/* Match the portal's desktop game shell; retain the stacked mobile view. */
+.masthead .brand,.desktop-controls-title{display:none}
+.header-actions{display:contents}
+.masthead #back{color:var(--gold)}
+.game-layout{display:grid;grid-template-columns:minmax(0,1fr)}
+.game-layout>*{min-width:0}
+@media(min-width:1000px){
+  main{max-width:1340px;padding:32px 48px 24px}
+  .masthead{padding-bottom:22px;margin-bottom:28px;border-bottom:1px solid var(--line)}
+  .masthead .brand{display:flex;align-items:center;gap:22px}
+  .brand img{display:block;width:150px;height:auto;image-rendering:pixelated}
+  .brand span{font-size:10px;letter-spacing:.14em;color:var(--muted)}
+  .header-actions{display:flex;align-items:center;gap:28px}
+  header{margin:0 0 26px}
+  h1{font-size:36px;margin:12px 0}
+  .intro{font-size:18px}
+  .game-layout{grid-template-columns:minmax(0,1fr) 285px;gap:26px;align-items:start}
+  .game-layout>.guide{grid-template-columns:minmax(0,1fr);gap:18px;margin:0}
+  .guide>div{padding:20px;border:1px solid var(--line);border-radius:5px;background:#1d2228b3}
+  .guide h2{font:12px/1.7 ui-monospace,monospace;color:var(--gold);margin:0 0 14px}
+  .guide p{font-size:12px;margin:0}
+  .guide dl{margin:0}
+  .guide dl div{gap:10px;flex-wrap:wrap}
+  .guide dd{text-align:left}
+  .desktop-controls-title{display:block}
+}

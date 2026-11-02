@@ -54,7 +54,7 @@ def install(source, target, release):
         if temp.exists(): temp.unlink()
 
 
-def verify_https(stage, backup, game_id='neverending-story'):
+def verify_https(stage, backup, game_id='neverending-story', game_ids=None):
     count = 0
     headers = backup / 'http-headers.txt'
 
@@ -80,12 +80,13 @@ def verify_https(stage, backup, game_id='neverending-story'):
     routes = [('/', stage / 'index.html'), ('/en/', stage / 'en/index.html')]
     routes += [('/hry/' + p.name + '/', p / 'index.html') for p in sorted((stage / 'hry').iterdir()) if p.is_dir()]
     for route, file in routes: request(route, file)
-    request(f'/hry/{game_id}/?lang=en', stage / f'hry/{game_id}/index.html')
-    game = stage / f'hry/{game_id}/index.html'
-    for link in re.findall(r'(?:src|href)="([^"]+)"', game.read_text()):
-        if '?v=' in link:
-            url = urlsplit(urljoin(BASE + f'/hry/{game_id}/', link))
-            request(url.path + '?' + url.query, stage / url.path.lstrip('/'))
+    for current_game in game_ids or (game_id,):
+        request(f'/hry/{current_game}/?lang=en', stage / f'hry/{current_game}/index.html')
+        game = stage / f'hry/{current_game}/index.html'
+        for link in re.findall(r'(?:src|href)="([^"]+)"', game.read_text()):
+            if '?v=' in link:
+                url = urlsplit(urljoin(BASE + f'/hry/{current_game}/', link))
+                request(url.path + '?' + url.query, stage / url.path.lstrip('/'))
     media = [p for p in sorted(stage.rglob('*')) if p.suffix in ('.mp3', '.mp4', '.pdf')]
     for file in media: request('/' + quote(file.relative_to(stage).as_posix()), file, partial=True)
     return {'httpsVerified': True, 'publicFilesVerified': count, 'routesVerified': len(routes),
@@ -108,6 +109,12 @@ def main():
         assert set(d['changed']) == {'index.html', 'en/index.html'}
         assert set(d['added']) == {'assets/shift.png', 'assets/shift-logo.png',
                                   *['hry/shift/' + f for f in ('index.html', 'game.js', 'style.css', 'assets/audio.js', 'assets/data.js')]}
+    elif kind == 'game-layout-release':
+        assert set(d['changed']) == {
+            *['hry/' + game + '/' + name for game in ('shift', 'neverending-story')
+              for name in ('index.html', 'style.css', 'game.js')],
+            *['hry/karateka/' + name for name in ('index.html', 'style.css', 'app.js')]}
+        assert set(d['added']) == {'hry/shift/assets/logo.png', 'hry/neverending-story/assets/logo.svg'}
     else:
         assert kind == 'game-release'
         assert set(d['changed']) == {'index.html', 'en/index.html'}
@@ -141,12 +148,13 @@ def main():
     exact(SITE, d['old'])
     affected = set(d['added']) | set(d['changed'])
     game_id = 'shift' if kind == 'shift-release' else 'neverending-story'
-    tail = [f'hry/{game_id}/index.html', 'en/index.html', 'index.html']
+    game_ids = ('shift', 'neverending-story', 'karateka') if kind == 'game-layout-release' else (game_id,)
+    tail = [*[f'hry/{game}/index.html' for game in game_ids], 'en/index.html', 'index.html']
     order = sorted(affected - set(tail)) + [name for name in tail if name in affected]
     try:
         for name in order: install(stage / name, SITE / name, d['release'])
         exact(SITE, d['files'])
-        d.update(verify_https(stage, backup, game_id))
+        d.update(verify_https(stage, backup, game_id, game_ids))
         d.update(status='published', liveHashesVerified=True, previousFilesUnchanged=len(d['old']) - len(d['changed']))
         record.write_text(json.dumps(d, indent=2) + '\n')
     except BaseException as error:

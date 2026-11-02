@@ -12,16 +12,17 @@
 </head>
 <body>
   <main>
-    <header><a id="back" href="../">← Atari XL/XE</a><div class="languages" role="group" aria-label="Language"><button data-lang="cs">CZ</button><button data-lang="en">EN</button></div></header>
+    <header class="masthead"><a class="brand" href="index.html"><img src="assets/logo.svg" width="260" height="52" alt="The NeverEnding Story"></a><div class="header-actions"><a id="back" href="../">← VŠECHNY HRY</a><div class="languages" role="group" aria-label="Language"><button data-lang="cs">CZ</button><button data-lang="en">EN</button></div></div></header>
     <div class="heading"><div><p class="eyebrow" id="category">1986 · GRAFICKÁ ADVENTURA</p><h1>The NeverEnding Story</h1><p id="subtitle">Nekonečný příběh</p></div><span id="chapter" class="badge">I / III</span></div>
-    <section class="machine" aria-label="The NeverEnding Story">
+    <div class="game-layout"><section class="machine" aria-label="The NeverEnding Story">
       <div class="machine-top"><span id="location">FANTASIA</span><span>ATARI XL/XE · HTML5</span></div>
       <div class="screen"><canvas id="game" width="320" height="200" aria-label="Herní obrazovka"></canvas><div id="overlay"><img id="loading-art" class="title-art" src="assets/loading.png" width="320" height="240" alt="Původní načítací obrazovka hry The NeverEnding Story"><p class="eyebrow">FANTASIA</p><h2 id="overlay-title">Příběh čeká na tebe.</h2><p id="overlay-text">Původní dobrodružství. Dva jazyky. Jedna rozehraná hra.</p><button id="continue" class="gold">Začít příběh →</button></div></div>
       <form id="command-form" autocomplete="off"><label for="command">›</label><input id="command" name="command" maxlength="78" spellcheck="false" autocapitalize="none" autocorrect="off" placeholder="Napiš příkaz…" aria-label="Příkaz" disabled><button id="send" type="submit" disabled>Provést ↵</button></form>
       <div class="toolbar"><button id="new">↺ Nová hra</button><button id="save">↓ Uložit</button><button id="load">↑ Načíst</button><a id="manual" href="assets/manual-cs.pdf" target="_blank" rel="noopener" type="application/pdf" hreflang="cs" title="Český návod a mapy, 8 stran">Návod (PDF) ↗</a><button id="sound" aria-pressed="true">♫ Zvuk zapnutý</button><button id="fullscreen">⛶ Celá obrazovka</button></div>
     </section>
-    <section class="controls"><div><h2 id="travel-title">Kam dál?</h2><div class="compass" id="compass"></div><div class="vertical"><button data-direction="9" id="up">↑ Nahoru</button><button data-direction="10" id="down">↓ Dolů</button></div></div><div class="commands"><h2 id="actions-title">Rozhlédni se. Zeptej se. Objevuj.</h2><p id="help">Piš jednoduché příkazy bez diakritiky. Hra rozpoznává první tři písmena slov. Přepnutí CZ/EN zachová postup a změní i slovník příkazů.</p><div id="quick"></div><p id="examples" class="examples"></p></div></section>
+    <aside class="controls"><div><h2 id="travel-title">Kam dál?</h2><div class="compass" id="compass"></div><div class="vertical"><button data-direction="9" id="up">↑ Nahoru</button><button data-direction="10" id="down">↓ Dolů</button></div></div><div class="commands"><h2 id="actions-title">Rozhlédni se. Zeptej se. Objevuj.</h2><p id="help">Piš jednoduché příkazy bez diakritiky. Hra rozpoznává první tři písmena slov. Přepnutí CZ/EN zachová postup a změní i slovník příkazů.</p><div id="quick"></div><p id="examples" class="examples"></p></div></aside>
     <p id="status" role="status" aria-live="polite"></p>
+    </div>
     <footer><span id="credits">Datasoft · IntelliCreations · Ocean · 1986</span><span id="preview">HTML5 / JavaScript</span></footer>
   </main>
   <dialog id="slots"><form method="dialog"><div class="dialog-heading"><h2 id="slots-title">Uložené hry</h2><button value="cancel" aria-label="Close">×</button></div><div id="slots-list"></div></form></dialog>

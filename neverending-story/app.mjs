@@ -143,7 +143,9 @@ function localize() {
   document.documentElement.lang = language;
   const portalHome = document.body.dataset.portalHome;
   $('back').href = portalHome ? portalHome + (language === 'en' ? 'en/' : '') : '../?lang=' + language;
-  $('back').textContent = portalHome ? (language === 'en' ? '← All games' : '← Všechny hry') : '← Atari XL/XE';
+  $('back').textContent = language === 'en' ? '← ALL GAMES' : '← VŠECHNY HRY';
+  const brand = document.querySelector('.brand');
+  if (brand) brand.href = 'index.html?lang=' + language;
   const labels = {category: 'category', subtitle: 'subtitle', 'travel-title': 'travel', 'actions-title': 'actions', help: 'help', examples: 'examples',
     send: 'send', new: 'new', save: 'save', load: 'load', manual: 'manual', fullscreen: 'fullscreen', up: 'up', down: 'down', preview: 'preview'};
   for (const [id, key] of Object.entries(labels)) $(id).textContent = t(key);

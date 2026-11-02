@@ -1,0 +1,631 @@
+{
+  "url": "http://127.0.0.1:8010/dist/",
+  "engine": "Microsoft Edge headless",
+  "version": "156.0.4314.58",
+  "viewports": 5,
+  "games": 3,
+  "fullscreenChecks": [
+    {
+      "view": "desktop",
+      "game": "shift",
+      "layout": {
+        "game": {
+          "x": 98,
+          "y": 279.421875,
+          "width": 933,
+          "height": 887.25,
+          "right": 1031,
+          "bottom": 1166.671875
+        },
+        "aside": {
+          "x": 1057,
+          "y": 279.421875,
+          "width": 285,
+          "height": 437.15625,
+          "right": 1342,
+          "bottom": 716.578125
+        },
+        "logo": {
+          "x": 98,
+          "y": 32,
+          "width": 312.625,
+          "height": 71.421875,
+          "right": 410.625,
+          "bottom": 103.421875
+        },
+        "back": {
+          "x": 1130.09375,
+          "y": 60.703125,
+          "width": 115.484375,
+          "height": 14,
+          "right": 1245.578125,
+          "bottom": 74.703125
+        }
+      },
+      "fullscreen": {
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "arcade": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1000
+        },
+        "display": {
+          "x": 0,
+          "y": 45,
+          "width": 1440,
+          "height": 901
+        },
+        "canvas": {
+          "x": 0,
+          "y": 45,
+          "width": 1440,
+          "height": 901
+        },
+        "movie": null,
+        "fit": "contain"
+      },
+      "keyAndButtonVerified": true
+    },
+    {
+      "view": "desktop",
+      "game": "karateka",
+      "layout": {
+        "game": {
+          "x": 128,
+          "y": 301.359375,
+          "width": 874,
+          "height": 737,
+          "right": 1002,
+          "bottom": 1038.359375
+        },
+        "aside": {
+          "x": 1032,
+          "y": 301.359375,
+          "width": 280,
+          "height": 783.796875,
+          "right": 1312,
+          "bottom": 1085.15625
+        },
+        "logo": {
+          "x": 128,
+          "y": 24,
+          "width": 204.28125,
+          "height": 65.578125,
+          "right": 332.28125,
+          "bottom": 89.578125
+        },
+        "back": null
+      },
+      "fullscreen": {
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "arcade": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1000
+        },
+        "display": {
+          "x": 0,
+          "y": 40,
+          "width": 1440,
+          "height": 919
+        },
+        "canvas": {
+          "x": 0,
+          "y": 40,
+          "width": 1440,
+          "height": 919
+        },
+        "movie": {
+          "x": 0,
+          "y": 40,
+          "width": 1440,
+          "height": 919
+        },
+        "fit": "contain"
+      },
+      "keyAndButtonVerified": true
+    },
+    {
+      "view": "english",
+      "game": "shift",
+      "layout": {
+        "game": {
+          "x": 98,
+          "y": 279.421875,
+          "width": 933,
+          "height": 887.25,
+          "right": 1031,
+          "bottom": 1166.671875
+        },
+        "aside": {
+          "x": 1057,
+          "y": 279.421875,
+          "width": 285,
+          "height": 461.15625,
+          "right": 1342,
+          "bottom": 740.578125
+        },
+        "logo": {
+          "x": 98,
+          "y": 32,
+          "width": 312.625,
+          "height": 71.421875,
+          "right": 410.625,
+          "bottom": 103.421875
+        },
+        "back": {
+          "x": 1147.859375,
+          "y": 60.703125,
+          "width": 97.71875,
+          "height": 14,
+          "right": 1245.578125,
+          "bottom": 74.703125
+        }
+      },
+      "fullscreen": {
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "arcade": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1000
+        },
+        "display": {
+          "x": 0,
+          "y": 45,
+          "width": 1440,
+          "height": 901
+        },
+        "canvas": {
+          "x": 0,
+          "y": 45,
+          "width": 1440,
+          "height": 901
+        },
+        "movie": null,
+        "fit": "contain"
+      },
+      "keyAndButtonVerified": true
+    },
+    {
+      "view": "english",
+      "game": "karateka",
+      "layout": {
+        "game": {
+          "x": 128,
+          "y": 301.359375,
+          "width": 874,
+          "height": 737,
+          "right": 1002,
+          "bottom": 1038.359375
+        },
+        "aside": {
+          "x": 1032,
+          "y": 301.359375,
+          "width": 280,
+          "height": 783.796875,
+          "right": 1312,
+          "bottom": 1085.15625
+        },
+        "logo": {
+          "x": 128,
+          "y": 24,
+          "width": 204.28125,
+          "height": 65.578125,
+          "right": 332.28125,
+          "bottom": 89.578125
+        },
+        "back": null
+      },
+      "fullscreen": {
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "arcade": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1000
+        },
+        "display": {
+          "x": 0,
+          "y": 40,
+          "width": 1440,
+          "height": 919
+        },
+        "canvas": {
+          "x": 0,
+          "y": 40,
+          "width": 1440,
+          "height": 919
+        },
+        "movie": {
+          "x": 0,
+          "y": 40,
+          "width": 1440,
+          "height": 919
+        },
+        "fit": "contain"
+      },
+      "keyAndButtonVerified": true
+    },
+    {
+      "view": "wide",
+      "game": "shift",
+      "layout": {
+        "game": {
+          "x": 376,
+          "y": 279.421875,
+          "width": 933,
+          "height": 887.25,
+          "right": 1309,
+          "bottom": 1166.671875
+        },
+        "aside": {
+          "x": 1335,
+          "y": 279.421875,
+          "width": 285,
+          "height": 437.15625,
+          "right": 1620,
+          "bottom": 716.578125
+        },
+        "logo": {
+          "x": 376,
+          "y": 32,
+          "width": 312.625,
+          "height": 71.421875,
+          "right": 688.625,
+          "bottom": 103.421875
+        },
+        "back": {
+          "x": 1408.09375,
+          "y": 60.703125,
+          "width": 115.484375,
+          "height": 14,
+          "right": 1523.578125,
+          "bottom": 74.703125
+        }
+      },
+      "fullscreen": {
+        "viewport": {
+          "width": 1996,
+          "height": 1248
+        },
+        "arcade": {
+          "x": 0,
+          "y": 0,
+          "width": 1996,
+          "height": 1248
+        },
+        "display": {
+          "x": 0,
+          "y": 45,
+          "width": 1996,
+          "height": 1149
+        },
+        "canvas": {
+          "x": 0,
+          "y": 45,
+          "width": 1996,
+          "height": 1149
+        },
+        "movie": null,
+        "fit": "contain"
+      },
+      "keyAndButtonVerified": true
+    },
+    {
+      "view": "wide",
+      "game": "karateka",
+      "layout": {
+        "game": {
+          "x": 406,
+          "y": 301.359375,
+          "width": 874,
+          "height": 737,
+          "right": 1280,
+          "bottom": 1038.359375
+        },
+        "aside": {
+          "x": 1310,
+          "y": 301.359375,
+          "width": 280,
+          "height": 783.796875,
+          "right": 1590,
+          "bottom": 1085.15625
+        },
+        "logo": {
+          "x": 406,
+          "y": 24,
+          "width": 204.28125,
+          "height": 65.578125,
+          "right": 610.28125,
+          "bottom": 89.578125
+        },
+        "back": null
+      },
+      "fullscreen": {
+        "viewport": {
+          "width": 1996,
+          "height": 1248
+        },
+        "arcade": {
+          "x": 0,
+          "y": 0,
+          "width": 1996,
+          "height": 1248
+        },
+        "display": {
+          "x": 0,
+          "y": 40,
+          "width": 1996,
+          "height": 1167
+        },
+        "canvas": {
+          "x": 0,
+          "y": 40,
+          "width": 1996,
+          "height": 1167
+        },
+        "movie": {
+          "x": 0,
+          "y": 40,
+          "width": 1996,
+          "height": 1167
+        },
+        "fit": "contain"
+      },
+      "keyAndButtonVerified": true
+    },
+    {
+      "view": "mobile",
+      "game": "shift",
+      "layout": {
+        "game": {
+          "x": 14,
+          "y": 214,
+          "width": 362,
+          "height": 706,
+          "right": 376,
+          "bottom": 920
+        },
+        "aside": {
+          "x": 14,
+          "y": 940,
+          "width": 362,
+          "height": 348.4375,
+          "right": 376,
+          "bottom": 1288.4375
+        },
+        "logo": null,
+        "back": {
+          "x": 14,
+          "y": 24,
+          "width": 96.234375,
+          "height": 12,
+          "right": 110.234375,
+          "bottom": 36
+        }
+      },
+      "fullscreen": {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "arcade": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        },
+        "display": {
+          "x": 0,
+          "y": 34,
+          "width": 390,
+          "height": 527
+        },
+        "canvas": {
+          "x": 0,
+          "y": 34,
+          "width": 390,
+          "height": 527
+        },
+        "movie": null,
+        "fit": "contain"
+      },
+      "keyAndButtonVerified": true
+    },
+    {
+      "view": "mobile",
+      "game": "karateka",
+      "layout": {
+        "game": {
+          "x": 16,
+          "y": 307.765625,
+          "width": 358,
+          "height": 342.796875,
+          "right": 374,
+          "bottom": 650.5625
+        },
+        "aside": {
+          "x": 16,
+          "y": 875.359375,
+          "width": 358,
+          "height": 567.4375,
+          "right": 374,
+          "bottom": 1442.796875
+        },
+        "logo": {
+          "x": 16,
+          "y": 24,
+          "width": 159.59375,
+          "height": 52.796875,
+          "right": 175.59375,
+          "bottom": 76.796875
+        },
+        "back": null
+      },
+      "fullscreen": {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "arcade": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        },
+        "display": {
+          "x": 0,
+          "y": 32.796875,
+          "width": 390,
+          "height": 770.203125
+        },
+        "canvas": {
+          "x": 0,
+          "y": 32.796875,
+          "width": 390,
+          "height": 770.203125
+        },
+        "movie": {
+          "x": 0,
+          "y": 32.796875,
+          "width": 390,
+          "height": 770.203125
+        },
+        "fit": "contain"
+      },
+      "keyAndButtonVerified": true
+    },
+    {
+      "view": "landscape",
+      "game": "shift",
+      "layout": {
+        "game": {
+          "x": 16,
+          "y": 34,
+          "width": 812,
+          "height": 571.796875,
+          "right": 828,
+          "bottom": 605.796875
+        },
+        "aside": null,
+        "logo": null,
+        "back": {
+          "x": 16,
+          "y": 10,
+          "width": 115.484375,
+          "height": 14,
+          "right": 131.484375,
+          "bottom": 24
+        }
+      },
+      "fullscreen": {
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "arcade": {
+          "x": 0,
+          "y": 0,
+          "width": 844,
+          "height": 390
+        },
+        "display": {
+          "x": 0,
+          "y": 29,
+          "width": 844,
+          "height": 161
+        },
+        "canvas": {
+          "x": 0,
+          "y": 29,
+          "width": 844,
+          "height": 161
+        },
+        "movie": null,
+        "fit": "contain"
+      },
+      "keyAndButtonVerified": true
+    },
+    {
+      "view": "landscape",
+      "game": "karateka",
+      "layout": {
+        "game": {
+          "x": 25,
+          "y": 290.171875,
+          "width": 794,
+          "height": 677,
+          "right": 819,
+          "bottom": 967.171875
+        },
+        "aside": {
+          "x": 25,
+          "y": 1191.96875,
+          "width": 794,
+          "height": 529.0625,
+          "right": 819,
+          "bottom": 1721.03125
+        },
+        "logo": {
+          "x": 25,
+          "y": 24,
+          "width": 174.984375,
+          "height": 54.390625,
+          "right": 199.984375,
+          "bottom": 78.390625
+        },
+        "back": null
+      },
+      "fullscreen": {
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "arcade": {
+          "x": 0,
+          "y": 0,
+          "width": 844,
+          "height": 390
+        },
+        "display": {
+          "x": 0,
+          "y": 40,
+          "width": 844,
+          "height": 309
+        },
+        "canvas": {
+          "x": 0,
+          "y": 40,
+          "width": 844,
+          "height": 309
+        },
+        "movie": {
+          "x": 0,
+          "y": 40,
+          "width": 844,
+          "height": 309
+        },
+        "fit": "contain"
+      },
+      "keyAndButtonVerified": true
+    }
+  ],
+  "errors": [],
+  "neverendingStoryTextFVerified": true,
+  "mobileStackingVerified": true
+}
