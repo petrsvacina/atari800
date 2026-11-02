@@ -115,6 +115,9 @@ def main():
               for name in ('index.html', 'style.css', 'game.js')],
             *['hry/karateka/' + name for name in ('index.html', 'style.css', 'app.js')]}
         assert set(d['added']) == {'hry/shift/assets/logo.png', 'hry/neverending-story/assets/logo.svg'}
+    elif kind == 'shift-header':
+        assert set(d['changed']) == {'hry/shift/' + name for name in ('index.html', 'style.css', 'game.js')}
+        assert not d['added']
     else:
         assert kind == 'game-release'
         assert set(d['changed']) == {'index.html', 'en/index.html'}
@@ -147,7 +150,7 @@ def main():
     record = backup / 'release.json'; record.write_text(json.dumps(d, indent=2) + '\n')
     exact(SITE, d['old'])
     affected = set(d['added']) | set(d['changed'])
-    game_id = 'shift' if kind == 'shift-release' else 'neverending-story'
+    game_id = 'shift' if kind in ('shift-release', 'shift-header') else 'neverending-story'
     game_ids = ('shift', 'neverending-story', 'karateka') if kind == 'game-layout-release' else (game_id,)
     tail = [*[f'hry/{game}/index.html' for game in game_ids], 'en/index.html', 'index.html']
     order = sorted(affected - set(tail)) + [name for name in tail if name in affected]

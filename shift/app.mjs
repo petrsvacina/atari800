@@ -21,7 +21,7 @@ if (en) {
 }
 $('back').href=(document.body.dataset.portalHome||'../')+(en?'en/':'');
 const brand=document.querySelector('.brand');if(brand)brand.href='index.html'+(en?'?lang=en':'');
-$(en ? 'en' : 'cs').setAttribute('aria-current','page');
+const editionCaption=$('edition-caption');if(editionCaption)editionCaption.textContent=en?'ATARI800 · WEB ARCADE':'ATARI800 · WEBOVÁ HERNA';
 let phase = 'title', game = new Shift(SHIFT_DATA), paused = false, panel = [...SHIFT_DATA.panels[0]], keys = new Set();
 let cursor = 0, menuDelay = 0, previousFire = false, randomCursor = 0x2d, reveal = null, endingConfirm = false;
 const touch = globalThis.AtariTouchJoystick?.mount({host:document.querySelector('.touch-controls'),action:'fire',enabled:()=>!paused,

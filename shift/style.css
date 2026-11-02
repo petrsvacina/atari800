@@ -13,7 +13,8 @@
 
 /* Match the portal's desktop game shell; retain the stacked mobile view. */
 .masthead .brand,.desktop-controls-title{display:none}
-.header-actions{display:contents}
+.edition{margin-left:auto;text-align:right;font:700 11px/1.6 ui-monospace,SFMono-Regular,monospace;letter-spacing:.15em}
+.edition small{display:block;color:var(--muted);font-size:9px;margin-top:4px}
 .masthead #back{color:var(--gold)}
 .game-layout{display:grid;grid-template-columns:minmax(0,1fr)}
 .game-layout>*{min-width:0}
@@ -23,7 +24,6 @@
   .masthead .brand{display:flex;align-items:center;gap:22px}
   .brand img{display:block;width:150px;height:auto;image-rendering:pixelated}
   .brand span{font-size:10px;letter-spacing:.14em;color:var(--muted)}
-  .header-actions{display:flex;align-items:center;gap:28px}
   header{margin:0 0 26px}
   h1{font-size:36px;margin:12px 0}
   .intro{font-size:18px}
