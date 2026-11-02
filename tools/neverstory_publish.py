@@ -107,7 +107,7 @@ def main():
     # A running editor may keep a swap file beside an unrelated public page.
     # Leave explicitly named editor files in place, outside the public release.
     preserved = tuple(d.get('preservedEditorFiles', ()))
-    assert all(re.fullmatch(r'hry/[a-z0-9-]+/\.index\.html\.swp', name) for name in preserved)
+    assert all(re.fullmatch(r'hry/[a-z0-9-]+/\.(?:index\.html|style\.css)\.swp', name) for name in preserved)
     assert not set(preserved) & (set(d['old']) | set(d['files']))
     if kind == 'loading-art':
         assert set(d['changed']) == {'hry/neverending-story/' + f for f in ('index.html', 'game.js', 'style.css')}
