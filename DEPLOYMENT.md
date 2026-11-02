@@ -1,6 +1,38 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — Shift a oprava fullscreenu
+## Aktuální veřejné vydání — sjednocené herní stránky a fullscreen
+
+- Vydání `20261102T001121Z`, zdrojový commit
+  `de2808f78ef99fbf1862905d1e2e50cfd539af4b` na `origin/main`.
+- Shift a NeverEnding Story mají na desktopu logo vlevo, návrat do katalogu
+  vpravo a informační/ovládací panely vedle hry. Mobilní rozložení zůstává
+  pod herní plochou; International Karate se neměnilo.
+- Karateka zvětšuje ve fullscreenu celou zobrazovací vrstvu, canvas, film
+  i překryvné ovládání. Běžný limit `68vh` se ve fullscreenu neuplatňuje.
+- Karateka a Shift přepínají fullscreen také klávesou F, bez opakovaného
+  přepínání při jejím držení. Zkratka respektuje formuláře a systémové
+  modifikátory; F v textové NeverEnding Story zůstává znakem příkazu.
+- Archiv `/private/tmp/atari-layout-release-20261102T001121Z/atari800-20261102T001121Z.tar.gz`,
+  32 998 123 B, SHA-256 `954dc1185dad7c79382e471620d1ff07769e73a5a44377dfda88819539bbada5`.
+- Úplná ověřená záloha: `/root/atari800-backups/20261102T001121Z/site-before.tar.gz`;
+  publikační záznam `release.json` ve stejném adresáři. Kopie je uložená v
+  `research/portal-layout/release-20261102T001121Z.json`.
+- 211 veřejných souborů: devět změněných HTML/CSS/presentérů tří her a dvě
+  přidaná loga z dosavadních podkladů. **200 původních souborů je bytově
+  shodných**, včetně obou katalogů, ostatních her, původních dat a všech videí.
+- HTTPS ověřilo všech 211 hashů, MIME typy, 12 cest portálu/her, anglické
+  varianty a verzované prostředky všech tří upravených her i 14 Range požadavků.
+- Sedm kontrol portálu a skutečný klávesový vstup do kampaně Karateky při
+  8 i 12 krocích/s prošly. Oddělený headless Edge ověřil lokálně i na veřejném
+  webu všechny tři hry ve čtyřech rozměrech, navíc české a anglické rozhraní:
+  desktopové boční panely a hlavičky, mobilní řazení bez přetečení, deset
+  fullscreen scénářů přes F i tlačítko, opakovaný keydown a film → hra.
+  NeverEnding Story přijímá F v příkazovém poli; bez chyb JavaScriptu.
+- Podrobné lokální a veřejné výsledky jsou v `research/portal-layout/browser-local.json`
+  a `browser-live.json`. Nativní Safari a fyzický telefon nebyly v tomto vydání
+  testované. Herní enginy a jejich dosavadní hranice shody s originály se nemění.
+
+## Předchozí veřejné vydání — Shift a oprava fullscreenu
 
 - Vydání `20261101T232915Z`, nasazené a ověřené přes HTTPS:
   <https://atari800.gmork.cz/hry/shift/>, anglicky s `?lang=en`.

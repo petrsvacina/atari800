@@ -27,6 +27,7 @@ pouze při vývoji, získání dat, renderování zvuku a přípravě srovnávac
 - R: restart aktuální úrovně.
 - S: původní přepínání hudba / efekty; originál je nepřehrává současně.
 - P/Escape: webová pauza. Ztráta zaměření a skrytí karty hru pozastaví.
+- F: zapnutí/vypnutí fullscreenu. Při zadávání kódu zůstává F znakem kódu.
 - Gamepad: levá páčka nebo D-pad, první tlačítko = FIRE.
 - Mobil: levým palcem virtuální joystick, pravým FIRE; skok pohybem nahoru.
 
