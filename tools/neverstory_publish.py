@@ -24,8 +24,10 @@ def inventory(root):
     return {p.relative_to(root).as_posix(): sha(p.read_bytes()) for p in sorted(root.rglob('*')) if p.is_file()}
 
 
-def exact(root, expected):
+def exact(root, expected, preserved=()):
     actual = inventory(root)
+    for name in preserved:
+        actual.pop(name, None)
     if actual != expected:
         raise ValueError(json.dumps({'missing': sorted(set(expected) - set(actual)), 'extra': sorted(set(actual) - set(expected)),
                                      'changed': [n for n in expected if n in actual and actual[n] != expected[n]]}))
@@ -102,6 +104,11 @@ def main():
     assert SITE.is_dir() and not SITE.is_symlink()
     assert not d['removed']
     kind = d.get('kind', 'game-release')
+    # A running editor may keep a swap file beside an unrelated public page.
+    # Leave explicitly named editor files in place, outside the public release.
+    preserved = tuple(d.get('preservedEditorFiles', ()))
+    assert all(re.fullmatch(r'hry/[a-z0-9-]+/\.index\.html\.swp', name) for name in preserved)
+    assert not set(preserved) & (set(d['old']) | set(d['files']))
     if kind == 'loading-art':
         assert set(d['changed']) == {'hry/neverending-story/' + f for f in ('index.html', 'game.js', 'style.css')}
         assert set(d['added']) == {'hry/neverending-story/assets/loading.png'}
@@ -131,7 +138,7 @@ def main():
     backup = Path('/root/atari800-backups') / d['release']
     archive = args.manifest.parent / d['archive']
     assert not stage.exists() and not backup.exists()
-    exact(SITE, d['old'])
+    exact(SITE, d['old'], preserved)
     assert sha(archive.read_bytes()) == d['archiveSha256']
     check_archive(archive, d['files'])
     if args.action == 'preflight':
@@ -150,7 +157,7 @@ def main():
     check_archive(old_archive, d['old'])
     d.update(backup=str(old_archive), backupSha256=sha(old_archive.read_bytes()), backupVerified=True, status='backed-up')
     record = backup / 'release.json'; record.write_text(json.dumps(d, indent=2) + '\n')
-    exact(SITE, d['old'])
+    exact(SITE, d['old'], preserved)
     affected = set(d['added']) | set(d['changed'])
     game_id = 'shift' if kind in ('shift-release', 'shift-header') else 'neverending-story'
     game_ids = ('shift', 'neverending-story', 'karateka') if kind == 'game-layout-release' else (game_id,)
@@ -158,7 +165,7 @@ def main():
     order = sorted(affected - set(tail)) + [name for name in tail if name in affected]
     try:
         for name in order: install(stage / name, SITE / name, d['release'])
-        exact(SITE, d['files'])
+        exact(SITE, d['files'], preserved)
         d.update(verify_https(stage, backup, game_id, game_ids))
         d.update(status='published', liveHashesVerified=True, previousFilesUnchanged=len(d['old']) - len(d['changed']))
         record.write_text(json.dumps(d, indent=2) + '\n')
@@ -172,7 +179,7 @@ def main():
             target = SITE / name
             if target.exists(): target.unlink()
         d.update(status='rolled-back', error=str(error)); record.write_text(json.dumps(d, indent=2) + '\n')
-        exact(SITE, d['old']); raise
+        exact(SITE, d['old'], preserved); raise
     print(json.dumps({k: d[k] for k in ['release', 'status', 'backup', 'backupVerified', 'liveHashesVerified',
                                       'previousFilesUnchanged', 'publicFilesVerified', 'routesVerified',
                                       'englishGameRouteVerified', 'versionedAssetsVerified', 'rangeRequestsVerified']}))
