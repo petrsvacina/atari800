@@ -1,6 +1,28 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — hlavička Shiftu podle `.edition`
+## Aktuální veřejné vydání — logo Shiftu na mobilu
+
+- Vydání `20261102T005539Z`, zdrojový commit
+  `eb7130afcd33ee7a869859fdea3baaf6242d8ed6` na `origin/main`.
+- Logo Shiftu je viditelné i v mobilní hlavičce vlevo. Velikost se přizpůsobuje
+  šířce displeje; odkaz do herny a podtitulek zůstávají vpravo.
+- Archiv `/private/tmp/shift-header-release-20261102T005539Z/atari800-20261102T005539Z.tar.gz`,
+  32 998 231 B, SHA-256 `e7607c2b3d629f1b3d814bf000a70c8f64f3b392b3bb4ced6d7bd70157c519ad`.
+- Ověřená záloha všech 211 veřejných souborů:
+  `/root/atari800-backups/20261102T005539Z/site-before.tar.gz`;
+  záznam `research/portal-layout/release-20261102T005539Z.json`.
+- Změněno pouze CSS a HTML Shiftu s novou verzí odkazu na CSS. **209 ostatních
+  veřejných souborů zůstalo bytově shodných.** Dva pojmenované dočasné soubory
+  otevřených editorů u Dynakillers a International Karate zůstaly na místě,
+  mimo publikační archiv a zálohu veřejných souborů.
+- HTTPS ověřilo všech 211 souborů, 12 cest, anglickou variantu,
+  verzované prostředky a 14 Range požadavků. Sedm kontrol sestavení prošlo.
+- Izolovaný Edge ověřil lokálně i na veřejném webu mobilní šířky 320, 375, 390 a 430 px,
+  anglickou variantu a desktop 1440 px: viditelné logo, žádné překrývání
+  hlavičky ani vodorovné přetečení, správný návrat do katalogu a spuštění hry;
+  bez chyb JavaScriptu. Fyzický iPhone nebyl v této opravě testován.
+
+## Předchozí veřejné vydání — hlavička Shiftu podle `.edition`
 
 - Vydání `20261102T004440Z`, zdrojový commit
   `8e3f561a2c07aaaa3de549d734fdeebb965645dd` na `origin/main`.
