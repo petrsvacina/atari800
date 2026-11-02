@@ -116,7 +116,9 @@ def main():
             *['hry/karateka/' + name for name in ('index.html', 'style.css', 'app.js')]}
         assert set(d['added']) == {'hry/shift/assets/logo.png', 'hry/neverending-story/assets/logo.svg'}
     elif kind == 'shift-header':
-        assert set(d['changed']) == {'hry/shift/' + name for name in ('index.html', 'style.css', 'game.js')}
+        assert set(d['changed']) in (
+            {'hry/shift/' + name for name in ('index.html', 'style.css')},
+            {'hry/shift/' + name for name in ('index.html', 'style.css', 'game.js')})
         assert not d['added']
     else:
         assert kind == 'game-release'

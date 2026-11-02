@@ -12,7 +12,10 @@
 .arcade:is(:fullscreen,:-webkit-full-screen)>.toolbar{background:var(--panel)}
 
 /* Match the portal's desktop game shell; retain the stacked mobile view. */
-.masthead .brand,.desktop-controls-title{display:none}
+.masthead{gap:12px}
+.masthead .brand{display:flex;align-items:center;flex-shrink:0}
+.brand img{display:block;width:clamp(70px,22vw,110px);height:auto;image-rendering:pixelated}
+.brand span,.desktop-controls-title{display:none}
 .edition{margin-left:auto;text-align:right;font:700 11px/1.6 ui-monospace,SFMono-Regular,monospace;letter-spacing:.15em}
 .edition small{display:block;color:var(--muted);font-size:9px;margin-top:4px}
 .masthead #back{color:var(--gold)}
@@ -23,7 +26,7 @@
   .masthead{padding-bottom:22px;margin-bottom:28px;border-bottom:1px solid var(--line)}
   .masthead .brand{display:flex;align-items:center;gap:22px}
   .brand img{display:block;width:150px;height:auto;image-rendering:pixelated}
-  .brand span{font-size:10px;letter-spacing:.14em;color:var(--muted)}
+  .brand span{display:inline;font-size:10px;letter-spacing:.14em;color:var(--muted)}
   header{margin:0 0 26px}
   h1{font-size:36px;margin:12px 0}
   .intro{font-size:18px}
