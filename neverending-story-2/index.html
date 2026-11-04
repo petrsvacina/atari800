@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111720">
+  <title>The NeverEnding Story II · Atari XL/XE</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preload" as="image" href="assets/loading.png">
+  <script src="assets/data.js"></script><script src="assets/audio.js"></script><script defer src="game.js"></script>
+</head>
+<body>
+  <main>
+    <header class="masthead">
+      <a class="brand" href="index.html" aria-label="The NeverEnding Story II"><span>THE NEVERENDING<strong>STORY II</strong></span></a>
+      <div class="header-actions"><div class="edition"><a id="back" href="../">← VŠECHNY HRY</a><small id="edition-caption">ATARI800 · WEBOVÁ HERNA</small></div><div class="languages" role="group" aria-label="Language"><button type="button" data-lang="cs">CZ</button><button type="button" data-lang="en">EN</button></div></div>
+    </header>
+    <div class="heading"><div><p class="eyebrow" id="category">2021 · GRAFICKÁ ADVENTURA</p><h1>The NeverEnding Story II</h1><p id="subtitle">Nekonečný příběh pokračuje.</p></div><span id="chapter" class="badge">I / II</span></div>
+    <div class="game-layout">
+      <section class="machine" aria-label="The NeverEnding Story II">
+        <div class="machine-top"><span id="location">FANTASIA</span><span>ATARI XL/XE · HTML5</span></div>
+        <div class="screen"><canvas id="game" width="320" height="200" aria-label="Herní obrazovka"></canvas><div id="overlay" data-mode="start"><img class="title-art" src="assets/loading.png" width="320" height="192" alt="Původní načítací obrazovka The NeverEnding Story II"><h2 id="overlay-title">Příběh pokračuje.</h2><p id="overlay-text">Dva jazyky. Jedna rozehraná hra.</p><button type="button" id="continue" class="gold">Začít příběh →</button></div></div>
+        <form id="command-form" autocomplete="off"><label for="command">›</label><input id="command" name="command" maxlength="30" spellcheck="false" autocapitalize="none" autocorrect="off" placeholder="Napiš příkaz…" aria-label="Příkaz" disabled><button id="send" type="submit" disabled>Provést ↵</button></form>
+        <div class="toolbar"><button id="new" type="button">↺ Nová hra</button><button id="save" type="button">↓ Uložit</button><button id="load" type="button">↑ Načíst</button><a id="manual" href="assets/manual-cs.pdf" target="_blank" rel="noopener">Návod ↗</a><button id="sound" type="button" aria-pressed="true">♫ Zvuk zapnutý</button><button id="fullscreen" type="button">⛶ Celá obrazovka</button></div>
+      </section>
+      <aside class="controls"><div><h2 id="travel-title">Kam dál?</h2><div class="compass" id="compass"></div></div><div class="commands"><h2 id="actions-title">Rozhlédni se. Zeptej se. Objevuj.</h2><p id="help">Použij původní zkratky příkazů. Diakritiku převedeme automaticky. Přepnutí CZ/EN zachová rozehranou hru.</p><div id="quick"></div><div id="verbs" aria-label="Příkazy"></div><p id="examples" class="examples">Například: s · pro krovi · seb bobule</p></div></aside>
+      <p id="status" role="status" aria-live="polite"></p>
+    </div>
+    <details class="transcript"><summary id="transcript-title">Text příběhu</summary><pre id="transcript"></pre></details>
+    <footer><span>Tomáš Kratochvíl (Gyro) · Golden Computer System · 2021<br>Pedro · Poison · English: Martin Němeček · 2022</span><span>HTML5 / JavaScript</span></footer>
+  </main>
+  <dialog id="slots"><form method="dialog"><div class="dialog-heading"><h2 id="slots-title">Uložené hry</h2><button value="cancel" aria-label="Close">×</button></div><div id="slots-list"></div></form></dialog>
+</body>
+</html>

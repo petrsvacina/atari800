@@ -1,0 +1,18 @@
+{
+  "sources": {
+    "cs": "ec66fd50199e5cf2d3886393f6b2ff4fcf5d0a237f13ca1b5d598f196b79d3be",
+    "en": "a04846117bd6400e69fa9598959e392488e779a59bc914cea6b854b721e1babb"
+  },
+  "player": "$A016 initialization, $A26E PAL VBI tick",
+  "period": {
+    "first": 5761,
+    "repeat": 11521,
+    "period": 5760,
+    "stateSha256": "9cc8434a6384e4b442eed45ba6f7ef7005a5fd6bd11e387cb16ddabb73a0afb3"
+  },
+  "duration": 231.06344671201813,
+  "loopStart": 115.54179403162316,
+  "loopEnd": 231.0635322059244,
+  "wavSha256": "924a366a1cdb30120ff5dc14536de740a76f99c44375f5e80eaf0a6a8b59caa3",
+  "mp3Sha256": "a5f252cace2f298576f9af68b79e0fd338adead2486252dde15814c524ba04fb"
+}

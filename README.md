@@ -16,6 +16,8 @@ Boulder Dash je nativní HTML5 hra v `boulder-dash/`. Cesta v herně je **https:
 
 Shift je nativní HTML5 hra v `shift/`, veřejně na **https://atari800.gmork.cz/hry/shift/**. Obsahuje 36 původních úrovní a tajnou místnost, grafiku, CMC hudbu, POKEY efekty, CZ/EN rozhraní a mobilní joystick. Ověřený rozsah shody i zbývající limity jsou v `shift/README.md`; aktuální nasazení a opravu fullscreenu zaznamenává `DEPLOYMENT.md`.
 
+The NeverEnding Story II je nová nativní HTML5 hra v `neverending-story-2/`, připravená v místním českém i anglickém katalogu. Obsahuje obě původní jazykové varianty, obě části příběhu, sdílené pozice, původní grafiku, hudbu a návody. Místní náhled: **http://127.0.0.1:8010/dist/hry/neverending-story-2/**. Zatím jde o místní verzi k vyzkoušení; rozsah ověření a hranice popisuje `neverending-story-2/README.md`.
+
 ## Obsah repozitáře
 
 `portal/` obsahuje katalog, `web/` samostatné Dynakillers, `karate/` International Karate, `archon/` Archon, `goonies-web/` The Goonies, `river-raid/` River Raid, `hero/` H.E.R.O., `boulder-dash/` Boulder Dash, `karateka/` Karateku, `neverending-story/` The NeverEnding Story a `shift/` Shift, včetně grafických a zvukových prostředků potřebných pro hraní. `tools/` obsahuje sestavení, extrakční nástroje a testy; `research/` dokumentuje rozbor a ukládá podklady potřebné pro opakování grafických exportů. Původní místní adresář `Goonies/` se do Gitu ani veřejného webu nekopíruje.

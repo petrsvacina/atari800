@@ -1,0 +1,208 @@
+{
+  "cs": {
+    "source": "The-NeverEnding-Story-II-c2021Tomas-Kratochvil.atr",
+    "sha256": "ec66fd50199e5cf2d3886393f6b2ff4fcf5d0a237f13ca1b5d598f196b79d3be",
+    "files": {
+      "DOS.SYS": {
+        "bytes": 4375,
+        "sha256": "b2403d2af7c9b129b617add138874aba36a70d0e5a33315b19b0a0c036a28cb0"
+      },
+      "DUP.SYS": {
+        "bytes": 6638,
+        "sha256": "67264b6f06c1cbba65c02182237be61206d1332266d7fd0a8179f5be4f829408"
+      },
+      "AUTORUN.SYS": {
+        "bytes": 10876,
+        "sha256": "ad9702918f98ee68b0a04156cd372130433522ae0947be7091e1a8056bc50b2d"
+      },
+      "AUTORUN.CTB": {
+        "bytes": 1482,
+        "sha256": "1f2ec32b849e0b975757fe58eb1e3847b4fd78c412756091ac03232dc721f830"
+      },
+      "GAMES.CTB": {
+        "bytes": 2353,
+        "sha256": "92321133b143b2a3c137bd08577bf3c89bdfef4361be61e427ab1f35379d49e8"
+      },
+      "GAMES1.CTB": {
+        "bytes": 25647,
+        "sha256": "9aa2856724f6ad9276e699c2b2b45fe1a48dd22a758da3d2b606dee52ddca897"
+      },
+      "GAMES2.CTB": {
+        "bytes": 27408,
+        "sha256": "1139d7f6c2f7a34b474e1b039a2abe563f6edf8dbf81f56c455b155f01e7cc29"
+      },
+      "TITLESCR.CTB": {
+        "bytes": 416,
+        "sha256": "8165e38a779d8406ff32f71eb6e6ec896d46768c9cb4c7f67669a1bf4c5cf05b"
+      },
+      "NICE.FNT": {
+        "bytes": 1024,
+        "sha256": "0d733c1d190e962cc6cf4adab46b0613acfa5060321fc6884ce7d072f45b9b0b"
+      },
+      "NSMUSIC.CMC": {
+        "bytes": 1977,
+        "sha256": "cef4b0eed32ffd3eca9d546a75a8404ad89052d6f362ed14d941b3ebb9f7eab3"
+      },
+      "NSMUSIC.REP": {
+        "bytes": 1992,
+        "sha256": "d28c9a1ca82d0571689653dfe73277d6bcdfd4e745f0317dfae84bc7ad89807f"
+      },
+      "DOOR.MIC": {
+        "bytes": 3200,
+        "sha256": "8caf9cdca1049dc97d30d0076e73525f8beb72c1d49d082dec91b356537ac112"
+      },
+      "FOREST.MIC": {
+        "bytes": 3200,
+        "sha256": "c6b64c8f948b0f49cd4b49202564d6997ca52eaf35e00398ea4b49d6d9d6c156"
+      },
+      "GATE.MIC": {
+        "bytes": 3200,
+        "sha256": "7637d23a27f278f3a1fce6dfaac5e5619db242fc316f03bc20d0b8a9b18d1475"
+      },
+      "HEJKAL.MIC": {
+        "bytes": 3200,
+        "sha256": "4a1c769dcb064a8db9a004b78e48aeeb6d7fc01312c0eb746b3aed812e8f581b"
+      },
+      "CHEST.MIC": {
+        "bytes": 3200,
+        "sha256": "00c6f49c51555954704d5060f40d3bc892bf34c2c9c52edc1fcf941e759e585b"
+      },
+      "INGAME.MIC": {
+        "bytes": 3200,
+        "sha256": "9c63530d7a057c065f305d53db288c08098cf5970dd43323ffa9808b93015760"
+      },
+      "TITLESCR.MIC": {
+        "bytes": 7684,
+        "sha256": "b90dff0eaf9f5173f4da6ceb4542c3aa48a1d5b8f1dc3f87a89cc1f172eb141f"
+      },
+      "LAKE.MIC": {
+        "bytes": 3200,
+        "sha256": "c1ca96de7c00757860d59a969d86e51c4625c6bbf2bd03e379c847caaa0caa87"
+      },
+      "MIRROR.MIC": {
+        "bytes": 3200,
+        "sha256": "344939cd2ca23db01473bcbcdfe0c00214a40902a3926e24b0d98c8a56a04c64"
+      },
+      "ROCKBITE.MIC": {
+        "bytes": 3200,
+        "sha256": "8669bb06f19938ca47280447a3611f252b981ec305fded8dec2cbe5ad8de3948"
+      },
+      "THEEND.MIC": {
+        "bytes": 3200,
+        "sha256": "b5f3d282d1bdaeadf952e5b13533cd02be0e463aa86a143bbded0df24b9ed3f9"
+      }
+    },
+    "programOperations": [
+      17,
+      934,
+      1032
+    ]
+  },
+  "en": {
+    "source": "The-NeverEnding-Story-II-20212022Final-ENG.atr",
+    "sha256": "a04846117bd6400e69fa9598959e392488e779a59bc914cea6b854b721e1babb",
+    "files": {
+      "DOS.SYS": {
+        "bytes": 4375,
+        "sha256": "b2403d2af7c9b129b617add138874aba36a70d0e5a33315b19b0a0c036a28cb0"
+      },
+      "DUP.SYS": {
+        "bytes": 6638,
+        "sha256": "67264b6f06c1cbba65c02182237be61206d1332266d7fd0a8179f5be4f829408"
+      },
+      "AUTORUN.SYS": {
+        "bytes": 17806,
+        "sha256": "5539586d62ccd429f852c29603fa8ef2da78dec3147e7e4f4928c9c479edf3a4"
+      },
+      "AUTORUN.BAS": {
+        "bytes": 1569,
+        "sha256": "3cbbbb0852aca26e171f505f6a420b202f38d605c6a31145c6e8c3fabdf2ee7a"
+      },
+      "NSMUSIC.CMC": {
+        "bytes": 1977,
+        "sha256": "cef4b0eed32ffd3eca9d546a75a8404ad89052d6f362ed14d941b3ebb9f7eab3"
+      },
+      "GAMES1.BAS": {
+        "bytes": 21312,
+        "sha256": "741df459973ea2e66660cb7aca653d52292f1d97535b9e88e4dcc696383cd70e"
+      },
+      "MIRROR.MIC": {
+        "bytes": 3200,
+        "sha256": "344939cd2ca23db01473bcbcdfe0c00214a40902a3926e24b0d98c8a56a04c64"
+      },
+      "NICE.FNT": {
+        "bytes": 1024,
+        "sha256": "9633726c59823a5680fa1167e4b546622f76b14a84995e56d3f730ffe2a95551"
+      },
+      "HEJKAL.MIC": {
+        "bytes": 3200,
+        "sha256": "4a1c769dcb064a8db9a004b78e48aeeb6d7fc01312c0eb746b3aed812e8f581b"
+      },
+      "NSMUSIC.REP": {
+        "bytes": 1992,
+        "sha256": "d28c9a1ca82d0571689653dfe73277d6bcdfd4e745f0317dfae84bc7ad89807f"
+      },
+      "TITLESCR.BAS": {
+        "bytes": 672,
+        "sha256": "5ff24e01eefac9b99c58a7410b598f29d2ebf6ea685ff774f502ca2757083483"
+      },
+      "TITLESCR.MIC": {
+        "bytes": 7684,
+        "sha256": "b90dff0eaf9f5173f4da6ceb4542c3aa48a1d5b8f1dc3f87a89cc1f172eb141f"
+      },
+      "INGAME.MIC": {
+        "bytes": 3200,
+        "sha256": "9c63530d7a057c065f305d53db288c08098cf5970dd43323ffa9808b93015760"
+      },
+      "LAKE.MIC": {
+        "bytes": 3200,
+        "sha256": "c1ca96de7c00757860d59a969d86e51c4625c6bbf2bd03e379c847caaa0caa87"
+      },
+      "GATE.MIC": {
+        "bytes": 3200,
+        "sha256": "7637d23a27f278f3a1fce6dfaac5e5619db242fc316f03bc20d0b8a9b18d1475"
+      },
+      "GAMES.BAS": {
+        "bytes": 2987,
+        "sha256": "acde191de43e4b41ea7369f9ba5e4fbee8bc49c5bd6bddc9d51ea6ffb50280b6"
+      },
+      "ROCKBITE.MIC": {
+        "bytes": 3200,
+        "sha256": "8669bb06f19938ca47280447a3611f252b981ec305fded8dec2cbe5ad8de3948"
+      },
+      "GAMES2.BAS": {
+        "bytes": 21952,
+        "sha256": "a2457c83430d25d1822b1d43e34da5d43b1e1dde9f57343afb206564f59bc761"
+      },
+      "DOOR.MIC": {
+        "bytes": 3200,
+        "sha256": "8caf9cdca1049dc97d30d0076e73525f8beb72c1d49d082dec91b356537ac112"
+      },
+      "CHEST.MIC": {
+        "bytes": 3200,
+        "sha256": "00c6f49c51555954704d5060f40d3bc892bf34c2c9c52edc1fcf941e759e585b"
+      },
+      "FOREST.MIC": {
+        "bytes": 3200,
+        "sha256": "c6b64c8f948b0f49cd4b49202564d6997ca52eaf35e00398ea4b49d6d9d6c156"
+      },
+      "THEEND.MIC": {
+        "bytes": 3200,
+        "sha256": "b5f3d282d1bdaeadf952e5b13533cd02be0e463aa86a143bbded0df24b9ed3f9"
+      },
+      "KING.MIC": {
+        "bytes": 3200,
+        "sha256": "6420446a2d6687d0c6b87510304017e6232c63125689267e624973e60d8c3746"
+      }
+    },
+    "programOperations": [
+      17,
+      595,
+      652
+    ]
+  },
+  "manuals": {
+    "manual-cs.pdf": "efe2f13ff88b03fe6776a7fe0c5772080344a34eddff16eb04cd3d6c569994d8",
+    "manual-en.jpg": "29dae2fe8dec16c1b4635d4cd41cf9ff19ff8142d74dd4eb299d2576025be081"
+  }
+}

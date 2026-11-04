@@ -166,5 +166,24 @@
     "navigation": "embedded",
     "versionedAssets": ["style.css", "game.js", "assets/data.js", "assets/audio.js", "assets/logo.png"],
     "exclude": ["README.md", "*.mjs"]
+  },
+  {
+    "id": "neverending-story-2",
+    "title": "The NeverEnding Story II",
+    "description": "Vrať se s Atreyem do Fantasie. Projdi lesem, podzemím a Slonovinovou věží v původní české nebo anglické adventuře se společnými uloženými pozicemi.",
+    "genre": "Grafická · textová adventura",
+    "players": "1 hráč",
+    "multiplayer": false,
+    "year": "2021",
+    "author": "Gyro · G.C.S.",
+    "controls": "Klávesnice · dotykové příkazy",
+    "image": "assets/neverending-story-2.png",
+    "logo": "assets/neverending-story-2-logo.svg",
+    "source": "neverending-story-2",
+    "featured": false,
+    "i18n": "embedded",
+    "navigation": "embedded",
+    "versionedAssets": ["style.css", "game.js", "assets/data.js", "assets/audio.js", "assets/loading.png"],
+    "exclude": ["README.md", "*.mjs"]
   }
 ]

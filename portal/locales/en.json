@@ -109,6 +109,12 @@
       "genre": "Graphic · text adventure",
       "players": "1 player",
       "controls": "Keyboard · touch commands"
+    },
+    "neverending-story-2": {
+      "description": "Return to Fantasia with Atreyu. Explore the forest, the underground and the Ivory Tower in the original Czech or English adventure, sharing your progress between languages.",
+      "genre": "Graphic · text adventure",
+      "players": "1 player",
+      "controls": "Keyboard · touch commands"
     }
   }
 }

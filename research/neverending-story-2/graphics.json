@@ -1,0 +1,139 @@
+{
+  "capture": "Atari800 PAL: real ANTIC/GTIA/DLI scanout; original image and font bytes; unchanged initial text buffer",
+  "initialSource": "cs",
+  "initialSha256": "042d37e0840502465706f8284b34a8f36297db82cc434384922bc6e3e184a9a5",
+  "crop": {
+    "x": 32,
+    "y": 20,
+    "width": 320,
+    "height": 200
+  },
+  "cases": [
+    {
+      "language": "cs",
+      "image": "HEJKAL.MIC",
+      "color": 220,
+      "sha256": "042d37e0840502465706f8284b34a8f36297db82cc434384922bc6e3e184a9a5"
+    },
+    {
+      "language": "cs",
+      "image": "INGAME.MIC",
+      "color": 0,
+      "sha256": "661b7fea2cc820e76acaa391a2244628938eb898d9278d20b9a77be0ef824f7e"
+    },
+    {
+      "language": "cs",
+      "image": "MIRROR.MIC",
+      "color": 15,
+      "sha256": "38905fc5df72340c1c44e75c47bf3f7f65453f0d75f7654448abda4930c9c6cd"
+    },
+    {
+      "language": "cs",
+      "image": "LAKE.MIC",
+      "color": 0,
+      "sha256": "5dd9a4187980012ef3ab23b2d1111c49f3d5ce108b4a68e7a3407c7dbd13a9fc"
+    },
+    {
+      "language": "cs",
+      "image": "ROCKBITE.MIC",
+      "color": 10,
+      "sha256": "488aeef8c8c99d4e68172dfeeb8d7984a7bc820302a54ec3cce19dc99b61a1a3"
+    },
+    {
+      "language": "cs",
+      "image": "GATE.MIC",
+      "color": 2,
+      "sha256": "acc4712688646cba650e65ddee1fba00ff13d25b3a43241e58d3edd7b86e20a0"
+    },
+    {
+      "language": "cs",
+      "image": "CHEST.MIC",
+      "color": 38,
+      "sha256": "527e18110aa123488e23ecf37cc9744dcb89b4ff2a33b769f006fb68ebfcaf58"
+    },
+    {
+      "language": "cs",
+      "image": "DOOR.MIC",
+      "color": 38,
+      "sha256": "ba9aadd02a10c0ced61b0b1a28dfaec852ae048d10b8c3739cab9f89eec57538"
+    },
+    {
+      "language": "cs",
+      "image": "FOREST.MIC",
+      "color": 220,
+      "sha256": "3a492a2b0850bd3b3b04bea93ce49b3a9c3f26bc5e38136dbbd964c1191f4720"
+    },
+    {
+      "language": "cs",
+      "image": "THEEND.MIC",
+      "color": 15,
+      "sha256": "839c4924f673a3e45bf5ca9aceab9ca3388db59311982d7300ddcc5707bd303f"
+    },
+    {
+      "language": "en",
+      "image": "HEJKAL.MIC",
+      "color": 220,
+      "sha256": "1c9da898c7d95015083d9351869f689aab3d5a6a7f42cb430c6625a93751cd18"
+    },
+    {
+      "language": "en",
+      "image": "INGAME.MIC",
+      "color": 0,
+      "sha256": "848e4c81448b73761b8ff5456dc96fdff14fdcf783d048fc929eb4fd1aa328da"
+    },
+    {
+      "language": "en",
+      "image": "MIRROR.MIC",
+      "color": 15,
+      "sha256": "01c2f802a58bb5c120f59fe3223d65747db540f431e0c7fe8285ad9519512644"
+    },
+    {
+      "language": "en",
+      "image": "LAKE.MIC",
+      "color": 0,
+      "sha256": "5c1b925c7bb1d47d7799f7fb750c90af1c54c05d61d89764f20fd8bff73988c8"
+    },
+    {
+      "language": "en",
+      "image": "ROCKBITE.MIC",
+      "color": 10,
+      "sha256": "a6f57f02e0f0b18e4edbbe272a373c3c64df09c776312943f76a2125e379aed8"
+    },
+    {
+      "language": "en",
+      "image": "GATE.MIC",
+      "color": 2,
+      "sha256": "e6b4cb4d6ab9e5b46717d44f71c0d1494c4fd080d3572a2974f555f7de421d89"
+    },
+    {
+      "language": "en",
+      "image": "CHEST.MIC",
+      "color": 38,
+      "sha256": "9aff7b1f71ce35eed56cec41e765563a0ef57475defe1909be3e7a561ae7103e"
+    },
+    {
+      "language": "en",
+      "image": "DOOR.MIC",
+      "color": 38,
+      "sha256": "cb22f1d4576a2f142b5662f9329e4dc234e1263f7713b655590aa19a524e7a8c"
+    },
+    {
+      "language": "en",
+      "image": "FOREST.MIC",
+      "color": 220,
+      "sha256": "021730e0553602a7fdc81cd0b3efa29d6e1e95d547fe6811334934b9ce8fefb0"
+    },
+    {
+      "language": "en",
+      "image": "THEEND.MIC",
+      "color": 15,
+      "sha256": "4ebcb0cd184a690ae190986875c4373c24d12cfef8a5f8ea340b30aa75e4bf33"
+    },
+    {
+      "language": "en",
+      "image": "KING.MIC",
+      "color": 15,
+      "sha256": "8d1a28672636ff539ff8c08066dc8d7cb37bf3ccbcd9a9cdf6c38c1f5c55a75e"
+    }
+  ]
+}
