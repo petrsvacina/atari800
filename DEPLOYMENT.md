@@ -1,6 +1,38 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — The NeverEnding Story II, CZ/EN
+## Aktuální veřejné vydání — Fred
+
+- Vydání `20261104T083603Z`, zdrojový commit
+  `09fe4270be33b43708b3c6992832b7cc3ee12966` na `origin/main`.
+- Veřejná hra: <https://atari800.gmork.cz/hry/fred/>, anglicky s `?lang=en`.
+  Dvanáctá hra českého i anglického katalogu, včetně vyhledávání,
+  původního loga, herního náhledu a střídání úvodní hry po obnovení stránky.
+- Archiv `/private/tmp/fred-release-20261104T083603Z/atari800-20261104T083603Z.tar.gz`,
+  40 207 161 B, SHA-256 `05983deda8da167b53eaeee71689fd9ab85761bd968b39bba1e049358854771c`.
+- Před nasazením ověřena úplná záloha dosavadních 221 veřejných souborů:
+  `/root/atari800-backups/20261104T083603Z/site-before.tar.gz`.
+  Publikační záznam: `research/fred/release-20261104T083603Z.json`.
+- Přidáno dvanáct veřejných souborů, změněny pouze oba katalogy. **219
+  dosavadních souborů zůstalo bytově shodných**, včetně všech starších her.
+  Prostředky se publikovaly před herní stránkou a katalogovými odkazy;
+  publikátor má automatický rollback. Konfigurace Apache se neměnila.
+- HTTPS ověřilo všech 233 hashů a MIME typy, včetně obou zvukových `.mjs`
+  modulů, 14 cest, anglickou adresu nové hry, verzované prostředky
+  a 15 Range požadavků na média/PDF. Osm kontrol sestavení portálu prošlo.
+- Oddělený Edge ověřil lokálně i na veřejném webu české a anglické katalogové
+  odkazy, střídání úvodní hry přes Freda zpět na Dynakillers, vyhledávání,
+  návrat do správného katalogu a spuštění hry. Veřejný test prošel při
+  rozměrech 1440×1000, 390×844, 320×740 a 844×390: pohyb, pauza,
+  fullscreen přes F, anglické rozhraní a současný dotyk joysticku a FIRE.
+- Hudební test dekóduje zvuk a odmítá tichý původní vadný export. Na webu
+  se také měřil skutečný signál za hlavním zesílením (špička 0,437,
+  RMS 0,251) a ověřilo načtení AudioWorkletu. Bez chyb JavaScriptu;
+  výsledek je v `research/fred/browser-live.json`.
+- Fyzický telefon, Safari a fyzický gamepad nebyly v tomto vydání testované.
+  Úplný ruční průchod a kompletní důkaz shody 1:1 zůstávají otevřené;
+  dosavadní ověření a hranice jsou v herním a vývojovém README.
+
+## Předchozí veřejné vydání — The NeverEnding Story II, CZ/EN
 
 - Vydání `20261104T002845Z`, zdrojový commit
   `9749f9ce23a399924eb8dc6ba92a80265ec9caaa` na `origin/main`.

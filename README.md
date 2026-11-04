@@ -18,7 +18,7 @@ Shift je nativní HTML5 hra v `shift/`, veřejně na **https://atari800.gmork.cz
 
 The NeverEnding Story II je nativní HTML5 hra v `neverending-story-2/`, veřejně na **https://atari800.gmork.cz/hry/neverending-story-2/** v českém i anglickém katalogu. Obsahuje obě původní jazykové varianty, obě části příběhu, sdílené pozice, původní grafiku, hudbu a návody. Rozsah ověření a hranice popisuje `neverending-story-2/README.md`; vydání zaznamenává `DEPLOYMENT.md`.
 
-Fred má první hratelnou nativní verzi v `fred/`, lokálně na **http://127.0.0.1:8010/fred/**. Obsahuje deset původních úrovní, grafiku, hudbu, efekty a dotykový joystick. Zatím není součástí veřejného katalogu. Ovládání a rozsah ověření jsou v `fred/README.md`.
+Fred má hratelnou nativní verzi v `fred/`, veřejně na **https://atari800.gmork.cz/hry/fred/** jako dvanáctá hra českého i anglického katalogu. Obsahuje deset původních úrovní, grafiku, hudbu, efekty a dotykový joystick. Lokálně běží na **http://127.0.0.1:8010/fred/**. Ovládání a rozsah ověření jsou v `fred/README.md`.
 
 ## Obsah repozitáře
 

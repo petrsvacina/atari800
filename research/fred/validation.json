@@ -50,8 +50,8 @@
     "fred-raster.json.gz": "9481e3a4d43897c9159a097c3cfa9f17b2f48a4041a74f4122e2fa0ec53ce4d9",
     "fred-rules.json.gz": "805d42fffb5274b8b423c88fc0624b1196e2afb04e73cb7899220736e8c29c9c"
   },
-  "status": "Playable local native version; full uninterrupted playthrough and complete 1:1 proof outstanding",
-  "publicDeployment": false,
+  "status": "Published native version; full uninterrupted playthrough and complete 1:1 proof outstanding",
+  "publicDeployment": true,
   "nativeBundleSha256": "609133b0388c3e52886f94c9bbe005922ee04d0ebe74c7b7502216d20944cab6",
   "musicValidation": {
     "assetSha256": "150dbdab34e433253e0fdba0718b1746d12157081f98264f65b1dd41d1ec80ef",
@@ -83,5 +83,23 @@
       "file": []
     },
     "silentPreviousAssetRejectedByRegressionTest": true
+  },
+  "publicRelease": {
+    "release": "20261104T083603Z",
+    "sourceCommit": "09fe4270be33b43708b3c6992832b7cc3ee12966",
+    "url": "https://atari800.gmork.cz/hry/fred/",
+    "record": "release-20261104T083603Z.json",
+    "browserRecord": "browser-live.json",
+    "catalogLanguages": [
+      "cs",
+      "en"
+    ],
+    "catalogGames": 12,
+    "publicFilesVerified": 233,
+    "previousFilesUnchanged": 219,
+    "pageErrors": [],
+    "audioWorkletVerified": true,
+    "physicalSafariIosTested": false,
+    "physicalGamepadTested": false
   }
 }

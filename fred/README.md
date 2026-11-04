@@ -1,9 +1,11 @@
 # Fred — nativní webová verze
 
-Lokální hra: <http://127.0.0.1:8010/fred/>. Anglické rozhraní vybere `?lang=en`.
+Veřejná hra: <https://atari800.gmork.cz/hry/fred/>, součást českého i anglického
+portálu. Anglické rozhraní vybere `?lang=en`.
+
+Lokální hra: <http://127.0.0.1:8010/fred/>.
 Z kořene projektu ji lze spustit pomocí `python3 -m http.server 8010`.
 Funguje i přímé otevření `fred/index.html`, včetně zvuku.
-Tato verze zatím není přidaná do veřejného portálu.
 
 Převod vychází z dodaného `Fred (CZ) (Font 1).xex`. Obsahuje deset původních
 úrovní ze 160 mapových bloků, původní bitmapy, animace, kameny a sprej,

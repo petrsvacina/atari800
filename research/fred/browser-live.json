@@ -1,0 +1,203 @@
+{
+  "browser": "156.0.4314.58",
+  "url": "https://atari800.gmork.cz/hry/fred/",
+  "checks": [
+    {
+      "viewport": "desktop",
+      "catalog": {
+        "games": 12,
+        "links": {
+          "cs": "https://atari800.gmork.cz/hry/fred/",
+          "en": "https://atari800.gmork.cz/hry/fred/?lang=en"
+        },
+        "rotation": true,
+        "language": "en",
+        "back": "https://atari800.gmork.cz/en/"
+      },
+      "movement": [
+        80,
+        90
+      ],
+      "fullscreen": {
+        "arcade": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1000
+        },
+        "screen": {
+          "x": 0,
+          "y": 45,
+          "width": 1440,
+          "height": 901
+        },
+        "canvas": {
+          "x": 0,
+          "y": 45,
+          "width": 1440,
+          "height": 901
+        },
+        "width": 1440,
+        "height": 1000
+      },
+      "audio": true,
+      "musicOutput": {
+        "peak": 0.4368162751197815,
+        "rms": 0.2505720619626265,
+        "state": "running",
+        "music": true,
+        "worklet": true
+      },
+      "twoTouchInput": false,
+      "soak": null
+    },
+    {
+      "viewport": "mobile",
+      "catalog": {
+        "games": 12,
+        "links": {
+          "cs": "https://atari800.gmork.cz/hry/fred/",
+          "en": "https://atari800.gmork.cz/hry/fred/?lang=en"
+        },
+        "rotation": true,
+        "language": "cs",
+        "back": "https://atari800.gmork.cz/"
+      },
+      "movement": [
+        80,
+        91
+      ],
+      "fullscreen": {
+        "arcade": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        },
+        "screen": {
+          "x": 0,
+          "y": 34,
+          "width": 390,
+          "height": 527
+        },
+        "canvas": {
+          "x": 0,
+          "y": 34,
+          "width": 390,
+          "height": 527
+        },
+        "width": 390,
+        "height": 844
+      },
+      "audio": true,
+      "musicOutput": {
+        "peak": 0.4368162751197815,
+        "rms": 0.2505720619626265,
+        "state": "running",
+        "music": true,
+        "worklet": true
+      },
+      "twoTouchInput": true,
+      "soak": null
+    },
+    {
+      "viewport": "narrow",
+      "catalog": {
+        "games": 12,
+        "links": {
+          "cs": "https://atari800.gmork.cz/hry/fred/",
+          "en": "https://atari800.gmork.cz/hry/fred/?lang=en"
+        },
+        "rotation": true,
+        "language": "en",
+        "back": "https://atari800.gmork.cz/en/"
+      },
+      "movement": [
+        80,
+        91
+      ],
+      "fullscreen": {
+        "arcade": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 740
+        },
+        "screen": {
+          "x": 0,
+          "y": 34,
+          "width": 320,
+          "height": 386
+        },
+        "canvas": {
+          "x": 0,
+          "y": 34,
+          "width": 320,
+          "height": 386
+        },
+        "width": 320,
+        "height": 740
+      },
+      "audio": true,
+      "musicOutput": {
+        "peak": 0.4368162751197815,
+        "rms": 0.2505720619626265,
+        "state": "running",
+        "music": true,
+        "worklet": true
+      },
+      "twoTouchInput": true,
+      "soak": null
+    },
+    {
+      "viewport": "landscape",
+      "catalog": {
+        "games": 12,
+        "links": {
+          "cs": "https://atari800.gmork.cz/hry/fred/",
+          "en": "https://atari800.gmork.cz/hry/fred/?lang=en"
+        },
+        "rotation": true,
+        "language": "cs",
+        "back": "https://atari800.gmork.cz/"
+      },
+      "movement": [
+        80,
+        91
+      ],
+      "fullscreen": {
+        "arcade": {
+          "x": 0,
+          "y": 0,
+          "width": 844,
+          "height": 390
+        },
+        "screen": {
+          "x": 0,
+          "y": 29,
+          "width": 844,
+          "height": 307
+        },
+        "canvas": {
+          "x": 0,
+          "y": 29,
+          "width": 844,
+          "height": 307
+        },
+        "width": 844,
+        "height": 390
+      },
+      "audio": true,
+      "musicOutput": {
+        "peak": 0.4368162751197815,
+        "rms": 0.2505720619626265,
+        "state": "running",
+        "music": true,
+        "worklet": true
+      },
+      "twoTouchInput": true,
+      "soak": null
+    }
+  ],
+  "errors": []
+}

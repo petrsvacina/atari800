@@ -90,7 +90,9 @@ python3 tools/test-fred-music.py
 ```
 
 Serve the project over HTTP and open `/fred/`. `?lang=en` selects the English
-shell. Public portal registration and deployment are separate release work.
+shell. The public game is <https://atari800.gmork.cz/hry/fred/>, registered in
+both portal catalogs as game 12. Release `20261104T083603Z` is recorded in
+`release-20261104T083603Z.json`; publication details are in `../../DEPLOYMENT.md`.
 The generated classic `game.js` also supports direct file opening. Rebuild it
 with `python3 tools/build_fred.py`; `--check` verifies it matches the modules.
 
