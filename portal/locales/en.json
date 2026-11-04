@@ -1,5 +1,5 @@
 {
-  "meta_description": "Atari XL/XE lives on. Play Dynakillers, International Karate, Archon, The Goonies, River Raid, H.E.R.O., Boulder Dash, Karateka, The NeverEnding Story and Shift right in your browser.",
+  "meta_description": "Atari XL/XE lives on. Play Fred, Dynakillers, International Karate, River Raid and more classics right in your browser.",
   "og_title": "ATARI800 — Eight bits. Still the same joy.",
   "og_description": "Atari XL/XE classics in a new web arcade. Pick a game and play.",
   "page_title": "ATARI800 — Atari XL/XE Web Arcade",
@@ -115,6 +115,12 @@
       "genre": "Graphic · text adventure",
       "players": "1 player",
       "controls": "Keyboard · touch commands"
+    },
+    "fred": {
+      "description": "The Stone Age is no place for the faint-hearted. Jump across platforms, throw stones, smash pots and explore all ten original levels.",
+      "genre": "Action · platformer",
+      "players": "1 player",
+      "controls": "Keyboard · gamepad · touch"
     }
   }
 }

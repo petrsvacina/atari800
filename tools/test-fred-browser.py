@@ -3,7 +3,7 @@
 import argparse,json,sys
 from pathlib import Path
 p=argparse.ArgumentParser(description=__doc__);p.add_argument('--url',default='http://127.0.0.1:8010/fred/');p.add_argument('--deps',default='/private/tmp/shift-browser-deps');p.add_argument('--output',type=Path,default=Path('/private/tmp/fred-browser-qa'))
-p.add_argument('--desktop-only',action='store_true');p.add_argument('--soak-seconds',type=int,default=0);args=p.parse_args()
+p.add_argument('--desktop-only',action='store_true');p.add_argument('--soak-seconds',type=int,default=0);p.add_argument('--portal-url');args=p.parse_args()
 sys.path.insert(0,args.deps)
 from playwright.sync_api import sync_playwright
 args.output.mkdir(parents=True,exist_ok=True);results=[];errors=[]
@@ -15,9 +15,35 @@ with sync_playwright() as p:
         page.add_init_script('''(() => {
           const C=globalThis.AudioContext||globalThis.webkitAudioContext,create=C.prototype.createGain;
           C.prototype.createGain=function(...args){const gain=create.apply(this,args);globalThis.__fredAudioProbe={context:this,gain};return gain;};
+          if(globalThis.AudioWorkletNode){const Original=globalThis.AudioWorkletNode;
+            globalThis.AudioWorkletNode=new Proxy(Original,{construct(target,args){const node=Reflect.construct(target,args);globalThis.__fredAudioProbe.worklet=true;return node;}});
+          }
         })();''')
         page.on('console',lambda m: print('Browser:',m.text,flush=True) if m.type=='error' else None)
-        page.goto(args.url)
+        catalog=None
+        if args.portal_url:
+            base=args.portal_url.rstrip('/')+'/';links={}
+            for language,suffix in [('cs',''),('en','en/')]:
+                page.goto(base+suffix);page.wait_for_selector('#library-tools:visible')
+                assert page.locator('[data-game]').count()==12
+                card=page.locator('[data-game="fred"]');href=card.locator('a').first.evaluate('(a)=>a.href');links[language]=href
+                assert href==args.url+('?lang=en' if language=='en' else ''),(language,href)
+                page.evaluate("sessionStorage.setItem('atari800.featuredGame','neverending-story-2')");page.reload()
+                page.wait_for_function("document.querySelector('.featured-game').dataset.featuredId==='fred'")
+                assert page.locator('#featured-position').inner_text()=='12 / 12'
+                assert page.locator('.featured-game').evaluate('(a)=>a.href')==href
+                assert page.locator('#featured-action').evaluate('(a)=>a.href')==href
+                assert page.locator('.screen-logo img').get_attribute('src').endswith('assets/fred-logo.png')
+                page.screenshot(path=str(args.output/f'{name}-{language}-featured.png'))
+                page.reload();page.wait_for_function("document.querySelector('.featured-game').dataset.featuredId==='dynakillers'")
+                page.locator('#search').fill('Fred');assert page.locator('[data-game]:visible').count()==1
+            # Follow the actual Czech/English card link, alternating by viewport.
+            language='en' if name in ('desktop','narrow') else 'cs'
+            page.goto(base+('en/' if language=='en' else ''));page.locator('#search').fill('Fred')
+            page.locator('[data-game="fred"] a').first.click();page.wait_for_function('globalThis.fredDebug')
+            assert page.locator('#back').evaluate('(a)=>a.href')==base+('en/' if language=='en' else '')
+            catalog={'games':12,'links':links,'rotation':True,'language':language,'back':page.locator('#back').evaluate('(a)=>a.href')}
+        else:page.goto(args.url)
         try:page.wait_for_function('globalThis.fredDebug',timeout=6000)
         except Exception:print('Page errors:',errors,flush=True);raise
         assert page.locator('.brand img').is_visible()
@@ -31,9 +57,10 @@ with sync_playwright() as p:
             for(const sample of samples){peak=Math.max(peak,Math.abs(sample));square+=sample*sample;}
             rms=Math.max(rms,Math.sqrt(square/samples.length));
           }
-          gain.disconnect(analyser);return {peak,rms,state:context.state,music:fredDebug.audio.music};
+          gain.disconnect(analyser);return {peak,rms,state:context.state,music:fredDebug.audio.music,worklet:!!globalThis.__fredAudioProbe.worklet};
         }''')
         assert music['music'] and music['state']=='running' and music['peak']>.001 and music['rms']>.0005,('Music output is silent',music)
+        if args.portal_url:assert music['worklet'],('Published AudioWorklet did not load',music)
         before=page.evaluate('fredDebug.game.x');page.keyboard.down('ArrowRight');page.wait_for_timeout(650);page.keyboard.up('ArrowRight');after=page.evaluate('fredDebug.game.x');assert after>before,(before,after)
         page.keyboard.press('KeyP');assert page.evaluate('fredDebug.paused');tick=page.evaluate('fredDebug.game.tick');page.wait_for_timeout(180);assert page.evaluate('fredDebug.game.tick')==tick
         page.keyboard.press('KeyP');assert not page.evaluate('fredDebug.paused');page.keyboard.press('Space');page.keyboard.press('KeyM');assert not page.evaluate('fredDebug.audio.music')
@@ -63,7 +90,7 @@ with sync_playwright() as p:
         assert abs(dims['screen']['width']-dims['canvas']['width'])<2 and abs(dims['screen']['height']-dims['canvas']['height'])<2,dims
         page.screenshot(path=str(args.output/f'{name}-fullscreen.png'));page.keyboard.press('KeyF');page.wait_for_function('!document.fullscreenElement')
         page.goto(args.url+'?lang=en');assert page.locator('html').get_attribute('lang')=='en';assert page.locator('#start').inner_text()=='Start game →'
-        results.append({'viewport':name,'movement':[before,after],'fullscreen':dims,'audio':True,'musicOutput':music,'twoTouchInput':touch,'soak':soak});ctx.close()
+        results.append({'viewport':name,'catalog':catalog,'movement':[before,after],'fullscreen':dims,'audio':True,'musicOutput':music,'twoTouchInput':touch,'soak':soak});ctx.close()
     version=browser.version;browser.close()
 assert not errors,errors
 result={'browser':version,'url':args.url,'checks':results,'errors':errors};(args.output/'result.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))

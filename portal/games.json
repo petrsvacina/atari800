@@ -185,5 +185,37 @@
     "navigation": "embedded",
     "versionedAssets": ["style.css", "game.js", "assets/data.js", "assets/audio.js", "assets/loading.png"],
     "exclude": ["README.md", "*.mjs"]
+  },
+  {
+    "id": "fred",
+    "title": "Fred",
+    "description": "Pravěk není pro slabé. Skákej po plošinách, házej kameny, rozbíjej nádoby a projdi deseti původními úrovněmi.",
+    "genre": "Akční · plošinovka",
+    "players": "1 hráč",
+    "multiplayer": false,
+    "year": "1991",
+    "author": "L.K. Avalon",
+    "controls": "Klávesnice · gamepad · dotyk",
+    "image": "assets/fred.png",
+    "logo": "assets/fred-logo.png",
+    "source": "fred",
+    "featured": false,
+    "i18n": "embedded",
+    "navigation": "embedded",
+    "versionedAssets": [
+      "style.css",
+      "game.js",
+      "assets/data.js",
+      "assets/audio.js",
+      "assets/logo.png",
+      "assets/title.png"
+    ],
+    "exclude": [
+      "README.md",
+      "app.mjs",
+      "audio.mjs",
+      "engine.mjs",
+      "screen.mjs"
+    ]
   }
 ]

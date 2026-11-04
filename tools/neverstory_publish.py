@@ -72,6 +72,7 @@ def verify_https(stage, backup, game_id='neverending-story', game_ids=None):
         assert sha(body) == sha(expected[:32] if partial else expected), relative
         if partial: assert f'content-range: bytes 0-31/{len(expected)}' in h, relative
         mimes = {'.html': ('text/html',), '.css': ('text/css',), '.js': ('application/javascript', 'text/javascript'),
+                 '.mjs': ('application/javascript', 'text/javascript'),
                  '.png': ('image/png',), '.jpg': ('image/jpeg',), '.svg': ('image/svg+xml',), '.pdf': ('application/pdf',),
                  '.mp3': ('audio/mpeg',), '.mp4': ('video/mp4',)}
         if file.suffix in mimes:
@@ -133,6 +134,13 @@ def main():
                                   *['hry/neverending-story-2/' + f for f in (
                                       'index.html', 'game.js', 'style.css', 'assets/audio.js', 'assets/data.js',
                                       'assets/loading.png', 'assets/manual-cs.pdf', 'assets/manual-en.jpg')]}
+    elif kind == 'fred-release':
+        assert set(d['changed']) == {'index.html', 'en/index.html'}
+        assert set(d['added']) == {'assets/fred.png', 'assets/fred-logo.png',
+                                  *['hry/fred/' + f for f in (
+                                      'index.html', 'game.js', 'style.css', 'sound.mjs', 'sound-worklet.mjs',
+                                      'assets/audio.js', 'assets/data.js', 'assets/logo.png', 'assets/title.png',
+                                      'assets/ending.png')]}
     else:
         assert kind == 'game-release'
         assert set(d['changed']) == {'index.html', 'en/index.html'}
@@ -165,7 +173,8 @@ def main():
     record = backup / 'release.json'; record.write_text(json.dumps(d, indent=2) + '\n')
     exact(SITE, d['old'], preserved)
     affected = set(d['added']) | set(d['changed'])
-    game_id = ('neverending-story-2' if kind == 'neverstory2-release' else
+    game_id = ('fred' if kind == 'fred-release' else
+               'neverending-story-2' if kind == 'neverstory2-release' else
                'shift' if kind in ('shift-release', 'shift-header') else 'neverending-story')
     game_ids = ('shift', 'neverending-story', 'karateka') if kind == 'game-layout-release' else (game_id,)
     tail = [*[f'hry/{game}/index.html' for game in game_ids], 'en/index.html', 'index.html']
