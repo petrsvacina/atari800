@@ -1,0 +1,8 @@
+{
+  "source": "Fred (CZ) (Font 1).xex",
+  "sha256": "244238f9508a1bf061d263b448e660ceffaf8a3a01b77777e059575d9b100269",
+  "chunks": 160,
+  "levels": 10,
+  "developmentReference": "Atari800 RAM before first frame; original level initializer via offline py65",
+  "dataSha256": "99b77eb3c772824b304fbe54f784135a285ad5e53dabf973ae175acfaaa3ff39"
+}

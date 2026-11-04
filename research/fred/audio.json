@@ -1,0 +1,13 @@
+{
+  "sourceSha256": "244238f9508a1bf061d263b448e660ceffaf8a3a01b77777e059575d9b100269",
+  "player": "$9200 initialization, $9203 PAL VBI tick",
+  "period": {
+    "first": 1537,
+    "repeat": 23809,
+    "period": 22272,
+    "stateSha256": "c3c33296d595126b972d05523a0f3d57b8a9f7a9dfc356ab20dce1f067407780"
+  },
+  "duration": 477.4897052154195,
+  "wavSha256": "44ce450514eb7b0a8b62c48c5172e2fa4e5dc6f1669f0d0881f4ab6234dcfa4a",
+  "mp3Sha256": "f5a15275f2655b2e6d2da98251a686c28864de915a36e2f9ca909f2d8945b0c7"
+}

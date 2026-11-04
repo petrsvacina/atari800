@@ -1,0 +1,57 @@
+:root{color-scheme:dark;--bg:#111316;--panel:#1d2228;--line:#353b42;--text:#eeede7;--muted:#a4aab1;--gold:#e3bf7b;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 85% 5%,#25303970,transparent 55%),var(--bg);color:var(--text)}main{max-width:1120px;margin:auto;padding:40px 34px 24px}a{color:inherit;text-decoration:none}nav{display:flex;justify-content:space-between;align-items:center;font:12px ui-monospace,monospace;letter-spacing:.14em;color:var(--muted)}nav>a{color:var(--gold)}.languages{display:flex;gap:12px}.languages a[aria-current]{color:var(--gold)}header{margin:54px 0 32px}.eyebrow{color:var(--gold);letter-spacing:.2em;font:12px ui-monospace,monospace}h1{font-size:clamp(44px,7vw,78px);line-height:1;margin:15px 0;font-weight:750;letter-spacing:-.045em}h1 span{color:var(--gold)}.intro{font-size:21px;color:var(--muted);margin:16px 0 0}.arcade{border:1px solid #41474f;border-radius:10px;overflow:hidden;background:#171b20;box-shadow:0 20px 75px #0003}.screen-heading{display:flex;justify-content:space-between;gap:12px;padding:16px 21px;background:#20262d;color:var(--muted);font:11px ui-monospace,monospace;letter-spacing:.12em}.screen{position:relative;background:#000;display:flex;justify-content:center}canvas{display:block;width:100%;max-height:75vh;aspect-ratio:4/3;object-fit:contain;image-rendering:pixelated;outline:none;touch-action:none}canvas:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}.welcome{padding:22px;display:flex;align-items:center;justify-content:center;gap:24px;border-top:1px solid var(--line)}.welcome span{color:var(--muted);font-size:14px}button,input{font:13px ui-monospace,monospace}button{background:transparent;color:var(--text);border:1px solid transparent;border-radius:5px;padding:13px 16px;cursor:pointer;touch-action:manipulation}button:hover{background:#ffffff09}button:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}.primary{color:#211b10;background:var(--gold);font-weight:700}.primary:hover{background:#f0cd8d}.toolbar{display:flex;justify-content:space-between;flex-wrap:wrap;padding:5px 8px;border-top:1px solid var(--line)}.toolbar button{font-size:11px;color:#cacdd1}.pause-overlay{position:absolute;inset:0;background:#07090bd9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px}.pause-overlay h2{font:24px ui-monospace,monospace;letter-spacing:.18em;color:var(--gold)}.pause-overlay button{background:var(--gold);color:#211b10}form{padding:20px;display:flex;gap:12px;align-items:center;justify-content:center;border-top:1px solid var(--line);flex-wrap:wrap}form label{font-size:13px;color:var(--muted)}input{width:88px;padding:12px;background:#101418;border:1px solid var(--line);border-radius:4px;color:var(--text);text-align:center;letter-spacing:.18em;text-transform:uppercase}#code-hint{width:100%;text-align:center;color:var(--gold);font-size:13px}.guide{margin:34px 0;display:grid;grid-template-columns:1fr 1fr;gap:50px}.guide h2{font-size:18px;font-weight:600}.guide p{line-height:1.8;font-size:14px;color:var(--muted)}dl{margin:14px 0}dl div{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid #ffffff09;padding:10px 0;font-size:12px}dt{font-family:ui-monospace,monospace;color:var(--gold)}dd{margin:0;color:var(--muted);text-align:right}footer{border-top:1px solid var(--line);padding-top:18px;color:#7e858e;font:11px ui-monospace,monospace;line-height:1.7}footer a{color:var(--muted)}.touch-controls:empty{display:none}[hidden]{display:none!important}@media(max-width:640px){main{padding:24px 14px}header{margin-top:36px}.screen-heading{font-size:9px;padding:12px}.screen-heading span:last-child{letter-spacing:0}.guide{grid-template-columns:1fr;gap:0;margin-top:20px}.welcome{flex-direction:column;gap:12px}.toolbar{justify-content:center}.toolbar button{padding:11px 10px}.intro{font-size:18px}canvas{max-height:60vh}nav{font-size:10px}}@media(max-height:540px) and (orientation:landscape){header,.guide,footer{display:none}main{padding:10px 16px}nav{margin-bottom:10px}.screen-heading{padding:8px}canvas{max-height:72vh}.welcome{padding:8px}.welcome span{display:none}}
+.title-picture{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:contain;image-rendering:pixelated;max-height:75vh}
+.arcade:not(.is-playing)>.touch-controls{display:none!important}
+.pause-overlay.completed{background:transparent;justify-content:flex-end;padding-bottom:20px}
+.pause-overlay.completed h2,.pause-overlay.completed p{display:none}
+.arcade:is(:fullscreen,:-webkit-full-screen)>.screen>.title-picture{width:100%;height:100%;max-height:none;min-height:0;object-fit:contain}
+/* Give the canvas the remaining fullscreen area. width:auto kept its intrinsic
+   320px width, leaving the original game as a small image in the middle. */
+.arcade:is(:fullscreen,:-webkit-full-screen){width:100%;height:100%;max-width:none;max-height:none;background:#000;display:flex;flex-direction:column;border:0;border-radius:0;overflow:hidden}
+.arcade:is(:fullscreen,:-webkit-full-screen)>.screen{flex:1 1 0;min-width:0;min-height:0}
+.arcade:is(:fullscreen,:-webkit-full-screen)>.screen>canvas#game{width:100%;height:100%;max-width:none;max-height:none;min-width:0;min-height:0;aspect-ratio:auto;object-fit:contain}
+.arcade:is(:fullscreen,:-webkit-full-screen)>.screen-heading,
+.arcade:is(:fullscreen,:-webkit-full-screen)>.toolbar,
+.arcade:is(:fullscreen,:-webkit-full-screen)>.welcome,
+.arcade:is(:fullscreen,:-webkit-full-screen)>form,
+.arcade:is(:fullscreen,:-webkit-full-screen)>.touch-controls{flex:0 0 auto}
+.arcade:is(:fullscreen,:-webkit-full-screen)>.toolbar{background:var(--panel)}
+
+/* Match the portal's desktop game shell; retain the stacked mobile view. */
+.masthead{gap:12px}
+.masthead .brand{display:flex;align-items:center;flex-shrink:0}
+.brand img{display:block;width:clamp(70px,22vw,110px);height:auto;image-rendering:pixelated}
+.brand span,.desktop-controls-title{display:none}
+.edition{margin-left:auto;text-align:right;font:700 11px/1.6 ui-monospace,SFMono-Regular,monospace;letter-spacing:.15em}
+.edition small{display:block;color:var(--muted);font-size:9px;margin-top:4px}
+.masthead #back{color:var(--gold)}
+.game-layout{display:grid;grid-template-columns:minmax(0,1fr)}
+.game-layout>*{min-width:0}
+@media(min-width:1000px){
+  main{max-width:1340px;padding:32px 48px 24px}
+  .masthead{padding-bottom:22px;margin-bottom:28px;border-bottom:1px solid var(--line)}
+  .masthead .brand{display:flex;align-items:center;gap:22px}
+  .brand img{display:block;width:150px;height:auto;image-rendering:pixelated}
+  .brand span{display:inline;font-size:10px;letter-spacing:.14em;color:var(--muted)}
+  header{margin:0 0 26px}
+  h1{font-size:36px;margin:12px 0}
+  .intro{font-size:18px}
+  .game-layout{grid-template-columns:minmax(0,1fr) 285px;gap:26px;align-items:start}
+  .game-layout>.guide{grid-template-columns:minmax(0,1fr);gap:18px;margin:0}
+  .guide>div{padding:20px;border:1px solid var(--line);border-radius:5px;background:#1d2228b3}
+  .guide h2{font:12px/1.7 ui-monospace,monospace;color:var(--gold);margin:0 0 14px}
+  .guide p{font-size:12px;margin:0}
+  .guide dl{margin:0}
+  .guide dl div{gap:10px;flex-wrap:wrap}
+  .guide dd{text-align:left}
+  .desktop-controls-title{display:block}
+}
+@media(max-height:500px) and (orientation:landscape){
+  .arcade:is(:fullscreen,:-webkit-full-screen){position:relative}
+  .arcade:is(:fullscreen,:-webkit-full-screen)>.touch-controls{position:absolute!important;inset:29px 0 54px!important;height:auto!important;background:transparent;border:0;pointer-events:none!important;z-index:3}
+  .arcade:is(:fullscreen,:-webkit-full-screen) .atari-touch-console{max-width:none;padding:0 18px;height:100%}
+  .arcade:is(:fullscreen,:-webkit-full-screen) .atari-touch-labels{display:none}
+  .arcade:is(:fullscreen,:-webkit-full-screen) .atari-touch-row{height:100%}
+  .arcade:is(:fullscreen,:-webkit-full-screen) .atari-stick,
+  .arcade:is(:fullscreen,:-webkit-full-screen) .atari-fire{pointer-events:auto!important}
+  .arcade:is(:fullscreen,:-webkit-full-screen)>.screen>canvas#game{max-height:none!important}
+}

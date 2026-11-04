@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111316">
+  <title>Fred · Atari XL/XE</title>
+  <link rel="icon" href="assets/logo.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../shared/touch-joystick.css">
+</head>
+<body>
+<main>
+  <nav class="masthead"><a class="brand" href="index.html"><img src="assets/logo.png" width="248" height="60" alt="Fred"><span>L.K. AVALON · ATARI XL/XE</span></a><div class="edition"><a class="portal-back" id="back" href="../">← VŠECHNY HRY</a><small id="edition-caption">ATARI800 · WEBOVÁ HERNA</small></div></nav>
+  <header><p class="eyebrow" data-t="eyebrow">1991 · AKČNÍ PLOŠINOVKA</p><h1>Fred<span>.</span></h1><p class="intro" data-t="intro">Doba kamenná. Tvrdý život.</p></header>
+  <div class="game-layout"><section class="arcade" aria-label="Fred">
+    <div class="screen-heading"><span id="phase">DOBRODRUŽSTVÍ ZAČÍNÁ</span><span>ATARI XL/XE · HTML5</span></div>
+    <div class="screen">
+      <img class="title-picture" id="title-picture" src="assets/title.png" width="320" height="240" alt="Původní úvodní obrazovka hry Fred">
+      <canvas width="320" height="240" tabindex="0" aria-label="Fred · herní obrazovka" id="game" hidden></canvas>
+      <div class="pause-overlay" id="pause-overlay" hidden><h2 data-t="paused">PAUZA</h2><button id="resume" data-t="resume">▶ Pokračovat</button></div>
+      <div class="pause-overlay" id="ending" hidden><h2 id="ending-title"></h2><p id="ending-score"></p><button id="again" data-t="again">Hrát znovu →</button></div>
+    </div>
+    <div id="welcome" class="welcome"><button id="start" class="primary" data-t="start">Začít hru →</button><span data-t="start-hint">Deset úrovní pravěkého dobrodružství.</span></div>
+    <div class="toolbar"><button id="restart" data-t="restart">↺ Znovu · R</button><button id="pause" data-t="pause">Ⅱ Pauza · P</button><button id="sound-mode">♫ Hudba · M</button><button id="mute" data-t="mute">Zvuk zapnutý</button><button id="fullscreen" data-t="fullscreen">⛶ Celá obrazovka · F</button></div>
+    <div class="touch-controls"></div>
+  </section>
+  <aside class="guide"><div><h2 data-t="how">Kamenem proti pravěku.</h2><p data-t="guide">Projdi všech deset úrovní. Sbírej kameny, rozbíjej nádoby a hledej zásoby i ochranné předměty. Na konci úrovně máš omezený čas na cestu dál.</p></div><div><h2 class="desktop-controls-title" data-t="controls">OVLÁDÁNÍ</h2><dl><div><dt>← → / A D</dt><dd data-t="move">Pohyb</dd></div><div><dt>↑ / W</dt><dd data-t="jump">Skok · lezení</dd></div><div><dt>↓ / S</dt><dd data-t="down">Dolů po žebříku</dd></div><div><dt>SPACE / FIRE</dt><dd data-t="fire">Hod kamenem · sprej</dd></div><div><dt>↙ · ↘</dt><dd data-t="weapons">Kameny · sprej</dd></div><div><dt>R · M · P · F</dt><dd data-t="keys">Znovu · hudba/efekty · pauza · celá obrazovka</dd></div></dl><p data-t="music-hint">Přepínač Hudba / Efekty odpovídá tlačítku OPTION na Atari.</p></div></aside></div>
+  <footer><p>Fred © Mirosław Liminowicz, Janusz Pelc · L.K. Avalon · 1991</p><p data-t="original">Nativní HTML5 verze podle dodaného českého originálu Atari XL/XE.</p></footer>
+</main>
+<script src="assets/data.js"></script><script src="assets/audio.js"></script><script src="../shared/touch-joystick.js"></script><script src="game.js"></script>
+</body>
+</html>

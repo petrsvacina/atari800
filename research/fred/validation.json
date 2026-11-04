@@ -1,0 +1,56 @@
+{
+  "sourceSha256": "244238f9508a1bf061d263b448e660ceffaf8a3a01b77777e059575d9b100269",
+  "originalLogicalFrames": 9585,
+  "originalFrameSequences": 80,
+  "originalMechanicCases": 1113,
+  "originalRasterCases": 10,
+  "originalEffectVbis": 320,
+  "pixelTolerance": {
+    "maxPixelsPerCase": 2,
+    "row": 154,
+    "scope": "PF2 progress-line palette write only; no geometry tolerance"
+  },
+  "browser": {
+    "engine": "Microsoft Edge",
+    "version": "156.0.4314.58",
+    "viewports": [
+      "desktop",
+      "mobile",
+      "narrow",
+      "landscape"
+    ],
+    "checks": [
+      "keyboard movement and FIRE",
+      "audio decoding and music/effect switching",
+      "pause/resume",
+      "F fullscreen",
+      "English shell",
+      "mobile logo and no horizontal overflow",
+      "simultaneous two-touch joystick/FIRE"
+    ],
+    "soakSeconds": 12,
+    "soak": {
+      "level": 0,
+      "camera": 11,
+      "lives": 5,
+      "ended": false,
+      "score": [
+        48,
+        0,
+        0
+      ]
+    },
+    "pageErrors": [],
+    "standaloneBundleVerified": true,
+    "fileOpeningWithAudioVerified": true
+  },
+  "fixtures": {
+    "fred-effects.json.gz": "d97aaab22acafa913b42611b7812c52de9a6caccb5c10631b83c712792be5e57",
+    "fred-mechanics.json.gz": "9f482d6b170f732aa00c0199b661a6cac0874b344324487606222309c3ccc6b1",
+    "fred-raster.json.gz": "9481e3a4d43897c9159a097c3cfa9f17b2f48a4041a74f4122e2fa0ec53ce4d9",
+    "fred-rules.json.gz": "805d42fffb5274b8b423c88fc0624b1196e2afb04e73cb7899220736e8c29c9c"
+  },
+  "status": "Playable local native version; full uninterrupted playthrough and complete 1:1 proof outstanding",
+  "publicDeployment": false,
+  "nativeBundleSha256": "609133b0388c3e52886f94c9bbe005922ee04d0ebe74c7b7502216d20944cab6"
+}

@@ -1,0 +1,33 @@
+{
+  "standard": "PAL",
+  "clockHz": 1773447,
+  "scanlines": 312,
+  "cyclesPerLine": 114,
+  "logicalVbiIntervals": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3
+  ],
+  "initialBreakpointReentryVbis": 0,
+  "logicalHz": 16.620248538011698
+}

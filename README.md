@@ -18,6 +18,8 @@ Shift je nativní HTML5 hra v `shift/`, veřejně na **https://atari800.gmork.cz
 
 The NeverEnding Story II je nativní HTML5 hra v `neverending-story-2/`, veřejně na **https://atari800.gmork.cz/hry/neverending-story-2/** v českém i anglickém katalogu. Obsahuje obě původní jazykové varianty, obě části příběhu, sdílené pozice, původní grafiku, hudbu a návody. Rozsah ověření a hranice popisuje `neverending-story-2/README.md`; vydání zaznamenává `DEPLOYMENT.md`.
 
+Fred má první hratelnou nativní verzi v `fred/`, lokálně na **http://127.0.0.1:8010/fred/**. Obsahuje deset původních úrovní, grafiku, hudbu, efekty a dotykový joystick. Zatím není součástí veřejného katalogu. Ovládání a rozsah ověření jsou v `fred/README.md`.
+
 ## Obsah repozitáře
 
 `portal/` obsahuje katalog, `web/` samostatné Dynakillers, `karate/` International Karate, `archon/` Archon, `goonies-web/` The Goonies, `river-raid/` River Raid, `hero/` H.E.R.O., `boulder-dash/` Boulder Dash, `karateka/` Karateku, `neverending-story/` The NeverEnding Story a `shift/` Shift, včetně grafických a zvukových prostředků potřebných pro hraní. `tools/` obsahuje sestavení, extrakční nástroje a testy; `research/` dokumentuje rozbor a ukládá podklady potřebné pro opakování grafických exportů. Původní místní adresář `Goonies/` se do Gitu ani veřejného webu nekopíruje.
