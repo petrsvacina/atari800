@@ -38,6 +38,9 @@ the source's out-of-table STOP side effect.
   inventory, BCD thresholds, protection expiration, spray, stones, rare enemy
   events, ladder alignment, and all nine transitions to the following level.
 - 320 original effect-driver VBIs, including channel saturation and repeat/stop.
+- The shipped MP3 is decoded and checked for audible sample levels and a loop
+  ending inside the decoded buffer. Browser checks also measure actual music
+  samples after the master gain, rather than only checking successful decoding.
 - Ten original 320×240 scanouts: scrolling, jumping, level art, overlapping
   enemies, stone/pot overlap, bottom-row player priority, half-character enemy
   animation and the LEVEL banner. Actual GTIA read-register latches agree.
@@ -83,9 +86,16 @@ node tools/test-fred-rules.mjs
 node tools/test-fred-mechanics.mjs
 node tools/test-fred-raster.mjs
 node tools/test-fred-sound.mjs
+python3 tools/test-fred-music.py
 ```
 
 Serve the project over HTTP and open `/fred/`. `?lang=en` selects the English
 shell. Public portal registration and deployment are separate release work.
 The generated classic `game.js` also supports direct file opening. Rebuild it
 with `python3 tools/build_fred.py`; `--check` verifies it matches the modules.
+
+Music capture starts from a fresh boot with audio enabled. Restoring the
+development gameplay state can create a console OPTION transition, leaving the
+original VBI in effects mode and recording silence. The exporter checks the
+original mode and WAV sample energy before replacing the music asset, and
+records two guard VBIs beyond the verified loop endpoint.

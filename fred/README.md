@@ -34,6 +34,8 @@ mechanických případů, deset obrazových referencí s hardwarovými kolizemi
 a 320 VBI původního zvukového ovladače. V Edge je ověřené ovládání,
 zvuk, pauza, F/fullscreen, angličtina, úzké mobilní rozložení a skutečný
 současný dotyk joysticku a FIRE. Časování PAL bylo změřené v originálu.
+Hudební MP3 se také dekóduje a kontroluje na skutečný zvukový signál;
+prohlížečový test měří jeho výstup za hlavním zesílením.
 
 **Celá hra zatím není ručně dohraná a úplná shoda 1:1 se netvrdí.** Zbývající
 hranice zahrnují fázi hardwarového RANDOM, návaznost kolizí na přesnou fázi
@@ -47,6 +49,7 @@ node tools/test-fred-rules.mjs
 node tools/test-fred-mechanics.mjs
 node tools/test-fred-raster.mjs
 node tools/test-fred-sound.mjs
+python3 tools/test-fred-music.py
 ```
 
 Rozbor originálu a reprodukce referencí: [vývojová dokumentace](../research/fred/README.md).

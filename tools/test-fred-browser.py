@@ -12,6 +12,10 @@ with sync_playwright() as p:
     for name,width,height,touch in [('desktop',1440,1000,False),('mobile',390,844,True),('narrow',320,740,True),('landscape',844,390,True)]:
         if args.desktop_only and name!='desktop':continue
         ctx=browser.new_context(viewport={'width':width,'height':height},has_touch=touch);page=ctx.new_page();page.on('pageerror',lambda e:errors.append(str(e)))
+        page.add_init_script('''(() => {
+          const C=globalThis.AudioContext||globalThis.webkitAudioContext,create=C.prototype.createGain;
+          C.prototype.createGain=function(...args){const gain=create.apply(this,args);globalThis.__fredAudioProbe={context:this,gain};return gain;};
+        })();''')
         page.on('console',lambda m: print('Browser:',m.text,flush=True) if m.type=='error' else None)
         page.goto(args.url)
         try:page.wait_for_function('globalThis.fredDebug',timeout=6000)
@@ -19,6 +23,17 @@ with sync_playwright() as p:
         assert page.locator('.brand img').is_visible()
         assert page.evaluate('document.documentElement.scrollWidth<=innerWidth'),name
         page.screenshot(path=str(args.output/f'{name}-title.png'));page.locator('#start').click();page.wait_for_function('fredDebug.audio.loaded')
+        music=page.evaluate('''async () => {
+          const {context,gain}=globalThis.__fredAudioProbe,analyser=context.createAnalyser();analyser.fftSize=2048;gain.connect(analyser);
+          const samples=new Float32Array(analyser.fftSize);let peak=0,rms=0;
+          for(let i=0;i<24;i++){
+            await new Promise(resolve=>setTimeout(resolve,25));analyser.getFloatTimeDomainData(samples);let square=0;
+            for(const sample of samples){peak=Math.max(peak,Math.abs(sample));square+=sample*sample;}
+            rms=Math.max(rms,Math.sqrt(square/samples.length));
+          }
+          gain.disconnect(analyser);return {peak,rms,state:context.state,music:fredDebug.audio.music};
+        }''')
+        assert music['music'] and music['state']=='running' and music['peak']>.001 and music['rms']>.0005,('Music output is silent',music)
         before=page.evaluate('fredDebug.game.x');page.keyboard.down('ArrowRight');page.wait_for_timeout(650);page.keyboard.up('ArrowRight');after=page.evaluate('fredDebug.game.x');assert after>before,(before,after)
         page.keyboard.press('KeyP');assert page.evaluate('fredDebug.paused');tick=page.evaluate('fredDebug.game.tick');page.wait_for_timeout(180);assert page.evaluate('fredDebug.game.tick')==tick
         page.keyboard.press('KeyP');assert not page.evaluate('fredDebug.paused');page.keyboard.press('Space');page.keyboard.press('KeyM');assert not page.evaluate('fredDebug.audio.music')
@@ -48,7 +63,7 @@ with sync_playwright() as p:
         assert abs(dims['screen']['width']-dims['canvas']['width'])<2 and abs(dims['screen']['height']-dims['canvas']['height'])<2,dims
         page.screenshot(path=str(args.output/f'{name}-fullscreen.png'));page.keyboard.press('KeyF');page.wait_for_function('!document.fullscreenElement')
         page.goto(args.url+'?lang=en');assert page.locator('html').get_attribute('lang')=='en';assert page.locator('#start').inner_text()=='Start game →'
-        results.append({'viewport':name,'movement':[before,after],'fullscreen':dims,'audio':True,'twoTouchInput':touch,'soak':soak});ctx.close()
+        results.append({'viewport':name,'movement':[before,after],'fullscreen':dims,'audio':True,'musicOutput':music,'twoTouchInput':touch,'soak':soak});ctx.close()
     version=browser.version;browser.close()
 assert not errors,errors
 result={'browser':version,'url':args.url,'checks':results,'errors':errors};(args.output/'result.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))

@@ -7,7 +7,18 @@
     "period": 22272,
     "stateSha256": "c3c33296d595126b972d05523a0f3d57b8a9f7a9dfc356ab20dce1f067407780"
   },
-  "duration": 477.4897052154195,
-  "wavSha256": "44ce450514eb7b0a8b62c48c5172e2fa4e5dc6f1669f0d0881f4ab6234dcfa4a",
-  "mp3Sha256": "f5a15275f2655b2e6d2da98251a686c28864de915a36e2f9ca909f2d8945b0c7"
+  "duration": 477.52984126984126,
+  "wavSha256": "9e60f167b7fb43a438bf32a09a7b7a7cc58856151c4a921736172150066adb03",
+  "mp3Sha256": "e458d1f40c1a46a550f2bbefe1ce382108611857d3619089968df56c4cd2c271",
+  "capture": "fresh audio-enabled boot, original music VBI",
+  "recordedVbis": 23811,
+  "loopStart": 30.825852703802255,
+  "loopEnd": 477.509906977767,
+  "signal": {
+    "duration": 477.52984126984126,
+    "samples": 21059066,
+    "peak": 19033,
+    "rms": 5786.099908271377,
+    "rmsDbfs": -15.061280132877819
+  }
 }

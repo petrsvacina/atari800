@@ -52,5 +52,36 @@
   },
   "status": "Playable local native version; full uninterrupted playthrough and complete 1:1 proof outstanding",
   "publicDeployment": false,
-  "nativeBundleSha256": "609133b0388c3e52886f94c9bbe005922ee04d0ebe74c7b7502216d20944cab6"
+  "nativeBundleSha256": "609133b0388c3e52886f94c9bbe005922ee04d0ebe74c7b7502216d20944cab6",
+  "musicValidation": {
+    "assetSha256": "150dbdab34e433253e0fdba0718b1746d12157081f98264f65b1dd41d1ec80ef",
+    "capture": "fresh audio-enabled boot, original music VBI",
+    "wavSignal": {
+      "duration": 477.52984126984126,
+      "samples": 21059066,
+      "peak": 19033,
+      "rms": 5786.099908271377,
+      "rmsDbfs": -15.061280132877819
+    },
+    "decodedMp3Test": "PASS; audible samples and loop endpoint within decoded buffer",
+    "browserOutput": {
+      "http": {
+        "peak": 0.4368162751197815,
+        "rms": 0.2461463595909375,
+        "state": "running",
+        "music": true
+      },
+      "file": {
+        "peak": 0.4368162751197815,
+        "rms": 0.2505720619626265,
+        "state": "running",
+        "music": true
+      }
+    },
+    "pageErrors": {
+      "http": [],
+      "file": []
+    },
+    "silentPreviousAssetRejectedByRegressionTest": true
+  }
 }
