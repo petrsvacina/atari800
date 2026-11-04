@@ -1,6 +1,38 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — logo Shiftu na mobilu
+## Aktuální veřejné vydání — The NeverEnding Story II, CZ/EN
+
+- Vydání `20261104T002845Z`, zdrojový commit
+  `9749f9ce23a399924eb8dc6ba92a80265ec9caaa` na `origin/main`.
+- Veřejná hra: <https://atari800.gmork.cz/hry/neverending-story-2/>,
+  anglicky s `?lang=en`. Jedenáctá hra českého i anglického katalogu.
+  Obsahuje obě původní varianty, obě části příběhu, osm společných
+  uložených pozic, původní obrázky/fonty, CMC/POKEY hudbu a oba návody.
+- Archiv `/private/tmp/neverstory2-release-20261104T002845Z/atari800-20261104T002845Z.tar.gz`,
+  36 323 877 B, SHA-256 `1587c5fa3313f09a9deaaa23f5c54d865562daaff791f469eb1acf299f2a000e`.
+- Před nasazením ověřena úplná záloha dosavadních 211 veřejných souborů:
+  `/root/atari800-backups/20261104T002845Z/site-before.tar.gz`.
+  Publikační záznam: `research/neverending-story-2/release-20261104T002845Z.json`.
+- Přidáno deset veřejných souborů, změněny pouze oba katalogy. **209
+  dosavadních souborů zůstalo bytově shodných**, včetně všech starších her.
+  Prostředky se publikovaly před herní stránkou a odkazy v katalozích;
+  publikátor má automatický rollback.
+- HTTPS ověřilo všech 221 hashů a MIME typy včetně anglického JPG návodu,
+  13 cest portálu/her, anglickou adresu nové hry, verzované prostředky
+  a 15 Range požadavků na média/PDF. Sedm kontrol sestavení portálu prošlo.
+- Oddělený Edge ověřil veřejné katalogové odkazy CZ/EN, spuštění hry,
+  skutečné příkazy a směrová tlačítka, přepnutí jazyka bez změny stavu,
+  načtení pozice v druhém jazyce, fullscreen a odkazy na příslušné návody.
+  České a anglické případy prošly na mobilních šířkách 375/390 px a na
+  desktopu 1440 px bez chyb JavaScriptu. Výsledek je v
+  `research/neverending-story-2/browser-live.json`; fyzický iPhone/Safari
+  nebyly v tomto vydání testovány.
+- Herní ověření: 4 528 diferenciálních případů českých rutin, celé
+  automatizované průchody CZ/EN včetně průchodů s přepnutím před každým
+  příkazem, 48 přepnutí/načtení mezi jazyky a 22 indexovaných snímků
+  po 64 000 pixelech. Hranice ověření 1:1 zůstávají v herním a vývojovém README.
+
+## Předchozí veřejné vydání — logo Shiftu na mobilu
 
 - Vydání `20261102T005539Z`, zdrojový commit
   `eb7130afcd33ee7a869859fdea3baaf6242d8ed6` na `origin/main`.

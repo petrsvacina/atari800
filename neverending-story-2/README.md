@@ -1,9 +1,10 @@
 # The NeverEnding Story II — nativní webová verze
 
-Místní náhled: <http://127.0.0.1:8010/dist/hry/neverending-story-2/>.
-Samostatně lze otevřít `index.html`, anglicky s `?lang=en`.
-Hra je připravená v místním českém i anglickém katalogu; toto ještě není
-záznam o veřejném nasazení.
+Veřejná hra: <https://atari800.gmork.cz/hry/neverending-story-2/>,
+anglicky s `?lang=en`. Vydání `20261104T002845Z` je jedenáctou hrou
+českého i anglického katalogu. Místní náhled:
+<http://127.0.0.1:8010/dist/hry/neverending-story-2/>.
+Samostatně lze otevřít také `index.html`.
 
 Obě dodané diskety určují samostatné původní varianty hry: české vydání
 Tomáše Kratochvíla z roku 2021 a anglickou konečnou verzi z roku 2022

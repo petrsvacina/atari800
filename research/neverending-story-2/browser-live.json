@@ -1,0 +1,49 @@
+{
+  "base": "https://atari800.gmork.cz/hry/neverending-story-2/",
+  "catalogNavigation": true,
+  "cases": [
+    {
+      "language": "cs",
+      "width": 375,
+      "height": 812,
+      "layout": true,
+      "typedCommands": true,
+      "languageSwitch": true,
+      "crossLanguageSave": true,
+      "fullscreen": true
+    },
+    {
+      "language": "en",
+      "width": 390,
+      "height": 844,
+      "layout": true,
+      "typedCommands": true,
+      "languageSwitch": true,
+      "crossLanguageSave": true,
+      "fullscreen": true
+    },
+    {
+      "language": "cs",
+      "width": 1440,
+      "height": 1000,
+      "layout": true,
+      "typedCommands": true,
+      "languageSwitch": true,
+      "crossLanguageSave": true,
+      "fullscreen": true
+    },
+    {
+      "language": "en",
+      "width": 1440,
+      "height": 1000,
+      "layout": true,
+      "typedCommands": true,
+      "languageSwitch": true,
+      "crossLanguageSave": true,
+      "fullscreen": true
+    }
+  ],
+  "errors": [],
+  "browser": "isolated headless Microsoft Edge",
+  "recordedAt": "2026-11-04T00:31:49.386572+00:00"
+}
