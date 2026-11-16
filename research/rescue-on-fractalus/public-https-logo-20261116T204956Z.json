@@ -1,0 +1,68 @@
+{
+  "release": "20261116T204956Z",
+  "sourceCommit": "16f88a7170b3371451190b454f790fd44e3202be",
+  "status": "verified",
+  "checks": [
+    {
+      "route": "/hry/rescue-on-fractalus/game.js",
+      "file": "hry/rescue-on-fractalus/game.js",
+      "bytes": 609253,
+      "sha256": "fe8c8539fefa33e098d28b13e970282d707e07ff8c84af38fe89033e59715188"
+    },
+    {
+      "route": "/hry/rescue-on-fractalus/index.html",
+      "file": "hry/rescue-on-fractalus/index.html",
+      "bytes": 4749,
+      "sha256": "1bbf24a16c4a993804883367bc281f5695f7a17f59202161571eb651f625e256"
+    },
+    {
+      "route": "/",
+      "file": "index.html",
+      "bytes": 23036,
+      "sha256": "0a5b7e3d21f76d2a084ca6b2142b792bb39dde4f1fccc391c458fca87baec9a0"
+    },
+    {
+      "route": "/en/",
+      "file": "en/index.html",
+      "bytes": 23191,
+      "sha256": "997cd467a05f846ed7dc275f819a73b78c2da2a7a944220ef90bba9b03dc798c"
+    },
+    {
+      "route": "/hry/rescue-on-fractalus/",
+      "file": "hry/rescue-on-fractalus/index.html",
+      "bytes": 4749,
+      "sha256": "1bbf24a16c4a993804883367bc281f5695f7a17f59202161571eb651f625e256"
+    },
+    {
+      "route": "/hry/rescue-on-fractalus/?lang=en",
+      "file": "hry/rescue-on-fractalus/index.html",
+      "bytes": 4749,
+      "sha256": "1bbf24a16c4a993804883367bc281f5695f7a17f59202161571eb651f625e256"
+    },
+    {
+      "route": "/hry/rescue-on-fractalus/style.css?v=6949b23afe71",
+      "file": "hry/rescue-on-fractalus/style.css",
+      "bytes": 6271,
+      "sha256": "6949b23afe714cbabac1797b8e7d1764861697ee406d0d328cc9795f58cc0f9d"
+    },
+    {
+      "route": "/hry/rescue-on-fractalus/assets/logo.png?v=7053500f85d1",
+      "file": "hry/rescue-on-fractalus/assets/logo.png",
+      "bytes": 496,
+      "sha256": "7053500f85d10e1ae252cb82dd61cb8db38844f3d77d5e6323b1ae6ec0c71058"
+    },
+    {
+      "route": "/hry/rescue-on-fractalus/assets/title.png?v=996a9719cc6f",
+      "file": "hry/rescue-on-fractalus/assets/title.png",
+      "bytes": 3037,
+      "sha256": "996a9719cc6f064cd7cd8bfb49ad3fefe61bab24b376dce46abbf0ab93a483a0"
+    },
+    {
+      "route": "/hry/rescue-on-fractalus/game.js?v=fe8c8539fefa",
+      "file": "hry/rescue-on-fractalus/game.js",
+      "bytes": 609253,
+      "sha256": "fe8c8539fefa33e098d28b13e970282d707e07ff8c84af38fe89033e59715188"
+    }
+  ],
+  "scope": "Public HTTPS responses, byte hashes, MIME types, CZ/EN routes and versioned assets. Browser runtime validation is separate."
+}

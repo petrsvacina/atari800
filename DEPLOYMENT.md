@@ -1,6 +1,31 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — Rescue on Fractalus!
+## Aktuální veřejné vydání — animované logo Lucasfilm Games
+
+- Vydání `20261116T204956Z`, zdrojový commit
+  `16f88a7170b3371451190b454f790fd44e3202be` na `origin/main`.
+- Na <https://atari800.gmork.cz/hry/rescue-on-fractalus/> se před mateřskou
+  lodí přehrává původní logo Lucasfilm Games, včetně animované hvězdičky
+  a zvuku. Logo má 289 úplných PAL snímků, získaných z nepřerušeného běhu
+  neupraveného ATR od $5000 k závěrečnému návratu na $5110.
+- Celý úvod má nyní 3 094 referenčních snímků. Všech 22 herních kontrol
+  a devět portálových kontrol prošlo. CZ/EN testovací host ověřil pořadí
+  logo → mateřská loď → start, pauzu, přeskočení a nezměněný herní stav.
+- Veřejně se změnily pouze `hry/rescue-on-fractalus/game.js` a jeho verzovaný
+  odkaz v herním HTML. Zbývajících **240 souborů je bytově shodných**.
+- Ověřená záloha: `/root/atari800-backups/20261116T204956Z/site-before.tar.gz`.
+  Úplný záznam s kontrolními součty archivu i zálohy:
+  `research/rescue-on-fractalus/release-20261116T204956Z.json`.
+- Serverové HTTPS ověřilo 242 souborů, 15 cest a 15 Range požadavků.
+  Nezávislé veřejné ověření porovnalo dalších deset odpovědí včetně nové
+  verze skriptu; viz `public-https-logo-20261116T204956Z.json` u hry.
+- Edge na veřejném webu zobrazil nové logo Lucasfilm Games a aktivní zvukový
+  výstup. Jednotlivé snímky hvězdičky a celou návaznost ověřuje referenční
+  test; měření analogové fáze zvuku, samostatné NTSC intro a fyzická mobilní
+  zařízení nejsou touto opravou ověřené. Hranice celého převodu zůstávají
+  v herním README a PORTING.md.
+
+## Předchozí veřejné vydání — Rescue on Fractalus!
 
 - Vydání `20261116T195503Z`, zdrojový commit
   `9349e294af4534845d2007f66d5fe555c47712ed` na `origin/main`.

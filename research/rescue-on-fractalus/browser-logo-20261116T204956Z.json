@@ -1,0 +1,24 @@
+{
+  "release": "20261116T204956Z",
+  "timestamp": "2026-11-16T20:54:11.887173+00:00",
+  "browser": "Microsoft Edge via native CUA",
+  "url": "https://atari800.gmork.cz/hry/rescue-on-fractalus/?intro=lucasfilm",
+  "observed": [
+    "Launch was enabled after decoding the updated bundled data",
+    "Launch changed the phase to LUCASFILM GAMES",
+    "Original gold Lucasfilm Games logo was visually present on the public game canvas",
+    "Browser displayed an active-audio tab indicator while the logo was showing"
+  ],
+  "referenceValidation": {
+    "logoFrames": 289,
+    "completeIntroFrames": 3094,
+    "gameSuites": 22,
+    "portalSuites": 9,
+    "sourceSha256": "e8ff23567b219f614a307a309e42929957facb9b9ff838cc8ff91789eace44ab"
+  },
+  "limits": [
+    "Every star-animation frame is verified by reference hash, not individually inspected in the live browser",
+    "No audio-amplitude or analogue-phase measurement in this UI check",
+    "Separate NTSC capture and physical mobile devices remain unverified"
+  ]
+}
