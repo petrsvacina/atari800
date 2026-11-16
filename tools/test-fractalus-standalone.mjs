@@ -43,15 +43,17 @@ for(const language of ['cs','en']) {
  node('pause').click();const ticks=context.fractalusDebug.game.ticks;frames.shift()(now+=100);assert.equal(context.fractalusDebug.game.ticks,ticks);
  node('resume').click();frames.shift()(now+=25);assert.ok(context.fractalusDebug.game.ticks>ticks);
  node('play-intro').checked=true;node('restart').click();
- let cinematic=context.fractalusDebug.intro;assert.ok(cinematic);assert.equal(cinematic.name,'station');
+ let cinematic=context.fractalusDebug.intro;assert.ok(cinematic);assert.equal(cinematic.name,'logo');
+ assert.equal(node('phase').textContent,'LUCASFILM GAMES');
  const initial=JSON.stringify(context.fractalusDebug.game.state);
  key('keydown','ArrowUp');key('keydown','KeyL');
- for(let i=0;i<20;i++)frames.shift()(now+=22);
+ for(let i=0;i<80;i++)frames.shift()(now+=22);
  assert.equal(context.fractalusDebug.game.ticks,0);assert.equal(JSON.stringify(context.fractalusDebug.game.state),initial);
  node('pause').click();const stopped=cinematic.frame;frames.shift()(now+=100);assert.equal(cinematic.frame,stopped);
  node('resume').click();frames.shift()(now+=22);assert.ok(cinematic.frame>stopped);
- let safety=0;
- while(context.fractalusDebug.intro){frames.shift()(now+=22);assert.ok(++safety<3000);}
+ let safety=0;const scenes=['logo'];
+ while(context.fractalusDebug.intro){frames.shift()(now+=22);const name=context.fractalusDebug.intro?.name;if(name&&name!==scenes.at(-1))scenes.push(name);assert.ok(++safety<3000);}
+ assert.deepEqual(scenes,['logo','station','launch']);
  assert.equal(context.fractalusDebug.game.ticks,0);assert.equal(JSON.stringify(context.fractalusDebug.game.state),initial);
  assert.equal(node('skip-intro').hidden,true);assert.equal(node('ending').hidden,true);
  key('keydown','ArrowUp',true);key('keydown','KeyL',true);frames.shift()(now+=22);

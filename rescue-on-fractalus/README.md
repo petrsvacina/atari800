@@ -36,7 +36,8 @@ letová fyzika a kolize, torpéda, talíře, zaměřování a nepřátelská st�
 spotřeba energie, piloti, klepání, záchrana, Jaggi, počítání bodů a kvót,
 zvukové obálky, přidělování kanálů POKEY a původní hudební sekvence.
 
-Před letem se přehraje mateřská loď, otevření dveří hangáru, tunel, vesmír
+Před letem se postupně vykreslí původní logo Lucasfilm Games s animovanou
+hvězdičkou a zvukem, poté mateřská loď, otevření dveří hangáru, tunel, vesmír
 a přílet k planetě. Volba **Přehrát úvod** je standardně zapnutá. Další mise
 začíná rovnou hangárem. Pauza zastaví i úvod a jeho zvuk; letová simulace,
 energie ani skóre během něj nepostupují. Přeskočení nepřenese držený mezerník
@@ -45,7 +46,7 @@ do střelby.
 Úvod používá bezeztrátová obrazová data získaná offline přímo z ATR, původní
 paletu a zvukové registry. V prohlížeči je vykresluje Canvas a nativní zvukový
 generátor. Nejde o přehrávání referenčního videa ani běh původního CPU.
-Porovnání pokrývá všech 2 805 snímků PAL záznamu, číselné popisky dveří
+Porovnání pokrývá všech 3 094 snímků PAL záznamu, číselné popisky dveří
 a předání do nativního letu. Samostatný souvislý záznam NTSC úvodu není ověřen.
 
 Plynulejší obraz přidává pouze čisté překreslení. Stejný scénář v obou režimech
@@ -61,7 +62,7 @@ integrační test. Volba PAL/NTSC mění normu celé hry, nikoliv pouze grafiku.
   z ověřených počátečních dat a návrat zobrazuje v kokpitu.
   Celý přechod letu na návrat a opětovnou inicializaci je třeba ještě porovnat
   s nepřerušeným během originálu.
-- Chybí noční rasterový šum čelního skla, původní logo/titulková sekvence,
+- Chybí noční rasterový šum čelního skla, původní titulková sekvence,
   demo a tabulka iniciál. Úvodní start je odvozen ze záznamu PAL úrovně 4;
   popisky a kvóta odpovídají zvolené úrovni, úplné srovnání úvodu každé úrovně
   a opakovaného startu po návratu ještě není provedeno.

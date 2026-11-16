@@ -9,15 +9,15 @@ const source=load('intro'),data=await prepareIntro(source),fixture=JSON.parse(gu
 const hash=value=>createHash('sha256').update(value).digest('hex');
 assert.equal(hash(fs.readFileSync(new URL('../rescue-on-fractalus/assets/intro.json',import.meta.url))),fixture.introSha256);
 assert.equal(data.sourceSha256,fixture.sourceSha256);prepareCockpit(load('cockpit'));
-for(const name of ['station','launch'])assert.equal(hash(data[name].sound),fixture.soundHashes[name]);
+for(const name of ['logo','station','launch'])assert.equal(hash(data[name].sound),fixture.soundHashes[name]);
 const sequence=new IntroSequence(data);let count=0,phases=new Set();
 do {
- const expected=sequence.name==='station'?fixture.stationHashes:fixture.launch04Hashes;
+ const expected=({logo:fixture.logoHashes,station:fixture.stationHashes,launch:fixture.launch04Hashes})[sequence.name];
  assert.equal(hash(sequence.output),expected[sequence.frame],`${sequence.name} frame ${sequence.frame}`);
  assert.equal(sequence.registers.length,9);phases.add(sequence.phase);count++;
 }while(sequence.tick());
-assert.equal(count,data.station.frames+data.launch.frames);assert.equal(sequence.tick(),false);
-assert.deepEqual([...phases],['carrier','hangar','tunnel','space','planet','descent']);
+assert.equal(count,data.logo.frames+data.station.frames+data.launch.frames);assert.equal(sequence.tick(),false);
+assert.deepEqual([...phases],['logo','carrier','hangar','tunnel','space','planet','descent']);
 for(let digit=0;digit<10;digit++) {
  const clip=new IntroSequence(data,{level:Math.max(1,digit*11),includeStation:false});
  // Level00 is only a basis, not a selectable mission. Check its two patches directly.

@@ -42,18 +42,19 @@ def manifest(folder):
  m=json.loads((folder/'manifest.json').read_text());assert m['sourceSha256']==SHA256
  return m
 def encode(folder,tag):
- m=manifest(folder);count=len(m['records'])-(1 if m.get('complete',m.get('reachedFlight',False)) else 0)
+ m=manifest(folder);assert m.get('complete'),(tag,'Original scene boundary was not reached');count=len(m['records'])-1
  out=bytearray();sound=bytearray();old=np.zeros(W*H,np.uint8);hashes=[];phases=[];previous=None
  for i in range(count):
   pixels,registers,state=launchBlank(i) if tag=='launch' else frame(folder,i);out.extend(patches(pixels,old));sound.extend(registers);old=pixels
   hashes.append(hashlib.sha256(pixels.tobytes()).hexdigest())
   vbi=state[1]+256*state[2]
-  phase='carrier' if tag=='station' else 'descent' if vbi==0x4ff5 else 'tunnel' if state[3] else 'space' if state[4]>3 else 'planet' if state[4] else 'hangar'
+  phase='logo' if tag=='logo' else 'carrier' if tag=='station' else 'descent' if vbi==0x4ff5 else 'tunnel' if state[3] else 'space' if state[4]>3 else 'planet' if state[4] else 'hangar'
   if phase!=previous:phases.append([i,phase]);previous=phase
  packed=gzip.compress(out,compresslevel=9,mtime=0)
  print(tag,count,'frames',len(out),'patch bytes,',len(packed),'gzip',phases,flush=True)
  return {'frames':count,'codec':'gzip-rle-delta-v1','patches':b64(packed),'sound':b64(bytes(sound)),'phases':phases,'patchBytes':len(out)},hashes
 
+logo,logoHashes=encode(args.reference/'logo','logo')
 station,stationHashes=encode(args.reference/'station','station')
 launch,launchHashes=encode(args.reference/'launch-04-blank','launch')
 baseFolder=args.reference/'launch-04-blank';originalFolder=args.reference/'launch-04'
@@ -87,11 +88,12 @@ for i in range(glyphCount,launch['frames']):
 glyphData=bytearray();offsets=[0]
 for item in dictionary:glyphData.extend(item);offsets.append(len(glyphData))
 palette=(args.reference/'launch-04-blank/palette.rgb').read_bytes();assert len(palette)==768
+assert (args.reference/'logo/palette.rgb').read_bytes()==palette,'Logo palette differs from launch palette'
 data={'schema':1,'sourceSha256':SHA256,'width':W,'height':H,'palette':b64(palette),'standard':'PAL',
  'source':'Original ATR4.1 executed offline in Atari8007.2.1; full indexed raster per VBI, original register audio; no video-reference frames or CPU runtime.',
- 'station':station,'launch':launch,'glyphs':{'frames':glyphCount,'patches':b64(bytes(glyphData)),'offsets':offsets,'selectors':selectors},
- 'limits':['Station ends at the first original $1DF5 cycle boundary; asynchronous loader poll alone is suppressed after ship assets are resident.','Launch capture ends immediately before first $3EBA; selected-level captions use original numeric glyph bases.','Raster data is PAL; NTSC playback uses its VBI rate but a separate continuous NTSC capture has not been verified.','POKEY states are sampled once per displayed original frame; sub-frame analogue phase is not represented.']}
+ 'logo':logo,'station':station,'launch':launch,'glyphs':{'frames':glyphCount,'patches':b64(bytes(glyphData)),'offsets':offsets,'selectors':selectors},
+ 'limits':['Logo runs unmodified from a fresh ATR boot, from $5000 through the final $5110 return; disk-loading delays between scenes are not included.','Station ends at the first original $1DF5 cycle boundary; asynchronous loader poll alone is suppressed after ship assets are resident.','Launch capture ends immediately before first $3EBA; selected-level captions use original numeric glyph bases.','Raster data is PAL; NTSC playback uses its VBI rate but a separate continuous NTSC capture has not been verified.','POKEY states are sampled once per displayed original frame; sub-frame analogue phase is not represented.']}
 target=ROOT/'rescue-on-fractalus/assets/intro.json';target.write_text(json.dumps(data,separators=(',',':'))+'\n')
-fixture={'sourceSha256':SHA256,'stationHashes':stationHashes,'launchBlankHashes':launchHashes,'launch04Hashes':glyphHashes,'digitHashes':digitHashes,'soundHashes':{name:hashlib.sha256(base64.b64decode(data[name]['sound'])).hexdigest() for name in ['station','launch']},'introSha256':hashlib.sha256(target.read_bytes()).hexdigest()}
+fixture={'sourceSha256':SHA256,'logoHashes':logoHashes,'stationHashes':stationHashes,'launchBlankHashes':launchHashes,'launch04Hashes':glyphHashes,'digitHashes':digitHashes,'soundHashes':{name:hashlib.sha256(base64.b64decode(data[name]['sound'])).hexdigest() for name in ['logo','station','launch']},'introSha256':hashlib.sha256(target.read_bytes()).hexdigest()}
 (ROOT/'tools/fixtures/fractalus-intro.json.gz').write_bytes(gzip.compress(json.dumps(fixture,separators=(',',':')).encode(),mtime=0))
 print('Encoded',target.stat().st_size,'bytes;',len(dictionary),'original glyph overlay patches')

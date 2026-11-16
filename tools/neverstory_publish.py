@@ -147,6 +147,9 @@ def main():
                                   *['hry/rescue-on-fractalus/' + f for f in (
                                       'index.html', 'game.js', 'style.css', 'sound.mjs', 'sound-worklet.mjs',
                                       'assets/logo.png', 'assets/title.png')]}
+    elif kind == 'fractalus-logo':
+        assert set(d['changed']) == {'hry/rescue-on-fractalus/index.html', 'hry/rescue-on-fractalus/game.js'}
+        assert not d['added']
     else:
         assert kind == 'game-release'
         assert set(d['changed']) == {'index.html', 'en/index.html'}
@@ -179,7 +182,7 @@ def main():
     record = backup / 'release.json'; record.write_text(json.dumps(d, indent=2) + '\n')
     exact(SITE, d['old'], preserved)
     affected = set(d['added']) | set(d['changed'])
-    game_id = ('rescue-on-fractalus' if kind == 'fractalus-release' else
+    game_id = ('rescue-on-fractalus' if kind in ('fractalus-release', 'fractalus-logo') else
                'fred' if kind == 'fred-release' else
                'neverending-story-2' if kind == 'neverstory2-release' else
                'shift' if kind in ('shift-release', 'shift-header') else 'neverending-story')

@@ -22,7 +22,7 @@ export function applyIntroPatch(pixels,stream) {
 export async function prepareIntro(data) {
   if(data.schema!==1||data.width!==320||data.height!==200)throw new Error('Invalid intro assets');
   const decoded={...data,palette:bytes(data.palette),glyphs:{...data.glyphs,patches:bytes(data.glyphs.patches)}};
-  for(const name of ['station','launch']) {
+  for(const name of ['logo','station','launch']) {
     const clip=data[name],compressed=bytes(clip.patches);
     const stream=new Blob([compressed]).stream().pipeThrough(new DecompressionStream('gzip'));
     const patches=new Uint8Array(await new Response(stream).arrayBuffer()),sound=bytes(clip.sound);
@@ -54,7 +54,7 @@ function counterOverlay(state) {
 
 export class IntroSequence {
   constructor(data,{level=4,includeStation=true,state={}}={}) {
-    this.data=data;this.level=Math.max(1,Math.min(99,Math.trunc(level)));this.segments=includeStation?['station','launch']:['launch'];
+    this.data=data;this.level=Math.max(1,Math.min(99,Math.trunc(level)));this.segments=includeStation?['logo','station','launch']:['launch'];
     this.segment=0;this.base=new Uint8Array(64000);this.output=new Uint8Array(64000);this.rgba=new Uint8ClampedArray(256000);
     this.counters=counterOverlay(state);this.done=false;this.begin();
   }

@@ -25,7 +25,7 @@ function labels(){
   $('mute').textContent=audio.muted?(en?'♫ Sound off':'♫ Zvuk vypnutý'):(en?'♫ Sound on':'♫ Zvuk zapnutý');
   $('pause').textContent=paused?(en?'▶ Continue · P':'▶ Pokračovat · P'):(en?'Ⅱ Pause · P':'Ⅱ Pauza · P');
   if(paused)$('phase').textContent=en?'PAUSED':'PAUZA';
-  else if(intro)$('phase').textContent=({carrier:en?'MOTHERSHIP':'MATEŘSKÁ LOĎ',hangar:en?'LAUNCH BAY':'STARTOVNÍ HANGÁR',tunnel:en?'LAUNCH TUNNEL':'STARTOVNÍ TUNEL',space:en?'SPACE':'VESMÍR',planet:'FRACTALUS',descent:en?'DESCENT':'SESTUP'})[intro.phase];
+  else if(intro)$('phase').textContent=({logo:'LUCASFILM GAMES',carrier:en?'MOTHERSHIP':'MATEŘSKÁ LOĎ',hangar:en?'LAUNCH BAY':'STARTOVNÍ HANGÁR',tunnel:en?'LAUNCH TUNNEL':'STARTOVNÍ TUNEL',space:en?'SPACE':'VESMÍR',planet:'FRACTALUS',descent:en?'DESCENT':'SESTUP'})[intro.phase];
   else if(started)$('phase').textContent=game.phase==='flight'?`${en?'MISSION':'MISE'} ${String(game.state.level).padStart(2,'0')} · VALKYRIE`:game.phase==='gameover'?'GAME OVER':en?'MOTHERSHIP':'MATEŘSKÁ LOĎ';
 }
 function start({continueMission=false}={}) {

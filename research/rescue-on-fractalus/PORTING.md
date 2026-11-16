@@ -86,7 +86,7 @@ below execute the supplied original instructions instead.
 - The standalone file bundle is checked in a CZ/EN DOM/audio host harness:
   no fetch/import requirement, real native engine, rendering, control input,
   fallback audio initialization and pause/resume.
-- Introduction: all 1,311 complete station and 1,494 launch PAL indexed frames
+- Introduction: all 289 complete logo, 1,311 station and 1,494 launch PAL indexed frames
   match independent original-capture hashes, including their nine POKEY register
   states. Another 1,670 original numeric basis frames validate moving door
   glyphs; level captions 01–99 and quota replacement are checked. The CZ/EN
@@ -105,12 +105,15 @@ x32–351, y20–219. `tools/fractalus_encode_intro.py` generates lossless delta
 packets and independent SHA-256 fixtures. Native Canvas decodes these packets;
 the existing native waveform generator consumes their sound states.
 
-The station starts at $1A05 and ends at the first $1DF5 animation-cycle boundary.
+The Lucasfilm logo is captured from a fresh unmodified ATR boot, starting at
+$5000 and stopping before its final RTS at $5110. All 289 complete PAL frames
+include the original drawing, Games lettering, animated star and POKEY audio.
+Disk-I/O delays between scenes are omitted. The station starts at $1A05 and ends at the first $1DF5 animation-cycle boundary.
 The asynchronous loader poll at $1A33 is suppressed only after its ship assets
 are resident; re-polling a completed loader would enter its error path. The
 launch runs from the standby input to immediately before first $3EBA flight
-entry. Partial final frames are excluded. This is the ship/launch sequence,
-not the preceding Lucasfilm logo, title/attract loop or return cinematic.
+entry. Partial final frames are excluded. This covers the logo and ship/launch sequence; the title/attract loop and return
+cinematic remain outside it.
 
 Door captions are rebuilt offline through the original $3C83/$672D/$67C3
 routines. Ten digit bases and two solid masks preserve the moving glyphs for
@@ -173,7 +176,7 @@ because logical terrain passes also advance combat. NTSC foreground wall
 timing is likewise unverified. Smooth mode uses the same logical pass schedule
 as the original-pace option and does not multiply gameplay updates.
 
-Original return cinematics, logo/title/attract screens, night windscreen raster
+Original return cinematics, title/attract screens, night windscreen raster
 noise and initials screens are not implemented. Initial flight uses named
 data from the first original flight entry. The composed return/next-launch
 handoff still needs continuous-original comparison; its isolated scoring and
