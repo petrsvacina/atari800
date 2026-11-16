@@ -1,6 +1,41 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — Fred
+## Aktuální veřejné vydání — Rescue on Fractalus!
+
+- Vydání `20261116T195503Z`, zdrojový commit
+  `9349e294af4534845d2007f66d5fe555c47712ed` na `origin/main`.
+- Hra: <https://atari800.gmork.cz/hry/rescue-on-fractalus/>, anglicky s
+  `?lang=en`. Třináctá hra českého i anglického katalogu, s vlastním logem,
+  náhledem z nativního rendereru, vyhledáváním a střídáním úvodní nabídky.
+- Publikována vývojová verze k uživatelskému testování. Obsahuje nativní let,
+  záchrany a souboje, zvuk, úvod s mateřskou lodí/hangárem/tunelem,
+  PAL/NTSC hodiny a oddělenou volbu plynulejšího obrazu.
+  **Úplná shoda celé hry 1:1 není prokázaná**; hranice časování, noční grafiky,
+  návratových animací a NTSC úvodu zůstávají v herním README a PORTING.md.
+- Archiv `/private/tmp/fractalus-release-20261116T195503Z/atari800-20261116T195503Z.tar.gz`,
+  40 384 989 B. Ověřená záloha dosavadních 233 veřejných souborů:
+  `/root/atari800-backups/20261116T195503Z/site-before.tar.gz`.
+  Publikační záznam s SHA-256 archivu i zálohy:
+  `research/rescue-on-fractalus/release-20261116T195503Z.json`.
+- Přidáno devět veřejných souborů, změněny pouze oba katalogy. **231
+  dosavadních souborů zůstalo bytově shodných**, včetně všech starších her.
+  Prostředky byly instalované před herní stránkou a katalogovými odkazy;
+  publikační skript má automatický rollback. Apache/HTTPS se neměnily.
+- Serverové HTTPS ověřilo všech 242 hashů a MIME typy, 15 cest, anglickou
+  adresu nové hry, verzované prostředky a 15 Range požadavků na média/PDF.
+  Nezávislé veřejné HTTPS ověření porovnalo dalších 19 odpovědí s balíčkem;
+  výsledek je v `research/rescue-on-fractalus/public-https.json`.
+- Prošlo 22 herních kontrol (včetně 2 805 úplných PAL snímků úvodu) a devět
+  kontrol portálu. Originální ATR, vývojové snímky RAM a referenční video
+  nejsou součástí veřejného balíčku. Webová hra má sedm runtime souborů.
+- Edge na veřejném webu ověřil český katalog, hledání, otevření hry, zobrazení
+  mateřské lodi, přeskočení do nativního letu, terén, řízení, pauzu a indikaci
+  aktivního zvukového výstupu. Anglické cesty a obsah prošly HTTPS a CZ/EN
+  host testy; vizuální anglický průchod se kvůli omezení nativního ovládání
+  prohlížeče nedokončil. Přesný rozsah je v `browser-live.json` ve výzkumném
+  adresáři hry. Safari, fyzický telefon ani fyzický gamepad nebyly testované.
+
+## Předchozí veřejné vydání — Fred
 
 - Vydání `20261104T083603Z`, zdrojový commit
   `09fe4270be33b43708b3c6992832b7cc3ee12966` na `origin/main`.

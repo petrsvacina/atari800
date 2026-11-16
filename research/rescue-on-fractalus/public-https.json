@@ -1,0 +1,122 @@
+{
+  "release": "20261116T195503Z",
+  "sourceCommit": "9349e294af4534845d2007f66d5fe555c47712ed",
+  "status": "verified",
+  "checks": [
+    {
+      "route": "/assets/rescue-on-fractalus-logo.png",
+      "file": "assets/rescue-on-fractalus-logo.png",
+      "bytes": 496,
+      "sha256": "7053500f85d10e1ae252cb82dd61cb8db38844f3d77d5e6323b1ae6ec0c71058"
+    },
+    {
+      "route": "/assets/rescue-on-fractalus.png",
+      "file": "assets/rescue-on-fractalus.png",
+      "bytes": 23826,
+      "sha256": "42bd2243d7bd8813be4c7e623954ccc6c2bc73bc43682fc3902c179befe16276"
+    },
+    {
+      "route": "/hry/rescue-on-fractalus/assets/logo.png",
+      "file": "hry/rescue-on-fractalus/assets/logo.png",
+      "bytes": 496,
+      "sha256": "7053500f85d10e1ae252cb82dd61cb8db38844f3d77d5e6323b1ae6ec0c71058"
+    },
+    {
+      "route": "/hry/rescue-on-fractalus/assets/title.png",
+      "file": "hry/rescue-on-fractalus/assets/title.png",
+      "bytes": 3037,
+      "sha256": "996a9719cc6f064cd7cd8bfb49ad3fefe61bab24b376dce46abbf0ab93a483a0"
+    },
+    {
+      "route": "/hry/rescue-on-fractalus/game.js",
+      "file": "hry/rescue-on-fractalus/game.js",
+      "bytes": 604148,
+      "sha256": "1dd65405858f5b7fd412f8e464c088327c70ca7b1dc81bbe58ae90e2e32a97ae"
+    },
+    {
+      "route": "/hry/rescue-on-fractalus/index.html",
+      "file": "hry/rescue-on-fractalus/index.html",
+      "bytes": 4749,
+      "sha256": "0304bc9d5d4ad4824820fc9d35d16f0c932a800e41d4ca819dcb63eeeec990c5"
+    },
+    {
+      "route": "/hry/rescue-on-fractalus/sound-worklet.mjs",
+      "file": "hry/rescue-on-fractalus/sound-worklet.mjs",
+      "bytes": 704,
+      "sha256": "a0d2d5730f2fd0aaba9ce9deea47f9fa592a8c3cac68ffd98a37d5cdb3913fa2"
+    },
+    {
+      "route": "/hry/rescue-on-fractalus/sound.mjs",
+      "file": "hry/rescue-on-fractalus/sound.mjs",
+      "bytes": 19984,
+      "sha256": "412751cb00d3a0ca58f04847611bdca200f9bd15beda369d717167d5414b3ac4"
+    },
+    {
+      "route": "/hry/rescue-on-fractalus/style.css",
+      "file": "hry/rescue-on-fractalus/style.css",
+      "bytes": 6271,
+      "sha256": "6949b23afe714cbabac1797b8e7d1764861697ee406d0d328cc9795f58cc0f9d"
+    },
+    {
+      "route": "/en/index.html",
+      "file": "en/index.html",
+      "bytes": 23191,
+      "sha256": "997cd467a05f846ed7dc275f819a73b78c2da2a7a944220ef90bba9b03dc798c"
+    },
+    {
+      "route": "/index.html",
+      "file": "index.html",
+      "bytes": 23036,
+      "sha256": "0a5b7e3d21f76d2a084ca6b2142b792bb39dde4f1fccc391c458fca87baec9a0"
+    },
+    {
+      "route": "/",
+      "file": "index.html",
+      "bytes": 23036,
+      "sha256": "0a5b7e3d21f76d2a084ca6b2142b792bb39dde4f1fccc391c458fca87baec9a0"
+    },
+    {
+      "route": "/en/",
+      "file": "en/index.html",
+      "bytes": 23191,
+      "sha256": "997cd467a05f846ed7dc275f819a73b78c2da2a7a944220ef90bba9b03dc798c"
+    },
+    {
+      "route": "/hry/rescue-on-fractalus/",
+      "file": "hry/rescue-on-fractalus/index.html",
+      "bytes": 4749,
+      "sha256": "0304bc9d5d4ad4824820fc9d35d16f0c932a800e41d4ca819dcb63eeeec990c5"
+    },
+    {
+      "route": "/hry/rescue-on-fractalus/?lang=en",
+      "file": "hry/rescue-on-fractalus/index.html",
+      "bytes": 4749,
+      "sha256": "0304bc9d5d4ad4824820fc9d35d16f0c932a800e41d4ca819dcb63eeeec990c5"
+    },
+    {
+      "route": "/hry/rescue-on-fractalus/style.css?v=6949b23afe71",
+      "file": "hry/rescue-on-fractalus/style.css",
+      "bytes": 6271,
+      "sha256": "6949b23afe714cbabac1797b8e7d1764861697ee406d0d328cc9795f58cc0f9d"
+    },
+    {
+      "route": "/hry/rescue-on-fractalus/assets/logo.png?v=7053500f85d1",
+      "file": "hry/rescue-on-fractalus/assets/logo.png",
+      "bytes": 496,
+      "sha256": "7053500f85d10e1ae252cb82dd61cb8db38844f3d77d5e6323b1ae6ec0c71058"
+    },
+    {
+      "route": "/hry/rescue-on-fractalus/assets/title.png?v=996a9719cc6f",
+      "file": "hry/rescue-on-fractalus/assets/title.png",
+      "bytes": 3037,
+      "sha256": "996a9719cc6f064cd7cd8bfb49ad3fefe61bab24b376dce46abbf0ab93a483a0"
+    },
+    {
+      "route": "/hry/rescue-on-fractalus/game.js?v=1dd65405858f",
+      "file": "hry/rescue-on-fractalus/game.js",
+      "bytes": 604148,
+      "sha256": "1dd65405858f5b7fd412f8e464c088327c70ca7b1dc81bbe58ae90e2e32a97ae"
+    }
+  ],
+  "scope": "Public HTTPS responses, byte hashes, MIME types, CZ/EN routes and versioned assets. Browser runtime validation is separate."
+}

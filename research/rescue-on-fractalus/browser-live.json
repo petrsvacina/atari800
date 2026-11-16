@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-11-16T20:01:40.122944+00:00",
+  "release": "20261116T195503Z",
+  "browser": "Microsoft Edge, native CUA",
+  "url": "https://atari800.gmork.cz/hry/rescue-on-fractalus/",
+  "observed": [
+    "Czech catalog lists 13 games and a Rescue on Fractalus! link",
+    "Catalog search Fractalus narrows results to 1 of 13",
+    "Catalog link opens the correct public game route",
+    "Game enables Launch after bundled intro assets decode",
+    "Launch displays the original mothership and disables flight commands",
+    "Skip reaches native cockpit and rendered mountain terrain",
+    "Pause/resume and held ArrowDown were exercised; flight rendering and an active-audio tab indicator were observed"
+  ],
+  "limits": [
+    "No browser console or audio amplitude instrument available through native UI",
+    "Continuous intro playback and transition were tested in the DOM/audio host, not completed continuously in this browser run",
+    "English routes and bytes verified by public HTTPS plus CZ/EN host tests; visual English browser run was not completed after native UI lost usable page state",
+    "Browser access host reported unavailable; native UI fallback was used",
+    "Physical phone, Safari and physical gamepad not validated"
+  ]
+}
