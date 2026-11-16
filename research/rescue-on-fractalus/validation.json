@@ -1,0 +1,196 @@
+{
+  "sourceSha256": "e8ff23567b219f614a307a309e42929957facb9b9ff838cc8ff91789eace44ab",
+  "timestamp": "2026-11-16T19:46:37.728686+00:00",
+  "status": "All listed bounded checks pass; complete1:1 fidelity and full playthrough are not established.",
+  "checks": [
+    {
+      "name": "bundle",
+      "exitCode": 0,
+      "seconds": 0.135,
+      "summary": "Fractalus native standalone bundle is current."
+    },
+    {
+      "name": "math",
+      "exitCode": 0,
+      "seconds": 0.462,
+      "summary": "PASS 65,536 rounded products, 16,384 complete heading vectors and 4864 signed products against supplied ATR routines."
+    },
+    {
+      "name": "geometry",
+      "exitCode": 0,
+      "seconds": 0.119,
+      "summary": "PASS 128 original 45-cell view transforms, map traversal, clipping, roll spans and 2208 projections."
+    },
+    {
+      "name": "terrain",
+      "exitCode": 0,
+      "seconds": 0.206,
+      "summary": "PASS 94 complete original terrain views (706880 pixels)."
+    },
+    {
+      "name": "objects",
+      "exitCode": 0,
+      "seconds": 0.245,
+      "summary": "PASS 1124352 compared original bitmap bytes"
+    },
+    {
+      "name": "world",
+      "exitCode": 0,
+      "seconds": 0.188,
+      "summary": "PASS 40188 ordered original RANDOM reads (site + byte) and 52736 map bytes; native runtime has no CPU"
+    },
+    {
+      "name": "mission",
+      "exitCode": 0,
+      "seconds": 0.109,
+      "summary": "PASS 256 original level setups, 110 decimal score additions and 400 bounded rescue-counter cases."
+    },
+    {
+      "name": "flight",
+      "exitCode": 0,
+      "seconds": 0.456,
+      "summary": "PASS 6016 original flight-integration states, 891 thrust settings, complete history/event rings and explicit isolated subsystem calls."
+    },
+    {
+      "name": "flight-services",
+      "exitCode": 0,
+      "seconds": 0.92,
+      "summary": "PASS 4096 original height samples, 1024 ground states, 1536 complete service states and 1024 coupled flight/ground updates without callee isolation."
+    },
+    {
+      "name": "systems",
+      "exitCode": 0,
+      "seconds": 0.376,
+      "summary": "PASS 512 complete original commands and 512 lock-on indicator states with no isolated callees."
+    },
+    {
+      "name": "combat",
+      "exitCode": 0,
+      "seconds": 0.468,
+      "summary": "PASS original left/right painter-context resets and retained rescue metadata"
+    },
+    {
+      "name": "rescue",
+      "exitCode": 0,
+      "seconds": 1.084,
+      "summary": "Closed-airlock Jaggi: 3 complete scheduled bitmap/direct-tone trajectories GREEN."
+    },
+    {
+      "name": "lifecycle",
+      "exitCode": 0,
+      "seconds": 1.093,
+      "summary": "PASS returnNoRescues: 0 logical VBIs, 0 POKEY writes."
+    },
+    {
+      "name": "sound",
+      "exitCode": 0,
+      "seconds": 0.902,
+      "summary": "PASS AudioWorklet processor messages, audible output and pause/resume phase (host harness; browser integration separate)"
+    },
+    {
+      "name": "cockpit",
+      "exitCode": 0,
+      "seconds": 0.11,
+      "summary": "PASS30,080 original viewport pixels;25,600 original mode4 pixels;25,600 original dynamic HUD/PMG pixels;2,560 header pixels;20 original glyph rasters;115 original instrument writers."
+    },
+    {
+      "name": "sprites",
+      "exitCode": 0,
+      "seconds": 1.061,
+      "summary": "PASS 1536 original P2/P3/scanner/scope writers, neighboring bitmap banks, registers, state and ordered RANDOM bytes."
+    },
+    {
+      "name": "render",
+      "exitCode": 0,
+      "seconds": 0.402,
+      "summary": "PASS 144 coupled original populated render passes, both halves, state, RNG and pure smooth redraws"
+    },
+    {
+      "name": "vbi",
+      "exitCode": 0,
+      "seconds": 0.736,
+      "summary": "PASS 640 original utilities + 96 coupled flight/ground/sound/score VBI cases; PMG/HUD graphics isolated."
+    },
+    {
+      "name": "engine",
+      "exitCode": 0,
+      "seconds": 26.414,
+      "summary": "PASS 12800 coupled native PAL/NTSC flight ticks + 25592 extra rendering calls with identical gameplay/RNG/audio; fatal and mission-return/next-launch integration."
+    },
+    {
+      "name": "intro",
+      "exitCode": 0,
+      "seconds": 0.411,
+      "summary": "PASS intro: 2805 complete original PAL frame hashes, all POKEY states, 1,670 original numeric basis frames, 99 level captions, quota, segment boundaries and invalid packets. NTSC and analogue phase remain separate limits."
+    },
+    {
+      "name": "standalone",
+      "exitCode": 0,
+      "seconds": 1.636,
+      "summary": "PASS standalone file:// bundle: CZ/EN, no fetch, fallback audio, flight/fire, complete intro/launch with frozen gameplay, pause/restart, automatic handoff, skip and held-key suppression. Physical device validation remains separate."
+    },
+    {
+      "name": "vbi-pmg",
+      "exitCode": 0,
+      "seconds": 0.617,
+      "summary": "PASS 640 original utilities + 96 coupled flight/ground/sound/score VBI cases; complete PMG/AH/altimeter/scanner, compass and danger glyph writers isolated."
+    }
+  ],
+  "runtimeHashes": {
+    "rescue-on-fractalus/README.md": "5c97f67ef27aa0eef5b924351f2e6dbcf7ce87137a7811baec9fe91d2b39112a",
+    "rescue-on-fractalus/app.mjs": "e639edcf2142bca9bfef334e644820d15e9758ace3b46711d1540759de497ecf",
+    "rescue-on-fractalus/assets/bootstrap.json": "a543a019cfcc8380b0bc3dd2be440a47a8847845588cc6aeb17c865f69f8d434",
+    "rescue-on-fractalus/assets/cockpit.json": "6b3f49f05d9fea470070eb06e23b09ac797c3bd4448f7fe1b7a0ed1344c7701a",
+    "rescue-on-fractalus/assets/geometry.json": "3b6a17db4c44a4460dfa5f742b13f655dbff4812ce4adf550d3c3a249988d5b9",
+    "rescue-on-fractalus/assets/intro.json": "cc9d5595a0e5b0345ed3f7b2b32c5eb75475e106c7f0ad0bad5d2cdac572f25e",
+    "rescue-on-fractalus/assets/lifecycle.json": "75a8674078053b2214ad2b92c5653c9a4ba466e65e1150253912b6a6aa701d9e",
+    "rescue-on-fractalus/assets/logo.png": "7053500f85d10e1ae252cb82dd61cb8db38844f3d77d5e6323b1ae6ec0c71058",
+    "rescue-on-fractalus/assets/objects.json": "ddd59084553972de4ab8ecd9895d5e5763e716ecf56efa189280344eb46ec384",
+    "rescue-on-fractalus/assets/raster.json": "99090a497093ca9dcc3087fb2e2091c7f380f1d05ccef41eca5d9817042a905b",
+    "rescue-on-fractalus/assets/rescue.json": "5a893d3fa258d0cb9753bbeb8e9cc0398ac92168c3dc5e3f75886e1aee19db6e",
+    "rescue-on-fractalus/assets/sound.json": "6fbbe02c1a53935cab98d61c2403554afae8331eed160fa2e4cb67b26e72eae2",
+    "rescue-on-fractalus/assets/sprites.json": "70c01f1d4745200f1c718cbfbbd63c380eb4ad799b192f9167fbd0175040337f",
+    "rescue-on-fractalus/assets/systems.json": "395feb920ba88a07599f3d084daa4119efe8e308360a6a7eb27ffd41987392c2",
+    "rescue-on-fractalus/assets/timing.json": "4eca313c42e5d5ee0c7d573fb2f72616cac648407ddfb0ae6b2555b3103b4131",
+    "rescue-on-fractalus/assets/title.png": "996a9719cc6f064cd7cd8bfb49ad3fefe61bab24b376dce46abbf0ab93a483a0",
+    "rescue-on-fractalus/assets/trigonometry.json": "7f584d48de597e515c393d29ea3156c5dff4e8272e917f002dd19cd2985ab8b5",
+    "rescue-on-fractalus/audio.mjs": "8d26b4968c1389dc65e29fae5354fc5bf2e54cd2f2fccdcdc39a29aab91e5bba",
+    "rescue-on-fractalus/cockpit.mjs": "c9e7afa9ddb495211e5d611513745b9afb6c0292b434e15563cfea7f1e0e99e1",
+    "rescue-on-fractalus/combat.mjs": "7565a1423746bb0ea53045821de14fa29f2064f3b34e2fc2fddbe2d005123031",
+    "rescue-on-fractalus/engine.mjs": "d10513d663675c5e49c5d0ca5db3885f4faa1f341de4918e8db3c6019ca2cdb1",
+    "rescue-on-fractalus/flight-services.mjs": "9e43c7892427cb9006af6684a64901a8a58bef965b0ec8a80f139946d3d3433d",
+    "rescue-on-fractalus/flight.mjs": "c9e20ced0c1ecc6d68dae4333bd820fb1c45998511ad6762dbc33221cccecf42",
+    "rescue-on-fractalus/game.js": "1dd65405858f5b7fd412f8e464c088327c70ca7b1dc81bbe58ae90e2e32a97ae",
+    "rescue-on-fractalus/geometry.mjs": "d5a88bfe1e0e3ea0502a2d2d25870a140310143635665c551b10279d4672aad6",
+    "rescue-on-fractalus/index.html": "b9dc8a2efef03335b45e744afd3ca3adb4adae888d276ade727ffa803c85ec33",
+    "rescue-on-fractalus/intro.mjs": "128cb6f1535bed6742d8b3927dfa8e91a83cbff5fd514286b0e4cbeacdf1f4b5",
+    "rescue-on-fractalus/lifecycle.mjs": "55f9392358bedb80ebd954fcf010ff5425dfa792e5217344549206ac3db0bed0",
+    "rescue-on-fractalus/math.mjs": "c4676e307f963a73676912ed5bc5cbd9d4480e6ccfe7474cc71fab91c2319d83",
+    "rescue-on-fractalus/mission.mjs": "64f5c5e251051bd0dccf4cc0447555ea59ffe6079a1e5d91a3545f2c5c47b9eb",
+    "rescue-on-fractalus/objects.mjs": "58356e995ae89feb7cc70afa508c3855bc13ff409a9b51ae80798114a28e74af",
+    "rescue-on-fractalus/random.mjs": "dbb245e51095d596cced1a8f686439a74b72b6ffad050a1a1b888c11536d221f",
+    "rescue-on-fractalus/rescue.mjs": "9428a139a88d7c065c6613284eac5f96e2473eb13a1e5175e18befa2b319de86",
+    "rescue-on-fractalus/sound-worklet.mjs": "a0d2d5730f2fd0aaba9ce9deea47f9fa592a8c3cac68ffd98a37d5cdb3913fa2",
+    "rescue-on-fractalus/sound.mjs": "412751cb00d3a0ca58f04847611bdca200f9bd15beda369d717167d5414b3ac4",
+    "rescue-on-fractalus/sprites.mjs": "bfe1ff5c63e7eeca7479d76e5a91d3465be869e74c10fd8dc86b9ca14d582a2c",
+    "rescue-on-fractalus/state.mjs": "2a9645f00405fb7d0b9af277ab6565e28b3f6369572a23e8cb9770703bf233c2",
+    "rescue-on-fractalus/style.css": "6949b23afe714cbabac1797b8e7d1764861697ee406d0d328cc9795f58cc0f9d",
+    "rescue-on-fractalus/systems.mjs": "10e79b29ecda3b8b5046f5be8a58a42702cd9062a366aeb701e10028e68c209d",
+    "rescue-on-fractalus/terrain.mjs": "c421c90204141319e18b5d4594306a3b7faaa434fd684a3380b5cf65471ec373",
+    "rescue-on-fractalus/vbi.mjs": "2cb95757d08d2f59fe1741acf91d102e49e29392938d65f630356500adf6abfe",
+    "rescue-on-fractalus/world.mjs": "91fee18f3fca8e95056ee5e216e30df188d363d2bb580988435fd971a00f1f82"
+  },
+  "introduction": {
+    "standard": "PAL",
+    "stationFrames": 1311,
+    "launchFrames": 1494,
+    "glyphBasisFrames": 1670,
+    "browser": "Edge file://: original station pixels, fullscreen and skip to native flight observed; full continuous playback tested in DOM/audio host.",
+    "limits": [
+      "Separate continuous NTSC capture unverified",
+      "Sub-frame audio/analogue phase unverified",
+      "Per-level/night and post-return cinematic comparisons incomplete",
+      "Complete original-to-native world/RNG handoff remains unverified"
+    ]
+  }
+}

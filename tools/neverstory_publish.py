@@ -141,6 +141,12 @@ def main():
                                       'index.html', 'game.js', 'style.css', 'sound.mjs', 'sound-worklet.mjs',
                                       'assets/audio.js', 'assets/data.js', 'assets/logo.png', 'assets/title.png',
                                       'assets/ending.png')]}
+    elif kind == 'fractalus-release':
+        assert set(d['changed']) == {'index.html', 'en/index.html'}
+        assert set(d['added']) == {'assets/rescue-on-fractalus.png', 'assets/rescue-on-fractalus-logo.png',
+                                  *['hry/rescue-on-fractalus/' + f for f in (
+                                      'index.html', 'game.js', 'style.css', 'sound.mjs', 'sound-worklet.mjs',
+                                      'assets/logo.png', 'assets/title.png')]}
     else:
         assert kind == 'game-release'
         assert set(d['changed']) == {'index.html', 'en/index.html'}
@@ -173,7 +179,8 @@ def main():
     record = backup / 'release.json'; record.write_text(json.dumps(d, indent=2) + '\n')
     exact(SITE, d['old'], preserved)
     affected = set(d['added']) | set(d['changed'])
-    game_id = ('fred' if kind == 'fred-release' else
+    game_id = ('rescue-on-fractalus' if kind == 'fractalus-release' else
+               'fred' if kind == 'fred-release' else
                'neverending-story-2' if kind == 'neverstory2-release' else
                'shift' if kind in ('shift-release', 'shift-header') else 'neverending-story')
     game_ids = ('shift', 'neverending-story', 'karateka') if kind == 'game-layout-release' else (game_id,)

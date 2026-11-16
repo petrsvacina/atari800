@@ -121,6 +121,12 @@
       "genre": "Action · platformer",
       "players": "1 player",
       "controls": "Keyboard · gamepad · touch"
+    },
+    "rescue-on-fractalus": {
+      "description": "You are not alone among the fractal mountains. Land to rescue downed pilots, listen for a knock and bring them back to the mothership.",
+      "genre": "Flight · action",
+      "players": "1 player",
+      "controls": "Keyboard · gamepad · touch"
     }
   }
 }

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111316">
+  <title>Rescue on Fractalus! · Atari XL/XE</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../shared/touch-joystick.css">
+</head>
+<body>
+<main>
+  <nav class="masthead"><a class="brand" href="index.html"><img src="assets/logo.png" alt="Rescue on Fractalus!" width="192" height="48"><span>LUCASFILM GAMES · ATARI XL/XE</span></a><div class="edition"><a id="back" href="../">← VŠECHNY HRY</a><small id="edition-caption">ATARI800 · WEBOVÁ HERNA</small></div></nav>
+  <header><p class="eyebrow" data-t="eyebrow">1985 · ZÁCHRANNÁ MISE</p><h1>Rescue on Fractalus<span>!</span></h1><p class="intro" data-t="intro">Mezi horami nejsi sám.</p></header>
+  <div class="game-layout">
+    <section class="arcade" aria-label="Rescue on Fractalus!">
+      <div class="screen-heading"><span id="phase">VALKYRIE · STAND BY</span><span>ATARI XL/XE · HTML5</span></div>
+      <div class="screen">
+        <img id="title-picture" src="assets/title.png" width="320" height="200" alt="Původní kokpit Rescue on Fractalus!">
+        <canvas id="game" width="320" height="200" tabindex="0" aria-label="Herní obrazovka" hidden></canvas>
+        <div class="overlay" id="pause-overlay" hidden><h2 data-t="paused">PAUZA</h2><button class="primary" id="resume" data-t="resume">▶ Pokračovat</button></div>
+        <div class="overlay" id="ending" hidden><h2 id="ending-title"></h2><p id="ending-score"></p><button class="primary" id="again" data-t="again">Zkusit znovu →</button></div>
+      </div>
+      <div class="welcome" id="welcome"><label><span data-t="level">Úroveň</span><select id="level" aria-label="Počáteční úroveň"></select></label><label><input id="play-intro" type="checkbox" checked><span data-t="play-intro">Přehrát úvod</span></label><button id="start" class="primary" data-t="start">Odstartovat →</button></div>
+      <div class="intro-actions"><button id="skip-intro" data-t="skip-intro" hidden>Přeskočit úvod · Enter / mezerník →</button></div>
+      <div class="toolbar"><button id="restart" data-t="restart">↺ Znovu · R</button><button id="pause" data-t="pause">Ⅱ Pauza · P</button><button id="mute" data-t="mute">♫ Zvuk zapnutý</button><button id="fullscreen" data-t="fullscreen">⛶ Celá obrazovka · F</button></div>
+      <div class="touch-controls"></div>
+      <div class="flight-actions"><button data-command="7" aria-label="Zvýšit tah">＋ <span data-t="thrust">Tah</span></button><button data-command="6" aria-label="Snížit tah">− <span data-t="thrust">Tah</span></button><button data-command="0" data-t="land">L · Přistát</button><button data-command="62" data-t="systems">S · Systémy</button><button data-command="63" data-t="airlock">A · Průlez</button><button data-command="21" data-t="boost">B · Návrat</button></div>
+    </section>
+    <aside class="guide">
+      <div><h2 data-t="how">Přivez je domů.</h2><p data-t="guide">Najdi sestřelené piloty, přistaň poblíž a vypni systémy. S otevřením průlezu počkej na zaklepání. Až se rozsvítí mateřská loď, můžeš se vrátit.</p></div>
+      <div><h2 data-t="controls">OVLÁDÁNÍ</h2><dl><div><dt>← →</dt><dd data-t="bank">Zatáčení</dd></div><div><dt>↑ / ↓</dt><dd data-t="pitch">Klesání / stoupání</dd></div><div><dt>SPACE / CTRL</dt><dd data-t="fire">Torpédo</dd></div><div><dt>＋ / −</dt><dd data-t="thrust-change">Změna tahu</dd></div><div><dt>L · S · A · B</dt><dd data-t="actions">Přistání · systémy · průlez · návrat</dd></div><div><dt>P · R · F · M</dt><dd data-t="keys">Pauza · znovu · celá obrazovka · zvuk</dd></div></dl></div>
+      <div class="preferences"><h2 data-t="display">OBRAZ</h2><label for="graphics" data-t="graphics">Vykreslování</label><select id="graphics"><option value="original" data-t="original-rate">Původní tempo</option><option value="smooth" data-t="smooth-rate">Plynulejší obraz</option></select><p data-t="graphics-hint">Oba režimy mají stejné časování letu a ovládání.</p><label for="standard" data-t="standard">TV norma</label><select id="standard"><option value="pal">PAL · 50 Hz</option><option value="ntsc">NTSC · 60 Hz</option></select></div>
+    </aside>
+  </div>
+  <p id="error" role="alert" hidden></p>
+  <footer>Rescue on Fractalus! © Lucasfilm Games · 1985</footer>
+</main>
+<script src="../shared/touch-joystick.js"></script><script src="game.js"></script>
+</body>
+</html>

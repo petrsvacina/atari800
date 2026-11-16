@@ -20,9 +20,11 @@ The NeverEnding Story II je nativní HTML5 hra v `neverending-story-2/`, veřejn
 
 Fred má hratelnou nativní verzi v `fred/`, veřejně na **https://atari800.gmork.cz/hry/fred/** jako dvanáctá hra českého i anglického katalogu. Obsahuje deset původních úrovní, grafiku, hudbu, efekty a dotykový joystick. Lokálně běží na **http://127.0.0.1:8010/fred/**. Ovládání a rozsah ověření jsou v `fred/README.md`.
 
+Rescue on Fractalus! je nativní HTML5 hra v `rescue-on-fractalus/`, zařazená jako třináctá hra českého i anglického katalogu. Nabízí záchranné lety, původní grafiku a zvuk, úvod s mateřskou lodí a startovním tunelem, PAL/NTSC časování a samostatnou volbu plynulejšího obrazu. Rozsah ověření a zbývající odchylky popisuje `rescue-on-fractalus/README.md`; potvrzené veřejné vydání zaznamenává `DEPLOYMENT.md`.
+
 ## Obsah repozitáře
 
-`portal/` obsahuje katalog, `web/` samostatné Dynakillers, `karate/` International Karate, `archon/` Archon, `goonies-web/` The Goonies, `river-raid/` River Raid, `hero/` H.E.R.O., `boulder-dash/` Boulder Dash, `karateka/` Karateku, `neverending-story/` The NeverEnding Story a `shift/` Shift, včetně grafických a zvukových prostředků potřebných pro hraní. `tools/` obsahuje sestavení, extrakční nástroje a testy; `research/` dokumentuje rozbor a ukládá podklady potřebné pro opakování grafických exportů. Původní místní adresář `Goonies/` se do Gitu ani veřejného webu nekopíruje.
+`portal/` obsahuje katalog, `web/` samostatné Dynakillers, `karate/` International Karate, `archon/` Archon, `goonies-web/` The Goonies, `river-raid/` River Raid, `hero/` H.E.R.O., `boulder-dash/` Boulder Dash, `karateka/` Karateku, `neverending-story/` The NeverEnding Story a `shift/` Shift, včetně grafických a zvukových prostředků potřebných pro hraní. `tools/` obsahuje sestavení, extrakční nástroje a testy; `rescue-on-fractalus/` obsahuje Rescue on Fractalus!; `research/` dokumentuje rozbor a ukládá podklady potřebné pro opakování grafických exportů. Původní místní adresář `Goonies/` se do Gitu ani veřejného webu nekopíruje.
 
 Původní Atari soubory, referenční video, místní assemblerové podklady, SAP/WAV a pracovní binární výstupy se do Gitu nepřidávají. Pro hraní a sestavení portálu nejsou potřeba; vyžadují je jen některé vývojové extrakční nástroje. Vygenerovaný `dist/` je také ignorovaný. Po naklonování stačí `python3 tools/build_portal.py` a otevření `dist/index.html`, případně publikování obsahu `dist/`. Python používá jen standardní knihovnu; samotné hry pro hraní nepotřebují Python ani Node.js.
 

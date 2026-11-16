@@ -217,5 +217,53 @@
       "engine.mjs",
       "screen.mjs"
     ]
+  },
+  {
+    "id": "rescue-on-fractalus",
+    "title": "Rescue on Fractalus!",
+    "description": "Mezi fraktálními horami nejsi sám. Přistaň pro sestřelené piloty, naslouchej klepání a přivez je na mateřskou loď.",
+    "genre": "Letecká · akční",
+    "players": "1 hráč",
+    "multiplayer": false,
+    "year": "1985",
+    "author": "Lucasfilm Games",
+    "controls": "Klávesnice · gamepad · dotyk",
+    "image": "assets/rescue-on-fractalus.png",
+    "logo": "assets/rescue-on-fractalus-logo.png",
+    "source": "rescue-on-fractalus",
+    "featured": false,
+    "i18n": "embedded",
+    "navigation": "embedded",
+    "versionedAssets": [
+      "style.css",
+      "game.js",
+      "assets/logo.png",
+      "assets/title.png"
+    ],
+    "exclude": [
+      "README.md",
+      "*.json",
+      "app.mjs",
+      "audio.mjs",
+      "cockpit.mjs",
+      "combat.mjs",
+      "engine.mjs",
+      "flight-services.mjs",
+      "flight.mjs",
+      "geometry.mjs",
+      "intro.mjs",
+      "lifecycle.mjs",
+      "math.mjs",
+      "mission.mjs",
+      "objects.mjs",
+      "random.mjs",
+      "rescue.mjs",
+      "sprites.mjs",
+      "state.mjs",
+      "systems.mjs",
+      "terrain.mjs",
+      "vbi.mjs",
+      "world.mjs"
+    ]
   }
 ]

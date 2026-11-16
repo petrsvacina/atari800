@@ -132,6 +132,21 @@ class PortalTests(unittest.TestCase):
         for filename in ("style.css", "game.js", "assets/data.js", "assets/audio.js", "assets/logo.png", "assets/title.png"):
             self.assertTrue(any(url and url.startswith(filename + "?v=") for url in resources), filename)
 
+    def test_fractalus_publishes_bundle_worklet_and_embedded_navigation(self):
+        root = portal.ROOT / "dist" / "hry" / "rescue-on-fractalus"
+        self.assertEqual({p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file()},
+                         {"index.html", "style.css", "game.js", "sound.mjs", "sound-worklet.mjs",
+                          "assets/logo.png", "assets/title.png"})
+        page = Page((root / "index.html").read_text())
+        self.assertIn(("body", {"data-portal-home": "../../"}), page.elements)
+        back = next(attrs for tag, attrs in page.elements if attrs.get("id") == "back")
+        self.assertEqual(urljoin("https://atari800.gmork.cz/hry/rescue-on-fractalus/", back["href"]),
+                         "https://atari800.gmork.cz/")
+        resources = [attrs.get("src") or attrs.get("href") for tag, attrs in page.elements if tag in ("script", "link", "img")]
+        for filename in ("style.css", "game.js", "assets/logo.png", "assets/title.png"):
+            self.assertTrue(any(url and url.startswith(filename + "?v=") for url in resources), filename)
+        self.assertIn("import { Wave } from './sound.mjs'", (root / "sound-worklet.mjs").read_text())
+
 
 if __name__ == "__main__":
     unittest.main()
