@@ -1,0 +1,120 @@
+{
+  "release": "20261120T232628Z",
+  "httpsResponses": 19,
+  "responses": [
+    {
+      "path": "/",
+      "status": 200,
+      "mime": "text/html",
+      "sha256": "8a4a17c398b4818f6b0bf1f6bc56e8823963a34f7ac8ea5adef9d37476ad8480"
+    },
+    {
+      "path": "/en/",
+      "status": 200,
+      "mime": "text/html",
+      "sha256": "f2b0009cf9633780e45733606d1edf717b7282441a8ae202e68b1d43d12598a1"
+    },
+    {
+      "path": "/hry/robbo/",
+      "status": 200,
+      "mime": "text/html",
+      "sha256": "374b2ea0ef174f0743ec62b0f21db1608d433cac5ce66bbd8b8af874419c7557"
+    },
+    {
+      "path": "/hry/robbo/?lang=en",
+      "status": 200,
+      "mime": "text/html",
+      "sha256": "374b2ea0ef174f0743ec62b0f21db1608d433cac5ce66bbd8b8af874419c7557"
+    },
+    {
+      "path": "/assets/robbo-logo.png",
+      "status": 200,
+      "mime": "image/png",
+      "sha256": "42ab607d9529d16919be5c49fe73fc53127eb9b6deb4d41ba7ccc51c72f12866"
+    },
+    {
+      "path": "/assets/robbo.png",
+      "status": 200,
+      "mime": "image/png",
+      "sha256": "2667cd8a1d3cdb314524b9622e0b0b6c433b89afd5d0574414c2816da5c4884f"
+    },
+    {
+      "path": "/hry/robbo/assets/data.js",
+      "status": 200,
+      "mime": "text/javascript",
+      "sha256": "91aec8dc600fbc849efc9a802e61cb189cbb51111f340c9199ffa54d10f165ff"
+    },
+    {
+      "path": "/hry/robbo/assets/logo.png",
+      "status": 200,
+      "mime": "image/png",
+      "sha256": "42ab607d9529d16919be5c49fe73fc53127eb9b6deb4d41ba7ccc51c72f12866"
+    },
+    {
+      "path": "/hry/robbo/game.js",
+      "status": 200,
+      "mime": "text/javascript",
+      "sha256": "7755322f481fc415a102d4631dd2de859c6f39e0956288f2eb04e0ca1fe77200"
+    },
+    {
+      "path": "/hry/robbo/sound-worklet.mjs",
+      "status": 200,
+      "mime": "text/javascript",
+      "sha256": "0c900c33b296881b122d19b220a1e43565fedd8a3a4eacd8b571aa70ec376e06"
+    },
+    {
+      "path": "/hry/robbo/sound.mjs",
+      "status": 200,
+      "mime": "text/javascript",
+      "sha256": "3201896f7786b48e39f8f2eb708d57821f701d87edd082a71d7fa41b1144bd8a"
+    },
+    {
+      "path": "/hry/robbo/style.css",
+      "status": 200,
+      "mime": "text/css",
+      "sha256": "f4b1120543b2314962d8629dc1648e41140ab6122a0b145127baa904418ec85a"
+    },
+    {
+      "path": "/hry/robbo/wave.mjs",
+      "status": 200,
+      "mime": "text/javascript",
+      "sha256": "7d6482fab559990ed86e60887e1eeeee05edf67098182ca12d518e9eee138934"
+    },
+    {
+      "path": "/shared/touch-joystick.js",
+      "status": 200,
+      "mime": "text/javascript",
+      "sha256": "3f094bf5f61f5b372a3e5b92aa34ab6815eb85fe926f9342b3df7645e1f06a69"
+    },
+    {
+      "path": "/shared/touch-joystick.css",
+      "status": 200,
+      "mime": "text/css",
+      "sha256": "2d5dd7ec1e8a91c0901f49e1923cd34d22860854a8ddb06d5a4b83be3f265328"
+    },
+    {
+      "path": "/hry/robbo/style.css?v=f4b1120543b2",
+      "status": 200,
+      "mime": "text/css",
+      "sha256": "f4b1120543b2314962d8629dc1648e41140ab6122a0b145127baa904418ec85a"
+    },
+    {
+      "path": "/hry/robbo/assets/logo.png?v=42ab607d9529",
+      "status": 200,
+      "mime": "image/png",
+      "sha256": "42ab607d9529d16919be5c49fe73fc53127eb9b6deb4d41ba7ccc51c72f12866"
+    },
+    {
+      "path": "/hry/robbo/assets/data.js?v=91aec8dc600f",
+      "status": 200,
+      "mime": "text/javascript",
+      "sha256": "91aec8dc600fbc849efc9a802e61cb189cbb51111f340c9199ffa54d10f165ff"
+    },
+    {
+      "path": "/hry/robbo/game.js?v=7755322f481f",
+      "status": 200,
+      "mime": "text/javascript",
+      "sha256": "7755322f481fc415a102d4631dd2de859c6f39e0956288f2eb04e0ca1fe77200"
+    }
+  ]
+}

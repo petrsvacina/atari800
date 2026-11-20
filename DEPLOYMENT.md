@@ -1,6 +1,27 @@
 # Nasazení portálu
 
-## Aktuální veřejné vydání — animované logo Lucasfilm Games
+## Aktuální veřejné vydání — Robbo
+
+- Vydání `20261120T232628Z` vychází z commitu
+  `7097bbc8023f676c50be2f05ff2281eb954df6c0` na `origin/main`.
+- Robbo je ve [české herně](https://atari800.gmork.cz/) i [anglickém katalogu](https://atari800.gmork.cz/en/).
+  Přímé odkazy vedou na [českou hru](https://atari800.gmork.cz/hry/robbo/)
+  a [anglickou hru](https://atari800.gmork.cz/hry/robbo/?lang=en).
+- Přidáno deset veřejných souborů včetně náhledu a loga. Nové verze
+  mají oba indexy katalogu. Kontrolní součty dalších 240 souborů souhlasí.
+- Ověřená záloha je v `/root/atari800-backups/20261120T232628Z/site-before.tar.gz`.
+  Kontrolní součty vydání a zálohy jsou v
+  `research/robbo/release-20261120T232628Z.json`.
+- Server přes HTTPS ověřil 252 souborů, 16 cest, verze prostředků a 15
+  částečných požadavků na média a PDF. Nezávislá kontrola obou veřejných
+  katalogů, hry a prostředků ověřila 19 odpovědí včetně MIME zvukových modulů.
+  Výsledky jsou v `research/robbo/public-https-20261120T232628Z.json`.
+- Prošlo deset kontrol katalogu i sada testů Robba. V Edge se na veřejné
+  anglické stránce spustila první planeta, fungovala pauza, prohlížeč
+  indikoval přehrávání zvuku a odkaz vrátil hráče do anglického katalogu.
+  Hranice ověření herní věrnosti jsou v `research/robbo/PORTING.md`.
+
+## Předchozí veřejné vydání — animované logo Lucasfilm Games
 
 - Vydání `20261116T204956Z`, zdrojový commit
   `16f88a7170b3371451190b454f790fd44e3202be` na `origin/main`.
