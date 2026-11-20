@@ -1,0 +1,55 @@
+{
+  "sourceSha256": "75b15bb3c5ee0c76f5d6119ee8dc20ad63494f7e098707887789c305a9a5dbbb",
+  "ramSource": "/private/tmp/robbo-research/native-unpacked.bin",
+  "ramSha256": "7b2a2975c800c9aa0f361fdbccf61249890d67822eca4b5e6cbba93897fc123a",
+  "runtimeAsset": "robbo/assets/title.json",
+  "runtimeAssetSha256": "92af08df08dfbf3299b88c89a44f2042fe435d259f7de680301397034f68a6a8",
+  "ranges": {
+    "font": [
+      "$2000",
+      "$23FF"
+    ],
+    "credits": [
+      "$AD55",
+      "$AE14"
+    ],
+    "instructions": [
+      "$AE18",
+      "$B2D9"
+    ],
+    "logoGlyphs": [
+      "$23E8",
+      "$23FF"
+    ]
+  },
+  "metrics": {
+    "typistVbis": 6820,
+    "logoVbis": 1024,
+    "pokeyWrites": 9870
+  },
+  "timing": {
+    "initialTimer": 255,
+    "characterTimer": "2 + (glyph & 3) VBIs",
+    "newlineTimer": 15,
+    "cursor": "RTCLOK low byte bit 3",
+    "endTimer": 1039,
+    "demo": "Original starts demonstration when timer high byte reaches 1."
+  },
+  "layout": {
+    "screenAddress": "$1000",
+    "visibleTypist": [
+      "$1080",
+      "$117F"
+    ],
+    "blankScrollSource": [
+      "$1180",
+      "$119F"
+    ],
+    "columns": 32,
+    "visibleRows": 8,
+    "scroll": "Copy 256 bytes from $10A0..$119F to $1080..$117F; one line each 15 VBIs."
+  },
+  "limits": [
+    "Logo/typist writers verified. Full title ANTIC raster, OS countdown integration and automatic demo launch belong to the main wrapper."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "sourceSha256": "75b15bb3c5ee0c76f5d6119ee8dc20ad63494f7e098707887789c305a9a5dbbb",
+  "emulatorSha256": "e777b6d43e7c05f34e277576ad07d5e1dfa5a6ec7653bcb317423d73ea4321cd",
+  "sourceStateSha256": "efa4d5d0a3b6b09ec149bdfef5cf9ae9cee98591924b2e4101d071d0f0919f40",
+  "paletteSha256": "4faa4d96229a01fdfa4706e98de89dd6d4bd441a10d9e27d216b661a2c5ccca0",
+  "fixtureSha256": "bcc18f198cca8b5a98721abe86d547bb95bb4375b2e13a00d2e023a01bd62f4a",
+  "capture": "Title TPLP $A8AC; freeze BIGR and typist writes, retain WLIN timed palette writes and original OS VBI; two full frames",
+  "mainLoopPasses": [
+    0,
+    1200
+  ],
+  "logoCrop": [
+    48,
+    21,
+    224,
+    39
+  ],
+  "nativeSize": [
+    384,
+    240
+  ],
+  "crop": [
+    32,
+    0,
+    320,
+    240
+  ],
+  "titlePngSha256": "2667cd8a1d3cdb314524b9622e0b0b6c433b89afd5d0574414c2816da5c4884f",
+  "logoPngSha256": "42ab607d9529d16919be5c49fe73fc53127eb9b6deb4d41ba7ccc51c72f12866"
+}

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111316">
+  <title>Robbo · Atari XL/XE</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../shared/touch-joystick.css">
+</head>
+<body>
+<main>
+  <nav class="masthead"><a class="brand" id="brand" href="index.html"><img src="assets/logo.png" width="180" height="50" alt="Robbo"><span>1989 · L.K. AVALON</span></a><div class="edition"><a id="back" href="../">← VŠECHNY HRY</a><small id="edition-caption">ATARI800 · WEBOVÁ HERNA</small></div></nav>
+  <header><p class="eyebrow" data-t="eyebrow">1989 · AKČNÍ LOGICKÁ HRA</p><h1>Robbo<span>.</span></h1><p class="intro" data-t="intro">Malý robot. Padesát šest cest domů.</p></header>
+  <div class="game-layout">
+    <section class="arcade" aria-label="Robbo">
+      <div class="screen-heading"><span id="phase">56 PLANET · JEDEN ROBOT</span><span>ATARI XL/XE · HTML5</span></div>
+      <div class="screen">
+        <canvas width="320" height="240" tabindex="0" aria-label="Robbo" id="game"></canvas>
+        <div class="overlay" id="pause-overlay" hidden><h2 data-t="paused">PAUZA</h2><p data-t="pause-hint">Na další šroubek bude čas.</p><button class="primary" id="resume" data-t="resume">▶ Pokračovat</button></div>
+        <div class="overlay" id="gameover" hidden><h2 data-t="gameover">KONEC HRY</h2><p id="result"></p><button class="primary" id="again" data-t="again">Hrát znovu →</button></div>
+      </div>
+      <div class="welcome" id="welcome"><button class="primary" id="start" data-t="start">Začít hru →</button><span id="start-hint" data-t="start-hint">Posbírej šroubky. Najdi svou kapsli.</span></div>
+      <div class="toolbar"><button id="restart" data-t="restart">↺ Znovu · R</button><button id="pause" data-t="pause">Ⅱ Pauza · P</button><button id="mute" data-t="sound-on">♫ Zvuk zapnutý · M</button><button id="fullscreen" data-t="fullscreen">⛶ Celá obrazovka · F</button></div>
+      <div class="touch-controls"></div>
+    </section>
+    <aside class="guide">
+      <div><h2 data-t="mission">ŠROUBEK PO ŠROUBKU.</h2><p data-t="guide">Na každé planetě posbírej potřebný počet šroubků a vrať se do otevřené kapsle. Posouvej bedny, odemykej dveře a dávej pozor na magnety, střely i obyvatele planet.</p></div>
+      <div><h2 data-t="controls">OVLÁDÁNÍ</h2><dl><div><dt>↑ ↓ ← → / WASD</dt><dd data-t="move">Pohyb / posunutí bedny</dd></div><div><dt>SPACE / SHIFT</dt><dd data-t="fire">FIRE + směr: střelba</dd></div><div><dt>ESC</dt><dd data-t="suicide">Nový pokus za jeden život</dd></div><div><dt>P · R · M · F</dt><dd data-t="shortcuts">Pauza · znovu · zvuk · fullscreen</dd></div></dl><p class="hint" data-t="gamepad">Funguje i gamepad a dotykový joystick.</p></div>
+      <div><h2 data-t="journey">56 PŮVODNÍCH PLANET</h2><p data-t="checkpoint">Začínáš s osmi náhradními životy. Po konci hry můžeš znovu vyrazit od začátku poslední čtveřice planet.</p><a class="language" id="language" href="?lang=en" lang="en">English →</a></div>
+    </aside>
+  </div>
+  <p id="error" role="alert" hidden></p>
+  <footer><p>Robbo © Janusz Pelc · L.K. Avalon · 1989</p><p data-t="footer">Nativní HTML5 verze · Původní úrovně, grafika a zvukové efekty.</p></footer>
+</main>
+<script src="assets/data.js"></script><script src="../shared/touch-joystick.js"></script><script src="game.js"></script>
+</body>
+</html>

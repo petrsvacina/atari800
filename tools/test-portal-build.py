@@ -147,6 +147,18 @@ class PortalTests(unittest.TestCase):
             self.assertTrue(any(url and url.startswith(filename + "?v=") for url in resources), filename)
         self.assertIn("import { Wave } from './sound.mjs'", (root / "sound-worklet.mjs").read_text())
 
+    def test_robbo_publishes_only_the_browser_runtime(self):
+        root = portal.ROOT / "dist" / "hry" / "robbo"
+        page = Page((root / "index.html").read_text())
+        self.assertIn(("body", {"data-portal-home": "../../"}), page.elements)
+        self.assertEqual({p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file()},
+                         {"index.html", "style.css", "game.js", "sound.mjs", "sound-worklet.mjs",
+                          "wave.mjs", "assets/data.js", "assets/logo.png"})
+        for tag, attrs in page.elements:
+            resource = attrs.get("src") or (attrs.get("href") if tag == "link" else None)
+            if resource:
+                self.assertTrue((root / urlparse(resource).path).is_file(), resource)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,41 @@
+{
+  "sourceSha256": "75b15bb3c5ee0c76f5d6119ee8dc20ad63494f7e098707887789c305a9a5dbbb",
+  "emulatorSha256": "e777b6d43e7c05f34e277576ad07d5e1dfa5a6ec7653bcb317423d73ea4321cd",
+  "sourceStateSha256": "efa4d5d0a3b6b09ec149bdfef5cf9ae9cee98591924b2e4101d071d0f0919f40",
+  "fixtureSha256": "cb2ef3347dcea9b39098b6657137bcda595efc1ce0d67621d171ff628fc5c5e0",
+  "capture": "Original title timer auto-demo branch to PIPA/PLA1, stop PCLO $2505; freeze main at $0400, retain CVBL/DLI",
+  "demoDisplayListBytes": [
+    "$82",
+    "$02"
+  ],
+  "textRange": [
+    "$3757",
+    "$377E"
+  ],
+  "clockValues": [
+    1,
+    26,
+    58
+  ],
+  "thirdRowLuminance": [
+    0,
+    6,
+    14
+  ],
+  "nativeSize": [
+    384,
+    240
+  ],
+  "crop": [
+    32,
+    0,
+    320,
+    240
+  ],
+  "demoRow": [
+    0,
+    210,
+    320,
+    8
+  ]
+}

@@ -127,6 +127,12 @@
       "genre": "Flight · action",
       "players": "1 player",
       "controls": "Keyboard · gamepad · touch"
+    },
+    "robbo": {
+      "description": "Collect screws, unlock doors and find the escape capsule on each of the 56 original planets.",
+      "genre": "Puzzle · action",
+      "players": "1 player",
+      "controls": "Keyboard · gamepad · touch"
     }
   }
 }

@@ -1,0 +1,49 @@
+{
+  "authorityXexSha256": "75b15bb3c5ee0c76f5d6119ee8dc20ad63494f7e098707887789c305a9a5dbbb",
+  "emulator": "Atari800 7.2.1, development monitor build",
+  "emulatorSha256": "e777b6d43e7c05f34e277576ad07d5e1dfa5a6ec7653bcb317423d73ea4321cd",
+  "stateSha256": "da205d2e5e2194b8e511c54bb51a8c4617952e4fe59ed499fe2ec3ab076b14ff",
+  "capture": "Main idle at $0400; original VBI/DLI; two full 0/248 scanline frames; DUMPSCREEN and DUMPPALETTE",
+  "mode": "PAL, XE, BASIC disabled, refresh=1",
+  "paletteConfig": {
+    "COLOURS_PAL_SATURATION": "0",
+    "COLOURS_PAL_CONTRAST": "0",
+    "COLOURS_PAL_BRIGHTNESS": "0",
+    "COLOURS_PAL_GAMMA": "2.35",
+    "COLOURS_PAL_HUE": "0",
+    "COLOURS_PAL_GTIA_DELAY": "23.2",
+    "COLOURS_PAL_EXTERNAL_PALETTE": "",
+    "COLOURS_PAL_EXTERNAL_PALETTE_LOADED": "0",
+    "COLOURS_PAL_ADJUST_EXTERNAL_PALETTE": "0",
+    "ARTIFACT_PAL": "NONE"
+  },
+  "paletteSha256": "4faa4d96229a01fdfa4706e98de89dd6d4bd441a10d9e27d216b661a2c5ccca0",
+  "nativeScreenSha256": "d1e689ea5dbaa132774ec43f535c1526af999237d1a3f0495fbcf0211c76483b",
+  "fixtureSha256": "396ca1d9c9bde20bfae857767f90d930a2bdf010eef9f0bca1ce87795c3be1bd",
+  "nativeSize": [
+    384,
+    240
+  ],
+  "crop": [
+    32,
+    0,
+    320,
+    240
+  ],
+  "playfield": [
+    32,
+    21,
+    256,
+    161
+  ],
+  "hud": [
+    0,
+    194,
+    320,
+    16
+  ],
+  "cameraAddress": 4096,
+  "hardwareVscroll": 0,
+  "antic": "antic\r\nDMACTL=22    CHACTL=02    DLISTL=E3    DLISTH=36    HSCROL=00    VSCROL=00\r\nPMBASE=98    CHBASE=20    VCOUNT=7C    NMIEN= C0    ypos= 248\r\n>",
+  "gtia": "gtia\r\ngtia\r\nHPOSP0=40    HPOSP1=60    HPOSP2=80    HPOSP3=A0\r\nHPOSM0=00    HPOSM1=00    HPOSM2=00    HPOSM3=00\r\nSIZEP0=FF    SIZEP1=FF    SIZEP2=FF    SIZEP3=FF    SIZEM= FF\r\nGRAFP0=FF    GRAFP1=FF    GRAFP2=FF    GRAFP3=FF    GRAFM= 00\r\nCOLPM0=00    COLPM1=00    COLPM2=00    COLPM3=00\r\nCOLPF0=00    COLPF1=0A    COLPF2=00    COLPF3=72    COLBK= 00\r\nPRIOR= 04    VDELAY=00    GRACTL=00\r\n>"
+}

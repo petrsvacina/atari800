@@ -1,0 +1,35 @@
+{
+  "source": "Robbo.xex",
+  "sourceSha256": "75b15bb3c5ee0c76f5d6119ee8dc20ad63494f7e098707887789c305a9a5dbbb",
+  "ramSource": "/private/tmp/robbo-research/native-unpacked.bin",
+  "ramCapture": "Atari800 headless monitor at PC=$AC28",
+  "ramSha256": "7b2a2975c800c9aa0f361fdbccf61249890d67822eca4b5e6cbba93897fc123a",
+  "writer": {
+    "start": "$B806",
+    "endExclusive": "$B896",
+    "sha256": "29ee2d87765332d7ca22913ed4a12c9fef37ed42143d6b5f5e8d4ce6aa8d155a"
+  },
+  "tables": {
+    "start": "$B896",
+    "endExclusive": "$BA76",
+    "sha256": "7700417dc87686a0e828eb5c53607b2d7e883a902f0b46101a207c351a4a0f0f"
+  },
+  "runtimeAsset": "robbo/assets/sound.json",
+  "runtimeAssetSha256": "f3e82941ef87cc8d4c218b7d92c4c3a597dd9288967da485be84cbbd4ca6fa58",
+  "footstep": {
+    "writer": "$27B1..$27BB",
+    "dataDerivation": "$2450..$2400 descending, bit 3 only",
+    "writes": 81,
+    "cyclesPerWrite": 13,
+    "speakerBitsSha256": "2160be9270e5030122dbc8aa3291e5d313b788a6c2655ade1d3d32930bb98dab"
+  },
+  "fixture": "tools/fixtures/robbo-sound.json.gz",
+  "metrics": {
+    "cases": 63,
+    "vbis": 6016,
+    "registerWrites": 13322
+  },
+  "limits": [
+    "Register sequencing verified; analog output and initial polynomial phase are not PCM-oracle verified."
+  ]
+}

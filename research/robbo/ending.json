@@ -1,0 +1,36 @@
+{
+  "sourceSha256": "75b15bb3c5ee0c76f5d6119ee8dc20ad63494f7e098707887789c305a9a5dbbb",
+  "captureFolder": "/private/tmp/robbo-research/ending",
+  "captureManifestSha256": "06b7d551cc77b18b7bcca181cd99774d32bfddbe647e070c34bf49b64f05d3fc",
+  "entry": "$A803 -> $A9B3",
+  "entryMethod": "Run original level 55 setup $2400->$2505, then original completion wipe $2563->$A803.",
+  "hold": "$AABC..$AAE2",
+  "return": "$AB12 -> $A800",
+  "introVbis": 745,
+  "introFrames": 745,
+  "referenceHoldFrames": 512,
+  "closingFrames": 117,
+  "runtimeAsset": "robbo/assets/ending.json",
+  "runtimeAssetSha256": "10221036988260a755e9cb4fa39a4fc38d5a6603899beac3a2e7ebc68052d7c1",
+  "runtimeBytes": 693087,
+  "decodedAtlasBytes": 18969600,
+  "uniqueImages": 247,
+  "holdAlgorithm": "Three independent RANDOM-indexed byte copies per COPT iteration, pages 0/1/2; TETR then continues or dismisses.",
+  "holdCadence": "Captured native 30\u201333 RANDOM reads/VBI, including cross-frame pending stores; 512 frames verified.",
+  "audioEvents": [
+    5,
+    14,
+    13,
+    11,
+    5,
+    0
+  ],
+  "dismissEffect": 9,
+  "returnEffect": 13,
+  "limits": [
+    "One authentic entry/RTCLOK/POKEY RANDOM phase captured; all possible entry phases are not verified.",
+    "After the 512-frame reference reveal, the native hold algorithm continues until input; its later RANDOM phase is not hardware matched.",
+    "Closing raster row colors are native; an earlier dismissal retains the then-current partial message.",
+    "The final effect 13 starts after return to TITLE and must remain active in its VBI sound driver."
+  ]
+}
